@@ -8,7 +8,7 @@ This README would normally document whatever steps are necessary to get your app
 update mysql.user set password=password('wangliang') where user=‘root'; 
 commit; 
 flush privileges; 
-###建库beaurepaires### 
+###建库beaurepaires###
 ###建用户apdgystage###
 ###导入mysql  database  beau_bft_uat_19092017.sql###
 my.cnf: max_allowed_packet = 10240M innodb_log_file_size = 1024M 
