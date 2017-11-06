@@ -1,0 +1,517 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaurepairs</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="dist/static/app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+    
+    <!-- Top Nav -->
+    <div class="top-banner-wrapper">
+      <div class="row">
+        <div class="medium-4 columns hide-for-small">
+            <h1 class="title"><img src="images/beaurepaires-logo.png" class="logo" alt="Beaurepaires logo"></h1>
+        </div>
+        
+        <div class="medium-8 columns">
+              
+            <!-- Top card -->
+            <div class="top-link-wrapper right text-right">
+              <ul class="collapse-left-margin">
+                <li><a href="#">Login</a></li><li><a href="#">Register</a></li><li class="cart-icon"><a href="#"><i class="fa fa-shopping-cart fa-lg fa-fw"></i>Cart</a><span class="cart-item-count">4</span></li><li><a href="#"><i class="fa top-search-link js-toggle-click fa-search fa-lg fa-fw"></i></a></li>
+              </ul>
+              <div class="hide top-search-form">
+                  <form action="">
+                    <input type="text" placeholder="Search">
+                    <a href="#" class="close-btn"><i class="fa js-toggle-click fa-times fa-lg fa-fw"></i></a>
+                  </form>
+                </div>
+<!--
+                <div class="small-2 columns">
+                  <a href="#" class="postfix close-btn"><i class="fa top-search-link fa-times fa-lg fa-fw"></i></a>
+                </div>
+-->
+            </div>  
+              
+            <div class="row hide-for-small">
+              <div class="medium-12 columns">
+
+                <!-- Store Locator -->
+                <div class="store-locator text-right">
+                  <form action="">
+                    <a href="#"><i class="fa fa-map-marker fa-lg fa-fw"></i>Store Locator</a>
+                    <input type="text" class="field" placeholder="Suburb/Postcode">
+                    <!-- <input type="submit" value="Go" class="button radius tiny">-->
+                  </form>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- Main Nav -->
+    <div class="contain-to-grid top-bar-wrapper">
+      <nav class="top-bar" data-topbar role="navigation">    
+        <ul class="title-area inline-list">
+          <li class="toggle-topbar menu-icon"><a href="#"><span><!-- Mobile menu --></span></a></li>
+          <li class="name show-for-small-only">
+             <h1><a href="#">Beaurepaires</a></h1>
+          </li>
+          <li class="mobile-store-locator show-for-small-only">
+             <a href="#"><i class="fa fa-map-marker fa-lg fa-fw text-rigt"></i>Store Locator</a>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <li class="has-dropdown">
+              <a href="#" class="Active">Tyres</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li class="active"><a href="#">Menu 2 - Active</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Wheels</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Batteries</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Services</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Learn</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Stores</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <!-- Main -->
+    <div class="row">
+      <div class="columns small-12">
+        <h1>Checkout</h1>
+        <form data-abide>
+          <div class="checkout">
+            <div class="row">
+              <div class="columns small-12">
+
+                <!-- Checkout Method -->
+                <div class="checkout-method">
+                  <div class="form-wrapper">
+                    <h2>1. Checkout method</h2>
+                    <div class="form-wrapper invert">
+                      <div class="row">
+                        <div class="columns medium-6">
+                          <h4>Checkout as a Guest or Register</h4>
+                          <em>Register with us for future convenience:</em>
+                          <div class="form-field">
+                            <input id="checkoutGuest" type="checkbox" value="checkoutGuest" name="checkoutGuest">
+                            <label for="checkoutGuest">Checkout as Guest</label>
+                          </div>
+                          <input type="submit" class="button radius" value="Continue">
+                        </div>
+                        <div class="columns medium-6">
+                          <h4>Returning Customers</h4>
+                          <em>Sign in to speed up your checkout process</em>
+                          <div class="form-field">
+                           
+                            <div class="row">
+                              <div class="columns">
+                                 <label for="email-address">Email Address <span class="required">*</span></label>
+                                <input type="text" placeholder="Email" id="email-address" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+">
+                                <small class="error">Email address required and must be valid</small>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="columns">
+                                 <label for="password">Password <span class="required">*</span></label>
+                                <input type="text" placeholder="Password" id="password" required>
+                                <small class="error">Password required</small>
+                              </div>
+                            </div>
+                          </div>
+                          <a href="#">Forgot your password?</a>
+                          <input type="submit" value="Login" class="button radius">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Account Information -->
+                <div class="account-information">
+                  <div class="form-wrapper">
+                    <h2>2. Account information</h2>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <label for="first-name">First name <span class="required">*</span></label>
+                          <input type="text" placeholder="First name" id="first-name" required>
+                          <small class="error">A first name is required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <label for="last-name">Last name <span class="required">*</span></label>
+                          <input type="text" placeholder="Last name" id="last-name" required>
+                          <small class="error">A last name is required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <label for="email">Email <span class="required">*</span></label>
+                          <input type="text" placeholder="Email" id="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+">
+                          <small class="error">Email address required and must be valid</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-4 small-12">
+                          <label for="contact-number">Contact number <span class="required">*</span></label>
+                          <input type="text" placeholder="Contact number" id="contact-number" required>
+                          <small class="error">Contact number required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <label>Vehicle make <span class="required">*</span></label>
+                          <select required>
+                            <option value="">Select vehicle make</option>
+                            <option value="1">option 1</option>
+                            <option value="2">option 2</option>
+                            <option value="3">option 3</option>
+                          </select>
+                          <small class="error">A vehicle make is required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <label>Vehicle model <span class="required">*</span></label>
+                          <select required>
+                            <option value="">Select vehicle make</option>
+                            <option value="1">option 1</option>
+                            <option value="2">option 2</option>
+                            <option value="3">option 3</option>
+                          </select>
+                          <small class="error">A vehicle model is required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <ul class="accordion" data-accordion>
+                            <li class="accordion-navigation">
+                              <a href="#panel1a"><h4>Help us serve you quicker: <i class="fa fa-chevron-up right"></i></h4></a>
+                              <div id="panel1a" class="content active">
+                                <p>By providing us with extra information, we can better serve you when you arrive in your chosen Beaurepaires store!</p>
+                                <div class="form-field">
+                                  <label>How long since your last <strong>wheel balance?</strong></label>
+                                  <div class="row">
+                                    <div class="columns medium-6 small-12">
+                                      <select >
+                                        <option value="">Select time period</option>
+                                        <option value="1">option 1</option>
+                                        <option value="2">option 2</option>
+                                        <option value="3">option 3</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-field">
+                                  <label>How long since your last <strong>wheel alignment?</strong></label>
+                                  <div class="row">
+                                    <div class="columns medium-6 small-12">
+                                      <select>
+                                        <option value="">Select time period</option>
+                                        <option value="1">option 1</option>
+                                        <option value="2">option 2</option>
+                                        <option value="3">option 3</option>
+                                      </select>
+                                      <small class="error">A vehicle make is required</small>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-field">
+                                  <div class="row">
+                                    <div class="columns medium-6 small-10">
+                                       <label for="registration-number">Registration number <span class="required">*</span></label>
+                                      <input type="text" id="registration-number" placeholder="Registration number">
+                                    </div>
+                                    <div class="columns small-2 end">
+                                      <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!"><i class="fa fa-info-circle"></i></span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-field">
+                                  <div class="row">
+                                    <div class="columns medium-6 small-12">
+                                      <label for="odometer">Odometer (approx) <span class="required">*</span></label>
+                                      <input type="text" id="odometer" placeholder="Odometer">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="row">
+                        <div class="columns medium-6 small-12">
+                          <ul class="accordion" data-accordion>
+                            <li class="accordion-navigation">
+                              <div class="form-field left">
+                                <input id="create-an-account" type="checkbox" checked>
+                                <label for="create-an-account">Create an account for me</label>
+                              </div>
+                              <a href="#learn-more" class="right">Learn more <i class="fa fa-chevron-up fw"></i></a>
+                              <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!"><i class="fa fa-info-circle"></i></span>
+                              <div id="learn-more" class="content active">
+                                <div class="row">
+                                  <div class="columns small-1">
+                                    
+                                  </div>
+                                  <div class="columns small-11">
+                                    <p>We'll email you your account information including a securely generated password. You can always change your password when you log into your account. To learn more about our account security, click <a href="">here.</a></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="columns small-12">
+                        <input id="subscribe-me" type="checkbox">
+                        <label for="subscribe-me">Subscribe me to Beaurepaires' Newsletter</label>
+                      </div>
+                    </div>
+                    <input type="submit" value="Continue" class="button radius">
+                  </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="payment-method">
+                  <div class="form-wrapper">
+                    <h2>3. Payment method</h2>
+                    <ul class="no-bullet">
+                      <li><i class="fa fa-phone fw"></i> <input type="radio" value="1" name="payment-methode" id="pay-over-phone"><label for="pay-over-phone">Pay over the phone</label></li>
+                      <li><i class="fa fa-credit-card fw"> </i><input type="radio" value="1" name="payment-methode" id="pay-credit-card"><label for="pay-credit-card">Pay by credit card</label></li>
+                      <li><i class="fa fa-suitcase fw"></i> <input type="radio" value="1" name="payment-methode" id="pay-ge"><label for="pay-ge">Pay with GE Finance</label></li>
+                      <li><i class="fa fa-paypal fw"></i> <input type="radio" value="1" name="payment-methode" id="pay-paypal"><label for="pay-paypal">Pay via PayPal</label></li>
+                    </ul>
+                    <input type="submit" value="Continue" class="button radius">
+                  </div>
+                </div>
+              
+                <!-- Order Review -->
+                <div class="order-review">
+                  <div class="form-wrapper">
+                    <h2>4. Order Review</h2>
+                    <div class="form-wrapper invert">
+                      <table class="checkout-cart">
+                        <thead>
+                          <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Sub Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>EAGLE F1 ASYMMETRIC SUV AT</td>
+                            <td>$160.00</td>
+                            <td>4</td>
+                            <td>$640.00</td>
+                          </tr>
+                          <tr>
+                            <td>Wheel balance</td>
+                            <td>$35.95</td>
+                            <td>1</td>
+                            <td>$35.95</td>
+                          </tr>
+                          <tr>
+                            <td>Suspension check</td>
+                            <td>$25.95</td>
+                            <td>1</td>
+                            <td>$25.95</td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td colspan="2">Subtotal</td>
+                            <td>$709.90</td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td colspan="2"><strong>Grand Total</strong></td>
+                            <td>$709.90</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="row">
+                        <div class="columns medium-6">
+                          <input type="submit" value="Place Order" class="button radius">
+                        </div>
+                        <div class="columns medium-6 text-right">
+                          Forgot an Item? <a href="">Edit Your Cart</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer-wrapper">
+       <div class="row">
+          <div class="medium-6 large-3 columns hide-for-medium-down">
+              <ul class="no-bullet">
+                <li><a href="#">Tyres</a></li>
+                <li><a href="#">Wheels</a></li>
+                <li><a href="#">Batteries</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Learn</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns hide-for-medium-down">
+              <ul class="no-bullet">
+                <li><a href="#">Cars</a></li>
+                <li><a href="#">4WDs</a></li>
+                <li><a href="#">Light Commercial</a></li>
+                <li><a href="#">Truck</a></li>
+                <li><a href="#">Agriculture</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns">
+              <ul class="no-bullet">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Sitemap</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns">
+              <ul class="no-bullet">
+                <li><b class="aligned-title">Email Enquiry:</b> <a href="#">Click here</a></li>
+                <li><b class="aligned-title">General Enquiries:</b> <a href="tel://13-23-81">13 23 81</a></li>
+                <li><b class="aligned-title">Customer Service:</b> <a href="tel://1-800-809-514">1800 809 514</a></li>
+                <li><b class="aligned-title">Emergency Hotline:</b> <a href="tel://1-800-106-010">1800 106 010</a></li>
+              </ul>
+          </div>
+        </div>
+    </div>
+    
+    <!-- Sub Footer -->
+    <div class="social-footer-wrapper">
+        <div class="row">
+          <div class="medium-6 columns">
+            <div class="copyright">&copy; Copyright Beaurepaires 2015</div>
+          </div>
+          <div class="medium-6 columns">
+            <div class="social medium-text-right">
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.multiple-items').slick({
+          dots:true,
+          slidesToShow: 3,
+          slidesToScroll: 3
+        });
+      });
+    </script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

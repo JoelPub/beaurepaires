@@ -1,0 +1,10 @@
+<?php $productId = (int) $this->getRequest()->getParam('product');
+$productCompareHelper = $this->helper('catalog/product_compare');
+$_items = $productCompareHelper->getItemCount() > 0 ? $productCompareHelper->getItemCollection() : null;
+$compareProductIds = array();
+foreach ($_items as $item){
+	$compareProductIds[] = $item->getId();
+}
+?>
+
+<a href="#" onclick="popWin('<?php echo $productCompareHelper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->__('Compare List')?></a>

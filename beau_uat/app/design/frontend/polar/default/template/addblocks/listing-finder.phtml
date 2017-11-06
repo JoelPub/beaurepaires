@@ -1,0 +1,13 @@
+<?php
+$layer = Mage::getSingleton('catalog/layer');
+$_category = $layer->getCurrentCategory();
+$currentCategoryId= $_category->getId();
+
+
+ if((isset($_POST['category']) && $_POST['category']==42) || $currentCategoryId==42) {
+ 	echo $this->getLayout()->createBlock('core/template')->setTemplate('addblocks/wheel-finder.phtml')->toHtml();	
+ } else {
+ 	echo $this->getLayout()->createBlock('core/template')->setTemplate('addblocks/tyre-finder.phtml')->toHtml();	
+ }
+ 
+?>

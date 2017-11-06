@@ -1,0 +1,16 @@
+<?php
+$cust = $this->getAutocompleteCustomers();
+?>
+
+<ul>
+<?php foreach ($cust as $customer): ?>
+    <?php 
+    $data = rawurlencode(json_encode($customer->getData()));    
+    ?>
+    <?php // no whitespace before and after .informal is important here ?>
+    <li><?php echo $customer->getName() ?><span class="informal"> 
+        (<?php echo $customer->getRegonumber() ?> on <?php echo $customer->getCreatedAt(); ?>)
+        <span class="data" style="display: none"><?php echo $data ?></span>
+    </span></li>
+<?php endforeach; ?>
+</ul>

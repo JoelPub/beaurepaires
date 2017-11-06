@@ -1,0 +1,57 @@
+  <h1 class="db-page-title">Create an Account</h1> 
+
+  <?php echo $this->getChildHtml('form_fields_before')?>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+      <form data-abide id="register" action="<?php echo $this->getPostActionUrl() ?>" method="post">
+        <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+		<input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />	
+
+        <p><em>* Required Fields</em></p>
+
+        <div class="row">
+          <div class="columns medium-6 small-12">
+            <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+          </div>
+        </div>
+        
+    
+
+        <div class="row">
+          <div class="columns medium-6 small-12">
+             <label for="email_address">Email *</label>
+             <input type="email" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" required />    
+            <small class="error">This is a required field - Please enter a valid email address</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="columns medium-6 small-12">
+            <label for="password">Password *</label>
+            <input  type="password" name="password" id="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>" required>
+            <small class="error">This is a required field</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="columns medium-6 small-12">
+            <label for="confirmation">Confirm Password *</label>
+            <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" required data-equalto="password">
+            <small class="error">This is a required field - This password must match the one above</small>
+          </div>
+        </div>
+
+        <?php if ($this->isNewsletterEnabled()): ?>
+                
+        <div class="row">
+          <div class="columns small-12">
+            <input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> />
+            <label for="is_subscribed">Subscribe me to Beaurepaires Newsletter</label>
+            <?php /* Extensions placeholder */ ?>
+            <?php echo $this->getChildHtml('customer.form.register.newsletter')?>
+    	   </div>
+       </div>
+                <?php endif ?>
+          <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button radius"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+  </form>
+    
+<script language="javascript">var billingForm = new VarienForm('register');</script>

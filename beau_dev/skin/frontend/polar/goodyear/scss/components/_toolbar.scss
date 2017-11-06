@@ -1,0 +1,91 @@
+// Toolbar
+
+//Variables
+$grid: "\f009";
+$list: "\f00b";
+$base-font:14px;
+
+$toolbar-border: 1px solid #ccc;
+
+// Mixins
+@mixin heights($height){
+	height: $height;
+	line-height: $height;
+}
+
+@mixin icon-views($content, $color) {
+	content: $content;
+	color: $color;
+	display:inline-block;
+}
+
+// Styles
+
+.toolbar {
+	@include heights(53px);
+	border-top: $toolbar-border;
+	border-bottom: $toolbar-border;
+	.sort-by,
+	.view-mode,
+	.pager {
+		@include heights(53px);
+	}
+	label {
+		display: inline-block;
+	}
+	select {
+		width: auto;
+		margin: 0 0 0 5px;
+		padding: 10px 20px 10px 8px;
+	}
+	.current-direction {
+		margin:0 0 0 5px;
+		color: $tuatara;
+	}
+	.grid,
+	.list {
+		margin: 0 0 0 10px;
+		&:before {
+			font-family: fontAwesome;
+		}
+	}
+	.list {
+		margin: 0 0 0 5px;
+	}
+	strong {
+		&.grid {
+			color: $iron;
+		}
+		&.list {
+			color: $iron;
+		}
+	}
+	a {
+		&.grid {
+			color: $tuatara;
+		}
+		&.list {
+			color: $tuatara;
+		}
+	}
+	.fa-th-list,
+	.fa-th-large {
+		font-size: $base-font + 5;
+	}
+
+	.sort-by a {
+		padding: 0 3px;
+
+		&:hover {
+			i {
+				color: $orange-count-color;
+			}
+		}
+	}
+
+	.amount {
+		color: $colour-mineshaft;
+		font-size: 14px;
+		font-weight: bold;
+	}
+}

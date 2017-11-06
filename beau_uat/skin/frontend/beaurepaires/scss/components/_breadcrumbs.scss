@@ -1,0 +1,65 @@
+// Variables
+$primary-gray-border: #bfbfbf;
+$base-font:14px;
+$list-margin: 18px;
+
+// Mixins
+@mixin crumb-heights($value){
+  line-height: $value;
+  height: $value;
+}
+
+@mixin bar-shadow($opacity){
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,$opacity);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,$opacity);
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,$opacity);
+}
+
+// build
+.breadcrumbs-wrapper{
+  @include bar-shadow(0.1);
+  border-bottom: 1px solid $primary-gray-border;
+  background-color: $vapor;
+  position: relative;
+  z-index: 1;
+  .breadcrumbs{
+    margin: 0;
+    li{
+      font-size: $base-font;
+      @include crumb-heights(40px);
+
+      &:first-child {
+        a {
+          display: inline-block;
+          text-indent: -9999px;
+            &:before {
+              content: "\f015";
+              font-family: fontAwesome;
+              font-size: $base-font + 5;
+              position: absolute;
+              text-indent: 9999px;
+            }
+        }
+        &:after {
+          margin: 0 $list-margin 0 $list-margin * 2;
+        }
+      }
+      &:before {
+        content:" ";
+        margin:0;
+      }
+      &:after {
+        color: $primary-gray-border;
+        content: "\f105";
+        font-family: fontAwesome;
+        margin: 0 $list-margin;
+      }
+      &.current{
+        &:after {
+          content: " ";
+        }
+      }
+    }
+    
+  }
+}

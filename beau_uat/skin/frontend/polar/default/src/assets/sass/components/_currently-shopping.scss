@@ -1,0 +1,45 @@
+// Currently Shopping Component
+.block{
+  .block-title{
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #323232;
+  }
+}
+.currently{
+  ul{
+    margin-bottom: 15px;
+    li{
+      margin-bottom: 5px;
+      padding-right: 25px;
+      position: relative;
+      span + span{
+        color: #7F7F7F;
+        margin-left: 5px;
+      }
+
+      a{
+        position: absolute;
+        right: 0;
+        top:0;
+        i{
+          color: #CCCCCC;
+          margin-top: 3px;
+          &:hover{
+            color: #F78F1D;
+          }
+        }
+      }
+    }
+  }
+}
+
+.block-content{
+  .action{
+    margin-bottom: 20px;
+
+    a{
+      text-decoration: underline;
+    }
+  }
+}

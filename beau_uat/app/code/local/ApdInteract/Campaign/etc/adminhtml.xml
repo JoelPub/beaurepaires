@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <campaign module="campaign">
+            <title>Campaign</title>
+            <sort_order>100</sort_order>
+            <children>		  
+                <campaign module="campaign">
+                    <title>Manage Campaign</title>
+                    <sort_order>10</sort_order>
+                    <action>admin_campaign/adminhtml_campaign</action>
+                </campaign>
+                <setup module="campaign">
+                    <title>Campaign Setup</title>
+                    <sort_order>11</sort_order>
+                    <action>admin_campaign/adminhtml_setup</action>
+                </setup>
+            </children>
+        </campaign>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <campaign translate="title" module="campaign">
+                        <title>Campaign</title>
+                        <sort_order>1000</sort_order>
+                        <children>		  
+                            <campaign translate="title">
+                                <title>Manage Campaign</title>
+                                <sort_order>10</sort_order>
+                            </campaign>
+                            <setup translate="title">
+                                <title>Campaign Setup</title>
+                                <sort_order>11</sort_order>
+                            </setup>
+                        </children>
+                    </campaign>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <campaign>
+                                        <title>Campaign Settings</title>
+                                    </campaign>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

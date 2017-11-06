@@ -1,0 +1,90 @@
+<?php
+$make = Mage::helper('searchtyre')->getMakes();
+$vehicle_id = $this->getRequest()->getParam('vehicle_id');
+$vehicleHelper = Mage::helper('apdinteract_vehicle')->vehicleLoadById($vehicle_id);
+$details = $vehicleHelper->getDetails();
+$vehicle = json_decode($details,true);
+$count_selected = 0;
+
+?>
+<div class="row">
+    <div class="large-9 small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1 class="db-page-title"><?php echo $this->__('Edit Existing Vehicle') ?></h1>
+            </div>
+        </div>
+        <div class="quick-finder static" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+            <form autocomplete="off" id="form-validate" method="post" action="<?php echo Mage::getUrl('',array('_secure'=>true)) ?>account/vehicles/save">
+                <div class="row">
+                    <div class="columns medium-6 small-12">
+                        <ul class="form-list checkout_ul no-bullet">
+                            <li class="fields">
+                                <select name="make-tyres" class="required-entry make-tyres" data-selected-value="<?php echo $vehicle['make-tyres'] ?>" placeholder="">
+                                    <option value="">Select Make*</option>
+                                    <?php
+                                    $count_selected =0;
+                                    foreach ($make as $m => $v): ?>
+                                        <option <?php if($m == $vehicle['make-tyres']){ echo "selected"; $count_selected++;} ?> value="<?php echo $m ?>"><?php echo $v ?></option>
+                                    <?php endforeach; ?>
+                                    <?php if($count_selected<=0 && trim($vehicleHelper->getData('make'))!='') {?><option selected="selected" value="<?php echo $vehicleHelper->getData('make')?>"><?php echo $vehicleHelper->getData('make')?></option><?php }?>
+                                </select>
+                            </li>
+                            <li class="fields">
+                                <select name="year-tyres" class="required-entry year-tyres" data-selected-value="<?php echo $vehicle['year-tyres'] ?>" >
+                                    <option value="">Select Year*</option>
+                                    <?php
+                                    $count_selected =0;
+                                    for ($i = date("Y"); $i >= 1990; $i--): ?>
+                                        <option  <?php if($i == $vehicleHelper->getManufactureYear()){ echo "selected";$count_selected++;} ?> value="<?php echo $i ?>"><?php echo $i ?></option>
+                                    <?php endfor; ?>
+                                    <?php if($count_selected<=0 && trim($vehicleHelper->getManufactureYear())>0) {?><option selected="selected" value="<?php echo $vehicleHelper->getManufactureYear()?>"><?php echo $vehicle->getManufactureYear()?></option><?php }?>
+                                </select>
+                            </li>
+                            <li class="fields">
+                                <div class="relative">
+                                    <select name="model-tyres" class="required-entry model-tyres"  data-selected-value="<?php echo $vehicle['model-tyres'] ?>"  title="Select Model" >
+                                        <option value="">Select Model*</option>
+                                        <?php if(trim($vehicleHelper->getData('model'))!='') {?><option selected="selected" value="<?php echo $vehicleHelper->getData('model')?>"><?php echo $vehicleHelper->getData('model')?></option><?php }?>
+                                    </select>
+                                    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                            </li>
+                            <li class="fields">
+                                <div class="relative">
+                                    <select name="series-tyres" class="required-entry series-tyres final-select" data-selected-value="<?php echo $vehicle['series-tyres'] ?>" title="Select Series"  >
+                                        <option value="">Select Series*</option>
+                                        <?php if(trim($vehicleHelper->getSeries())!='') {?><option selected="selected" value="<?php echo $vehicleHelper->getSeries()?>"><?php echo $vehicleHelper->getSeries()?></option><?php }?>
+                                    </select>
+                                    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                            </li>
+                            <li class="fields">
+                                <label for="registration">Registration *</label>
+                                <input id="registration" type="text" class="required-entry " maxlength="255" title="Registration" value="<?php echo $vehicleHelper->getRegistration() ?>" name="registration">
+                                <input type="hidden" name="orig_rego" value="<?php echo $vehicleHelper->getRegistration() ?>">
+                            </li>
+                            <li class="fields">
+                                <label><?php echo $this->__('* Mandatory Field') ?></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <input type="hidden" name="vehicle_id" value="<?php echo $vehicleHelper->getVehicleId() ?>" />
+                <input type="hidden" name="details-tyres" value="<?php echo htmlentities(Mage::helper('apdinteract_vehicle')->jsonDetails($vehicle_id)) ?>" class="details-tyres"/>
+                <div class="row">
+                    <div class="columns medium-6 small-12">
+                        <a href="<?php echo Mage::getUrl('',array('_secure'=>true)) . 'account/vehicles' ?>" class="button btn-cart radius">Cancel</a>
+                        <input type="submit" value="Save Vehicle" class="button btn-cart radius  right"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

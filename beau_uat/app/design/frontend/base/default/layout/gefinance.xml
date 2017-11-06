@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0.0">
+   <gefinance_payment_failed>
+      <reference name="content">
+         <block type="core/template" name="gefinance_failed" template="gefinance/failed.phtml" />
+      </reference>
+      <reference name="root">
+         <action method="setTemplate">
+            <template>page/1column.phtml</template>
+         </action>
+      </reference>
+   </gefinance_payment_failed>
+</layout>

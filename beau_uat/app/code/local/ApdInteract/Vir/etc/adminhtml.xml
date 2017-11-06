@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<config>
+    <!-- We are defining a new menu item for the admin panel. -->
+    <menu>
+        <!--
+        First, create a top-level menu item, which will appear alongside CMS
+        -->
+        <apdinteract_vir translate="title"
+                module="apdinteract_vir">
+            <title>VIR</title>
+            <sort_order>75</sort_order>
+            <depends>
+                <module>ApdInteract_Vir</module>
+            </depends>
+            <!-- Under this top-level menu, create a child menu item. -->
+            <children>
+                <order translate="title"
+                        module="apdinteract_vir">
+                    <title>Consumer Vehicle Inspection Report</title>
+                    <sort_order>9</sort_order>
+
+                    <!--
+                    When the menu is clicked, take the user here.
+                    -->
+                 <action>apdinteract_vir_admin/order</action>
+                </order>
+                <ordercommercial translate="title"
+                        module="apdinteract_vir">
+                    <title>Commercial Vehicle Inspection Report</title>
+                    <sort_order>10</sort_order>
+
+                    <!--
+                    When the menu is clicked, take the user here.
+                    -->
+                 <action>apdinteract_vir_admin/ordercommercial</action>
+                </ordercommercial>
+            </children>
+        </apdinteract_vir>
+        <report translate="title" module="reports">
+                <children>
+                    <vir_report translate="title" module="apdinteract_vir">
+                        <title>Vehicles</title>
+                        <sort_order>50</sort_order>
+                            <children>
+                                <vircommercial translate="title" module="apdinteract_vir">
+                                    <title>Commercial Inspection</title>
+                                    <sort_order>1</sort_order>
+                                    <action>apdinteract_vir_admin/reportcommercial</action>
+                                </vircommercial>
+                                <virconsummer translate="title" module="apdinteract_vir">
+                                    <title>Consumer Inspection</title>
+                                    <sort_order>2</sort_order>
+                                    <action>apdinteract_vir_admin/reportconsumer</action>
+                                </virconsummer>
+                            </children>
+                    </vir_report>
+                </children>
+        </report>
+    </menu>
+    <!-- Define ACL for access to these menu items. -->
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <apdinteract_vir translate="title"
+                            module="apdinteract_vir">
+                        <title>ApdInteract</title>
+                        <sort_order>75</sort_order>
+                        <children>
+                            <order translate="title"
+                                    module="apdinteract_vir">
+                                <title>Vehicle Inspection Report</title>
+                            </order>
+                            <ordercommercial translate="title"
+                                    module="apdinteract_vir">
+                                <title>Commercial Vehicle Inspection Report</title>
+                            </ordercommercial>
+                        </children>
+                    </apdinteract_vir>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <vir translate="title" module="apdinteract_vir">
+                                        <title>ApdInteract</title>
+                                    </vir>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>                
+            </admin>
+        </resources>
+    </acl>
+</config>

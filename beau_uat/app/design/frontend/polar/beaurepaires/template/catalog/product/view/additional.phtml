@@ -1,0 +1,8 @@
+<?php $_product = $this->getProduct(); ?>
+<div class="row">
+    <div class="large-12 columns">
+        <?php if(in_array(41,$_product->getCategoryIds())): ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('view_tyre_glossary')->toHtml(); ?>
+        <?php endif; ?>
+    </div>
+</div> 

@@ -1,0 +1,73 @@
+//Variable
+
+/////// Typography /////////////
+// Home Slideshow Header
+.slick-slide {
+  .title {
+    color: $white;
+    font-size: 38px;
+	@media only screen and (max-width: 45.7857em) {
+		font-size: $base-font + 16;
+		line-height: $base-font + 16;
+	}
+  }
+}
+
+// A tags
+a {	
+	&.attenuate {
+		color: $oil;
+		text-decoration: underline;
+		
+		&:hover {
+			color: darken($oil, 30%);
+		}
+	}
+}
+
+// Section Headline
+h2 {
+  @include font-attributes-bold($base-font + 26,$base-font + 20 ,$charcoal);
+}
+
+// WYSIWYG Headline
+h3 {
+  @include font-attributes-bold($base-font + 14,$base-font + 10 ,$charcoal);
+  
+  &.section-title {
+	@extend strong;
+	border-bottom: 1px solid $primary-gray-border;
+	font-size: 18px;
+	padding-bottom: 9px;
+	
+	.sub {
+		display: block;
+		font-size: 12px;
+		margin-top: 6px;
+		font-family: $font-family-sans-serif;
+	}
+  } 
+}
+
+
+// Large price + Superscript + Supporting text
+
+// Main Navigation links
+.top-bar {
+  .menu-title { 
+	@extend strong; 
+  }
+} 
+
+
+
+// Product Detail Title
+.product-title {
+  @include font-attributes-bold($base-font + 10,$base-font + 8 ,$charcoal);
+  text-transform: uppercase;
+}
+
+// colour text
+.text-orange {
+	color: $orange-count-color;
+}

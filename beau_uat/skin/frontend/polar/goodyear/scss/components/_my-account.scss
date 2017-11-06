@@ -1,0 +1,85 @@
+// My Account
+
+.my-account {
+  $colour-nav-bg: $colour-congressblue;
+  $colour-nav-link: $colour-white;
+  $colour-nav-active-bg: $colour-schoolbusyellow;
+  $colour-nav-active-link: $colour-congressblue;
+  $colour-nav-border: $colour-cornflowerblue;
+  $colour-label: $colour-scorpion;
+  $colour-link: $colour-congressblue;
+
+  font-size: 15px;
+
+  a:not(.button){
+    color: $colour-link;
+    text-decoration: underline;
+  }
+
+  label{
+    color: $colour-label;
+    margin-bottom: 5px;
+  }
+
+  small.error{
+    margin-top: -15px;
+  }
+
+  .side-nav {
+    background: $colour-nav-bg;
+    padding: 0;
+
+    .current {
+      strong {
+        background-color: $colour-nav-active-bg;
+        color: $colour-nav-active-link;
+        display: block;
+        font-family: $font-family-fe-sinclair;
+        font-size: 15px;
+        font-weight: normal;
+        line-height: 22px;
+        padding: 12px 15px;
+        position: relative;
+        text-transform: uppercase;
+      }
+    }
+
+    li{
+      border-bottom: 1px solid $colour-nav-border;
+      margin-bottom: 0;
+
+      a {
+        color: $colour-nav-link;
+        font-family: $font-family-fe-sinclair;
+        font-size: 15px;
+        line-height: 22px;
+        padding: 12px 15px;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: $colour-nav-active-bg;
+          color: $colour-nav-active-link;
+        }
+
+      }
+    }
+
+	ul {
+		margin: 0;
+		border-width: 1px 0 0 0;
+		border-radius: 0;
+
+		li:last-child {
+			border-width: 0
+		}
+	  }
+  }
+
+  ul.messages {
+    display: none;
+  }
+}

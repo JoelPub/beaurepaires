@@ -1,0 +1,352 @@
+<?php
+$store = $this->getStore();
+$images = Mage::helper('storecategory')->getAllImageDetails();
+$option = Mage::getStoreConfig(IWD_StoreLocator_Helper_Data::XML_PATH_METRIC);
+if ($option == 1) {
+    $methic = 'km';
+} elseif ($option == 2) {
+    $methic = 'mi';
+}
+
+if(isset($attributeName)) {
+// we need to do this to resolve stuff like the wysiwig path
+    $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeName);
+}
+$attributeHtml = $store->getOpeningHours();
+$templateProcessor = Mage::helper('catalog')->getPageTemplateProcessor();
+$OpeningHoursHtml = $templateProcessor->filter($attributeHtml);
+
+$attributeHtml = $store->getDesc();
+$DescHtml = $templateProcessor->filter($attributeHtml);
+
+$managerName = trim($store->getManFirstname() . ' ' . $store->getManLastname());
+$managerBackground = trim($store->getManBackground());
+
+//all the extra fields will be added here...
+
+
+$channel = trim($store->getChannel());
+$mon_fri_open = trim($store->getMonFriOpen(), " \t.");
+$mon_fri_close = trim($store->getMonFriClose(), " \t.");
+$sat_open = trim($store->getSatOpen(), " \t.");
+$sat_close = trim($store->getSatClose(), " \t.");
+$sunday_open = trim($store->getSundayOpen(), " \t.");
+$sunday_close = trim($store->getSundayClose(), " \t.");
+$public_holiday_open = trim($store->getPublicHolidayOpen(), " \t.");
+$public_holiday_close = trim($store->getPublicHolidayClose(), " \t.");
+$man_firstname = trim($store->getManFirstname());
+$man_lastname = trim($store->getManLastname());
+$man_background = trim($store->getManBackground());
+$tyre_brands = trim($store->getTyreBrands());
+$servicing_suburbs = trim($store->getServicingSuburbs());
+
+// Yes/no fields
+
+$whatwestock = array(
+    'cons_tyres' => 'Consumer Tyres',
+    'comm_tyres' => 'Commercial Tyres'
+);
+
+$storeservices = array(
+    'brake_fitting' => 'Brakes Servicing',
+    'wheel_balancing_service' => 'Balancing',
+    'wheel_alignment_service' => 'Wheel Alignments',
+    'batteries_available' => 'Batteries',
+    'nitrogen_available' => 'Nitrogen',
+    'wheelchair_access' => 'Wheelchair Access',
+    'drop_off' => 'Offers Drop Off to Work',
+    'has_mobility_fleet' => 'Mobility Fleet',
+    'waiting_area' => 'Waiting Area',
+    'guest_wifi' => 'Guest WiFi',
+    'guest_tablet' => 'Guest Tablet',
+    'coffee_tea' => 'Coffee and Tea',
+    'off_street_parking' => 'Off-Street Parking'
+);
+
+$storeservicestext = array(
+    'shopping_nearby' => 'Nearby Shopping Centre',
+    'cafe_nearby' => 'Nearby Cafe',
+    'public_transport' => 'Public Transport',
+);
+
+//$comm_tyres = trim($store->getCommTyres());
+//$cons_tyres = trim($store->getConsTyres());
+//$brakes_service = trim($store->getBrakesService());
+//$balancing = trim($store->getBalancing());
+//$wheel_alignments = trim($store->getWheelAlignments());
+//$batteries = trim($store->getBatteries());
+//$nitrogen = trim($store->getNitrogen());
+//$wheelchair_access = trim($store->getWheelchairAccess());
+//$drop_off = trim($store->getDropOff());
+//$mobile_fleet = trim($store->getMobileFleet());
+//$waiting_area = trim($store->getWaitingArea());
+//$guest_wifi = trim($store->getGuestWifi());
+//$guest_tablet = trim($store->getGuestTablet());
+//$coffee_tea = trim($store->getCoffeeTea());
+//$shopping_nearby = trim($store->getShoppingNearby());
+//$cafe_nearby = trim($store->getCafeNearby());
+//$public_transport = trim($store->getPublicTransport());
+//$off_street_parking = trim($store->getOffStreetParking());
+?>
+
+<div class="row">
+
+    <div class="small-12 medium-5 columns">
+
+        <div class="store-details">
+
+            <h3><?php echo $store->getTitle() ?></h3>
+
+            <div class="row">
+                <div class="small-10 columns end">
+
+                    <address>
+                        <p>
+                            <?php echo $store->getStreet() ?><br>
+                            <?php echo $store->getCity() ?> <?php echo $store->getRegion() ?> <?php echo $store->getPostalCode() ?>
+                        </p>
+
+                        <?php if ($store->getPhone() != ""): ?>
+							<h5><i class="fa fa-fw fa-phone" aria-hidden="true"><span class="show-for-sr">Phone</span></i>Phone</h5>
+                            <p>
+								<a href="tel:<?php echo $store->getPhone() ?>"><?php echo $store->getPhone() ?></a>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php if ($store->getEmail() != ""): ?>
+							<h5><i class="fa fa-fw fa-envelope" aria-hidden="true"><span class="show-for-sr">Email</span></i>Email</h5>
+                            <p>
+                            <?php echo '<a target="_blank" href="mailto:' . strtolower($store->getEmail()) . '" title="'.strtolower($store->getEmail()).'">' . strtolower($store->getEmail()) . '</a>' ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php if ($store->getWebsite() != "" && $store->getWebsite() != "http://" && $store->getWebsite() != "https://"): ?>
+							<h5><i class="fa fa-fw fa-home" aria-hidden="true"><span class="show-for-sr">Website</span></i>Website</h5>
+                            <p>
+								<a href="<?php echo $store->getWebsite() ?>"><?php echo $store->getWebsite() ?></a>
+                            </p>
+                        <?php endif; ?>
+
+                        <h5><i class="fa fa-clock-o" aria-hidden="true"><span class="show-for-sr">Opening Hours</span></i>Opening Hours</h5>
+                        <div class="row">
+                            <div class="small-5 columns">
+                                <div>Mon - Fri</div>
+                                <div>Saturday</div>
+                                <div>Sunday</div>
+                                <div>Public Holidays</div>
+                            </div>
+                            <div class="small-7 columns">
+                                <div><?php echo ($mon_fri_open=='Closed' && $mon_fri_close=='Closed') ? 'Closed' : $mon_fri_open . " - " . $mon_fri_close?></div>
+                                <div><?php echo ($sat_open=='Closed' && $sat_close=='Closed') ? 'Closed' : $sat_open . " - " . $sat_close?></div>
+                                <div>
+                                    <?php
+                                        if($sunday_open != "" && $sunday_close != ""){                                            
+                                            echo ($sunday_open=='Closed' && $sunday_close=='Closed') ? 'Closed' : $sunday_open . " - " . $sunday_close;
+                                        }else{
+                                            echo "Closed";
+                                        }
+                                    ?>
+                                </div>
+                                <div>
+                                    <?php
+                                    if($public_holiday_open != "" && $public_holiday_close != ""){
+                                        echo ($public_holiday_open=='Closed' && $public_holiday_close=='Closed') ? 'Closed' : $public_holiday_open . " - " . $public_holiday_close;
+                                    }else{
+                                        echo "Closed";
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    </address>
+
+                </div>
+            </div>
+
+            <div class="row row-btns">
+                <div class="columns large-6">
+                    <a href="<?php echo Mage::getBaseUrl() . '/contacts/index/'; ?>?storeid=<?php echo $store->getId(); ?>&storename=<?php echo str_replace(" ", "%20", $store->getTitle()); ?>" class="full medium button" title="Contact Store">Contact Store</a>
+                </div>
+                <div class="columns large-6">
+                    <a href="<?php echo $this->getDirectionsUrl(); ?>" class="button white full medium" target="_blank" title="Get Directions">Get Directions</a>
+                </div>                  
+            </div>
+
+			<hr>
+			
+            <div class="store-local-detail-list">
+                <h3>Store information</h3>
+
+                <h5>What we stock</h5>
+                <ul class="no-bullet">
+                    <?php foreach ($whatwestock as $key => $label): ?>
+                        <?php if ($store->getData($key)): ?>
+                            <li><i class="fa fa-check-square-o" aria-hidden="true"><span class="show-for-sr"><?php echo $label ?></span></i> <?php echo $label ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+
+                <ul class="no-bullet">
+                    <?php if ($servicing_suburbs != "") { ?><li><strong>Servicing: </strong><?php echo $servicing_suburbs ?></li><?php } ?>
+                    <li><h5>Store Services</h5></li>
+                    <?php foreach ($storeservices as $key => $label): ?>
+                        <?php if ($store->getData($key)): ?>
+                            <li><i class="fa fa-check-square-o" aria-hidden="true"><span class="show-for-sr"><?php echo $label ?></span></i> <?php echo $label ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php foreach ($storeservicestext as $key => $label): ?>
+                        <?php if ($value = trim($store->getData($key))): ?>
+                            <li>
+                                <span class="service-title"><?php echo $label ?></span>
+                                <span class="service-value"><?php echo $value ?></span>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="medium-7 columns hide-for-small-only">
+
+        <div class="store-map th">
+            <div id='map-canvas'></div>
+        </div>
+
+    </div>
+
+</div>
+
+<?php if (!empty($DescHtml)): ?>
+	<hr>
+    <div class="row">
+        <div class="small-12 columns">
+            <h3>Store Description</h3>
+			<p>
+				<?php echo $DescHtml; ?>
+			</p>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+<?php if (!empty($managerName) || !empty($managerBackground)): ?>
+    <?php
+    if (!empty($managerName)):
+        $managerName .= ' - ';
+    endif;
+    ?>
+	<hr>
+    <div class="row">
+        <div class="small-12 columns">
+            <h3>Manager's Background</h3>
+			<p>
+				<strong><?php echo $managerName; ?></strong> 
+				<?php echo $managerBackground; ?>
+			</p>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+<?php // This javascript is so varnish can cache the page, I guess  ?>
+<script>
+<?php list($mapLat, $mapLan) = explode(",", $this->getLatLng() ); ?>
+var phpVars = {
+	getCity: 			"<?php echo $store->getCity(); ?>",
+	getImage:  		"<?php echo ($store->getTypeId()>0) ? '/media/'.$images[$store->getTypeId()][1] :$this->getMarkerImageUrl(); ?>",
+	getLat: 				"<?php echo $mapLat; ?>",
+	getLng: 			"<?php echo $mapLan; ?>",
+	getPhone:			"<?php echo $store->getPhone(); ?>",
+	getPostalCode: 	"<?php echo $store->getPostalCode(); ?>",
+	getRegion: 		"<?php echo $store->getRegion(); ?>",
+	getTitle: 			"<?php echo $store->getTitle(); ?>",
+	getStreet: 			"<?php echo $store->getStreet(); ?>",
+	methic: 			"<?php echo $methic; ?>"
+}
+</script>
+
+
+<script>
+
+//<![CDATA[
+    var query_string = {};
+    var query = window.location.href.substring(1);
+    var vars = query.split("&");
+    if (vars[vars.length - 2] == "distance") {
+        var distance = Math.round(parseFloat(vars[vars.length - 1]) * 100) / 100;
+        if (!isNaN(distance)) {
+            jQuery("#distance").html('<span class="distance">' + distance + ' '+phpVars.methic+'</span>');
+        }
+    }
+
+    // Load store map after rest of page content
+
+    function initialize() {
+        var myLatLng = new google.maps.LatLng(phpVars.getLat,phpVars.getLng);
+
+        var mapOptions = {
+            zoom: 16,
+            center: myLatLng
+        }
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: phpVars.getImage,
+            title: phpVars.getTitle
+        });
+
+        var contentString = '<div class="item gm-info-window store-details">' +
+                '<a class="close-btn close-map-info" href="#"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>' +
+                '<address>' +
+                '<h4>'+phpVars.getTitle+'</h4>' +
+                '<p>'+phpVars.getStreet+'<br />' + phpVars.getCity + ' ' + phpVars.getRegion + ' ' + phpVars.getPostalCode + '</p>' +
+				'<h5><i class="fa fa-fw fa-phone"></i>Phone:</h5> ' + phpVars.getPhone  + 
+				'</address>' +
+                '</div>';
+
+        var infowindow = new InfoBox({
+            content: contentString,
+            disableAutoPan: false,
+            maxWidth: 279,
+            pixelOffset: new google.maps.Size(-139, -316),
+            zIndex: null,
+            boxStyle: {
+                background: "none",
+                opacity: 1,
+                width: "279px",
+                top: "-10px"
+            },
+            closeBoxMargin: "0 0 0 0",
+            closeBoxURL: "<?php echo $this->getSkinUrl('css/iwd/storelocator/images/close.png'); ?>",
+            infoBoxClearance: new google.maps.Size(1, 1)
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+        });
+
+        google.maps.event.addListener(infowindow, 'domready', function () {
+            jQuery('.close-map-info').click(function (e) {
+                e.preventDefault();
+                infowindow.close();
+            });                   
+        });
+        
+        // infowindow.open(map, marker); // To show infowindow on load
+    }
+
+    
+	jQuery(function(){
+		google.maps.event.addDomListener(window, 'load', initialize);
+	});
+
+//]]>
+
+</script>

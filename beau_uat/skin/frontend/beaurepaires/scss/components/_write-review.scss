@@ -1,0 +1,65 @@
+// Write Review Component
+
+.review-form{
+  h3{
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+
+  form{
+    > label{
+      margin-bottom: 10px;
+    }
+  }
+
+  .rate-star-group{
+    margin-bottom: 30px;
+    label{
+      position: relative;
+      margin-left: 0;
+      &:after{
+        color: #0067B1;
+        content: "\f005";
+        font-family: fontawesome;
+        left: 10px;
+        position: absolute;
+        top: 0;
+      }
+
+      &:before{
+        background: #fff;
+        border-radius: 50%;
+        border: 1px solid #323232;
+        bottom: -13px;
+        content: "";
+        display: block;
+        height: 12px;
+        left: 0;
+        position: absolute;
+        width: 12px;
+      }
+    }
+
+    input[type="radio"]{
+      display: none;
+    }
+  }
+
+  .error input, .error textarea, .error select{
+    margin-bottom: 15px;
+  }
+
+  input, textarea{
+    margin-top: 7px;
+  }
+
+  textarea{
+    resize: none;
+  }
+
+  input[type="radio"]:checked + label:before{
+    background: #000;
+    border: 1px solid #000;
+  }
+}

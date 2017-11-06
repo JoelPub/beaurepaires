@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+
+		<catalogsearch_result_index>
+		  <reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" />
+		  </reference>
+   		</catalogsearch_result_index>
+		<searchtyre_index_result>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchtyre_index_result>
+		<searchresult_index_index>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchresult_index_index>
+		<catalog_category_view>
+			<reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" />
+		  </reference>
+		</catalog_category_view>
+		<catalogsearch_result_index>
+		  <reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" />
+		  </reference>
+   		</catalogsearch_result_index>
+
+</layout>

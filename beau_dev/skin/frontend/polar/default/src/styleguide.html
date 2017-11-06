@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Style Guide</title>
+  </head>
+  <body>
+    <!-- Do not copy this styles, this is for styleguide only -->
+	<style type="text/css">
+		section {
+			margin: 30px 0 100px 0;
+		}
+		p.tiny{
+			color: #6D6E71;
+			font-size: 12px;
+			margin-top: 15px;
+		}
+
+		p.guide{
+			color: #6D6E71;
+			font-size: 12px;
+			margin-top: 15px;
+		}	
+</style>
+	<section>
+		<div class="row">
+			<div class="columns small-12">
+				<h3>Badges</h3>
+			</div>
+
+			<div class="columns small-6">
+				<h4>Large</h4>
+				<div class="product-badge-block large onsale">On Sale</div>
+				<div class="product-badge-block large bestseller">Best Seller</div>
+				<div class="product-badge-block large new">New</div>
+				<div class="product-badge-block large comingsoon">Coming Soon</div>
+			</div>
+			<div class="columns small-6">
+					<h4>Small</h4>
+					<div class="product-badge-block small onsale">On Sale</div>
+					<div class="product-badge-block small bestseller">Best Seller</div>
+					<div class="product-badge-block small new">New</div>
+					<div class="product-badge-block small comingsoon">Coming Soon</div>
+				</div>
+		</div>
+	</section>
+		
+	<section>
+		<div class="row">
+			<div class="columns small-12">
+				<h3>Buttons</h3>
+			</div>
+
+			<div class="columns small-3">
+				<a href="#" class="flat-button tiny primary">Button Tiny</a>
+				<a href="#" class="flat-button tiny secondary">Button Tiny</a>
+				<a href="#" class="flat-button tiny tertiary">Button Tiny</a>
+				<a href="#" class="flat-button tiny dark">Button Tiny</a>
+				<a href="#" class="flat-button tiny white">Button Tiny</a>
+				<a href="#" class="flat-button tiny disabled">Button Tiny</a>
+			</div>
+			<div class="columns small-3">
+				<button class="flat-button small primary">Button Small</button>
+				<button class="flat-button small secondary">Button Small</button>
+				<button class="flat-button small tertiary">Button Small</button>
+				<button class="flat-button small dark">Button Small</button>
+				<button class="flat-button small white">Button Small</button>
+				<button class="flat-button small" disabled>Button Small</button>
+			</div>
+			<div class="columns small-3">
+				<span class="flat-button primary">Button Regular</span>
+				<span href="#" class="flat-button secondary">Button Regular</span>
+				<span href="#" class="flat-button tertiary">Button Regular</span>
+				<span href="#" class="flat-button white">
+					<i class="fa fa-chevron-left flat-button-icon"></i> Button w/ Icon
+				</span>
+				<span href="#" class="flat-button dark">Button Regular</span>
+				<span href="#" class="flat-button white">Button Regular</span>
+				<span href="#" class="flat-button disabled">Button Regular</span>
+			</div>
+			<div class="columns small-3">
+				<div class="flat-button large primary">Button Large</div>
+				<div class="flat-button large secondary">Button Large</div>
+				<div class="flat-button large tertiary">Button Large</div>
+				<div class="flat-button large dark">Button Large</div>
+				<div class="flat-button large white">Button Large</div>
+				<div class="flat-button large disabled">Button Large</div>
+			</div>
+			<div class="columns small-12">
+				<a href="#" class="flat-button primary full-width">Button Full Width</a>
+				<a href="#" class="flat-button secondary full-width">Button Full Width</a>
+				<a href="#" class="flat-button tertiary full-width">Button Full Width</a>
+				<a href="#" class="flat-button dark full-width">Button Full Width</a>
+				<a href="#" class="flat-button white full-width">Button Full Width</a>
+				<a href="#" class="flat-button disabled full-width">Button Full Width</a>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="row">
+			<div class="columns small-6">
+				<h3>Custom Checkbox</h3>
+				<label class="custom-field checkbox">
+					<input type="checkbox" id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Unchecked</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox">
+					<input type="checkbox" checked="checked" id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Checked</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox">
+					<input type="checkbox" id="subscribe-me" disabled name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Unchecked disabled</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox">
+					<input type="checkbox" checked="" disabled id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Checked disabled</span>
+					<div class="indicator"></div>
+				</label>
+			</div>
+			<div class="columns small-6">
+				<h3>Custom Checkbox (reverse)</h3>
+				<label class="custom-field checkbox reverse">
+					<input type="checkbox" id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Unchecked</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox reverse">
+					<input type="checkbox" checked="checked" id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Checked</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox reverse">
+					<input type="checkbox" id="subscribe-me" disabled name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Unchecked disabled</span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox reverse">
+					<input type="checkbox" checked="" disabled id="subscribe-me" name="is_subscribed" title="Subscribe me to Beaurepaires' Newsletter" value="1">
+					<span>Checked disabled</span>
+					<div class="indicator"></div>
+				</label>
+			</div>
+		</div>
+	</section>
+
+
+	<section>
+		<div class="row">
+			<div class="columns small-12">
+				<h3>Button Checkbox Dependencies - ButtonCheckboxDependencies.js</h3>
+			</div>
+
+			<div class="columns small-12">
+				<label class="custom-field checkbox">
+					<input type="checkbox" data-required-checkbox=".btn-checkout"/>
+					<span>I have read and I accept the <a href="https://www.beaurepaires.com.au/terms-and-conditions-of-trade" target="_blank">terms and conditions of sale</a></span>
+					<div class="indicator"></div>
+				</label>
+
+				<label class="custom-field checkbox">
+					<input type="checkbox" data-required-checkbox=".btn-checkout"/>
+					<span>I have read and I accept the <a href="https://www.beaurepaires.com.au/privacy-policy" target="_blank">Privacy Policy</a></span>
+					<div class="indicator"></div>
+				</label>
+
+				<button title="Submit Booking" class="flat-button btn-checkout" data-button-checkbox-dependencies>Button</button>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="row">
+			<div class="columns small-12">
+				<h3>Custom Icons</h3>
+			</div>
+
+			<div class="columns small-12">
+				<i class="icon icon-bfttyre"></i>
+				<i class="icon icon-bftvalue"></i>
+				<i class="icon icon-bftwheel"></i>
+				<i class="icon icon-bftoffroad"></i>
+				<i class="icon icon-bftperformance"></i>
+				<i class="icon icon-bftslowwear"></i>
+				<i class="icon icon-bftfuelsaver"></i>
+				<i class="icon icon-bftgrip"></i>
+				<i class="icon icon-bfthandling"></i>
+				<i class="icon icon-bftmileage"></i>
+				<i class="icon icon-bftcyclingability"></i>
+				<i class="icon icon-bftdurability"></i>
+				<i class="icon icon-bftevenwear"></i>
+				<i class="icon icon-bftcomfort"></i>
+				<i class="icon icon-sbftperformance"></i>
+
+				<i class="icon2 icon-value-tyre"></i>
+				<i class="icon2 icon-value-battery"></i>
+				<i class="icon2 icon-fuel-economy"></i>
+				<i class="icon2 icon-grip-performance"></i>
+				<i class="icon2 icon-handling-performance"></i>
+				<i class="icon2 icon-offroad-performance"></i>
+				<i class="icon2 icon-wet-performance"></i>
+				<i class="icon2 icon-low-noise"></i>
+				<i class="icon2 icon-comfort-performance"></i>
+				<i class="icon2 icon-sports-performance"></i>
+				<i class="icon2 icon-breaking-performance"></i>
+				<i class="icon2 icon-dry-performance"></i>
+				<i class="icon2 icon-wetdry-performance"></i>
+				<i class="icon2 icon-all-terrain"></i>
+				<i class="icon2 icon-winter-tyres"></i>
+				<i class="icon2 icon-original-equipment"></i>
+				<i class="icon2 icon-run-on-flat"></i>
+				<i class="icon2 icon-traction-tyres"></i>
+				<i class="icon2 icon-cornering-performance"></i>
+				<i class="icon2 icon-road-hazard-resistant"></i>
+				<i class="icon2 icon-slow-wear"></i>
+			</div>
+		</div>
+	</section>
+	</section>	
+  </body>
+</html>

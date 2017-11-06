@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Stock>
+            <version>1.0.0</version>
+        </ApdInteract_Stock>
+    </modules>
+    <global>
+        <helpers>
+            <apdinteract_stock>
+                <class>ApdInteract_Stock_Helper</class>
+            </apdinteract_stock>
+        </helpers>
+        <models>
+            <apdinteract_stock>
+                <class>ApdInteract_Stock_Model</class>
+            </apdinteract_stock>
+        </models>
+        <resources>
+            <apdinteract_stock_setup>
+                <setup>
+                    <module>ApdInteract_Stock</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_stock_setup>
+        </resources>
+    </global>
+</config>

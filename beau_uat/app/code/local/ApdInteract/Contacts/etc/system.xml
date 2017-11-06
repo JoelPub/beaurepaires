@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+         <trans_email>
+            <groups>
+                <feedbackgroup translate="label">
+                    <label>Feedback Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>250</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <feedback_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </feedback_name>
+                        <feedback_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </feedback_email>
+                    </fields>
+                </feedbackgroup>
+                <productgroup translate="label">
+                    <label>Product Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>251</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <product_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_name>
+                        <product_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_email>
+                    </fields>
+                </productgroup>
+                <servicesgroup translate="label">
+                    <label>Services Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>252</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <services_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </services_name>
+                        <services_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </services_email>
+                    </fields>
+                </servicesgroup>
+                <bookingsgroup translate="label">
+                    <label>Bookings Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>253</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <bookings_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </bookings_name>
+                        <bookings_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </bookings_email>
+                    </fields>
+                </bookingsgroup>
+                <websitegroup translate="label">
+                    <label>Website Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>253</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <website_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </website_name>
+                        <website_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </website_email>
+                    </fields>
+                </websitegroup>
+                <ordersgroup translate="label">
+                    <label>Orders Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>254</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <orders_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orders_name>
+                        <orders_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orders_email>
+                    </fields>
+                </ordersgroup>
+                <generalgroup translate="label">
+                    <label>Other Concern Contact</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>255</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <general_name translate="label">
+                            <label>Sender Name</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </general_name>
+                        <general_email translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </general_email>
+                    </fields>
+                </generalgroup>
+            </groups>
+        </trans_email>
+    </sections>
+</config> 

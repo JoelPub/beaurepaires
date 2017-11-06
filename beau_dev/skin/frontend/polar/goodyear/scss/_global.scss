@@ -1,0 +1,730 @@
+// --------------------------
+// Variables
+
+// Colours
+
+// $primary-color: #0068b1;
+// $secondary-color: #f7901a;
+// $ghost: #f4f4f4;
+// $vapor: #edf4fa;
+// $snow: #e9eaec;
+// $light-blue-color: #00b4fb;
+// $nav-dark-blue-color:#045a9b;
+// $dark-blue-color: #035689;
+// $cement-color: #e5e5e5;
+
+$cement-color: #F00;
+
+// $dark-grey-color: #999;
+// $base-font: 14px;
+
+// $orange-count-color: #f78f1d;
+
+$orange-count-color: #F01;
+
+// $dark-orange-color: #e56d00;
+// $light-gray-bg: #f7f7f7;
+// $bitum: #656565;
+
+$bitum: #F02;
+
+// $evergreen-color: #7bad00;
+// $dark-green: #618400;
+// $water: #0096d6;
+
+$water: #F03;
+//
+// $nav-gradient-from: #1268B1;
+// $nav-gradient-to: #105FA2;
+
+//
+// $inset-dark-shadow: 1px solid darken($cement-color, 10%);
+$inset-dark-shadow: 1px solid #F00;
+// $inset-light-shadow: 1px solid $white;
+
+
+
+// --------------------------
+// Mixins
+@mixin bg-size($value) {
+  -webkit-background-size: $value;
+     -moz-background-size: $value;
+      -ms-background-size: $value;
+          background-size: $value;
+}
+
+@mixin font-awesome-inline($value) {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}
+
+
+// Extends
+.bar-shadow {
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 64.0625em) {
+  body, html{
+    background-image: none;
+  }
+}
+
+// Creates new Foundtation-based class to force full width on rows
+.row.full-width {
+    max-width: 100%;
+
+    .row {
+        &.full-width {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        &:not(.full-width) {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 78.57143rem;
+
+            .row:not(.full-width) {
+                margin: 0 -1.07143rem;
+                max-width: none;
+                width: auto;
+            }
+        }
+    }
+
+
+}
+
+
+// --------------------------
+//Components
+
+
+// Hero
+.hero{
+  position: relative;
+
+  // Hero slider
+  .hero-slider{
+    overflow: hidden;
+  	width:100%;
+
+    .slick-track{
+      .slick-slide{
+        @include bg-size(cover);
+
+        background-position: center center;
+        color: $white;
+        min-height: 600px;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          color: $white;
+          text-shadow: $black 1px 2px 5px;
+        }
+
+        .title{
+          color: $white;
+		      padding-top: 118px;
+        }
+
+        @media only screen and (max-width: 1093px) {
+          .title {
+            // added padding to made way for quick-finder
+            padding-top: 390px;
+          }
+        }
+      }
+    }
+    .slick-dots{
+      margin-top: -45px;
+    }
+    .slider-content{
+      .button{
+        background: $colour-schoolbusyellow;
+        color: $colour-congressblue;
+
+        &:hover, &:focus {
+          background-color: $colour-denim;
+          color: $white;
+        }
+      }
+    }
+  }
+
+}
+
+
+// body wrap
+.main-wrapper {
+  background-color: $white;
+
+  .main-container {
+
+	> .row {
+		min-height: 420px;
+		padding: 20px 0;
+	}
+
+	#admin_messages {
+		margin: 0;
+		padding: 0;
+	}
+
+  }
+}
+
+
+.product-tag{
+  //background-color: $evergreen-color;
+  border-radius: 0 20px 20px 0;
+  color: $white;
+  display: inline-block;
+  font-size: 10px;
+  padding: 5px 20px 5px 5px;
+  text-transform: uppercase;
+}
+
+.related-product-slider{
+
+  .slick-track{
+    margin: 20px 0;
+  }
+}
+
+// Home Feature
+//.homepage-feature{
+//  margin: 40px 0;
+//
+//  h3{
+//    font-family: $font-family-sans-serif-bold;
+//  }
+//}
+
+// Popular Products
+//.popular-products{
+//  h2{
+//    font-family: $font-family-sans-serif-bold;
+//  }
+//}
+
+// Promo Slider
+.promo-slider {
+	padding: 15px 0 25px 0;
+	h3 {
+		font-size: 21px;
+		line-height: 24px;
+		margin: 18px 0;
+	}
+}
+
+// Featured Article
+.featured-article,
+.homepage-feature,
+.popular-products{
+	margin: 15px 0 25px 0;
+	overflow: hidden;
+	h2 {
+		//line-height: 1;
+	}
+	h3 {
+		//line-height: 1;
+	}
+}
+
+
+
+// Sidebar
+.sidebar {
+	.filter,
+    .accordion {
+		margin: 0 0 8px;
+	}
+}
+
+// Product Gallery
+//.comp-product-list{
+//  > div{
+//    > .row{
+//      @media #{$medium-up} {
+//        border-radius: 5px;
+//        margin: 20px 0 20px 15px;
+//        border: 1px solid $primary-gray-border;
+//        padding: 20px 0 40px;
+//      }
+//      @media #{$small-only} {
+//        border-bottom: 1px solid $primary-gray-border;
+//        padding: 20px 0 10px;
+//        &:last-child{
+//          border-bottom: 0;
+//        }
+//      }
+//    }
+//  }
+//}
+
+.product-badge{
+  margin: 0 0 4px -27px;
+  max-height: 34px;
+}
+.product-details{
+  .product-badge{
+    max-height: 34px;
+  }
+}
+.product-slider-detail {
+	.product-badge{
+		max-height: 24px;
+	}
+}
+.product-detail-page {
+	.product-badge{
+		max-height: 40px;
+
+		@media #{$small-only} {
+			max-height: 30px;
+		}
+	}
+}
+.products-list {
+	.product-badge{
+		max-height: 35px;
+
+		@media #{$small-only} {
+			max-height: 25px;
+		}
+	}
+}
+
+.dealer-logo{
+  max-height: 50px;
+  max-width: 170px;
+}
+// Sort is hidden for phase one. Please remove the display block below for phase two.
+.sort-by{
+  display: none;
+}
+
+.product-sale-category {
+  //background-color: $evergreen-color;
+  border-radius: 0 20px 20px 0;
+  color: $white;
+  display: inline-block;
+  height: 25px;
+  line-height: 16px;
+  margin-left: -28px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 5px 20px 5px 10px;
+  position: relative;
+  text-transform: uppercase;
+
+  &:before{
+    border-bottom: 10px solid transparent;
+    //border-right: 12px solid darken($evergreen-color, 10%);
+    content: "";
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 25px;
+    width: 0;
+  }
+}
+
+.detail-product-slider{
+  .slick-active {
+    .item-to-append {
+      cursor: pointer;
+      opacity: 0.6;
+      @include transition(all, 0.15s, ease-in-out);
+      &:hover {
+        opacity: 1;
+      }
+      &.active {
+        cursor: default;
+        opacity: 1;
+      }
+    }
+    &.active {
+      img {
+        &.item-to-append {
+          opacity:1;
+        }
+      }
+    }
+  }
+}
+
+// Product Details
+.product-title {
+  text-transform: uppercase;
+}
+.star-rating {
+  margin: 20px 0 0;
+  .fa-star {
+    color: $colour-star-deactive;
+    margin-right: 3px;
+  }
+  .full {
+    color: $colour-schoolbusyellow;
+  }
+  .empty {
+    color: $colour-star-deactive;
+  }
+}
+.review-links {
+  margin: 0;
+  .add-review {
+    @extend a.attenuate;
+  }
+}
+i + .review-links {
+	margin: 0 0 0 10px;
+}
+.product-features {
+  li {
+    margin: 25px 0 0;
+    padding-bottom: 0;
+    text-align: center;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    p {
+      color: $colour-scorpion;
+      margin: 0;
+      font-size: 9px;
+      margin: 0 auto;
+  	  line-height: 10px;
+  	  max-width: 80px;
+    }
+  }
+  .feature-bar {
+    display: inline-block;
+    height: 10px;
+    width: 15px;
+    &.full {
+      background-color: darken($cement-color, 35%);
+    }
+    &.empty {
+      background-color: darken($cement-color, 10%);
+    }
+  }
+}
+.product-text-description {
+  margin: 25px 0 0;
+    .show-for-small-only {
+        display:none;
+    }
+    .show-for-desktop-only {
+        display: block;
+    }
+    @media #{$small-only} {
+        .show-for-small-only {
+            display:block;
+        }
+        .show-for-desktop-only {
+            display: none;
+        }
+    }
+}
+
+.feature-rating{
+	// disable for legal reasons
+	display: none;
+  i{
+    color: $evergreen-color;
+    margin: 0 2px
+  }
+
+  .empty{
+    color: $primary-gray-border;
+  }
+}
+@media only screen and (max-width: 64.063em) {
+  .product-features {
+    li {
+      &:nth-of-type(3n+0){
+        border-right: none;
+      }
+    }
+  }
+}
+
+// Specifications
+.specification-content,
+.review-component {
+  margin: 0 0 45px;
+}
+
+.specification-content {
+  h3 {
+    margin: 15px 0 7px;
+  }
+}
+
+// Date picker
+
+.ui-datepicker {
+  z-index: 999;
+}
+
+//Related product slider
+.related-product-slider{
+  .item{
+    margin: 0 15px;
+  }
+}
+
+// Specifications
+.specification-table {
+  td {
+    &:first-child {
+      width: 25%;
+    }
+  }
+}
+
+.payment-method {
+  .fa {
+    margin: 0 15px 0 0;
+  }
+}
+.checkout-success {
+  padding: 20px 0;
+}
+
+// Shopping Cart
+.shopping-cart-options {
+  .form-field {
+    background-color: $cement-color;
+    padding: 15px;
+    margin: 0 0 15px;
+  }
+}
+// Store Locator component (not featured in the static website version)
+@media only screen and (min-width: 40em) {
+  #map-canvas,
+  #store-locator-search,
+  .storelocator-panel {
+    height: 500px;
+  }
+  .storelocator-panel {
+    overflow: auto;
+  }
+}
+@media only screen and (max-width: 40em) {
+  #map-canvas {
+    height: 300px;
+  }
+}
+.storelocator-panel {
+    .store-list{
+      margin: 0;
+      padding: 0;
+      li{
+        cursor: pointer;
+        margin: 15px 0;
+        &:hover{
+          .title{
+            text-decoration: underline;
+            &:before{
+              text-decoration: none;
+            }
+          }
+        }
+        .title:before,
+        .address:before,
+        .hours:before{
+          display: inline-block;
+          font-family: FontAwesome;
+          font-weight: normal;
+          font-style: normal;
+          margin-right: 5px;
+          text-decoration: inherit;
+        }
+        .title:before{
+          content: "\f041";
+        }
+        .address:before{
+          content: "\f124";
+        }
+        .hours:before{
+          content: "\f017";
+        }
+      }
+    }
+    .store{
+      .features{
+        display: none;
+      }
+    }
+    .feature-filter{
+      overflow: hidden;
+    }
+
+  }
+
+.has-tip{
+  border-bottom: none;
+  i{
+    color: $tooltip-icon-color;
+    &:hover {
+      color: $tooltip-icon-hover;
+    }
+  }
+}
+
+.page-title {
+	@extend strong;
+	color: $aqua-blue-color;
+	font-size: 34px;
+	line-height: 32px;
+	margin-bottom: 25px;
+	margin-top:18px;
+}
+div.page-title {
+	// Stop using page title on divs
+	margin: 0;
+}
+
+.line-through {
+  color: $monsoon;
+  display: block;
+  font-family: $font-family-sans-serif-bold;
+  font-size: $base-font-size + 2;
+  margin: 5px 0;
+  text-decoration: line-through;
+}
+
+// Error & Success messages
+.messages {
+  list-style-type: none;
+  .success-msg, .error-msg {
+    ul {
+      list-style-type: none;
+    }
+  }
+}
+
+// Recaptcha error message working with abide component from foundation
+#recaptcha-wrapper{
+  margin-bottom: 16px;
+  #recaptcha-verification{
+    height: 0;
+    visibility: hidden;
+	position: absolute;
+  }
+}
+
+// HERO HOME - THIS IS SPECIFIC TO ONE SLIDE ONLY - to delete when the slide is not display anymore
+li.number-box{
+  background-color: $water;
+  border-radius: 3px;
+  display: inline-block;
+  height: 34px;
+  margin-right: 10px;
+  text-align: center;
+  width: 34px;
+}
+
+
+// fixes for Foundation 5.5.2
+.inline-list {
+  margin-left: -1.37143rem;
+}
+
+
+.block-content {
+    margin-bottom: 10px;
+}
+
+
+.column-no-padding{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.column-no-paddingL{
+  padding-left: 0;
+}
+
+.column-no-paddingR{
+  padding-right: 0;
+}
+
+.line-seperator-with-text {
+    position: relative;
+    text-align: center;
+    margin: 10px 0;
+
+    hr {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -1px;
+        width: 100%;
+        z-index: 1;
+    }
+
+    span {
+        background-color: #FFF;
+        position: relative;
+        z-index: 2;
+        padding: 0 10px;
+        font-size: rem-calc(12);
+        color: $primary-gray-border;
+    }
+}
+
+
+
+/* HACK for Social Login Pro Plugins */
+ul.pslogin-clearfix {
+    margin: 0;
+
+    li { margin: 0 5px 5px 0; }
+}
+
+
+.compatibility {
+  text-align: left; 
+  
+  p.compatibility-text {
+    font-size: rem-calc(18);
+  }
+
+  i.fa {
+    margin-right: 10px;
+  }
+
+  .compatible p.compatibility-text {
+    color: $colour-limeade;
+  }
+
+  .not-compatible .compatibility-text {
+    color: $colour-carnation;
+  }
+
+  .matched-size {
+    font-weight: bold;
+  }
+}

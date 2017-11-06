@@ -1,0 +1,11 @@
+$main-assets: '../../../../assets/';
+$font_path: $main-assets + 'fonts';
+$images_path: $main-assets + 'images';
+$fa-font-path: $font_path;
+
+// core styles
+@import "../../../../assets/sass/settings";
+@import "./bower_components/foundation/scss/foundation";
+
+// Styles for this campaign only
+@import "main";

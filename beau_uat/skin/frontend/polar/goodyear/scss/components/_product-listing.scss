@@ -1,0 +1,300 @@
+
+// Variable
+//$price-label-color: #7F7F7F;
+$price-label-color: #F00;
+//$product-desc-color: #656565;
+$product-desc-color: #00F;
+
+.products-list {
+  $colour-product-title: $colour-mineshaft;
+  $colour-product-type: $colour-mineshaft;
+
+  @media #{$medium-up} {
+    padding: 0 0 0 39px;
+  }
+  .product-title {
+    margin-bottom: 0;
+    margin-top: 5px;
+
+    @media #{$medium-up} {
+      margin-top: 10px;
+    }
+
+    a {
+      color: $colour-product-title;
+      font-family: $font-family-fe-sinclair-medium;
+      font-size: 38px;
+      line-height: 38px;
+      text-transform: uppercase;
+
+      @media #{$small-only} {
+        font-size: $base-font-size + 2;
+      }
+    }
+  }
+  .product-type{
+    color: $colour-product-type;
+  }
+  .product-image {
+    @media #{$medium-up} {
+        display: block;
+        margin-left: -70px;
+    }
+  }
+
+  .no-badge{
+    .product-image{
+      @media #{$medium-up} {
+        top: 0;
+      }
+    }
+  }
+
+  .product-description {
+      margin: 20px 0 0 0;
+  }
+}
+
+.comp-product-details {
+  margin: 0 0 0 22px;
+}
+
+.rrp{
+  color: $price-label-color;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.rrp-label{
+  display:block;
+  margin-bottom: 1px;
+}
+
+.rrp-amount{
+	@extend strong;
+  color: $price-label-color;
+  display: block;
+  font-size: 16px;
+  text-decoration: line-through;
+  margin-bottom: 10px;
+}
+
+.online-price-label{
+  color: $price-label-color;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 1px;
+  @media #{$small-only} {
+    font-family: $font-family-sans-serif;
+  }
+}
+
+.online-price {
+	$size: 28px;
+
+	@extend strong;
+  color: $slider-dot-color;
+  display: block;
+  font-size: $size;
+  line-height: $size;
+  margin-bottom: 20px;
+
+  sub {
+		font-family: $font-family-sans-serif;
+		vertical-align: baseline;
+	}
+}
+
+.button{
+  margin-bottom: 10px;
+}
+
+.add-compare, .view-compare {
+	@media #{$small-only} {
+    display: none;
+  }
+  display: block;
+  text-decoration: underline;
+}
+.add-compare {
+  @extend a.attenuate;
+}
+
+.pricing-section{
+  padding-right: 20px;
+  text-align: right;
+
+  @media #{$small-only} {
+    text-align: left;
+    padding-left: 0;
+  }
+
+  a {
+    min-width: 131px;
+
+    &:first-of-type {
+      background-color: $colour-white;
+      color: $colour-congressblue;
+
+  		&:hover, &:focus {
+  			background-color: $colour-schoolbusyellow;
+  		}
+    }
+  }
+}
+
+.star-rating{
+  margin: 10px 0 0;
+}
+
+.review-links{
+  @media #{$small-only} {
+    display: none;
+  }
+  a{
+    @extend .attenuate;
+  }
+}
+
+.product-features {
+  @media #{$small-only} {
+    margin-bottom: 10px;
+  }
+
+  li{
+    margin: 20px 0 0;
+    @media #{$small-only} {
+      padding: 0;
+      margin: 10px 0 0;
+    }
+  }
+}
+
+sup,
+sub{
+  font-size: 14px;
+}
+
+.product-media-section{
+  @media #{$small-only} {
+    margin-left: -15px;
+  }
+
+  .product-badge-block.large {
+    margin: 0 0 15px -26px;
+
+    @media #{$small-only} {
+      display: none;
+    }
+  }
+
+  img {
+    &.expand {
+      max-width: 212px;
+    }
+  }
+}
+
+
+.product-info-section{
+  padding-left: 0;
+
+  .product-badge-block.small {
+    margin-bottom: 6px;
+
+    @media #{$medium-up} {
+      display: none;
+    }
+  }
+}
+
+.comp-product-list{
+  > div{
+    > .row{
+      @media #{$small-only} {
+        background: none;
+        border-bottom: 1px solid $primary-gray-border;
+        padding: 15px 0 6px 0;
+      }
+
+      &:last-child{
+        @media #{$small-only} {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// sidebar
+.sidebar {
+
+	.block-title, .widget-title {
+
+		h2 {
+			@extend strong;
+			font-size: 16px;
+		}
+
+	}
+
+}
+
+//Lazy load
+.ias-spinner,
+.ias-noneleft,
+.ias-trigger{
+  margin-bottom: 20px;
+}
+
+
+.ias-trigger{
+	@extend strong;
+
+	cursor: pointer;
+	color: $secondary-color;
+	font-size: 16px;
+
+	&:hover {
+
+
+	}
+}
+.ias-trigger-next span {
+
+	&:after {
+		content: '\f054';
+		margin-left: 10px;
+		display: inline-block;
+		font-family: FontAwesome;
+	}
+}
+
+
+// Selected Search
+.selected-search {
+	font-size: 15px;
+	margin: 0 0 10px 0;
+
+
+
+	.selected-search-column {
+		margin: 5px 0;
+	}
+
+	.fa-arrow-circle-right {
+		color: $colour-schoolbusyellow;
+		 font-size: $base-font-size + 5;
+	}
+
+	.selected-label {
+		@extend strong;
+		color: $charcoal;
+		line-height: 18px;
+		@media #{$medium-up} {
+			margin-bottom: 5px;
+		}
+	}
+
+}

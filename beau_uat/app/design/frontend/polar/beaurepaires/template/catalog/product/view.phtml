@@ -1,0 +1,776 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php
+$catalogue = "";
+$badge_th_img = "";
+$catalogue_th = "";
+//get vehicle details from cache
+if(Mage::getSingleton('core/session')->getSeriesF()!='')
+    $json_tyre = Mage::helper('searchtyre')->getCacheTyreData(Mage::getSingleton('core/session')->getSeriesF());
+
+$module = Mage::app()->getRequest()->getModuleName();
+$_product = $this->getProduct();
+
+$overlay_text = $_product->getAttributeText('overlay');
+$badge = Mage::helper('apdinteract_catalog')->getBadgeSrc($overlay_text, $thumb = false);
+$badge_img = "";
+if (isset($badge) && trim($badge) != "")
+    //$badge_img = "<img class=\"product-badge hide-for-small-only\" src=\"{$badge}\" alt=\"{$overlay_text}\">";
+    $catalogue = str_replace(' ', '', strtolower($overlay_text));
+if (strpos($catalogue, 'new') !== false){
+    $catalogue = 'new';
+}
+if($overlay_text!=''){
+    $badge_img = "<div class=\"hide-for-small-only\"><div class=\"product-badge-block large {$catalogue}\">{$overlay_text}</div></div>";
+}
+
+$badge_th = Mage::helper('apdinteract_catalog')->getBadgeSrc($overlay_text, $thumb = true);
+if (isset($badge_th) && trim($badge_th) != "")
+    //$badge_th_img = "<img class=\"product-badge show-for-small-only\" src=\"$badge_th\" alt=\"{$overlay_text}\">";
+    $catalogue_th = str_replace(' ', '', strtolower($overlay_text));
+if (strpos($catalogue_th, 'new') !== false){
+    $catalogue_th = 'new';
+}
+$badge_th_img = "<div class=\"show-for-small-only\"><div class=\"product-badge-block small {$catalogue_th}\">{$overlay_text}</div></div>";
+
+$cat_checker = $_product->getCategoryIds();
+?>
+
+<?php
+$prodsession = Mage::helper('apdinteract_catalog')->getProductSession();
+$selectedsize = Mage::helper('apdinteract_catalog')->getSizeOfSearchedProduct($prodsession['front'], $prodsession['rear']); // TODO: Make this faster
+?>
+
+<?php //echo $_GET['size'] ?>
+<div id="messages_product_view" data-product-metric-size="1" data-product-category="<?php echo $cat_checker[0]; ?>" data-product-size="<?php echo Mage::getSingleton('core/session')->getSizeF(); ?>"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<?php echo $this->getBlockHtml('formkey') ?>
+<div class="no-display">
+    <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+    <input type="hidden" name="related_product" id="related-products-field" value="" />
+</div>
+<!-- Main -->
+<div class="row product-detail-page" data-selected-size="<?php echo $selectedsize; ?>" data-front-val="<?php echo Mage::getSingleton('core/session')->getSizeF(); ?>" data-rear-val="<?php echo Mage::getSingleton('core/session')->getSize1F(); ?>">
+    <!-- Left hand side column -->
+    <div class="medium-7 small-12 columns">
+         <a href="<?php echo $this->getBackLink();?>" class="flat-button white back-to-results-button">
+            <i class="fa fa-chevron-left flat-button-icon"></i> Back to results
+        </a>
+
+        <section>
+            <?php /* echo $badge_th_img */ ?>
+            <?php
+                $brand = $this->getSkinUrl('images/brands/' . strtolower($_product->getAttributeText('brand')) . '-logo.png');
+                // $url = getimagesize($brand);
+                // This stopped working with https, so...
+                if (true || is_array($url)) {
+            ?>
+                <img src="<?php echo $brand; ?>" class="dealer-logo" alt="<?php echo $_product->getAttributeText('brand'); ?>"  />
+            <?php } ?>
+
+            <h1 class="product-title"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+
+            <?php /* <img src="<?php echo $this->getCategoryImageUrl() ?>" class="dealer-logo" >
+                <span class="product-title"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+                */ ?>
+
+            <span class="product-type">
+                <?php echo $_product->getAttributeText('application'); ?>
+            </span>
+        </section>
+
+        <?php echo $badge_img ?>
+        <?php echo $badge_th_img ?>
+        <!-- Image Gallery -->
+        <div class="main-photo-wrapper">
+            <!-- placeholder -->
+            <?php
+            $_img = '<img class="magnify-source expand" src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(620) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
+            echo $_helper->productAttribute($_product, $_img, 'image');
+            ?>
+        </div>
+
+        <!-- Product slider -->
+        <div class="row">
+            <div class="detail-product-slider clearfix">
+                <?php $media = new Mage_Catalog_Block_Product_View_Media; ?>
+                <?php if (count($media->getGalleryImages()) > 0): ?>
+                    <?php foreach ($media->getGalleryImages() as $_image): ?>
+                        <?php if ($media->isGalleryImageVisible($_image)): ?>
+                            <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize(620); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()); ?>" />
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php $video_id = '45229491'; // TODO replace with video_id from product ?>
+                <?php $video_id = $_product->getVimeoVideoId(); ?>
+                <?php if (!empty($video_id)): ?>
+                    <!-- Video thumbnail -->
+                    <?php
+                    $video_info = unserialize(file_get_contents("https://vimeo.com/api/v2/video/{$video_id}.php"));
+                    $video_thumb_url = $video_info[0]['thumbnail_small']; // thumbnail_small / thumbnail_medium / thumbnail_large
+                    $video_thumb_url = str_replace('http:', '', $video_thumb_url); // Convert to protocol agnostic URL. (ie if page is https, link will be https).
+                    ?>
+                    <div class="medium-4 columns">
+                        <div class="vimeo-thumb" data-reveal-id="videoModal">
+                            <img src="<?php echo $video_thumb_url; ?>" alt="Click to view this video" title="Click to view this video" />
+                        </div>
+                    </div>
+                <?php endif;?>
+
+            </div>
+        </div>
+        <!-- End product slider -->
+
+        <?php if (!empty($video_id)): ?>
+            <!-- video modal -->
+            <div id="videoModal" class="reveal-modal video large" data-reveal aria-labelledby="videoModalTitle" aria-hidden="true" role="dialog">
+                <div class="flex-video widescreen vimeo">
+                    <iframe src="//player.vimeo.com/video/<?php echo $video_id ?>" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+                <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+            </div>
+        <?php endif; ?>
+
+        <!-- Content -->
+        <div class="product-details">
+            <!-- ratings block -->
+            <div class="extra-info">
+                <?php echo $this->getReviewsSummaryHtml($_product, 'default', false) ?>
+                <?php echo $this->getChildHtml('product_type_availability'); ?>
+            </div>
+            <div class="product-text-description">
+                <?php echo $this->getChildHtml('shortDescription') ?>
+            </div>
+            <?php /*
+            <!-- <div class="addthis_sharing_toolbox product-social-share"></div> -->
+            <div class="addthis_native_toolbox product-social-share"></div>
+            */ ?>
+            <?php
+            if (!Mage::registry('current_category')) {
+                // Get the category from the product
+                $cats = $_product->getCategoryIds();
+                $current_category = Mage::getModel('catalog/category')->load($cats[0]);
+                $listingPage = '/' . $current_category->getName();
+                Mage::unregister('current_category');
+                Mage::register('current_category', $current_category);
+            }
+            if (Mage::registry('current_category')) {
+                // get the id, or by category name
+                $catId = Mage::registry('current_category')->getId();
+                $catName = strtolower(Mage::registry('current_category')->getName());
+                $listingPage = '/' . $catName;
+                $displayAttributes = true;
+                $wheelsFinish = "";
+                if ($catName == "wheels" || $catId == 42) {
+                    $displayAttributes = true;
+                    $wheelsFinish = "<p><strong>Finish:</strong> " . $_product->getFinish() . "</p>";
+                }
+            }
+            ?>
+            <?php if ($displayAttributes) : ?>
+                <div class="row">
+                    <div class="columns">
+                        <?php echo $this->getChildHtml('tyresAttributes') ?>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div class="row">
+                    <div class="columns">
+                        <?php echo $wheelsFinish; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Related Products -->
+        <?php echo $this->getChildHtml('related_products') ?>
+        <?php echo $this->getChildHtml('upsell_products') ?>
+
+        <!-- Main Specifications Table -->
+        <section id="main-specifications-table">
+            <?php echo $this->getChildHtml('specifications') ?>
+            <?php echo $this->getChildHtml('additional') ?>
+        </section>
+
+        <!-- Accordion Details - Desktop -->
+        <section class="show-for-medium-up">
+            <ul class="accordion product-accordion" data-accordion>
+                <li class="accordion-navigation">
+                    <a href="#description"><h3>Product Information</h3></a>
+                    <div id="description" class="content active">
+                        <?php echo $this->getChildHtml('description') ?>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#specifications"><h3>Specifications</h3></a>
+                    <div id="specifications" class="specifications-container content"></div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#reviews" class="review-accordion"><h3>Reviews</h3></a>
+                    <div id="reviews" class="content">
+                        <?php echo $this->getChildHtml('product_review') ?>
+                    </div>
+                </li>
+                <li class="accordion-navigation last">
+                    <a href="#warranty"><h3>Warranty</h3></a>
+                    <div id="warranty" class="content">
+                        <?php echo $this->getChildHtml('warranty') ?>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="medium-5 small-12 columns">
+        <!-- Cart Component -->
+        <div class="cart-component ga-source cart-type-<?php echo $_product->getTypeId(); ?>" data-ga-client-id="<?php echo "UA-2047284-3"; /* replace this hardcoded data */ ?>" data-pdp-type="<?php echo strtolower(Mage::registry('current_category')->getName()) ?>">
+            <div class="row">
+                <div class="columns small-12">
+                    <div class="cart-wrapper">
+                        <form action="<?php echo $this->getSubmitUrl($_product) ?>"
+                            data-add-to-cart-url="<?php echo $this->helper('checkout/cart')->getAddUrl($_product, array('xhr' => 1)) ?>"
+                            method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?>
+                            enctype="multipart/form-data"<?php endif; ?>>
+                            <!-- upper cart -->
+                            <div class="cart-loading" id="cart-loading">
+                                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                            </div>
+
+                            <?php if ($_product->getTypeId() == 'configurable'): ?>
+                                <?php $isSalable = $_product->getData('is_salable'); ?>
+                                <?php if ($isSalable && $this->hasOptions()): ?>
+                                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                                <?php endif; ?>
+                            <?php elseif ($_product->getTypeId() == 'simple') : ?>
+
+                            <section class="upper-cart sizes"><!-- star upper cart (ends in price_clone) -->
+                                <div class="row">
+                                    <?php echo $this->getChildChildHtml('container3') ?>
+                                    <?php endif; ?>
+                                    <?php echo $this->getChildHtml('custom_options') ?>
+
+                                    <section class="cart-total">
+                                        <div class="row">
+                                            <div class="columns small-6">
+                                                <span class="price-total-label">Total:</span>
+                                            </div>
+                                            <div class="columns small-6 print-text-right text-right">
+                                                <span class="price-total-value format-price">$0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="row print-text-right">
+                                            <div class="columns small-6">
+                                            </div>
+                                            <div class="columns small-6 text-right">
+                                                <span class="gst-note">Prices inc GST</span>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <div class="cart-footer">
+                                      <?php /* Old stock markup by Roy
+                                        <section class="store-and-stock-availability">
+                                            <p>
+                                                <i class="fa fa-check-circle i-check-circle"></i>
+                                                <strong>This product is available at Beaurepaires South Melbourne!</strong>
+                                            </p>
+                                            <p>162 Coventry St (Cnr Kings Way) <br>SOUTH MELBOURNE VIC 3205</p>
+
+                                            <input type="text" placeholder="Select a new store" />
+                                        </section>
+                                        */ ?>
+
+                                        <section class="store-and-stock-availability">
+                                          <pdp-product-stock
+                                            current-store-id="<?php echo  $this->getStoreLocationId() ?>"
+                                            get-stock-url="/costar/index/checkStock"
+                                            get-stores-url="/pickupinstore/index/storesbylatlng/"
+                                            set-store-url="/pickupinstore/index/save"
+                                            get-store-address-url="/pickupinstore/index/getStoreInformation"
+                                            google-place-api-key="<?php echo $this->getGoogleMapAPI() ?>"
+                                          />
+                                        </section>
+
+                                        <section id="product-ctas" class="product-ctas">
+                                            <hr>
+
+                                            <?php if ($overlay_text != 'On Sale' || $_product->getFinalPrice() <= 0) : ?>
+                                                <button type="button" id="product-request-price-button" class="cta-button flat-button dark full-width product-modal-open request-price btn-request-price hide" data-reveal-id="requestPriceModal" disabled>
+                                                    Request Price
+                                                </button>
+                                            <?php endif; ?>
+
+                                            <button id="product-book-a-fitting-button" type="button" class="cta-button flat-button full-width product-modal-open book-fitting btn-book-a-fitting hide" data-reveal-id="bookFittingModal" disabled>
+                                                <i class="fa fa-wrench color-orange"></i> Book A Fitting
+                                            </button>
+
+                                            <div class="stock-msg hide">
+                                                <p class="text-red"><?php echo $this->__('This Item is Out of Stock. Call Us for More Information.') ?></p>
+                                            </div>
+
+                                            <?php /* 9/8/2017: Removing as requested
+                                            <a id="product-call-for-stock-button" class="cta-button flat-button full-width call-for-stock btn-call-for-stock hide" href="tel:1800185099">
+                                                <i class="fa fa-phone color-orange"></i> <?php echo $this->__('1800 185 099')?>
+                                            </a> */ ?>
+
+                                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" id="product-addtocart-button" class="cta-button flat-button secondary full-width btn-cart hide" data-testing-remove='disabled'>
+                                                <?php echo $this->__('Add to Cart') ?>
+                                            </button>
+
+                                            <div id="checkout-container" class="hide">
+                                                <a href="<?php echo $this->getUrl('checkout/cart') ?>" title="<?php echo $this->__('Product added to Cart') ?>" id="product-checkout-button" class="flat-button tertiary full-width btn-checkout">
+                                                    <i class="fa fa-check"></i> <?php echo $this->__('Product added to Cart') ?>
+                                                </a>
+
+                                                <a href="<?php echo $this->getUrl('checkout/cart') ?>" class="link">View Shopping Cart</a>
+                                                <?php
+                                                    $categoryUrl = Mage::getBaseUrl();
+                                                    if(Mage::registry('current_category')): ?>
+                                                        <?php  $categoryUrl =  Mage::registry('current_category')->getUrl(); ?>
+                                                <?php endif; ?>
+                                                <a href="<?php echo $categoryUrl ?>" class="link">Continue shopping</a>
+                                            </div>
+                                        </section>
+
+                                        <div class="show-for-small-only">
+                                            <section id="anchored-ctas" class="product-ctas anchored-ctas hide">
+                                                <?php if ($overlay_text != 'On Sale' || $_product->getFinalPrice() <= 0) : ?>
+                                                    <button type="button" id="product-request-price-button" class="anchored-btn flat-button dark full-width product-modal-open request-price btn-request-price hide" data-reveal-id="requestPriceModal" disabled>
+                                                        Request Price
+                                                    </button>
+                                                <?php endif; ?>
+
+                                                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" id="product-addtocart-button" class="anchored-btn flat-button secondary full-width btn-cart hide" data-testing-remove='disabled'>
+                                                    <?php echo $this->__('Add to Cart') ?>
+                                                </button>
+
+                                                <a href="<?php echo $this->getUrl('checkout/cart') ?>" title="<?php echo $this->__('Product added to Cart') ?>" id="product-checkout-button" class="anchored-btn flat-button tertiary full-width btn-checkout hide">
+                                                    <i class="fa fa-check"></i> <?php echo $this->__('Product added to Cart') ?>
+                                                </a>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+
+                        <?php // echo $this->getChildHtml('addthis_sharetool') ?>
+                        <?php /*
+                        <div class="ge-finance-apply">
+                            <div class="row">
+                                <div class="columns small-12">
+                                    <?php
+                                    $ge_finance_apply_info = $this->getLayout()->createBlock('cms/block')->setBlockId('ge-finance-apply-info')->toHtml();
+                                    if (empty($ge_finance_apply_info)):
+                                        ?>
+                                        <!-- Start GE finance static block: ge-finance-apply-info (not loaded, using placeholder text) -->
+                                        <img src="<?php echo $this->getSkinUrl('images/0interest_small.png'); ?>" alt="0% interest payment plans" />
+                                        <div class="ge-top"><?php echo $this->__('Available on 6 months Interest Free for purchases of <strong>&#36;250</strong> or more.')?></div>
+                                        <div class="ge-mid">May require minimum monthly payments. Interest applies if you do not comply with <a href="#" data-reveal-id="geTermsModal">Terms &amp; Conditions</a></div>
+                                        <a class="ge-bottom" href="#"  data-reveal-id="geApplyModal">Apply now</a>
+                                        <!-- End GE finance static block: ge-finance-apply-info -->
+                                    <?php else: ?>
+                                        <!-- Start GE finance static block: ge-finance-apply-info -->
+                                        <?php echo $ge_finance_apply_info; ?>
+                                        <!--End GE finance static block: ge-finance-apply-info-->
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        */ ?>
+
+                        <section class="help-box">
+                            <p><strong>Need help finding the right fit for your vehicle?</strong></p>
+                            <a href="tel:1800185099"><i class="fa fa-phone"></i> 1800 185 099</a>
+                        </section>
+
+                        <div id="geApplyModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                            <?php
+                            $ge_finance_apply_text = $this->getLayout()->createBlock('cms/block')->setBlockId('ge-finance-apply-text')->toHtml();
+                            if (empty($ge_finance_apply_text)):
+                                ?>
+                                <!-- Start GE finance static block: ge-finance-apply-text (not loaded, using placeholder text) -->
+                                <h2 id="modalTitle" class="page-titlex">Interest Free Payment Options</h2>
+                                <h4 class="subheader">It has never been easier to shop for tyres and wheels with our 0% Interest Payment Plans</h4>
+
+                                <hr>
+
+                                <div class="row collapse">
+                                    <div class="medium-10 columns">
+                                        <h5>Benefits of 0% Interest Payment Plans:</h5>
+                                        <ul>
+                                            <li>Apply online today. If approved, find your nearest store to shop today!</li>
+                                            <li>Payment options suited to your budget and lifestyle</li>
+                                            <li>Enjoy the convenience of an everyday credit card</li>
+                                            <li>There is no penalty if you choose to pay out your plan early</li>
+                                            <li>Interest is only calculated on any outstanding balance at the end of the purchase payment plan and is never backdated</li>
+                                        </ul>
+
+                                        <p><a href="#" data-reveal-id="geTermsModal">Click here</a> for full terms and conditions.</p>
+                                    </div>
+                                    <div class="medium-2 hide-for-small-only columns">
+                                        <img src="<?php echo $brand = $this->getSkinUrl('images/0-interest-free-orange.gif'); ?>" alt="0% Interest Payment Plans">
+                                    </div>
+                                </div>
+
+                                <h5>Already have one of these cards?</h5>
+
+                                <p>You can use them all at any of our participating stores</p>
+
+                                <p><img src="<?php echo $brand = $this->getSkinUrl('images/gemvisa-cards-square-medium.jpg'); ?>" alt="Interest Free Cards: Gem, Go, GE CreditLine, Buyer's Edge"></p>
+
+                                <p><a href="<?php echo $this->getUrl('store-locator') ?>" class="button radius">Find a store</a></p>
+
+                                <h5>What is a 0% Interest Payment Plan?</h5>
+                                <p>
+                                    With any of these plans, you won't pay any interest, provided you pay the full balance of the purchase before the end of the plan.
+                                    You need to make a minimum payment each month. Remember paying only the minimum will not pay out the balance of the plan but you have the flexibility to make extra payments at any time.
+                                </p>
+
+                                <table class="data-table">
+                                    <tr>
+                                        <th>6 Months</th>
+                                        <th>12 Months</th>
+                                        <th>18 Months</th>
+                                    </tr>
+                                    <tr>
+                                        <td>$250 Minimum spend</td>
+                                        <td>$500 Minimum spend</td>
+                                        <td>$750 Minimum spend</td>
+                                    </tr>
+                                </table>
+
+                                <p><a href="#" data-reveal-id="geTermsModal">Click here</a> for full terms and conditions.</p>
+
+                                <h5>New to 0% Interest Payment Plans?</h5>
+                                <ul>
+                                    <li>Gem Visa's 0% Interest Payment Plans allow you to buy the things you need now with longer to pay, using flexible payment options catered to suit your budget</li>
+                                    <li>You can also use your Gem Visa as an everyday credit card. Shop with ease - anywhere, anytime</li>
+                                    <li>Enjoy 0% interest for 6 months on everyday Visa purchases over $250</li>
+                                </ul>
+
+                                <p>Apply online today and get a response in 60 seconds</p>
+                                <!-- End GE finance static block: ge-finance-apply-text -->
+                            <?php else: ?>
+                                <!-- Start GE finance static block: ge-finance-apply-text -->
+                                <?php echo $ge_finance_apply_text; ?>
+                                <!--End GE finance static block: ge-finance-apply-text-->
+                            <?php endif; ?>
+
+
+
+                            <?php echo Mage::helper('gefinance')->getGeApplyForm(); ?>
+
+                            <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+                        </div>
+
+                        <div id="geTermsModal" class="reveal-modal" data-reveal aria-labelledby="secondModalTitle" aria-hidden="true" role="dialog">
+                            <h2 id="secondModalTitle">Terms and Conditions</h2>
+                            <hr>
+                            <p>
+                                <b>0% INTEREST PAYMENT PLANS TERMS AND CONDITIONS</b> <br>
+                                With any of these plans, you won't pay any interest, provided you pay the full balance of their purchase before the end of the plan.
+                            </p>
+                            <p>
+                                All plans available at participating Beaurepaires stores only. Approved customers only. A $99 annual fee for Gem Visa applies. At the end of the plan, interest will be charged at 22.99%.
+                                This notice is given under the Gem Visa Conditions of Use (as applicable), which specify all other conditions for this offer. Also available to GE CreditLine, GO MasterCard and Buyer's
+                                Edge customers. Other conditions, fees and charges apply, see relevant product websites for details. Credit is provided by GE Capital Finance Australia (ABN 42 008 583 588), Australian
+                                Credit Licence number 392145, trading as GE Money.
+                            </p>
+                            <p>
+                                <b>INTEREST FREE WITH MINIMUM MONTHLY REPAYMENTS</b> <br>
+                                You need to make a minimum payment each month. Remember paying only the minimum will not pay out the balance of the plan but you have the flexibility to make extra payments at
+                                any time.
+                            </p>
+                            <p>
+                                Conditions: Monthly payments must be made during the interest free period. Interest and payments are payable after the interest free period expires. Paying only the minimum monthly
+                                payment will not pay out the purchase before the end of the interest free period.
+                            </p>
+                            <p> 6 months: Minimum spend $250. <br>
+                                12 months: Minimum Spend $500. <br>
+                                18 Months: Minimum spend is $750.
+                            </p>
+                            <p>
+                                <b>INTEREST FREE WITH NO REPAYMENTS</b> <br>
+                                You don't need to make any payment during the promotional period. However, you can make payments at any time.
+                            </p>
+                            <p>
+                                Conditions: Interest and payments are payable after the interest free and payment deferred period. Interest and payments are payable on any outstanding balance after the plan
+                                expires.
+                            </p>
+                            <p> 6 Months: Minimum spend $250.<br>
+                                12 months: Minimum Spend $500.
+                            </p>
+                            <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- start : Book a fitting modal -->
+        <div id="bookFittingModal" class="reveal-modal request-price-modal product-form-modal" data-page-view-open="/product/book-fitting/open" data-page-view-submitted="/product/book-fitting/submitted" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+            <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+            <div class="popup-form">
+
+                <h2 id="modalTitle" class="modalTitle"><?php echo $this->__('Save Time. Book Online.') ?></h2>
+
+                <p>
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('book-an-appoinment-modal')->toHtml(); ?>
+                </p>
+
+                <form action="/requestprice/index/" method="post" data-abide="ajax">
+
+                    <div class="field">
+                        <label for="booking-store">Select store to fit your items</label>
+                        <input type="text" placeholder="Enter suburb or postcode" name="store" id="booking-store" title="Enter suburb or postcode" class="store-finder render-finder" />
+                        <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                        <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required pattern="number">
+                        <small class="error">You must select a store.</small>
+                    </div>
+                    <div class="field">
+                        <label for="booking-data">Choose a date to fit your items</label>
+                        <input type="text" placeholder="Choose a date" name="data" id="booking-data" title="Choose a date" class="fit-date" data-min-date="<?php echo Mage::helper('apdinteract_requestprice')->getMinimumDate($listingPage); ?>" value="" required pattern="^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$" />
+                        <small class="error">You must select a date.</small>
+                    </div>
+
+                    <hr>
+
+                    <div class="field">
+                        <label for="vehicle_make">Vehicle Make</label>
+                        <input type="text" placeholder="Vehicle Make" name="vehicle_make" title="Vehicle Make" class="input-text" value="<?php echo (isset($json_tyre->Make->Name) ? $json_tyre->Make->Name : '')?>" maxlength="15" />
+                    </div>
+                    <div class="field">
+                        <label for="vehicle_model">Vehicle Model</label>
+                        <input type="text" placeholder="Vehicle Model" name="vehicle_model" title="Vehicle Model" class="input-text" value="<?php echo (isset($json_tyre->Model->Name) ? $json_tyre->Model->Name : '')?>" maxlength="200" />
+                    </div>
+                    <hr>
+
+                    <div class="field">
+                        <input type="text" placeholder="First Name" name="fname" title="First Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('fname'); ?>" required pattern="[a-zA-Z]+" />
+                        <small class="error">First name is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Last Name" name="lname" title="Last Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('lname'); ?>" required pattern="[a-zA-Z]+" />
+                        <small class="error">Last name is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="email" placeholder="Email" name="email" title="Email" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('email'); ?>" required />
+                        <small class="error">Email is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="tel" placeholder="Phone number" name="phone" title="Phone number" class="input-text required-entry" value="" required pattern="^[0-9]+$" />
+                        <small class="error">Please use numbers only in this field.  Please avoid spaces or other characters such as dots or commas.</small>
+                    </div>
+                    <div class="field checkbox-field">
+                        <input type="checkbox" name="subcribe" id="subcribe-book" value="true"><label for="subcribe-book">Please subscribe me to the Beaurepaires newsletter. <a href="/terms-of-use-disclaimer" target="_blank">Terms &amp; Conditions</a></label>
+                    </div>
+                    <div class="field">
+                        <input type="hidden" id="selectedtype" name="source" value="Booking a Fitting">
+                        <input type="hidden" id="selectedProductId-book" name="requestedProductId" value="<?php echo $_product->getId() ?>">
+                        <input type="hidden" id="selectedProductSKU-book" name="requestedProductSKU" value="<?php echo $_product->getSku() ?>">
+                        <input type="hidden" id="selectedSizeValue-book" name="requestedSize"  value="">
+                        <input type="hidden" id="configurableAttributeId-book" name="configurableAttributeId" value="<?php echo $this->getAttributeId()?>">
+                        <input type="hidden" id="configurableAttributeValueId-book" name="configurableAttributeValueId" value="">
+                        <input type="hidden" id="configurableAttributeId-book-rear" name="configurableAttributeIdRear" value="<?php echo $this->getAttributeId()?>">
+                        <input type="hidden" id="configurableAttributeValueId-book-rear" name="configurableAttributeValueIdRear" value="">
+
+                        <input type="hidden" id="selectedQuantity-book" name="requestedQuantity"  value="1">
+                        <input type="hidden" name="productId" value="<?php echo $_product->getId() ?>">
+
+                        <input type="submit" class="button radius submit-form" value="Request booking">
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="popup-loading">
+                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                <p>Processing request...</p>
+            </div>
+            <div class="popup-result">
+                <span class="logo" title="Beaurepaires Logo"></span>
+
+                <h2>Thank you for booking with us</h2>
+                <p>
+                    One of our customer service representatives will be in touch with you shortly to confirm your booking.
+                </p>
+                <p>
+                    Regards,<br>
+                    The Beaurepaires Team
+                </p>
+                <ul class="inline-list">
+                    <li><a href="<?php echo $listingPage ?>" class="button radius">Continue Browsing</a></li>
+                    <li><a href="#" class="button radius close-modal-button">Close</a></li>
+                </ul>
+            </div>
+            <div class="popup-error">
+                <h2>There was a error proccessing your request</h2>
+                <p>
+                    Message: <span class="error-msg"></span>
+                </p>
+            </div>
+        </div>
+        <!-- end : Book a fitting modal -->
+
+        <!-- start : Request Price modal -->
+        <div id="requestPriceModal" class="reveal-modal request-price-modal product-form-modal" data-page-view-open="/product/request-price/open" data-page-view-submitted="/product/request-price/submitted" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+            <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+            <div class="popup-form">
+
+                <h2 id="modalTitle" class="modalTitle"><?php echo $this->__('Get a Tailored Quote.') ?></h2>
+
+                <p>
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('request-price-modal')->toHtml(); ?>
+                </p>
+
+                <form action="/requestprice/index/" method="post" data-abide="ajax">
+                    <div class="field">
+                        <input type="text" placeholder="First Name" name="fname" title="First Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('fname'); ?>" required pattern="[a-zA-Z]+" />
+                        <small class="error">First name is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Last Name" name="lname" title="Last Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('lname'); ?>" required pattern="[a-zA-Z]+" />
+                        <small class="error">Last name is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="email" placeholder="Email" name="email" title="Email" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('email'); ?>" required />
+                        <small class="error">Email is required.</small>
+                    </div>
+                    <div class="field">
+                        <input type="tel" placeholder="Phone number" name="phone" title="Phone number" class="input-text required-entry" value="" required pattern="^[0-9]+$" />
+                        <small class="error">Please use numbers only in this field.  Please avoid spaces or other characters such as dots or commas.</small>
+                    </div>
+                    <div class="field">
+                        <label for="price-store">Enter suburb/postcode for your nearest store</label>
+                        <input type="text" maxlength="4" placeholder="Enter suburb or postcode" name="store" id="price-store" title="Enter suburb or postcode" class="store-finder render-finder" value="" />
+                        <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                        <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required pattern="number">
+                        <small class="error">You must select a store.</small>
+                    </div>
+
+                    <hr>
+
+                    <div class="field">
+                        <label for="vehicle_make">Vehicle Make</label>
+                        <input type="text" placeholder="Vehicle Make" name="vehicle_make" title="Vehicle Make" class="input-text" value="<?php echo (isset($json_tyre->Make->Name) ? $json_tyre->Make->Name : '')?>" maxlength="15" />
+                    </div>
+                    <div class="field">
+                        <label for="vehicle_model">Vehicle Model</label>
+                        <input type="text" placeholder="Vehicle Model" name="vehicle_model" title="Vehicle Model" class="input-text" value="<?php echo (isset($json_tyre->Model->Name) ? $json_tyre->Model->Name : '')?>" maxlength="200" />
+                    </div>
+
+                    <div class="field checkbox-field">
+                        <input type="checkbox" name="subcribe" id="subcribe-price" value="true"><label for="subcribe-price">Please subscribe me to the Beaurepaires newsletter. <a href="/terms-of-use-disclaimer" target="_blank">Terms &amp; Conditions</a></label>
+                    </div>
+                    <div class="field end-field">
+                        <input type="hidden" id="selectedtype" name="source" value="Request Price">
+                        <input type="hidden" id="selectedProductId" name="requestedProductId" value="<?php echo $_product->getId() ?>">
+                        <input type="hidden" id="selectedProductSKU" name="requestedProductSKU" value="<?php echo $_product->getSku() ?>">
+                        <input type="hidden" id="selectedSizeValue" name="requestedSize"  value="">
+                        <input type="hidden" id="selectedQuantity" name="requestedQuantity"  value="1">
+                        <input type="hidden" name="productId" value="<?php echo $_product->getId() ?>">
+                        <input type="hidden" id="configurableAttributeId" name="configurableAttributeId" value="<?php echo $this->getAttributeId()?>">
+                        <input type="hidden" id="configurableAttributeValueId" name="configurableAttributeValueId" value="">
+                        <input type="hidden" id="configurableAttributeIdRear" name="configurableAttributeIdRear" value="<?php echo $this->getAttributeId()?>">
+                        <input type="hidden" id="configurableAttributeValueIdRear" name="configurableAttributeValueIdRear" value="">
+                        <input type="submit" class="button radius submit-form" value="Request Price">
+                    </div>
+                </form>
+
+            </div>
+            <div class="popup-loading">
+                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                <p>Processing request...</p>
+            </div>
+            <div class="popup-result">
+                <span class="logo" title="Beaurepaires Logo"></span>
+
+                <h2>Thank you for your request</h2>
+                <p>
+                    One of our customer service representatives will be in touch with you shortly.
+                </p>
+                <p>
+                    Regards,<br>
+                    The Beaurepaires Team
+                </p>
+                <ul class="inline-list">
+                    <li><a href="<?php echo $listingPage ?>" class="button radius">Continue Browsing</a></li>
+                    <li><a href="#" class="button radius close-modal-button">Close</a></li>
+                </ul>
+            </div>
+            <div class="popup-error">
+                <h2>There was a error proccessing your request</h2>
+                <p>
+                    <strong>Message:</strong> <span class="error-msg"></span>
+                </p>
+            </div>
+        </div>
+        <!-- end : Request Price modal -->
+        </form>
+    </div>
+
+    <!-- Accordion Details - Mobile -->
+    <section class="show-for-small-only">
+        <ul class="accordion product-accordion" data-accordion>
+            <li class="accordion-navigation">
+                <a href="#description"><h3>Product Information</h3></a>
+                <div id="description" class="content active">
+                    <?php echo $this->getChildHtml('description') ?>
+                </div>
+            </li>
+            <li class="accordion-navigation">
+                <a href="#specifications"><h3>Specifications</h3></a>
+                <div id="specifications" class="specifications-container content"></div>
+            </li>
+            <li class="accordion-navigation">
+                <a href="#reviews" class="review-accordion"><h3>Reviews</h3></a>
+                <div id="reviews" class="content">
+                    <?php echo $this->getChildHtml('product_review') ?>
+                </div>
+            </li>
+            <li class="accordion-navigation last">
+                <a href="#warranty"><h3>Warranty</h3></a>
+                <div id="warranty" class="content">
+                    <?php echo $this->getChildHtml('warranty') ?>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <?php echo $this->getChildHtml('customer_also_view') ?>

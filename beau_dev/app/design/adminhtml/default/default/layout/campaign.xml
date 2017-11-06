@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">  
+  <campaign_adminhtml_campaign_index>
+	<reference name="content">
+	  <block type="campaign/adminhtml_campaign" name="campaign" />
+	</reference>
+  </campaign_adminhtml_campaign_index>
+  <campaign_adminhtml_setup_index>
+	<reference name="content">
+	  <block type="campaign/adminhtml_setup" name="setup" />
+	</reference>
+  </campaign_adminhtml_setup_index>
+</layout>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+<!--<default>
+  	<reference name="head">
+  		<action method="addJs">
+		    <script>searchtyre/search-tyre.js</script>
+		    <params><![CDATA[data-group="js002"]]></params>
+		</action>		
+  	</reference>
+    <reference name="footer">   
+      <block type="searchtyre/index" name="searchtyre_index" template="searchtyre/index.phtml" before="-"/>         
+    </reference>     
+ </default>  -->
+</layout>   
+	

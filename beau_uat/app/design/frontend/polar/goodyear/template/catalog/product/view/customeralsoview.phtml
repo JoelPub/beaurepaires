@@ -1,0 +1,83 @@
+<?php 
+/**
+ * Customer who viewed this item also viewed this
+ */
+
+?>
+<?php $_helper = Mage::helper('apdinteract_whoalsoview'); ?>
+<?php $limit = 5;?>
+<?php $_product = $this->getProduct(); ?>
+<?php $collection = $_helper->_getCustomersAlsoViewedProducts($_product->getId(),$limit)?>
+<?php $storeId = Mage::app()->getStore()->getId();?>
+	<?php if ( count($collection) > 0):?>
+		
+		<div class="row">
+			<div class="columns">
+					<h3 class="section-title"><?php  echo $this->__('Customer also viewed') ?></h3>
+						
+				  <div class="related-product-slider" data-equalizer>
+					<?php foreach ($collection as $_item):
+						$badge_th_img ="";
+						$badge_th="";
+						if($_item->getAttributeText('overlay')=='Best Seller')
+							$badge_th = Mage::getBaseUrl('media').'theme/' . Mage::getStoreConfig('badges/badges/bestsellerth');
+						elseif($_item->getAttributeText('overlay')=='New Arrival')
+						$badge_th = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/newth');
+						elseif($_item->getAttributeText('overlay')=='On Sale')
+						$badge_th = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/onsaleth');
+						
+						if(isset($badge_th) && $badge_th!='')
+							$badge_th_img = "<img class=\"product-badge\" src=\"".$badge_th."\" alt=\"".$_item->getAttributeText('overlay')."\">";
+					
+					?>
+					
+					<div class="item medium-3 columns">
+						<div class="row product-item">
+							<div class="small-3 columns">
+							  <?php $product = Mage::getModel('catalog/product')->load($_item->getId());?>
+							  <?php  $productUrl =  Mage::helper("apdwidgets")->getFullProductUrl($product);?>	
+							  <?php $cats = reset($product->getCategoryIds());?>
+							  <?php $category = Mage::getModel('catalog/category')->load($cats);?>
+							  <div class="product-image">
+								<a href="<?php echo $productUrl?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(100) ?>" class="expand" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" class="expand"></a>
+							  </div>
+							</div>
+							<div data-equalizer-watch="" class="small-9 columns product-slider-detail">
+							  <div class="product-details">
+								<?php echo $badge_th_img ?>
+
+								<?php $brand = $this->getSkinUrl('images/brands/' . strtolower($_item->getAttributeText('brand')) . '-logo.png');
+								 // $url = getimagesize($brand);
+                    				if (true || is_array($url)) {?>
+								 <!--<img src="<?php echo $brand;?>" alt="<?php echo $_item->getAttributeText('brand'); ?>" /> -->
+								<?php }?>
+								<h5 class="product-title"><a href="<?php echo $productUrl?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h5>
+								 <?php $ratings = Mage::getModel('review/review_summary')?>
+								 <?php $ratings = $ratings->setStoreId($storeId)->load($_item->getId());?>
+								<div class="star-rating">
+									 <?php 
+									 if ( !empty($ratings['rating_summary']) ) {
+										echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); 
+									}
+									 ?>
+								</div>
+								<!-- Hide price for phase 1 7/23/15 -->
+								<div class="rrp" style="display: none">
+									<span class="rrp-amount"><?php echo Mage::helper('core')->currency($_item->getPrice(), true, false); ?></span>
+								</div>
+								<div class="online-price" style="display: none">
+									<span class="online-price"><?php echo Mage::helper('core')->currency($_item->getSpecialPrice(), true, false); ?><sub>ea</sub></span>
+								</div>
+								<!--<a class="add-compare" href="#">Add to compare</a>-->
+							  </div>
+							</div>
+						</div>
+					</div>
+			
+            <?php endforeach;?>
+          </div>
+	  </div>
+    </div>
+	<?php endif;?>
+
+

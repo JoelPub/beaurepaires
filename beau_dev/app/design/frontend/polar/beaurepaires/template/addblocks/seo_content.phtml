@@ -1,0 +1,20 @@
+<?php
+	//add static block to category page if identifier is equal.
+	
+	$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+	$url = Mage::getSingleton('core/url')->parseUrl($currentUrl);
+	$path = $url->getPath();
+	
+	$path_identifier = "seo" . $path;
+	$block = Mage::getModel('cms/block')->load($path_identifier);
+	
+	if($block->getIsActive()){
+	?>
+		<div class="seo-content">
+			<div class="row full-width">
+				<div class="column">	
+					<?php echo $block->getContent() ?>
+				</div>
+			</div>
+		</div>
+<?php } ?>

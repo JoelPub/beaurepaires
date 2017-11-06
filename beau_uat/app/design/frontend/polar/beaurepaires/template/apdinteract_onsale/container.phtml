@@ -1,0 +1,12 @@
+<?php if ($this->getTitle()) : ?>
+    <div class="page-title category-title">
+    	<h1>On Sale Now</h1>
+    </div>
+<?php endif;?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<!-- Start Static block: on-sale-top --> 
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('on-sale-top')->toHtml();?>
+<!-- End Static block: on-sale-top --> 
+
+<?php echo $this->getChildHtml();?>

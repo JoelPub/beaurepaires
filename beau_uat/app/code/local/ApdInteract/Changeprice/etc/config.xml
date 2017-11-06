@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Changeprice>
+            <version>1.0.0</version>
+        </ApdInteract_Changeprice>
+    </modules>
+    <global>
+        <models>
+            <changeprice>
+                <class>ApdInteract_Changeprice_Model</class>
+            </changeprice>
+        </models>
+        <events>
+
+            <checkout_cart_update_item_complete>
+                <observers>
+                    <apdinteract_order_sales_quote_address_save_after>
+                        <type>singleton</type>
+                        <class>ApdInteract_Changeprice_Model_Observer</class>
+                        <method>modifyprice</method>
+                    </apdinteract_order_sales_quote_address_save_after>
+                </observers>
+            </checkout_cart_update_item_complete>
+
+            <checkout_cart_product_add_after>
+                <observers>
+                    <apdinteract_changeprice_checkout_cart_product_add_after>
+                        <type>singleton</type>
+                        <class>ApdInteract_Changeprice_Model_Observer</class>
+                        <method>addprice</method>
+                    </apdinteract_changeprice_checkout_cart_product_add_after>
+                </observers>
+            </checkout_cart_product_add_after>
+            
+            <sales_quote_remove_item>
+                <observers>
+                    <apdinteract_sales_quote_remove_item_after>
+                        <type>singleton</type>
+                        <class>ApdInteract_Changeprice_Model_Observer</class>
+                        <method>removeItemFromCart</method>
+                    </apdinteract_sales_quote_remove_item_after>
+                </observers>
+            </sales_quote_remove_item>
+            
+        </events>
+
+    </global>
+</config>

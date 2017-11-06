@@ -1,0 +1,47 @@
+// Social Media
+
+// Variables
+$font-base:14px;
+$facebook-bg-color: #3c5a9a;
+$twitter-bg-color: #2daae1;
+$youtube-bg-color: #fe3432;
+$googleplus-bg-color: #333230;
+$linkedin-bg-color: #0173b2;
+$instagram-bg-color: #D93362;
+$pinterest-bg-color: #BC2025;
+$vimeo-bg-color: #16B3E8;
+
+
+// Mixins
+@mixin social-icon($bg-color){
+	color:$bg-color;
+	font-size:$font-base + 5;
+	&:hover {
+		color:lighten($bg-color, 10%);
+	}
+}
+
+.icon-facebook {
+	@include social-icon($facebook-bg-color);
+}
+.icon-twitter {
+	@include social-icon($twitter-bg-color);
+}
+.icon-youtube {
+	@include social-icon($youtube-bg-color);
+}
+.icon-google-plus {
+	@include social-icon($googleplus-bg-color);
+}
+.icon-linkedin {
+	@include social-icon($linkedin-bg-color);
+}
+.icon-instagram {
+	@include social-icon($instagram-bg-color);
+}
+.icon-pinterest {
+	@include social-icon($pinterest-bg-color);
+}
+.icon-vimeo {
+	@include social-icon($vimeo-bg-color);
+}

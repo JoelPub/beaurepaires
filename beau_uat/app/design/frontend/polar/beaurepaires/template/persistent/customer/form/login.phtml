@@ -1,0 +1,86 @@
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<h1 class="page-title">Login or Create an Account</h1> 
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="row">
+    
+	<div class="medium-6 small-12 columns">
+		<?php
+                $key = "bft-Login-Important-Message";
+                $blocks = Mage::getModel('dynamicblock/dynamicblock')->getAllBlocksPerPosition($key);
+                if($blocks->count()>0) {
+                   $blocks_data = $blocks->getFirstItem();
+                   $identifier = $blocks_data->getIdentifier();
+                   
+                   echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml();                   
+                }
+                
+                ?>
+		<a href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>" class="radius button">Find out more</a>
+	</div>
+	
+	<div class="medium-6 small-12 columns">
+	<!-- Login Form --> 
+		<h4>Already Registered?</h4>
+		<p>
+			If you have an account with us, please log in.<br>
+			<em>* Required Fields</em>
+		</p>      
+		
+		<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form" data-abide>
+			<div class="row">
+			  <div class="columns medium-9 small-12">
+				<label for="usernamex">Email Address *</label>
+				<input id="usernamex" name="login[username]" type="email" required />
+				<small class="error">This is a required field - It must be a valid email address</small>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="columns medium-9 small-12">
+				<label for="passwordx">Password *</label>
+				<input id="passwordx" name="login[password]" type="password" required />
+				<small class="error">This is a required field</small>
+			  </div>
+			</div>
+			<div class="row">
+				<div class="columns medium-9 small-12">
+					<?php echo $this->getChildHtml('form.additional.info'); ?>
+                    <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+			  	</div>
+			</div>
+			<div class="row">
+			  <div class="columns medium-9 small-12">
+				<p><a href="<?php echo $this->getForgotPasswordUrl(); ?>">Forgot Your Password?</a></p>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="columns medium-9 small-12">
+				<input type="submit" class="button radius" value="Submit">
+			   </div>
+			</div>
+			
+			<?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+			<input name="context" type="hidden" value="checkout" />
+			<?php endif; ?>
+		</form>
+              
+		
+		<div class="line-seperator-with-text">
+			<hr>
+			<span>OR</span>
+		</div>
+
+        <p class="text-center">Login with your social account.</p>
+        
+        <?php echo $this->getLayout()->createBlock("pslogin/buttons")->setTemplate("pslogin/customer/form/login/buttons.phtml")->toHtml(); ?>
+		
+	</div>
+
+</div>

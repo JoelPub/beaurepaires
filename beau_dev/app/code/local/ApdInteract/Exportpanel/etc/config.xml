@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Exportpanel>
+      <version>0.1.0</version>
+    </ApdInteract_Exportpanel>
+  </modules>
+  <global>
+    <helpers>
+      <exportpanel>
+        <class>ApdInteract_Exportpanel_Helper</class>
+      </exportpanel>
+    </helpers>
+	<blocks>
+	  <exportpanel>
+		<class>ApdInteract_Exportpanel_Block</class>
+	  </exportpanel>
+	</blocks>
+  </global>
+  <admin>
+	<routers>
+	  <exportpanel>
+	    <use>admin</use>
+		<args>
+		  <module>ApdInteract_Exportpanel</module>
+		  <frontName>admin_exportpanel</frontName>
+		</args>
+	  </exportpanel>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+		<system>
+			<children>
+				<exportpanel module="exportpanel">
+					<title>Export Panel</title>
+					<sort_order>5</sort_order>
+					<action>admin_exportpanel/adminhtml_exportpanelbackend</action>
+				</exportpanel>
+			</children>
+		</system>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<exportpanel translate="title" module="exportpanel">
+			  <title>Exportpanel</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <exportpanelbackend translate="title">
+			<title>Backend Page Title</title>
+		  </exportpanelbackend>
+			  </children>
+			</exportpanel>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<exportpanel>
+		  <file>exportpanel.xml</file>
+		</exportpanel>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

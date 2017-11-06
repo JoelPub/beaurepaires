@@ -1,0 +1,106 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+$_product = $this->getProduct();
+$_resource = $_product->getResource();
+
+$catId = 0;
+$catName = "tyres"; //random default
+if(Mage::registry('current_category'))
+{
+    // get the id, or by category name
+    $catId = Mage::registry('current_category')->getId();
+    $catName = strtolower(Mage::registry('current_category')->getName());
+}
+//
+//
+//$attributes_array = array('consumer_categorization', 'commercial_categorization','battery_categorization',
+//		'application','sports_performance_handling','durability','mileage','even_ware','handling','superior_braking_grip',
+//		'quiet_comfort','fuel_saver','performance','cycling');
+//$attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+
+
+$productBarRating = array();
+$productBarRatingText = array();
+$productIcon = array();
+
+if ($catName == "tyres" || $catName == "batteries"):  // save some cpu power...
+
+    if ($catName == "tyres") {
+        $attributes_array = array('consumer_categorization', 'commercial_categorization','battery_categorization',
+            'application','sports_performance_handling','durability','mileage','even_ware','handling','superior_braking_grip',
+            'quiet_comfort','fuel_saver','performance','cycling','grip','slow_wear','off_road','value',
+        	'fuel_economy','grip_performance','handling_performance','off_road_performance','wet_performance','low_noise',
+            'comfort_performance','sports_performance','braking_performance','even_wear','dry_performance','wet_dry_performance',
+         	'all_terrain','winter','original_equipment','run_on_flat','traction','cornering_performance','road_hazard_resistant','slow_wear'
+        );
+
+        $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+        $attributes = Mage::helper('apdinteract_hierarchy')->getSortedAttributes($attribute_values, $_product);
+        $type = 'tw';
+    }
+
+    if ($catName == "batteries") {
+        $attributes = array('durability_battery', 'performance_battery', 'value_battery', 'cycling_battery');
+        $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes);
+        $type = 'b';
+    }
+
+    if(isset($attributes)) {
+        foreach ($attributes as $attribute){
+
+            if ($attribute_values[$attribute] > 0) {
+                // $productBarRating[] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml(Mage::helper('apdinteract_catalog')->getRatingScore($attribute,$attribute_values) * 33.3);
+                $productBarRatingText[] = Mage::helper('apdinteract_hierarchy')->getAttributeText($attribute);
+                $code[] = Mage::helper('apdinteract_hierarchy')->getAttributeCode($attribute);
+                $productIcon[] = Mage::helper('apdinteract_hierarchy')->getAttributeIcon($attribute);
+            }
+        }
+    }
+
+?>
+<ul class="no-bullet product-features small-block-grid-4 large-block-grid-4" data-equalizer>
+<?php for ($i = 0; $i<4; $i++):
+    if(isset($productBarRatingText[$i])) $text = $productBarRatingText[$i]; else $text="";?>
+<?php if(isset($productIcon[$i])) $tooltipMessage = Mage::helper('apdwidgets')->getAltforIcon($code[$i],$type); else $tooltipMessage="";
+    if($tooltipMessage !='') :?>
+    <li>
+        <?php $icon[] = str_replace('2x','lg',$productIcon[$i])?>
+        <i class="sprite icons-large <?php  if(isset($productIcon[$i])) echo $icon[$i];?>" data-tooltip aria-haspopup="true" class="has-tip" title="<?php echo $tooltipMessage ?>" aria-hidden="true"><span class="show-for-sr"><?php echo $text; ?></span></i>
+        <p data-equalizer-watch><?php echo $text ?></p>
+    </li>
+    <?php endif;?>
+<?php endfor; ?>
+</ul>
+<?php endif; ?>

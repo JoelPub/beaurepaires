@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Headings>
+      <version>0.1.0</version>
+    </ApdInteract_Headings>
+  </modules>
+  <default>
+  	<headings>
+  		<headings>
+  			<apdinteract_review>Order Review</apdinteract_review>
+  			<apdinteract_payment>Payment Method</apdinteract_payment>
+  			<apdinteract_account>Account Information</apdinteract_account>
+  			<apdinteract_checkout>Checkout Method</apdinteract_checkout>
+  			<apdinteract_serve>Help us serve you quicker</apdinteract_serve>
+  			<apdinteract_tooltip>This is a tooltip</apdinteract_tooltip>
+  			<apdinteract_blurb>By providing us with extra information, we can better serve you when you arrive in your chosen Beaurepaires store!</apdinteract_blurb>
+  		</headings>
+  	</headings>
+  </default>
+  <global>
+  		<blocks>
+            <checkout>
+                <rewrite>                   
+                    <onepage_login>ApdInteract_Headings_Block_Onepage_Login</onepage_login>                    
+                    <onepage_billing>ApdInteract_Headings_Block_Onepage_Billing</onepage_billing>                    
+                    <onepage_payment>ApdInteract_Headings_Block_Onepage_Payment</onepage_payment>                    
+                    <onepage_review>ApdInteract_Headings_Block_Onepage_Review</onepage_review>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <headings>
+                <class>ApdInteract_Headings_Helper</class>
+            </headings>
+        </helpers>
+    </global>
+    <default>
+        <headings>
+            <headings>
+                <apdinteract_tooltip_fleet_number>Fleet Number</apdinteract_tooltip_fleet_number>
+                <apdinteract_tooltip_speedometer_hub>Speedometer/Hub</apdinteract_tooltip_speedometer_hub>
+            </headings>
+        </headings>
+    </default>
+</config> 

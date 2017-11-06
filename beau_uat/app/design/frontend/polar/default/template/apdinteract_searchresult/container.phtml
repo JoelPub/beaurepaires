@@ -1,0 +1,27 @@
+<?php if ($this->getTitle()) : ?>
+    <div class="page-title category-title">
+        <!--<h1><?php //echo $this->getTitle() ?> for '<?php echo Mage::getSingleton('core/session')->getQueryF()?>'</h1>-->
+    </div>
+<?php endif;?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml();?>
+
+<script language="javascript">
+  
+	jQuery( document ).ready(function() {		
+		jQuery(".category-products a").attr('href', function(i, h) {
+		     return h + (h.indexOf('?') != -1 ? "?size=1" : "?size=1");
+		});
+		
+	
+		
+		jQuery(".btn-cart").attr('onclick', function(i, h) {
+				
+			var n = h.length;
+			var x = parseInt(n);
+			var res = h.substr(0,x-2);
+			res = res + "?size=1')";	
+		    return res;
+		});
+	});
+</script>

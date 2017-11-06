@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+  <global>
+    <models>
+        <apdinteractthemecontroller>
+             <class>ApdInteract_Admintheme_Controller</class>
+        </apdinteractthemecontroller>
+    </models>
+    <events>
+      <adminhtml_controller_action_predispatch_start>
+        <observers>
+          <apdinteract_themeoverride_observer>
+            <type>singleton</type>
+            <class>ApdInteract_Admintheme_Controller_Observer</class>
+            <method>overrideTheme</method>
+          </apdinteract_themeoverride_observer>
+        </observers>
+      </adminhtml_controller_action_predispatch_start>      
+    </events>
+  </global>
+  
+</config>

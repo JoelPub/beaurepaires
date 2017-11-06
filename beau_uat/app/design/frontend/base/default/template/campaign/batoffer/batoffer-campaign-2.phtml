@@ -1,0 +1,41 @@
+<?php
+if (Mage::getSingleton('core/session')->getSeriesF() != '')
+    $json_tyre = Mage::helper('searchtyre')->getCacheTyreData(Mage::getSingleton('core/session')->getSeriesF());
+?>
+
+<div class="field">
+    <span class="icon icon-small-user"></span>
+    <input name="name" type="text" placeholder="NAME *" required="" pattern=^[a-zA-Z\s]*$ data-invalid="" aria-invalid=true>
+    <small class=error>This is a required field. Please use letters only (a-z or A-Z) in this field. </small>
+</div>
+<div class="field">
+    <span class="icon icon-small-envelope"></span>
+    <input name="email" type="email" value="" name="email" placeholder="EMAIL *" required="" data-invalid="" aria-invalid=true>
+    <small class=error>This is a required field - Please enter a valid email address</small>
+</div>
+<div class="field">
+    <span class="icon icon-small-phone"></span>
+    <input type=text value="" name="mobile" placeholder="PHONE NO *" required="" pattern=[0-9]+ data-invalid="" aria-invalid=true>
+    <small class=error>This is a required field. Please enter valid Phone.</small>
+</div>
+<div class="field post-field">
+    <span class="icon icon-small-map-marker"></span>
+    <input type="text" value="" name="postcode_fake" id="booking-store" class="store-finder render-finder ui-autocomplete-input" placeholder="SUBURB/POSTCODE *">
+    <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required>
+    <small class=error>Please enter valid postcode</small>
+    <div class=load-indicator><i class="fa fa-refresh fa-spin"></i></div>    
+</div>
+<div class="field">
+    <span class="icon icon-small-car"></span>
+    <input type=text value="" value="<?php echo (isset($json_tyre->Make->Name) ? $json_tyre->Make->Name : '') ?>" name="vehicle_make" placeholder="VEHICLE MAKE *" pattern="vehicle_make" required="" data-invalid="" aria-invalid="true" required pattern="^[a-zA-Z0-9]+$">
+    <small class=error>This is a required field.</small>
+</div>
+<div class="field">
+    <span class="icon icon-small-car"></span>
+    <input type=text name="vehicle_model" value="" value="<?php echo (isset($json_tyre->Model->Name) ? $json_tyre->Model->Name : '') ?>" placeholder="VEHICLE MODEL *" pattern="vehicle_model" required="" data-invalid="" aria-invalid="true" required pattern="^[a-zA-Z0-9]+$">
+    <small class="error">This is a required field.</small>
+</div>
+
+<div class="button-image-container">
+    <button type="submit" class="button large">GET INSTANT QUOTE</button>
+</div>

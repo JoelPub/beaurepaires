@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * StoreFront Silverpop Transaction Email Magento Extension
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to commercial source code license 
+ * of StoreFront Consulting, Inc.
+ *
+ * @category	SFC
+ * @package    	SFC_SilverpopTransactional
+ * @website 	http://www.storefrontconsulting.com/
+ * @copyright 	Copyright (C) 2009-2013 StoreFront Consulting, Inc. All Rights Reserved.
+ */
+-->
+<config>
+	<tabs>
+		<silverpop translate="label">
+			<label>Silverpop Integration</label>
+			<sort_order>99999</sort_order>
+		</silverpop>
+	</tabs>
+	<sections>
+		<silverpop translate="label">
+			<label>Silverpop Integration Options</label>
+			<tab>silverpop</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>1000</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<smtp translate="label">
+					<label>TransactSMTP Connection</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled>
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>required-entry</validate>
+							<comment><![CDATA[Use Silverpop TransactSMTP for outgoing transactional emails.<br/><span style="color:red">Make sure your Silverpop TransactSMTP is configured properly before enabling, to prevent loss of customer emails.</span>]]></comment>
+						</enabled>
+						<server>
+							<label>Server</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>required-entry</validate>
+							<comment>Your Silverpop TransactSMTP server address (transact[x].silverpop.com)</comment>
+						</server>
+						<x_header>
+							<label>X-Header</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Your X-Header used to identify transactional message group.</comment>
+						</x_header>
+						<max_retries>
+							<label>Max Retries</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+							<validate>required-entry</validate>
+							<comment>Maximum send attempts in queued sending.</comment>
+						</max_retries>
+						<schedule>
+							<label>Schedule</label>
+							<frontend_type>select</frontend_type>
+							<source_model>SFC_SilverpopTransactional_Block_Adminhtml_System_Config_Form_Field_Schedule</source_model>
+							<backend_model>silverpoptransactional/system_config_backend_cron</backend_model>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+							<comment>The schedule for email sending.</comment>
+						</schedule>
+						<pagesize>
+							<label>Send Count</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+							<validate>required-entry</validate>
+							<comment>Number of emails to send during automatic batch.</comment>
+						</pagesize>
+					</fields>
+				</smtp>
+				<errors translate="label">
+					<label>Errors</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>7</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<transactemails>
+							<label>Transactional Emails</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>The email addresses you wish to email when there is an error in TransactSMTP. Enter one per line.</comment>
+						</transactemails>
+					</fields>
+				</errors>
+			</groups>
+		</silverpop>
+	</sections>
+</config>

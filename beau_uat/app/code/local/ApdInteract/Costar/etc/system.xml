@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<config>    
+    <sections>
+        <apdinteract_costar  translate="label" module="costar">                    
+            <label>Costar</label>
+            <tab>social_media</tab>            
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <apdinteract_costar_api translate="label">
+                <label>Costar API Integration</label>
+                <sort_order>0</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                    <fields>
+                        <costar_api_enabled translate="label">
+                            <label>Enable Costar API</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </costar_api_enabled>
+                        <costar_api_url translate="label">
+                            <label>Costar API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "https://167.232.234.123"</comment>
+                        </costar_api_url>
+                        <costar_api_applicationid translate="label">
+                            <label>Application Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_api_applicationid>
+                        <costar_api_secret_key translate="label">
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_api_secret_key>
+                        <costar_api_timeout translate="label">
+                            <label>API Call Timeout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time in Seconds - Default 10 seconds</comment>
+                        </costar_api_timeout>                       
+                        <costar_api_debug_mode translate="label">
+                            <label>Enable Debugging: </label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Log Path : var/log/costarapi.log</comment>
+                        </costar_api_debug_mode>
+                    </fields>
+                </apdinteract_costar_api>
+                <apdinteract_costar_sftp translate="label">
+                    <label>Import Settings</label>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <costar_stock_ftp_address translate="label">
+                            <label>FTP Address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_stock_ftp_address>
+                        <costar_stock_user translate="label">
+                            <label>FTP Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_stock_user>
+                        <costar_stock_password translate="label">
+                            <label>FTP Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_stock_password>
+                        <costar_stock_directory translate="label">
+                            <label>FTP Directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar_stock_directory>
+                        <costar_debugging_flag translate="label">
+                            <label>Enable Debugging: </label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </costar_debugging_flag>
+                        
+                        
+                    </fields>
+                </apdinteract_costar_sftp>
+                <apdinteract_costar_emails translate="label">
+                    <label>Email Notification Settings</label>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <costar_failed_email translate="label">
+                            <label>Import Failure Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Email address to send alert for api timeout (separated by comma)</comment>
+                        </costar_failed_email>
+                        <costar_rejected_email translate="label">
+                            <label>Costar Rejected Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Email address to send alert for rejected orders (separated by comma)</comment>
+                        </costar_rejected_email>
+                         <costar_api_email translate="label">
+                            <label>API Call Timeout Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Use to send email when connection time out</comment>
+                        </costar_api_email>
+                    </fields>
+                </apdinteract_costar_emails>
+                <apdinteract_costar_discount_code translate="label">
+                    <label>Discount API Codes</label>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <material_code translate="label">
+                            <label>Discount API Material Code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default Material Code is 'DI_0083016'</comment>
+                        </material_code>
+                    </fields>
+                </apdinteract_costar_discount_code>
+            </groups>
+        </apdinteract_costar>
+        <apimonitoring  translate="label" module="costar">
+            <label>Api Provider Monitoring</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <costarapi translate="label">
+                    <label>Costar API Monitoring</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <api_enabled translate="label">
+                            <label>Enable Costar API Monitoring</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </api_enabled>
+                        <api_url translate="label">
+                            <label>Costar API URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "https://167.232.234.123"</comment>
+                        </api_url>
+                        <api_applicationid translate="label">
+                            <label>Application Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_applicationid>
+                        <api_secret_key translate="label">
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_secret_key>
+                        <api_timeout translate="label">
+                            <label>API Timeout</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time in seconds - Default 10 seconds</comment>
+                        </api_timeout>
+                        <email_interval_time>
+                            <label>Email Inteval Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time in minute - Default 60 minutes</comment>
+                        </email_interval_time>
+                        <email_trigger_time>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_trigger_time>
+
+                    </fields>
+                </costarapi>
+            </groups>
+        </apimonitoring>
+    </sections>
+</config>

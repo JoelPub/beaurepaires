@@ -1,0 +1,36 @@
+<?php $helper = Mage::helper('apdinteract_customer'); ?>
+<div class="row">
+    <div class="large-9 small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1 class="db-page-title"><?php echo $this->__('Vehicle Details') ?></h1>
+                <div class="sub-margin-bottom">
+                    <a href="<?php echo Mage::getUrl('',array('_secure'=>true)) ?>customer/vehicle/new"><button class="button radius" >Add new Vehicles</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns">
+                <?php
+                $collectionVehicle = $helper->vehicleCollection();
+                $counter = 1;
+
+                if($collectionVehicle->getSize() > 0): ?>
+                    <?php foreach($collectionVehicle as $item):
+                        $details = json_decode($item->getDetails(),true);
+                        ?>
+                        <div class="sub-margin-bottom">
+                                <div class=""><span class=""><?php echo $counter++ ?>. </span><strong><?php echo $details['make-tyres'] . " " .  $details['model-tyres'] ?></strong></div>
+                                <div><?php echo $this->__('Registration: ') . $item->getRegistration() ?></div>
+                                <div><?php echo $details['year-tyres']  . " " . $details['series-tyres'] ?></div>
+                                <div>
+                                    <div><a href="<?php echo Mage::getUrl('',array('_secure'=>true)) ?>customer/vehicle/edit?vehicle_id=<?php echo $item->getVehicleId() ?>"><?php echo $this->__('Edit Vehicle') ?></a> | <a href="<?php echo Mage::getUrl('',array('_secure'=>true)) ?>customer/vehicle/delete?vehicle_id=<?php echo $item->getVehicleId() ?>"><?php echo $this->__('Delete Vehicle') ?></a></div>
+                                </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif ?>
+            </div>
+        </div>
+
+    </div>
+</div>

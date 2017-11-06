@@ -1,0 +1,61 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2014 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 5.7
+ * @since        Class available since Release 1.0
+ */
+	
+	$required		= $this->getIsRequired();
+	$validation_type = $this->getValidationType();
+	
+	
+	$input_class = ' input-text ';
+	$label_class = '';
+	
+	if($required){
+		
+		if(!$validation_type){
+			$input_class .= 'required-entry absolute-advice'.' ';
+		}else{
+			$input_class .= $validation_type.' ';
+		}
+		
+		$label_class .= ' required ';
+		
+	}
+
+	$customer = Mage::getSingleton('customer/session')->getCustomer();
+	$billingCurrent = Mage::getSingleton('gomage_checkout/type_onestep')->getQuote()->getBillingAddress();
+	$shippingCurrent = Mage::getSingleton('gomage_checkout/type_onestep')->getQuote()->getShippingAddress();
+ 
+?>
+<label for="<?php echo $this->getPrefix();?>_street1" class="<?php echo $label_class;?>"><?php if($required):?><em>*</em><?php endif;?><?php echo $this->__('Address') ?></label>
+<?php if($this->getPrefix() == 'shipping'):?>
+	<span style="float: left;padding-bottom: 10px;font-size: 11.5px;"><i><?php echo $this->__("We deliver by courier, so please give us a detailed physical delivery address . Sorry, but we don't deliver to Post Office Boxes"); ?></i></span><br /><br />
+<?php endif; ?>
+<div class="input-box">
+	<input type="text" title="<?php echo $this->__('Street Address') ?>" name="<?php echo $this->getPrefix();?>[street][]" id="<?php echo $this->getPrefix();?>_street1" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(1)) ?>" class="<?php echo $input_class;?>" />
+</div>
+
+<label for="<?php echo $this->getPrefix();?>_street1" class="<?php echo $label_class;?>"><?php if($required):?><em>*</em><?php endif;?><?php echo $this->__('Address2') ?></label>
+<?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
+<div class="input-box">
+	<input type="text" title="<?php echo $this->__('Street Address %s', $_i) ?>" name="<?php echo $this->getPrefix();?>[street][]" id="<?php echo $this->getPrefix();?>_street<?php echo $_i?>" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" class="input-text" />
+</div>
+<?php endfor;?>
+
+<label for="<?php echo $this->getPrefix();?>_suburb" class="<?php echo $label_class;?>"><?php if($required):?><em>*</em><?php endif;?><?php echo $this->__('Suburb') ?></label>
+
+<?php if($this->getPrefix() == 'billing'):?>
+	<input type="text" title="<?php echo $this->__('Suburb') ?>" name="<?php echo $this->getPrefix();?>[address_suburb]" id="<?php echo $this->getPrefix();?>_address_suburb" value="<?php echo $billingCurrent ? @$billingCurrent->getAddressSuburb() : '' ?>" class="<?php echo $input_class ?>" />
+<?php endif; ?>
+
+<?php if($this->getPrefix() == 'shipping'):?>
+	<input type="text" title="<?php echo $this->__('Suburb') ?>" name="<?php echo $this->getPrefix();?>[address_suburb]" id="<?php echo $this->getPrefix();?>_address_suburb" value="<?php echo $shippingCurrent ? @$shippingCurrent->getAddressSuburb() : '' ?>" class="<?php echo $input_class ?>" />
+<?php endif; ?>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<ApdInteract_Salesforce>
+			<version>1.1.0</version>
+		</ApdInteract_Salesforce>
+	</modules>updates
+	<global>
+		<models>
+			<!--This is the model alias referred to in install-0.0.1.php. -->
+			<apdinteract_salesforce>
+				<!--This tells Magento where to find models for this module. -->
+				<class>ApdInteract_Salesforce_Model</class>
+				<!--This tells Magento where to find resource materials for this module. -->
+				<resourceModel>apdinteract_salesforce_resource</resourceModel>
+			</apdinteract_salesforce>
+			<!--This alias must match the <resourceModel/> value above. -->
+			<apdinteract_salesforce_resource>
+				<!--This tells Magento where to find resource models for this module. -->
+				<class>ApdInteract_Salesforce_Model_Resource</class>
+				<entities>
+					<!--This is the table alias referred to in install-0.0.1.php. -->
+					<dictionary>
+						<!--This is the name of the database table itself. -->
+						<table>apdinteract_salesforce_dictionary</table>
+					</dictionary>
+                                        <updates>
+						<!--This is the name of the database table itself. -->
+						<table>apdinteract_salesforce_updates</table>
+					</updates>
+				</entities>
+			</apdinteract_salesforce_resource>
+		</models>
+		<blocks>
+			<apdinteract_salesforce>
+				<class>ApdInteract_Salesforce_Block</class>
+			</apdinteract_salesforce>
+		</blocks>
+		<helpers>
+			<apdinteract_salesforce>
+				<class>ApdInteract_Salesforce_Helper</class>
+			</apdinteract_salesforce>
+		</helpers>
+		<resources>
+			<!--This must match our folder name in the module sql folder. -->
+			<apdinteract_salesforce_setup>
+				<setup>
+					<!--This defines which module the setup scripts in this location belong 
+						to -->
+					<module>ApdInteract_Salesforce</module>
+					<!--In each setup script, this value determines the class of $this. -->
+					<class>Mage_Core_Model_Resource_Setup</class>
+				</setup>
+				<!--This is relevant only if you have multiple database connections. -->
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</apdinteract_salesforce_setup>
+		</resources>
+	</global>
+	<default>
+		<salesforce>
+			<rest>
+				<login>https://login.salesforce.com</login>
+				<instance>https://ap2.salesforce.com</instance>
+				<redirect>http://localhost</redirect>
+				<consumerkey>3MVG9ZL0ppGP5UrAgx7A3XJ2zuQRtngEPu8SG5GWEM81b8RnrlMujBLWGWHd5M_KRop81RStHA188NoDUl95D
+				</consumerkey>
+				<consumersecret>7776685763891367773</consumersecret>
+			</rest>
+		</salesforce>
+	</default>
+	<frontend>
+		<routers> <!-- declare a router -->
+			<salesforce>
+				<use>standard</use>
+				<args>
+					<module>ApdInteract_Salesforce</module>
+					<frontName>salesforce</frontName>
+				</args>
+			</salesforce>
+		</routers>
+		<layout>
+			<updates>
+				<apdinteract_salesforce>
+					<file>apdinteract_salesforce.xml</file>
+				</apdinteract_salesforce>
+			</updates>
+		</layout>
+	</frontend>
+	<adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<salesforce>
+											<title>Salesforce Integration</title>
+										</salesforce>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+</config>

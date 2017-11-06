@@ -1,0 +1,40 @@
+<?php
+for ($i = 1; $i <= 6; $i++):
+    $positionIdentifier = "home_block" . $i;
+    $blocks = Mage::getModel('dynamicblock/dynamicblock')->getAllBlocksPerPosition($positionIdentifier);
+    $count = $blocks->count();
+    
+    if ($count > 0 && $count < 3): // 1 and 2 column content
+?>
+<!-- start: <?php echo $count ?> column static block -->
+<div class="row full-width collapse static-block-column">
+    <?php 
+    foreach ($blocks as $block):
+        $identifier = $block->getIdentifier(); $ar_identifer = explode("_", $identifier); $col = $ar_identifer = $ar_identifer[2];
+    ?>
+    <div class="small-12 medium-<?php echo (12/$count) ?> column full-columns">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+    </div>
+    <?php endforeach; ?>
+</div>
+<!-- end: <?php echo $count ?> column static block -->
+<?php
+    elseif ($count > 2): // 3 and 4 column content (has slider)
+?>
+<!-- start: <?php echo $count ?> column static block -->
+<div class="row">
+    <div class="static-block-column static-block-slider" data-column-count="<?php echo $count ?>" data-equalizer>
+       <?php 
+       foreach ($blocks as $block):
+            $identifier = $block->getIdentifier(); $ar_identifer = explode("_", $identifier); $col = $ar_identifer = $ar_identifer[2];
+        ?>
+        <div class="small-<?php echo (12/$count) ?> columns">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<!-- end: <?php echo $count ?> column static block -->
+<?php
+    endif;
+endfor;

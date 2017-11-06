@@ -1,0 +1,92 @@
+//Variable
+
+/////// Typography /////////////
+// Home Slideshow Header
+.slick-slide {
+  .title {
+    color: $white;
+    font-size: 38px;
+	@media only screen and (max-width: 45.7857em) {
+		font-size: $base-font + 16;
+		line-height: $base-font + 16;
+	}
+  }
+}
+
+// A tags
+a {
+	&.attenuate {
+		color: $oil;
+		text-decoration: underline;
+
+		&:hover {
+			color: darken($oil, 30%);
+		}
+	}
+}
+
+// Section Headline
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $colour-mineshaft;
+  font-family: $font-family-fe-sinclair-medium;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 48px;
+}
+
+h2 {
+  font-size: 38px;
+  line-height: 38px;
+}
+
+h3 {
+  font-size: 28px;
+  line-height: 28px;
+
+  &.section-title {
+	border-bottom: 1px solid $primary-gray-border;
+	font-family: $font-family-fe-sinclair-medium;
+	font-size: 21px;
+	margin-bottom: 20px;
+	padding-bottom: 9px;
+	text-transform: uppercase;
+
+	.sub {
+		display: block;
+		font-size: 12px;
+		margin-top: 6px;
+		font-family: $font-family-sans-serif;
+		text-transform: none;
+	}
+  }
+}
+
+html, body, p{
+	color: $colour-scorpion;
+	font-family: $font-family-normal;
+	font-size: 15px;
+	line-height: 22px;
+}
+
+strong {
+  color: $colour-mineshaft;
+}
+
+// Product Detail Title
+.product-title {
+  @include font-attributes-bold($base-font + 14,$base-font + 12 ,$colour-mineshaft);
+  text-transform: uppercase;
+}
+
+// colour text
+.text-orange {
+	color: $orange-count-color;
+}

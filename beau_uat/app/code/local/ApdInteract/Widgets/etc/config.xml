@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Widgets>
+      <version>0.1.0</version>
+    </ApdInteract_Widgets>
+  </modules>
+  <global>
+    <blocks>
+      <apdwidgets>
+        <class>ApdInteract_Widgets_Block</class>
+      </apdwidgets>
+    </blocks>
+    <helpers>
+      <apdwidgets>
+        <class>ApdInteract_Widgets_Helper</class>
+      </apdwidgets>
+    </helpers>
+  </global>
+</config>

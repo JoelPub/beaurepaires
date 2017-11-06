@@ -1,0 +1,122 @@
+// --------------------------
+// Variables
+$smoke: #ccc;
+
+// Top Menu
+
+.top-bar-section{
+  @media #{$medium-up} {
+    float: right;
+  }
+
+  > ul{
+    > li{
+      margin-right: 20px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  .dropdown{
+    @media #{$medium-up} {
+      border-left: 1px solid $smoke;
+      border-right: 1px solid $smoke;
+      border-bottom: 1px solid $smoke;
+    }
+    li{
+      border-bottom: 1px solid $smoke;
+      &:last-child{border-bottom: 0;}
+      a{
+        position:relative;
+        font-size: 14px;
+
+        &:after{
+         // content: "\f105";
+        }
+      }
+    }
+  }
+
+  .dropdown.level1{
+    @media #{$medium-up}{
+      border-top: 1px solid #bfbfbf;
+    }
+  }
+
+  .has-dropdown > a:after{
+    @media #{$medium-up} { 
+      border: 0;
+      content: "\f0d7";
+      font-family: fontawesome;
+      margin-right: 20px;
+      top: 3px;
+    }
+
+    border-color: transparent transparent transparent $anchor-font-color;
+  }
+}
+
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button){
+  @media #{$medium-up}{
+    padding: 0 20px 0 25px;
+  }
+}
+
+.top-bar-section .has-dropdown .dropdown li.has-dropdown > a::after{
+   @media #{$medium-up} {
+    content: "";
+    right: auto;
+  }
+}
+.top-bar-section .has-dropdown li a:before{
+   @media #{$medium-up} {
+    color: $anchor-font-color;
+    content: "\f054";
+    font-family: fontawesome;
+    font-size: 10px;
+    left: 15px;
+    margin-right: 3px;
+    padding-left: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    right: auto;
+  }
+}
+
+.top-bar-section li:not(.has-form) a:not(.button){
+  @media #{$medium-up}{
+    height: 45px;
+    line-height: 45px;
+  }
+}
+
+
+.top-bar{
+  .toggle-topbar{
+    margin-left:0;
+    &:hover{
+      background: $anchor-font-color;
+    }
+    span{
+      i{color: white;}
+    }
+  }
+}
+.expanded{
+  .top-bar-section{
+    li{
+      border-bottom: 1px solid rgba(white, .10);
+      &:last-child{ 
+        border-bottom: 0;
+      }
+      a{ 
+        font-size: 16px;
+      }
+      i{
+        color: $anchor-font-color;
+      }
+    }
+  }
+}

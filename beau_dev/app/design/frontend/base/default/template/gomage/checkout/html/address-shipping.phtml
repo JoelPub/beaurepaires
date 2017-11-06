@@ -1,0 +1,113 @@
+<?php
+ /**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2014 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 5.7
+ * @since        Class available since Release 1.0
+ */
+?>
+
+<div class="shipping-address" id="gcheckout-shipping-address" <?php if($this->asBilling()):?>style="display:none;"<?php endif;?>>
+
+  <h2 class="glc-title"><span class="glc-number">2</span><strong><?php echo $this->__('Shipping address');?></strong></h2>
+  
+	<div class="glc-col">
+  
+    <ul class="form-list">
+		<?php if ($this->customerHasAddresses()): ?>
+	        <li class="wide">
+	            <label for="billing-address-select"><?php echo $this->__('Select a shipping address') ?></label>
+	            <div class="input-box">
+	                <?php echo $this->getAddressesHtmlSelect('shipping') ?>
+	            </div>
+	        </li>
+	    <?php endif; ?>
+        <li id="shipping-new-address-form">
+            <fieldset>
+                <ul>
+                    <li class="fields"><?php echo $this->getLayout()->createBlock('gomage_checkout/onepage_name')->setObject($this->getAddress())->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
+					<?php echo $this->getSortedFields();?>
+
+                    <li>
+                        <div class="one-field">
+                            <label for="shipping:address_addressin" class="required"><em>*</em><?php echo $this->__('This address is in') ?></label><br />
+                            <div class="input-box">
+                            <?php
+                            $defValue = $this->getAddress()->getAddressAddressin();
+                            $options = Mage::getModel('billinginformation/address_attribute_source_addressin')
+                                ->getAllOptions();
+                            $select = $this->getLayout()->createBlock('core/html_select')
+                                ->setName('shipping[address_addressin]')
+                                ->setId('shipping_address_addressin')
+                                ->setTitle(Mage::helper('checkout')->__('This address is in'))
+                                ->setClass('validate-select required-entry')
+                                ->setValue($defValue)
+                                ->setExtraParams('onchange="checkout.submit(checkout.getFormData(), \'get_methods\')"')
+                                ->setOptions($options);
+                            if (isset($type) && $type == 'shipping') {
+                                $select->setExtraParams('onchange="if(window.shipping)shipping.setSameAsBilling(false);"');
+                            }
+                            echo $select->getHtml();
+
+                            ?>
+                            </div>
+                        </div>
+
+
+                    </li>
+
+<!--                    <li>-->
+<!--                        <div class="one-field" style="margin-top: 5px;margin-bottom: 5px;">-->
+<!--                            <label for="shipping_delivery_notes">--><?php //echo  $this->__('Delivery Instructions') ?><!--</label>-->
+<!---->
+<!--                            --><?php //$shippingCurrent = Mage::getSingleton('gomage_checkout/type_onestep')->getQuote()->getShippingAddress(); ?>
+<!---->
+<!--                            <input type="text" title="--><?php //echo $this->__('Delivery Instructions') ?><!--" name="shipping[delivery_notes]" id="shipping_delivery_notes" value="--><?php //echo @$shippingCurrent->getDeliveryNotes() ?><!--" class="input-text" />-->
+<!--                        </div>-->
+<!--                    </li>-->
+
+                    <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat')->setTemplate('gomage/checkout/html/taxvat.phtml') ?>
+                    <?php if ($_taxvat->isEnabled()): ?>
+                        <?php
+
+                            $_taxvat->setIsValidVat($this->getAddress()->getIsValidVat());
+
+                            $taxvat_value = '';
+
+                            if ($this->getAddress()->getTaxvat()){
+                                $taxvat_value = $this->getAddress()->getTaxvat();
+                            } elseif ($this->getAddress()->getVatId()){
+                                $taxvat_value = $this->getAddress()->getVatId();
+                            } elseif ($this->getQuote()->getCustomerTaxvat()){
+                                $taxvat_value = $this->getQuote()->getCustomerTaxvat();
+                            }
+
+                        ?>
+                        <li>
+                            <?php echo $_taxvat->setTaxvat($taxvat_value)->setFieldIdFormat('shipping_%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?>
+                        </li>
+                    <?php endif ?>
+                </ul>
+            </fieldset>
+        </li>
+		<?php if ($this->isCustomerLoggedIn()):?>
+        <li id="shipping_address_book" class="control" style="display:block">
+            <input type="checkbox" name="shipping[save_in_address_book]" id="shipping_save_in_address_book" value="1" title="<?php echo  $this->__('Save in address book') ?>" class="checkbox" /><label for="shipping_save_in_address_book"><?php echo  $this->__('Save in address book') ?></label>
+        </li>
+	    <?php endif; ?>
+    </ul>
+    
+	</div>
+  
+</div>
+
+<script>
+    document.observe("dom:loaded", function() {
+        jQuery("select, :radio ,:checkbox").uniform();
+    });
+</script>

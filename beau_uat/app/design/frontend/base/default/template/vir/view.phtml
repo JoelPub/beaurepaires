@@ -1,0 +1,14 @@
+<?php $image_array = $this->loadImage();?>
+<?php if($image_array['type']!='sketch_container'):?>
+<div id="custapprsignature_canvas" style="width: 700px"></div>
+<input id="custapprsignatureimage" name="orderData[custapprsignatureimage]" type="hidden" value="<?php echo $image_array['img']?>" />
+
+<script>
+    var customerSignature = new signatureHelper();
+    customerSignature.$sigdiv = jQuery("#custapprsignature_canvas");
+    customerSignature.$data = jQuery("#custapprsignatureimage");    
+    customerSignature.init();
+</script>
+<?php else:?>
+<img src="<?php echo $image_array['img']?>">    
+<?php endif;?>

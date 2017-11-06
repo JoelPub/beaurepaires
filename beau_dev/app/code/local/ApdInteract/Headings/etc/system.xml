@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>    
+    <sections>
+    
+        <headings translate="label" module="headings">
+            <label>Checkout - Headings</label>
+            <tab>apdinteract</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>91314</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <headings translate="label">
+                    <label>Checkout Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+                    <fields>
+                    	
+                        <apdinteract_checkout translate="label">
+                            <label>Checkout Method</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_checkout>
+                       <apdinteract_account translate="label">
+                            <label>Billing Information </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_account>                        
+                        
+                        <apdinteract_payment translate="label">
+                            <label>Payment Method </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_payment>
+                        
+                        <apdinteract_review translate="label">
+                            <label>Order Review </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_review>
+	                    <apdinteract_serve translate="label">
+	                        <label>Help us serve you quicker</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_serve>                        
+	                   <apdinteract_serve translate="label">
+	                        <label>Help us serve you quicker</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_serve>                        
+	                   <apdinteract_blurb translate="label">
+	                        <label>Accordion Blurb</label>
+	                        <comment></comment>
+	                        <frontend_type>textarea</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_blurb>
+	                   <apdinteract_tooltip_1 translate="label">
+	                        <label>Wheel Balance Tooltip</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_tooltip_1> 
+	                   <apdinteract_tooltip_2 translate="label">
+	                        <label>Wheel Alignment Tooltip</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_tooltip_2> 					   
+	                   <apdinteract_tooltip_3 translate="label">
+	                        <label>Car Rego Tooltip</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_tooltip_3> 
+	                   <apdinteract_tooltip_4 translate="label">
+	                        <label>Odometer Tooltip</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_tooltip_4>
+					   <apdinteract_tooltip_fleet_number translate="label">
+							<label>Fleet Number Tooltip</label>
+							<comment></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+					   </apdinteract_tooltip_fleet_number>
+					   <apdinteract_tooltip_speedometer_hub translate="label">
+							<label>Speedometer/Hub Tooltip</label>
+							<comment></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+					   </apdinteract_tooltip_speedometer_hub>
+
+
+
+
+
+
+
+
+
+
+					   
+	                   <apdinteract_createaccount_tooltip translate="label">
+	                        <label>Create Account Tooltip</label>
+	                        <comment></comment>
+	                        <frontend_type>text</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_createaccount_tooltip> 
+	                   <apdinteract_createaccount_textarea translate="label">
+	                        <label>Create Account Content</label>
+	                        <comment></comment>
+	                        <frontend_type>textarea</frontend_type>
+	                        <sort_order>5</sort_order>
+	                        <show_in_default>1</show_in_default>
+	                        <show_in_website>1</show_in_website>
+	                        <show_in_store>1</show_in_store>
+	                   </apdinteract_createaccount_textarea> 					   
+					   
+                    </fields>
+                 </headings>
+            </groups>
+            
+            
+          </headings>    
+              
+    </sections>
+</config>

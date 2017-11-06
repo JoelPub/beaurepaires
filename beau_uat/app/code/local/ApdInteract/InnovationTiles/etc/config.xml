@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_InnovationTiles>
+      <version>0.1.0</version>
+    </ApdInteract_InnovationTiles>
+  </modules>
+  <global>
+  	<models>
+      <apdinteract_innovationtiles>
+        <class>ApdInteract_InnovationTiles_Model</class>
+      </apdinteract_innovationtiles>
+    </models>
+    <helpers>
+      <apdinteract_innovationtiles>
+        <class>ApdInteract_InnovationTiles_Helper</class>
+      </apdinteract_innovationtiles>
+    </helpers>
+  </global>
+  <frontend>
+        <layout>
+            <updates>
+            	<apdinteract_innovationtiles>
+                    <file>innovation_tiles.xml</file>
+                </apdinteract_innovationtiles>
+            </updates>
+        </layout>
+  </frontend>
+  <adminhtml>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <innovationtiles>
+                                        <title>Innovation Tiles</title>
+                                    </innovationtiles>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</adminhtml>
+</config> 

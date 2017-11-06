@@ -1,0 +1,31 @@
+<?php 
+// These blocks will become the carousel
+$cms_block = Mage::Helper('dynamicblock')->getHomepageCarouselBlock();
+$blockInfo = Mage::getModel('dynamicblock/dynamicblock')->getAllBlocksPerPosition('homepage_feature'); // check if active
+?>
+
+    <!-- Promo slider -->
+    <div class="promo-slider-wrapper">
+          <?php //show if there is any active block
+            if(count($cms_block)>0) {?>
+          <!-- Promo slider -->
+          <div class="row">  
+            <div class="promo-slider" data-equalizer>
+              <?php foreach ($cms_blocks as $block_id): ?>  
+              <div class="medium-4 columns text-center">
+                  <?php $this->printCmsBlock($block_id); ?>
+              </div>
+              <?php endforeach; ?>  
+            </div>
+          </div>
+            <?php }?>
+          <!-- Featured article -->
+          <?php //show if there is any active block
+            if(count($blockInfo)>0) {?>
+          <div class="row">
+          	  <div class="homepage-feature">
+              	<?php $this->printCmsBlock('homepage_feature'); ?>
+              </div>
+          </div>
+            <?php }?>
+    </div> 

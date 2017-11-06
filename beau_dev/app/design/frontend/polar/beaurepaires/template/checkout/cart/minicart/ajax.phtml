@@ -1,0 +1,27 @@
+<?php
+$_cartQty = $this->getSummaryCount();
+if(empty($_cartQty)) {
+    $_cartQty = 0;
+}
+
+$item = array();
+$_items = Mage::getSingleton('checkout/cart')->getQuote()->getAllVisibleItems();
+?>
+<?php $countItems = count($_items); ?>
+<?php if($countItems): ?>
+    <?php foreach($_items as $_item){
+
+        $product = $_item->getProduct();
+        $thumbImg = Mage::helper('catalog/image')->init($product, 'thumbnail')->resize(50, 50);
+        
+        $item[] = array(
+            "item_id" => $_item->getId(),
+            "name"    => $product->getName(),
+            "qty"     => $_item->getQty(),
+            "img"     => (string)$thumbImg,
+            "url"     => (string)$product->getProductUrl()
+        );
+    } ?>
+<?php endif ?>
+<?php echo json_encode($item); ?>
+

@@ -1,0 +1,249 @@
+<?php
+$bookingDate = is_empty_date($vir->getData('booking_date')) ? "00/00/0000" : date('d/m/Y', strtotime($vir->getData('booking_date')));
+?>
+<div class="row">
+    <div class="col col-60"><h2>Vehicle Inspection Report</h2></div>
+    <div class="col col-40" style="margin-top: -30px;">
+        <div style="margin-bottom: 4px;"><span class="fld-inline">Created</span><span class="fld-value value orange"><?php echo $vir->getOrderdate() ?></span></div>
+        <div style="margin-bottom: 4px;"><span class="fld-inline">Time Req.</span><span class="fld-value value orange"><?php echo date('g:i a', strtotime($vir->getTimereq())) ?></span></div>
+        <div><span class="fld-inline">Invoice No.</span><span class="fld-value value orange"><?php echo $vir->getInvoiceno() ?></span></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-25">
+        <span class="fld">Booking ID</span>
+        <span class="value orange"><?php echo $vir->getData('appointmentid') ?></span>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Booking Date and Time</span>
+        <span class="value orange"><?php echo $bookingDate . ' ' . date('g:i a', strtotime($vir->getData('booking_time'))); ?></span>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Store</span>
+        <span class="value orange" style="width:300px;"><?php echo Mage::helper('apdinteract_vir')->getStoreName($vir->getData('parent_id')) ?></span>
+    </div>
+</div>
+<div class="row">
+    <h3>Customer Details</h3>
+</div>
+<div class="row">
+    <div class="col col-10 fld">Name</div>
+    <div class="col col-90 value purple"><?php echo $vir->getCustname() ?></div>
+</div>
+<div class="row">
+    <div class="col col-25 fld">Building/Street Number</div>
+    <div class="col col-25 value purple"><?php echo $vir->getCustaddress() ?></div>
+    <div class="col col-25 fld">Street</div>
+    <div class="col col-25 value purple" style="width:156px;"><?php echo $vir->getCustaddress2() ?></div>
+</div>
+<div class="row">
+    <div class="col col-25 fld">Suburb</div>
+    <div class="col col-25 value purple"><?php echo $vir->getCustsuburb() ?></div>
+    <div class="col col-25 fld">Postcode</div>
+    <div class="col col-25 value purple" style="width:156px;"><?php echo $vir->getCustpostcode() ?></div>
+</div>
+<div class="row">
+    <div class="col col-25 fld">Phone Number (Mobile / Day)</div>
+    <div class="col col-75 value purple"><?php echo $vir->getCustphonemobile() ?></div>
+</div>
+<div class="row">
+    <div class="col col-25 fld">Email</div>
+    <div class="col col-75 value purple"><?php echo $vir->getCustemail() ?></div>
+</div>
+<div class="row">
+    <div class="col col-50">
+        <span class="fld">How long since the wheels were last balanced?</span>
+        <ul class="inline">
+            <li><span class="xbox"><?php echo $vir->getLastbalance() == 0 ? 'X' : ''?></span><span class="fld">0-6 months</span></li>
+            <li><span class="xbox"><?php echo $vir->getLastbalance() == 1 ? 'X' : '' ?></span><span class="fld">6-12 months</span></li>
+            <li><span class="xbox"><?php echo $vir->getLastbalance() == 2 ? 'X' : ''?></span><span class="fld">Over 12 months</span></li>
+        </ul>
+    </div>
+    <div class="col col-50">
+        <span class="fld">How long since your last wheel alignment?</span>
+        <ul class="inline">
+            <li><span class="xbox"><?php echo $vir->getLastwheelalignment() == 0 ? 'X' : ''?></span><span class="fld">0-6 months</span></li>
+            <li><span class="xbox"><?php echo $vir->getLastwheelalignment() == 1 ? 'X' : ''?></span><span class="fld">6-12 months</span></li>
+            <li><span class="xbox"><?php echo $vir->getLastwheelalignment() == 2 ? 'X' : ''?></span><span class="fld">Over 12 months</span></li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <h3>Vehicle Details</h3>
+</div>
+<div class="row">
+    <div class="col col-25">
+       <span class="fld">Vehicle Make</span>
+       <div class="value orange"><?php echo $vir->getData('vehiclemake') ?></div>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Vehicle Year</span>
+        <div class="value orange"><?php echo $vir->getData('vehicleyear') ?></div>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Vehicle Model</span>
+        <div class="value orange"><?php echo str_replace($vir->getData('vehiclemake'), '', $vir->getData('vehiclemodel')) ?></div>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Registration No.</span>
+        <div class="value orange">N / A</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-75">
+        <span class="fld">Vehicle Series</span>
+        <div class="value orange"><?php echo $vir->getData('vehicleseries') ?></div>
+    </div>
+    <div class="col col-25">
+        <span class="fld">Odometer</span>
+        <div class="value orange"><?php echo $vir->getData('vehicleodometer') ?></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-50">
+        <div class="comment-box">Comments: <?php echo $vir->getData('vehiclecomments') ?></div>
+    </div>
+    <div class="col col-50">
+        <div class="tyre-diagram row">
+            <div class="struct">
+                <div class="tyre"><span class="name <?php echo $vir->getData('vehiclewheelLF') ? 'selected' : '' ?>">LF</span><small><?php echo $vir->getData('vehiclewheelLFtorque') ?></small></div>
+                <div class="tyre"><span class="name <?php echo $vir->getData('vehiclewheelLR') ? 'selected' : '' ?>">LR</span><small><?php echo $vir->getData('vehiclewheelLRtorque') ?></small></div>
+            </div>
+            <div class="struct" style="margin-left:80px;position:relative;">
+                <div class="symbol"></div>
+                <div class="tyre spare" style="text-align:center;">Spare</div>
+            </div>
+            <div class="struct right">
+                <div class="tyre"><span class="name <?php echo $vir->getData('vehiclewheelRF') ? 'selected' : '' ?>">RF</span><small><?php echo $vir->getData('vehiclewheelRFtorque') ?></small></div>
+                <div class="tyre"><span class="name <?php echo $vir->getData('vehiclewheelRR') ? 'selected' : '' ?>">RR</span><small><?php echo $vir->getData('vehiclewheelRRtorque') ?></small></div>
+            </div>
+        </div>
+        <div class="row small">Spare Condition: <?php echo $vir->getData('vehiclewheelSPAREtorque') ?></div>
+    </div>
+</div>
+<div class="row">
+    <?php 
+        $totalprice = 0.00; 
+        $tasks = array(
+            'Tyres' => 'workordertyres',
+            'Balances' => 'workorderbalances',
+            'Alignment' => 'workorderalign',
+            'Wheels' => 'workorderwheels',
+            'Battery Report' => 'workorderbatreport',
+            'Brakes' => 'workorderbrakes',
+            'Other' => 'workorderother',
+            'Puncture Repair' => 'workorderpuncture',
+            'Road Hazard Warranty' => 'road_hazard_warranty_'
+        );
+    ?>
+    <h3> Quote/Work Order</h3>
+    <table class="work-order">
+        <thead>
+            <tr>
+                <th class="hd">Details of work to be performed</th>
+                <th class="hd" align="center">Qty</th>
+                <th class="hd" align="center">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($tasks as $name => $task): ?>
+                <?php $totalprice+= ($vir->getData($task.'price') * $vir->getData($task.'qty')) ?>
+                <?php if($task == 'workorderbalances'): ?>
+                    <tr>
+                        <td><?php echo $name ?>:&nbsp;
+                            <span class="xbox orange"><?php echo $vir->getData($task.'optionsteel') == 1 ? 'X' : '' ?></span>&nbsp;Steel
+                            <span class="xbox orange"><?php echo $vir->getData($task.'optionalloy') == 1 ? 'X' : '' ?></span>&nbsp;Alloy
+                            <span class="xbox orange"><?php echo $vir->getData($task.'optionpremium') == 1 ? 'X' : '' ?></span>&nbsp;Premium
+                        </td>
+                        <td align="center" class="colorized"><?php echo $vir->getData($task.'qty') ?></td>
+                        <td align="center" class="colorized"><?php echo Mage::helper('core')->currency($vir->getData($task.'price'), true, false)  ?></td>
+                    </tr>
+                <?php elseif($task == 'workorderalign'): ?>
+                    <tr>
+                        <td><?php echo $name ?>:&nbsp;
+                            <span class="xbox orange"><?php echo $vir->getData($task.'optionstandard') == 1 ? 'X' : '' ?></span>&nbsp;Standard
+                            <span class="xbox orange"><?php echo $vir->getData($task.'optionthrust') == 1 ? 'X' : '' ?></span>&nbsp;Thrust
+                            <span class="xbox orange"><?php echo $vir->getData($task.'option4wheel') == 1 ? 'X' : '' ?></span>&nbsp;4Wheel
+                            <span class="xbox orange"><?php echo $vir->getData($task.'option4wd') == 1 ? 'X' : '' ?></span>&nbsp;4WD
+                        </td>
+                        <td align="center" class="colorized"><?php echo $vir->getData($task.'qty') ?></td>
+                        <td align="center" class="colorized"><?php echo Mage::helper('core')->currency($vir->getData($task.'price'), true, false)  ?></td>
+                    </tr>
+                <?php else: ?>
+                    <tr>
+                        <td><?php echo $name ?>:&nbsp;<span><?php echo $vir->getData($task.'description') ?></span></td>
+                        <td align="center" class="colorized"><?php echo $vir->getData($task.'qty') ?></td>
+                        <td align="center" class="colorized"><?php echo Mage::helper('core')->currency($vir->getData($task.'price'), true, false)  ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="2">TOTAL</td>
+                <td align="center" class="colorized"><?php echo Mage::helper('core')->currency($totalprice, true, false) ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col col-50">
+        <h3>Customer Approval</h3>
+        <p class="note small">Please proceed with the services indicated, but contact me if additional service is
+recommended. I authorise Goodyear & Dunlop Tyres (Aust) Pty Ltd, licencees, agents and
+employees (Goodyear) to drive thisvehicle.
+Goodyear collects my contact details so it can remind me when it is time to service my tyres,
+about special offers, promotions, products or services that may be of interest to me, for
+complying with legislative and regulatory requirements and emailing me to provide information
+for any of these purposes</p>
+        <div class="agreement" >
+            <div><span class="xbox"><?php echo ($vir->getData('custapprsubscribe') == 1) ? 'X' : '' ?></span><span class="small">I would like to receive service reminders and information about products or services</span></div>
+            <div><span class="xbox"></span><span class="small">For Auto Club members only: Beaurepaires won’t collect Auto Clubs
+members data unless the member has opted ‘in’ the tick box.</span></div>
+        </div>
+    </div>
+    <div class="col col-50">
+        <div class="payment">
+            <p class="note">Please tick the preferred payment method</p>
+            <ul class="inline">
+                <li><span class="xbox"><?php echo $vir->getData('custapprpaycash') == 1 ? 'X' : '' ?></span><span class="small">Cash</span></li>
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayeftpos') == 1 ? 'X' : '' ?></span><span class="small">Eftpos</span></li>
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayvisamaster') == 1 ? 'X' : '' ?></span><span class="small">Visa/M'card</span></li>
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayamexdiners') == 1 ? 'X' : '' ?></span><span class="small">Ames/Diners</span></li>
+            </ul>
+            <ul class="inline">
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayaccount') == 1 ? 'X' : '' ?></span><span class="small">Account</span></li>
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayfinance') == 1 ? 'X' : '' ?></span><span class="small">Finance</span></li>
+                <li><span class="xbox"><?php echo $vir->getData('custapprpayother') == 1 ? 'X' : '' ?></span><span class="small">Other</span></li>
+            </ul>
+        </div>
+        <div class="signature-box" style="position:relative;">Customer Approval:
+            <?php $sig1 = explode(',', $vir->getCustapprsignatureimage()); ?>
+            <?php if($sig1[1]): ?>
+                <img style="position:absolute;top:-11px;" height="40" src="<?php echo $customerSignature; ?>" />
+            <?php endif; ?>
+        </div>
+        <div class="note">
+            <div><span class="xbox"><?php echo ($vir->getData('custapprcall') == 1) ? 'X' : '' ?></span><span class="small">Call when vehicle is ready</span></div>
+            <p class="small">I agree that if I fail to collect my vehicle at the time nominated by Goodyear,
+I do so at my own risk and not Goodyear’s.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h3>Workshop Signoff</h3>
+    <div style="width:100%">
+        <div class="col col-25">
+            <span class="small"><b>Inspection Completed By</b></div>
+        </div>
+        <div class="col col-25">
+            <div class="inspected-by">
+                <?php $sig2 = explode(',', $vir->getWorkshopsignatureimage()); ?>
+                <?php if($sig2[1]): ?>
+                    <img src="<?php echo $workshopSignature; ?>" height="40"/>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="f-right">
+            <img src="<?php echo Mage::getBaseDir('skin') . "/adminhtml/default/default/vir_pdf/beaurepaires-logo.png"?>" height="40"/>
+        </div>
+    </div>
+</div>

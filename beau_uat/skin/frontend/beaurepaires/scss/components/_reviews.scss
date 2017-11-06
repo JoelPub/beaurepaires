@@ -1,0 +1,21 @@
+// Customer Reviews Component
+
+.review-component{
+  h3{
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  } 
+
+  h5{
+    color: #4C4C4C;
+    font-size: 14px;
+    font-family: "Swiss721BT-Bold",Helvetica,Arial,sans-serif;
+  }
+
+  .review-item{
+    .star-rating{
+      margin: 5px 0 0;
+    }
+  }
+}

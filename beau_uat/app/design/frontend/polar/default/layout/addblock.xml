@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+                <default>
+                    <reference name="head">
+                        <block type="addblock/addblock" after='-'  name="custom_toplink" template="addblocks/custom_toplink.phtml" />
+                    </reference>
+                </default>
+		<catalogsearch_result_index>
+		  <reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" before="-" />
+		  </reference>
+   		</catalogsearch_result_index>
+		<searchtyre_index_result>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchtyre_index_result>
+		<searchresult_index_index>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchresult_index_index>
+		<catalog_category_view>
+			<reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" />
+			 <block type="addblock/addblock" after="category.products" name="seoblock_index" template="addblocks/seo_content.phtml" />
+		  </reference>
+		
+		</catalog_category_view>		
+
+</layout>

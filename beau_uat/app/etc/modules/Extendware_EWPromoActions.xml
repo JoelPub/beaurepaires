@@ -1,0 +1,14 @@
+<config>
+   <modules>
+      <Extendware_EWPromoActions>
+         <active>false</active>
+         <codePool>local</codePool>
+         <depends>
+            <Extendware_EWCore/>
+         </depends>
+         <extendware>
+            <name>Promotional Actions</name>
+         </extendware>
+      </Extendware_EWPromoActions>
+   </modules>
+</config>

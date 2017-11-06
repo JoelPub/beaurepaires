@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>      
+  <modules>
+    <ApdInteract_Wiser>
+      <version>0.1.0</version>
+    </ApdInteract_Wiser>
+  </modules>
+  <global>
+    <helpers>
+      <apdinteract_wiser>
+        <class>ApdInteract_Wiser_Helper</class>
+      </apdinteract_wiser>
+    </helpers>
+  </global>
+</config>

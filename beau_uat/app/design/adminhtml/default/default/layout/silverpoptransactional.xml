@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * StoreFront Silverpop Transaction Email Magento Extension
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to commercial source code license 
+ * of StoreFront Consulting, Inc.
+ *
+ * @category	SFC
+ * @package    	SFC_SilverpopTransactional
+ * @website 	http://www.storefrontconsulting.com/
+ * @copyright 	Copyright (C) 2009-2013 StoreFront Consulting, Inc. All Rights Reserved.
+ */
+-->
+
+<layout version="0.1.0">
+    <silverpoptransactional_adminhtml_manage_index>
+        <reference name="content">
+            <block type="silverpoptransactional/adminhtml_manage" name="silverpoptransactional" />
+        </reference>
+    </silverpoptransactional_adminhtml_manage_index>
+    <silverpoptransactional_adminhtml_manage_history>
+        <reference name="content">
+            <block type="silverpoptransactional/adminhtml_history" name="silverpoptransactional" />
+        </reference>
+    </silverpoptransactional_adminhtml_manage_history>
+</layout>

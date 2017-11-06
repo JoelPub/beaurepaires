@@ -1,0 +1,72 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $attVal = Mage::getModel('catalog/product')->load($_product->getId())->getOptions(); ?>
+<?php $optStr = ""; ?>
+<?php $flag = false; ?>
+<?php $extras = $this->displayExtraNew($_product) ?>
+<?php if (!empty($attVal) || $extras): ?>
+    <div class="bottom-cart">
+        <section class="service-included">
+            <hr>
+            <ul class="pricing no-bullet">
+                <?php foreach ($attVal as $optionKey => $optionVal) : ?>
+                    <?php if ($optionVal->getType() == 'field'): ?>
+                        <li><i class="fa fa-check-circle i-check-circle"></i> <?php echo $optionVal->getTitle() ?> included</li>
+                        <!--
+                            <li><?php echo $optionVal->getTitle() ?> <span class="cart-price right">Included</span>
+                                <input type="hidden" onchange="opConfig.reloadPrice()" id="options_<?php echo $optionVal->getId(); ?>_text" class="input-text  product-custom-option" name="options[<?php echo $optionVal->getId(); ?>]" value="(Included)">
+                            </li>
+                        -->
+                    <?php endif; ?>
+
+                    <?php if ($optionVal->getType() == 'checkbox'): ?>
+                        <?php if (!$flag): ?>
+                            <hr>
+                            <li class="pricing-header">Recommended Extras</li>  
+                            <?php $flag = true; ?>
+                        <?php endif; ?>
+                        <?php $values = $optionVal->getValues(); ?>
+                        <?php foreach ($values as $value): ?>
+                            <?php $formattedPrice = Mage::helper('core')->currency($value->getPrice(), true, false); ?>
+                            <?php $tooltip = Mage::helper('apdinteract_tooltip')->getTooltip($optionVal->getTitle()); ?>														
+                            <li class="extras clearfix">
+                                <div class="extras-items">
+                                    <label class="custom-field checkbox">
+                                        <input class="extras-checkbox customoptextra" data-multiply-qty='yes' data-price="<?php echo $value->getPrice(); ?>" id="checkbox<?php echo $optionVal->getId(); ?>" name="options[<?php echo $optionVal->getId(); ?>][]" type="checkbox" value="<?php echo $value->getId(); ?>">
+                                        <span><?php echo $optionVal->getTitle() ?></span>
+                                        <div class="indicator"></div>
+                                    </label>                                    
+                                    <span data-tooltip="<?php echo $tooltip ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibhif5bj2" aria-describedby="tooltip-ibhif5bj2" title="<?php echo $tooltip ?>">
+                                        <i class="fa fa-lg fa-info-circle"></i>
+                                    </span>
+                                </div>
+                                <div class="extras-price"><?php echo $formattedPrice; ?></div>
+                            </li>
+                        <?php endforeach; ?>	
+                    <?php endif;  ?>	
+                <?php endforeach; ?>
+
+                <?php if ($extras): ?>
+                    <?php if (!$flag && $extras['active']):?>
+                        <hr>
+                        <li class="pricing-header">Recommended Extras</li>  
+                    <?php endif; ?>
+                    <?php foreach ($extras['data'] as $extra): ?>                        
+                        <li class="extras clearfix">
+                            <div class="extras-items">
+                                <label class="custom-field checkbox">
+                                    <input class="extras-checkbox customoptextra" data-multiply-qty='<?php echo $extra['multiply'] ?>' data-price="<?php echo $extra['price']; ?>" id="checkbox<?php echo $extra['id']; ?>" name="extra-product[]" type="checkbox" value="<?php echo $extra['id'] . '_' . $extra['multiply']; ?>">
+                                    <span><?php echo $extra['name']; ?></span>
+                                    <div class="indicator"></div>
+                                </label>
+                                <span data-tooltip="<?php echo $extra['tooltip']; ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibhif5bj2" aria-describedby="tooltip-ibhif5bj2" title="<?php echo $extra['tooltip']; ?>">
+                                    <i class="fa fa-lg fa-info-circle"></i>
+                                </span>
+                            </div>
+                            <div class="extras-price"><?php echo $extra['formatted_price']; ?></div>
+                        </li>  
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ul>
+        </section>
+    </div>
+<?php endif; ?>

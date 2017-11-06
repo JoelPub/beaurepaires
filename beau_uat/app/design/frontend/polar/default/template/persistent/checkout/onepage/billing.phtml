@@ -1,0 +1,582 @@
+
+<?php
+$make = Mage::helper('searchtyre')->getMakes();
+?>
+
+<form id="co-billing-form" action="" data-abide> 
+    <fieldset>
+    <!-- PROTOTYPE -->
+    <?php if ($this->isCustomerLoggedIn()): ?>
+        <?php
+        //get login customer data
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        $customer_data = Mage::getModel('customer/customer')->load($customer->getId());
+        ?>
+        <div class="form-field">
+            <div class="row">
+                <div class="columns medium-8 small-12 end">
+                    <span class="right required">* Required Fields</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns">
+                    <p>
+                        <label for="billing:firstname">First Name</label>
+                        <strong><?php echo $this->escapeHtml($customer_data->getFirstname()) ?></strong>
+                        <input type="hidden" name="billing[firstname]" value="<?php echo $this->escapeHtml($customer_data->getFirstname()) ?>">
+                    </p>
+
+                    <p>
+                        <label for="billing:firstname">Last Name</label>
+                        <strong><?php echo $this->escapeHtml($customer_data->getLastname()) ?></strong>
+                        <input type="hidden" name="billing[lastname]" value="<?php echo $this->escapeHtml($customer_data->getLastname()) ?>">
+                    </p>
+
+                    <p>
+                        <label for="billing:firstname">Email</label>
+                        <strong><?php echo $this->escapeHtml($customer_data->getEmail()) ?></strong>
+                        <input type="hidden" name="billing[email]" value="<?php echo $this->escapeHtml($customer_data->getEmail()) ?>">
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!$this->isCustomerLoggedIn()): ?>
+
+        <div class="row">
+            <div class="columns small-12">
+                <span class="right required">* Required Fields</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="columns medium-8 small-12 end">
+
+                <div class="form-field">
+                    <label for="billing:firstname">First Name *</label>
+                    <input type="text" id="billing:firstname" name="billing[firstname]" value="<?php echo $this->escapeHtml($this->getAddress()->getFirstname()) ?>" title="First Name" maxlength="255" class="input-text required-entry">
+                </div>
+
+                <div class="form-field">
+
+                    <label for="billing:lastname">Last Name *</label>
+                    <input type="text" id="billing:lastname" name="billing[lastname]" value="<?php echo $this->escapeHtml($this->getAddress()->getLastname()) ?>" title="Last Name" maxlength="255" class="input-text required-entry">
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="billing:email">Email <span class="required">*</span></label>
+                    <input type="email" name="billing[email]" id="billing:email" value="<?php echo $this->escapeHtml($this->getAddress()->getEmail()) ?>" class="input-text validate-email required-entry"  />
+                    <small class="error">An email address is required.</small>
+
+                </div>
+            <?php endif; ?>
+            <div class="form-field">
+
+                <label for="billing:telephone">Contact Number <span class="required">*</span></label>
+                <input type="text" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Telephone')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?> validate-digits" id="billing:telephone" />
+
+            </div>
+            <div class="form-field">
+
+                <label>Vehicle make</label>
+                <select name="make" id="make" class="api-request get-vehicle-make" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>" data-api-request="/vehicles/models" data-request-target="get-vehicle-model" data-api-request-param="vehiclemakeids">
+                    <option value="">Select Make</option>
+                    <?php foreach ($make as $m => $v) {
+                        if (Mage::getSingleton('core/session')->getTMakeF() == $m) {
+                            ?>
+                            <option selected="selected" value="<?php echo $v ?>" data-value-id="<?php echo $m ?>"><?php echo $v ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $v ?>" data-value-id="<?php echo $m ?>"><?php echo $v ?></option>
+                        <?php }
+                    }
+                    ?>
+                </select>
+                <small class="error">A vehicle make is required</small>
+
+            </div>
+            <div class="form-field">
+
+                <label>Vehicle model</label>
+                <select name="model" id="model" class="api-result get-vehicle-model" disabled>
+                    <option value="">Select Model</option>
+                </select>
+                <small class="error">A vehicle make is required</small>
+
+            </div>
+            <div class="form-field">
+
+                <input type="checkbox" id="subscribe-me" name="is_subscribed" title="<?php echo $this->__("Subscribe me to Beaurepaires' Newsletter") ?>" value="1" class="checkbox" />
+                <label for="subscribe-me"><?php echo $this->__("Subscribe me to Beaurepaires Newsletter") ?></label>
+
+            </div>
+
+            <div class="form-field">
+
+
+                <ul data-accordion="" class="accordion">
+                                        
+                    <li class="accordion-navigation">
+                        <a href="#panel2a" aria-expanded="false"><?php echo Mage::getStoreConfig('headings/headings/apdinteract_serve'); ?></a>
+                        <div class="content" id="panel2a">
+
+                            <div id="panel1a">
+                                <p><?php echo Mage::getStoreConfig('headings/headings/apdinteract_blurb'); ?></p>
+                                <div class="form-field">
+                                    <label for="last_wheel_balance">How long since your last wheel balance?</label>
+                                    <div class="extra-info-field">
+                                        <select name="last_wheel_balance" id="last_wheel_balance">
+                                            <option value="">Select time period</option>
+                                            <option value="0-6 months">0-6 months</option>
+                                            <option value="6-12 months">6-12 months</option>
+                                            <option value="Over 12 months">Over 12 months</option>
+                                        </select>
+                                        <span data-tooltip="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_1'); ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibbh8ecm0" aria-describedby="tooltip-ibbh8ecm0" title="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_1'); ?>"><i class="fa fa-lg fa-info-circle"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label for="last_wheel_alignment">How long since your last wheel alignment?</label>
+                                    <div class="extra-info-field">
+                                        <select name="last_wheel_alignment" id="last_wheel_alignment">
+                                            <option value="">Select time period</option>
+                                            <option value="0-6 months">0-6 months</option>
+                                            <option value="6-12 months">6-12 months</option>
+                                            <option value="Over 12 months">Over 12 months</option>
+                                        </select>
+                                        <span data-tooltip="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_2'); ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibbh8ecm0" aria-describedby="tooltip-ibbh8ecm0" title="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_2'); ?>"><i class="fa fa-lg fa-info-circle"></i></span>
+
+                                        <small class="error">A vehicle make is required</small>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label for="registration-number">Registration number</label>
+                                    <div class="extra-info-field">
+                                        <input type="text" name="registration_number" id="registration-number" class="input-text" placeholder="Registration number"> <span data-tooltip="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_3'); ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibbh8ecm0" aria-describedby="tooltip-ibbh8ecm0" title="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_3'); ?>"><i class="fa fa-lg fa-info-circle"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label for="odometer">Odometer (approx)</label>
+                                    <div class="extra-info-field">
+                                        <input type="text" name="odometer" id="odometer" placeholder="Odometer">
+                                        <span data-tooltip="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_4'); ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibbh8ecm0" aria-describedby="tooltip-ibbh8ecm0" title="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip_4'); ?>"><i class="fa fa-lg fa-info-circle"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+                
+<?php if (!$this->isCustomerLoggedIn()): ?>
+        <div class="form-field create-account">
+            <div class="row">
+                <div class="columns medium-8 small-12 end">
+                    <ul class="accordion" data-accordion="">
+                        <li class="accordion-navigation active">
+                            <div class="form-field">
+
+                                <input id="create-an-account" class='create_an_account' onclick='guestregister()' type="checkbox" checked="checked">
+
+                                <label for="create-an-account">Create an account for me</label> <span data-tooltip="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_createaccount_tooltip'); ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibbv36ju1" aria-describedby="tooltip-ibbv36ju1" title="<?php echo Mage::getStoreConfig('headings/headings/apdinteract_createaccount_tooltip'); ?>"><i class="fa fa-lg fa-info-circle"></i></span>
+                            </div>
+                            <!-- <a href="#learn-more" class="right" aria-expanded="true">Learn more <i class="fa fa-chevron-up fw"></i></a> -->
+
+                            <!-- <div id="learn-more" class="content active">
+                                  <div class="row">
+                                    <div class="columns small-1">
+
+                                    </div>
+                                    <div class="columns small-11">
+                                          <p><?php echo Mage::getStoreConfig('headings/headings/apdinteract_createaccount_textarea'); ?></p>
+                                    </div>
+                                  </div>
+                            </div> -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="form-field">
+            <div class="row">
+                <div class="columns medium-8 small-12 end">
+                    <div id="register-customer-password">
+                        <div class="field">
+                            <label for="billing:customer_password" class="required"><?php echo $this->__('Password') ?> <span class="required">*</span></label>
+                            <div class="input-box">
+                                <input type="password" name="billing[customer_password]" id="billing:customer_password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>" class="input-text required-entry validate-password" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="billing:confirm_password" class="required"><?php echo $this->__('Confirm Password') ?> <span class="required">*</span></label>
+                            <div class="input-box">
+                                <input type="password" name="billing[confirm_password]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php endif; ?>
+
+
+    <!-- PROTOTYPE -->
+
+    <ul class="form-list no-bullet">
+
+
+<?php if ($this->customerHasAddresses()): ?>
+            <li class="wide" style='display:none;'>
+                <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
+                <div class="input-box">
+            <?php echo $this->getAddressesHtmlSelect('billing') ?>
+                </div>
+            </li>
+<?php endif; ?>
+        <li id="billing-new-address-form" style='display:block!important;'>
+
+            <input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id" />
+
+            <ul>
+
+       <!--<li class="fields hideonlogin"><?php //echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml()  ?></li>-->
+                <li class="fields">
+                    <div class="field" style='display:none;'>
+                        <label for="billing:company"><?php echo $this->__('Company') ?></label>
+                        <div class="input-box">
+                            <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Company')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
+                        </div>
+                    </div>
+<?php if (!$this->isCustomerLoggedIn()): ?>
+                        <!--
+                            <div class="field">
+                                <label for="billing:email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                                <div class="input-box">
+                                    <input type="text" name="billing[email]" id="billing:email" value="<?php echo $this->escapeHtml($this->getAddress()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
+                                </div>
+                            </div>
+                        -->
+                <?php endif; ?>
+                </li>
+<?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+                <li class="wide" style='display:none;'>
+                    <label for="billing:street1" class="required-emtpy"><em>*</em><?php echo $this->__('Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address')) ?>" name="billing[street][]" id="billing:street1" value="n/a<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                    </div>
+                </li>
+<?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+<?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                    <li class="wide" style='display:none;'>
+                        <div class="input-box">
+                            <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="billing[street][]" id="billing:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>" />
+                        </div>
+                    </li>
+<?php endfor; ?>
+<?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
+                    <li class="wide">
+                        <label for="billing:vat_id"><?php echo $this->__('VAT Number') ?></label>
+                        <div class="input-box">
+                            <input type="text" id="billing:vat_id" name="billing[vat_id]" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
+                        </div>
+                    </li>
+<?php endif; ?>
+                <li class="fields" style='display:none;'>
+                    <div class="field">
+                        <label for="billing:city" class="required-emtpy"><em>*</em><?php echo $this->__('City') ?></label>
+                        <div class="input-box">
+                            <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('City')) ?>" name="billing[city]" value="n/a<?php echo $this->escapeHtml($this->getAddress()->getCity()) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="billing:city" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="billing:region_id" class="required-emtpy"><em>*</em><?php echo $this->__('State/Province') ?></label>
+                        <div class="input-box">
+                            <select id="billing:region_id" name="billing[region_id]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="validate-selects" style="display:none;">
+                                <option value="1"><?php echo $this->__('Please select region, state or province') ?></option>
+                            </select>
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                $('billing:region_id').setAttribute('defaultValue', "<?php echo $this->getAddress()->getRegionId() ?>");
+                                //]]>
+                            </script>
+                            <input type="text" id="billing:region" name="billing[region]" value="n/a<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields" style='display:none;'>
+                    <div class="field">
+                        <label for="billing:postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                        <div class="input-box">
+                            <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Zip/Postal Code')) ?>" name="billing[postcode]" id="billing:postcode" value="n/a<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+                        <div class="input-box">
+<?php echo $this->getCountryHtmlSelect('billing') ?>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="fields hideonlogin">
+                    <div class="field">
+                        <!--
+<label for="billing:telephone" class="required"><em>*</em><?php echo $this->__('Contact Number') ?></label>
+<div class="input-box">
+    <input type="text" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Telephone')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?> validate-digits" id="billing:telephone" />
+</div>
+                        -->
+                    </div>
+                    <div class="field" style='display:none;'>
+                        <label for="billing:fax"><?php echo $this->__('Fax') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="billing[fax]" value="<?php echo $this->escapeHtml($this->getAddress()->getFax()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Fax')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('fax') ?>" id="billing:fax" />
+                        </div>
+                    </div>
+                </li>
+                <!--
+<li>
+        <div class="field">
+        <label for="make-tyres" class="required"><em>*</em><?php echo $this->__('Vehicle make') ?></label>
+        <div class="input-box">
+            <select name="make" id="make">
+               <option value="">Select Make</option>
+                <?php foreach ($make as $m => $v) {
+                    if (Mage::getSingleton('core/session')->getTMakeF() == $m) {
+                        ?>
+                                                                        <option selected="selected" value="<?php echo $v ?>"><?php echo $v ?></option>
+                    <?php } else { ?>
+                                                                        <option value="<?php echo $v ?>"><?php echo $v ?></option>
+    <?php }
+}
+?>
+            </select>
+
+        </div>
+    </div>
+</li>
+<li>
+         <div class="field">
+        <label for="model-tyres" class="required"><em>*</em><?php echo $this->__('Vehicle Model') ?></label>
+          <div class="input-box">
+            <select name="model" id="model">
+               <option value="">Select Model</option>
+            </select>
+
+         </div>
+    </div>
+</li>
+                -->
+
+                <!--
+                                        <li class='hidewhennotlogin'>
+                                                <div class='row'>
+                                                        <div class="columns medium-12 small-12">
+                                                                <label>First name <span class="required">*</span></label>
+                                                                <p><?php echo $this->escapeHtml($this->getAddress()->getFirstname()) ?></p>
+                                                        </div>
+                                                        <div class="columns medium-12 small-12">
+                                                                <label>Last name <span class="required">*</span></label>
+                                                                <p><?php echo $this->escapeHtml($this->getAddress()->getLastname()) ?></p>
+                                                        </div>
+                                                        <div class="columns medium-12 small-12">
+                                                                <label>Email <span class="required">*</span></label>
+                                                                <p><?php echo $this->escapeHtml($this->getAddress()->getEmail()) ?></p>
+                                                        </div>
+                                                        <div class="columns medium-12 small-12">
+                                                                <label>Contact number <span class="required">*</span></label>
+                                                                <p><?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?></p>
+                                                        </div>
+
+                                                </div>
+                                        </li>
+                -->
+                <?php if (!$this->isCustomerLoggedIn()): ?>
+
+                        <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+                            <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+                            <?php if ($_dob->isEnabled() || $_gender->isEnabled()): ?>
+                        <li class="fields">
+                            <?php if ($_dob->isEnabled()): ?>
+                                <div class="field">
+                                    <?php echo $_dob->setDate($this->getQuote()->getCustomerDob())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($_gender->isEnabled()): ?>
+                                <div class="field">
+                            <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                                </div>
+                        <?php endif ?>
+                        </li>
+                    <?php endif ?>
+
+    <?php if ($this->isTaxvatEnabled()): ?>
+                        <li><?php echo $this->getTaxvatHtml() ?></li>
+    <?php endif; ?>
+                    <!--
+                                    <li class="fields" id="register-customer-password">
+                                        <div class="field">
+                                            <label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                                            <div class="input-box">
+                                                <input type="password" name="billing[customer_password]" id="billing:customer_password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>" class="input-text required-entry validate-password" />
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label for="billing:confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
+                                            <div class="input-box">
+                                                <input type="password" name="billing[confirm_password]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="billing:confirm_password" class="input-text required-entry validate-cpassword" />
+                                            </div>
+                                        </div>
+                                    </li>
+                    -->
+                    <li>
+
+                        <!--
+                                        <input type="checkbox" name="is_subscribed" title="<?php echo $this->__("Subscribe me to Beaurepaires' Newsletter") ?>" value="1"  checked="checked" class="checkbox" /> <?php echo $this->__("Subscribe me to Beaurepaires' Newsletter") ?>
+                        -->
+                    </li>
+                    <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                <?php endif; ?>
+                <li>
+                        <!-- Tooltip data: <p><?php echo Mage::getStoreConfig('headings/headings/apdinteract_tooltip'); ?></p>-->
+                </li>
+                <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()): ?>
+                    <li class="control" style='display:none;'>
+                        <input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save in address book')) ?>" id="billing:save_in_address_book" onchange="if (window.shipping)
+                                    shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()): ?> checked="checked"<?php endif; ?> class="checkbox" /><label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label>
+                    </li>
+            <?php else: ?>
+                    <li class="no-display"><input type="hidden" name="billing[save_in_address_book]" value="1" /></li>
+        <?php endif; ?>
+        <?php echo $this->getChildHtml('form.additional.info'); ?>
+            </ul>
+<?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+
+        </li>
+<?php if ($this->canShip()): ?>
+            <li class="control" style='display:none;'>
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1"<?php if ($this->isUseBillingAddressForShipping()) { ?> checked="checked"<?php } ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to this address')) ?>" onclick="$('shipping:same_as_billing').checked = true;" class="radio" /><label for="billing:use_for_shipping_yes"><?php echo $this->__('Ship to this address') ?></label>
+            </li>
+            <li class="control" style='display:none;'>
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0"<?php if (!$this->isUseBillingAddressForShipping()) { ?> checked="checked"<?php } ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Ship to different address')) ?>" onclick="$('shipping:same_as_billing').checked = false;" class="radio" /><label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            </li>
+<?php endif; ?>
+    </ul>
+<?php if (!$this->canShip()): ?>
+        <input type="hidden" name="billing[use_for_shipping]" value="1" />
+<?php endif; ?>
+
+    <div class="form-field">
+        <div class="row">
+            <div class="columns small-12">
+                <div class="buttons-set" id="billing-buttons-container">
+                    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue')) ?>" class="button small radius" onclick="billing.save();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+                    <span class="please-wait" id="billing-please-wait" style="display:none;">
+                        <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+
+    function getName(fromClassName, params, toClassName, label) {
+        var options = '';
+        options += '<option value="">Loading..</option>';
+        jQuery(toClassName).html(options);
+
+        jQuery.getJSON(params, {}, function (j) {
+            var options = '';
+            options += '<option value="">' + label + '</option>';
+            for (var i = 0; i < j.Total; i++) {
+                try {
+                    //alert(j.Items[i].Id+' = <?php echo Mage::getSingleton('core/session')->getSeriesF() ?>');
+                    if (j.Items[i].Id == '<?php echo Mage::getSingleton('core/session')->getSeriesF() ?>') {
+
+                        options += '<option selected value="' + j.Items[i].Name + '">' + j.Items[i].Name + '</option>';
+                    } else {
+                        options += '<option value="' + j.Items[i].Name + '">' + j.Items[i].Name + '</option>';
+                    }
+
+                } catch (e) {
+                    //nothing to do
+                }
+
+            }
+            jQuery(toClassName).html(options);
+        });
+    }
+
+    jQuery(function () {
+        /*getName('select#make', '/searchtyre/index/getmake', 'select#make', 'Select Make');*/
+		
+		/* AAZ
+        getName('select#model', '/searchtyre/index/getseries/id/<?php echo Mage::getSingleton('core/session')->getTModelF(); ?>/year/<?php echo Mage::getSingleton('core/session')->getTYearF(); ?>', 'select#model', 'Select Model');
+        jQuery("select#make").change(function () {
+            getName('select#model', '/searchtyre/index/GetMakemodel/id/' + jQuery('select#make').val(), 'select#model', 'Select Model');
+        });
+		*/
+
+
+    });
+
+//<![CDATA[
+    var billing = new Billing('co-billing-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveBilling') ?>');
+    var billingForm = new VarienForm('co-billing-form');
+
+    //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...')) ?>');
+    $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
+
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'billing:postcode');
+    if ($('onepage-guest-register-button')) {
+        Event.observe($('onepage-guest-register-button'), 'click', function (event) {
+            var billingRememberMe = $('co-billing-form').select('#remember-me-box');
+            if (billingRememberMe.length > 0) {
+                if ($('login:guest') && $('login:guest').checked) {
+                    billingRememberMe[0].hide();
+                } else if ($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
+                    billingRememberMe[0].show();
+                }
+            }
+        });
+    }
+//]]>
+
+    function guestregister()
+    {
+
+        var create_acct_checker = jQuery('.create_an_account').prop('checked');
+        if (create_acct_checker == true)
+        {
+            jQuery('.login-register').prop('checked', true);
+            jQuery('.login-guest').prop('checked', false);
+        }
+        else
+        {
+            jQuery('.login-register').prop('checked', false);
+            jQuery('.login-guest').prop('checked', true);
+        }
+        //checkout.setMethod();
+        if (jQuery('.create_an_account').is(':checked')) {
+            jQuery('#register-customer-password').show();
+        }
+        else {
+            jQuery('#register-customer-password').hide();
+        }
+
+
+
+    }
+
+
+
+</script>

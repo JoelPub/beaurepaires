@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <ApdInteract_Adminhtml>
+            <version>0.0.1</version>
+        </ApdInteract_Adminhtml>
+    </modules>
+
+    <global>
+        <blocks>
+            <apdinteract_adminhtml>
+                <class>ApdInteract_Adminhtml_Block</class>
+            </apdinteract_adminhtml>
+            <adminhtml>
+                <rewrite>
+                    <customer_edit_tabs>ApdInteract_Adminhtml_Block_Customer_Edit_Tabs</customer_edit_tabs>
+                    <customer_edit_tab_newsletter>ApdInteract_Adminhtml_Block_Customer_Edit_Tab_Newsletter</customer_edit_tab_newsletter>
+                    <promo_quote_edit_tab_actions>ApdInteract_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions</promo_quote_edit_tab_actions>
+                    <cms_block_edit_form>ApdInteract_Adminhtml_Block_Cms_Block_Edit_Form</cms_block_edit_form>
+                    <catalog_product_grid>ApdInteract_Adminhtml_Block_Catalog_Product_Grid</catalog_product_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <apdinteract_adminhtml>
+                <class>ApdInteract_Adminhtml_Helper</class>
+            </apdinteract_adminhtml>
+        </helpers>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <vehicle>
+                    <file>vehicle.xml</file>
+                </vehicle>
+            </updates>
+        </layout>
+  </adminhtml>
+  <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <apdinteract_adminhtml before="Mage_Adminhtml">ApdInteract_Adminhtml</apdinteract_adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+  </admin>
+</config>

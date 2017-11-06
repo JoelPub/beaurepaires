@@ -1,0 +1,27 @@
+<?php
+$_helper           =  Mage::helper('catalogsearch');
+$_value            = $_helper->getEscapedQueryText();
+$_currentCategory  = Mage::getSingleton('core/app')->getRequest()->getParam('cat');
+$_currentAttribute = Mage::getSingleton('core/app')->getRequest()->getParam('attr');
+$_filterType       = $this->getFilterType();
+$_url              = $this->getAjaxUrl();
+?>
+<form class="searchautocomplete UI-SEARCHAUTOCOMPLETE" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get"
+    data-tip="<?php echo $this->__(Mage::getStoreConfig('searchautocomplete/general/tip')) ?>"
+    data-url="<?php echo $_url ?>"
+    data-minchars="<?php echo Mage::getStoreConfig('searchautocomplete/general/min_chars') ?>"
+    data-delay="<?php echo Mage::getStoreConfig('searchautocomplete/general/delay') ?>"
+    id="search_mini_form">
+
+    <div class="form-search">    
+        <input class="input-text UI-SEARCH" type="text" class="input-text" id="search" autocomplete="off" name="<?php echo $_helper->getQueryParamName() ?>" value="<?php echo $_helper->getEscapedQueryText() ?>" maxlength="<?php echo $_helper->getMaxQueryLength() ?>" />
+        <a href="#" class="close-btn" title="Close Search"><i class="fa js-toggle-click fa-times fa-fw" aria-hidden="true"><span class="show-for-sr">Close Search</span></i></a>  
+        
+        <div class="searchautocomplete-loader UI-LOADER">
+           <i class="fa fa-spinner fa-pulse fa-2x"></i>
+        </div>
+
+      <div style="display:none" class="searchautocomplete-placeholder UI-PLACEHOLDER"></div>
+     
+    </div>      
+</form>

@@ -1,0 +1,62 @@
+<?php
+if (Mage::getSingleton('core/session')->getSeriesF() != '')
+    $json_tyre = Mage::helper('searchtyre')->getCacheTyreData(Mage::getSingleton('core/session')->getSeriesF());
+?>
+
+<input type="hidden" name="region_id" value="491">
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="" name="name" placeholder="Name" required pattern="^[a-zA-Z\s]*$">
+        <small class="error">This is a required field. Please use letters only (a-z or A-Z) in this field. </small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="email" value="" name="email" placeholder="Email" required>
+        <small class="error">This is a required field - Please enter a valid email address</small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="" name="mobile" placeholder="Phone" required pattern="[0-9]+">
+        <small class="error">This is a required field. Please enter valid Phone.</small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="" name="postcode_fake" id="booking-store" class="store-finder render-finder ui-autocomplete-input" placeholder="Suburb/Postcode">
+        <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required>
+        <small class="error">Please enter valid postcode</small>
+        <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>        
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="<?php echo (isset($json_tyre->Make->Name) ? $json_tyre->Make->Name : '')?>" name="vehicle_make" maxlength="15" placeholder="Vehicle Make"  pattern="vehicle_make" required>
+        <small class="error">This is a required field.</small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="<?php echo (isset($json_tyre->Model->Name) ? $json_tyre->Model->Name : '')?>" name="vehicle_model" placeholder="Vehicle Model" pattern="vehicle_model" required>
+        <small class="error">This is a required field.</small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column medium-12">
+        <input type="text" value="" name="size" placeholder="Tyre Size" pattern="vehicle_size">
+        <small class="error"></small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column text-center">
+        <input type="submit" value="Get My Quote" class="button">
+    </div>
+</div>

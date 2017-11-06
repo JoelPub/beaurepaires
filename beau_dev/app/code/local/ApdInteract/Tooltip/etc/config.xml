@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>      
+  <modules>
+    <ApdInteract_Tooltip>
+      <version>0.1.0</version>
+    </ApdInteract_Tooltip>
+  </modules>
+  <global>
+    <helpers>
+      <apdinteract_tooltip>
+        <class>ApdInteract_Tooltip_Helper</class>
+      </apdinteract_tooltip>
+    </helpers>
+  </global>
+  <default>
+    <tooltip>
+    	<stock_levels>
+        	<out_of_stock>Product not available at this store. Please select another store or call us on 13 23 81.</out_of_stock>
+        	<x_days_to_arrive>Continue through the checkout process to make a booking and your selected store will ensure stock is available at your booking time.</x_days_to_arrive>
+    	</stock_levels>
+        <pdp_modal_text>
+            <tyres>Tyre constructions must match on a vehicle axle. This only specifically prohibits mixing of bias and radial tyres on an axle</tyres>
+            <wheels>Your vehicle might need different wheel sizes on the front and rear.</wheels>
+        </pdp_modal_text>
+    </tooltip>
+  </default>
+</config>

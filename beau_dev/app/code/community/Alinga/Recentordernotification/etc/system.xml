@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <alingaecommerce translate="label" module="recentordernotification">
+            <label>Alinga ECommerce</label>
+            <sort_order>100</sort_order>
+        </alingaecommerce>
+    </tabs>
+    <sections>
+        <recentordernotification translate="label" module="recentordernotification">
+            <label>Recent Order Notification</label>
+            <tab>alingaecommerce</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>5000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Recent Order Notification Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="comment">
+                            <label>Enable Extension</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <enable_mobile>
+                            <label>Enable in Mobile and Tablet View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[You can enable/disable extension for mobile and tablet view.]]></comment>
+							<depends><enable>1</enable></depends>
+                        </enable_mobile>
+                        <include_virtual_product>
+                            <label>Include Virtual product type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If yes, then extension will display billing address information for virtual product instead of shipping address.]]></comment>
+							<depends><enable>1</enable></depends>
+                        </include_virtual_product>						
+                        <notification_position translate="label">
+                            <label>Notification Display Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>recentordernotification/system_config_source_position</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Selcet position where you want to display order notification alert.</comment>
+							<depends><enable>1</enable></depends>
+                        </notification_position>
+
+                        <notificaion_msg_template translate="label">
+                            <label>Notification message template</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[You can update/add notification text.<br> Short code: <br/> <b>[city] - Order Shipping City <br> [region] - Order Shipping Region/State <br> [country] - Order Shipping Country <br>[product_link] - Ordered Product Link <br> [item_price] - Ordered item price <br> [ordered_time] - Time when order was placed. </b> ]]></comment>
+							<depends><enable>1</enable></depends>
+                        </notificaion_msg_template>
+						
+                        <jquery>
+                            <label>Include jQuery Library</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> Set to Yes if jQuery Library is not existing in the website]]></comment>
+							<depends><enable>1</enable></depends>
+                        </jquery>
+                        <noconflict>
+                            <label>Include jQuery noConflict File</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> Set to Yes if jQuery Library is conflicting with Prototype Library]]></comment>
+							<depends><enable>1</enable></depends>
+                        </noconflict>
+
+                        <on_first_page_load translate="label">
+                            <label>Display After First Page load</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>second - Notification will appear after x time on first time page load.‎</comment>
+							<depends><enable>1</enable></depends>
+                        </on_first_page_load>
+						
+						
+                        <reappear_after_close translate="label">
+                            <label>Waiting time after user close action</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>minitue - Next notification will appear after x time when user close popup‎</comment>
+							<depends><enable>1</enable></depends>
+                        </reappear_after_close>
+
+                        <select_order_status translate="label">
+                            <label>Select order status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>recentordernotification/system_config_source_statusorder</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Selcet order status</comment>
+							<depends><enable>1</enable></depends>
+                        </select_order_status>
+										
+                    </fields>
+                </settings>
+				<set_colors translate="label">
+					<label>Frontend Color Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>15</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<background_colour translate="comment">
+							<label>Background Colour</label>
+							<frontend_model>recentordernotification/frontend_colorpicker</frontend_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</background_colour>
+						<border_colour translate="comment">
+							<label>Border Colour</label>
+							<frontend_model>recentordernotification/frontend_colorpicker</frontend_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</border_colour>
+						<text_colour translate="comment">
+							<label>Text Colour</label>
+							<frontend_model>recentordernotification/frontend_colorpicker</frontend_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</text_colour>
+						<link_colour translate="comment">
+							<label>Link Colour</label>
+							<frontend_model>recentordernotification/frontend_colorpicker</frontend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</link_colour>	
+						<link_hover_colour translate="comment">
+							<label>Link Hover Colour</label>
+							<frontend_model>recentordernotification/frontend_colorpicker</frontend_model>
+							<sort_order>25</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</link_hover_colour>							
+					</fields>
+				</set_colors>				
+            </groups>
+        </recentordernotification>
+    </sections>
+</config>

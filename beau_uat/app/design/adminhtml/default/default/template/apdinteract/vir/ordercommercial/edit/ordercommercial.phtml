@@ -1,0 +1,1106 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Widget_Form_Container
+ */
+ ?>
+
+<?php echo $this->getFormInitScripts() ?>
+<?php $vir = Mage::registry('current_ordercommercial'); ?>
+<?php $base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>
+<?php
+$storeMapper = Mage::helper('apdinteract_vir')->loadVirMapper($vir->getData('parent_id'),1);
+$storeLocationId = 0;
+if(isset($storeMapper['store_id'])){
+  $storeLocation = Mage::getModel('storelocator/stores')->load($storeMapper['store_id']);
+  $storeLocationId = $storeMapper['store_id'];
+}
+?>
+
+<style>
+<?php
+// Fixes the Magento admin styling / Foundation mashup we are doing here
+// Frontenders, I know you hate inline style and I understand why they are bad.
+// This is so we don't have to retheme / style the ENTIRE magento admin section
+// Prevent ugly blue flash on page load. That's why it's defined twice
+?>
+    .label {background-color: initial;}
+
+</style>
+
+<script>
+    jQuery = $ji;
+    var ajaxUrl = "<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/order/ajaxsave/'); ?>"; // can handle consumer AND commercial ajax saving
+    var autocompleteUrl = "<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/ordercommercial/autocomplete/'); ?>"; // needs a whole separate everything. :\
+    var dataname = "ordercommercial";
+    var parentid = <?php echo $vir->getParentId(); ?>;
+</script>
+
+<script type="text/javascript" src="<?php echo $base_url; ?>js/adpinteract/vir.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>js/adpinteract/jSignature.min.noconflict.js"></script>
+
+<link rel="stylesheet" href="<?php echo $base_url; ?>skin/frontend/polar/default/dist/static/app.css" />
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/modernizr/modernizr.js"></script>
+
+<?php // Putting magento styles after foundation will help some things ?>
+<link rel="stylesheet" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/boxes.css" />
+
+<style>
+<?php
+// Fixes the Magento admin styling / Foundation mashup we are doing here
+// Frontenders, I know you hate inline styles and I understand why they are bad.
+// This is so we don't have to retheme / style the ENTIRE magento admin section
+?>
+    .middle, .columns {background-image: none;}
+    .label {background-color: initial;}
+    .content-header h3 {font-family: unset;}
+    .header, .header ul, .header p, .header input{
+        margin: 0;
+        height: auto;
+        padding: 0;
+        font-size: 12px !important;
+    }
+    .header input{padding: 2px;}
+    .wrapper {min-width: 0;}
+
+
+    // Styles for autocomplete
+    .pt_autocomplete span.data {
+        display:none !important;
+    }
+
+    .pt_autocomplete {
+        position:absolute;
+        width:250px;
+        background-color:white !important;
+        border:1px solid #888;
+        margin:0;
+        padding:0;
+        z-index: 10;
+    }
+    .pt_autocomplete ul {
+        list-style-type:none;
+        margin:0;
+        padding:0;
+    }
+
+    .pt_autocomplete ul li.selected { background-color: #ffb;}
+    .pt_autocomplete ul li {
+        list-style-type:none;
+        display:block;
+        margin:0;
+        padding:2px;
+        height:32px;
+        cursor:pointer;
+    }
+
+
+    .work_label {margin: 14px 0 0;}
+
+</style>
+
+ <div class="content-header">
+     <?php echo $this->getHeaderHtml() ?>
+    <p class="form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+
+<?php
+$time_24 =  date('H:i',strtotime($vir->getData('booking_time')));
+$time_12 =  date('h:i a',strtotime($vir->getData('booking_time')));
+$date = date('d/m/Y',strtotime($vir->getData('booking_date')));
+?>
+
+<!-- Clean form start -->
+
+<div id="makeresponsive" class="vir-edit">
+
+    <div class="row">
+        <div class="large-12 columns">
+
+            <form id="editForm" action="<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/ordercommercial/edit/', array('continue' => 0, 'id' => $vir->getParentId())); ?>" method="post">
+                <input name="form_key" type="hidden" value="<?php echo $this->getFormKey(); //eg LB2PIEwXz9EAWiag  ?>" />
+                <input type="hidden" name="appointmentid" value="<?php echo $vir->getData('appointmentid')?>">
+                <input type="hidden" name="customerid" value="<?php echo $vir->getData('customerid')?>">
+                <input type="hidden" name="ordernumber" value="<?php echo $vir->getData('ordernumber')?>">
+
+
+
+              <h2>Commercial Vehicle Inspection Report</h2>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="inspectiondate">Created</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="inspectiondate" class="input-text" title="Inspection Date" name="orderData[inspectiondate]" type="date" data-date-format="dd-mm-yyyy" value="<?php echo $vir->getData('inspectiondate'); ?>">
+                </div>
+                <div class="small-2 columns">
+                  <label for="status">Status</label>
+                </div>
+                <div class="small-4 columns">
+                  <select id="status" name="status" class="input-text">
+                    <?php
+                    $status = array('Not Started', 'In Progress', 'Cancelled', 'On Hold','Ready For Customer Pickup','Completed');
+                    foreach ($status as $stat):
+                      $sel = ''; if ($stat == $vir->getData('status')) $sel = ' selected="selected"';
+                      ?>
+                      <option<?php echo $sel; ?>><?php echo $stat;?></option>
+                    <?php   endforeach; ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="ordernumber">Order Number</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="ordernumber" class="input-text" title="Order Number" name="orderData[ordernumber]" type="text" value="<?php echo $vir->getData('ordernumber') ?>" />
+                </div>
+                <div class="small-2 columns">
+                  <label for="Invoicenumber">Invoice Number</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="Invoicenumber" class="input-text" title="Invoice Number" name="orderData[Invoicenumber]" type="text" value="<?php echo $vir->getData('Invoicenumber') ?>" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="baynumber">Bay Number</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="baynumber" class="input-text" title="Bay Number" name="orderData[baynumber]" type="text" value="<?php echo $vir->getData('baynumber') ?>" />
+                </div>                
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="booking-id">Booking ID:</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="booking-id" class="input-text" title="Booking Id" name="orderData[appointmentid]" type="text" value="<?php echo $vir->getData('appointmentid') ?>"  readonly />
+                </div>
+                <div class="small-2 columns">
+                  <label for="store">Store:</label>
+                </div>
+                <div class="small-4 columns">
+                  <div class="vir-field-spin-container">
+                    <input type="text" id="vir-postcode" name="store_name" value="<?php echo $storeLocation->getTitle() ?>" placeholder="Enter suburb or postcode" />
+                    <i id="vir-postcode-loading" class="fa fa-refresh fa-spin"></i>
+                  </div>
+                  <input type="hidden" id="vir-postcode-id" name="storelocation_id" value="<?php echo $storeLocationId ?>" class="hidden-input" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="booking-date">Booking Date:</label>
+                </div>
+                <div class="small-4 columns">
+                  <input type="text"  name="orderData[booking_date]"  value="<?php echo $date ?>"  id="vir-bookingdate" data-min-date="<?php echo 0; ?>d" class="vir-datepicker" placeholder="Choose a date"  required readonly />
+                </div>
+                <div class="small-2 columns">
+                  <label for="booking-time">Booking Time:</label>
+                </div>
+                <div class="small-4 columns">
+                  <div class="vir-field-spin-container">
+                    <?php $urallowed = Mage::getStoreConfig('sync/sync/apdinteract_syncurl', 0);?>
+                    <select id="vir-available-times" name="orderData[booking_time]" class="vir-available-times" data-select="<?php echo $time ?>" data-get-times-url="<?php echo $urallowed?>ajax_get_busy_times" required pattern="[0-9]+">
+                      <?php if(!empty($vir->getData('booking_time'))): ?>
+                        <option value="<?php echo $time_24 ?>" selected><?php echo $time_12 ?></option>
+                      <?php endif; ?>
+                    </select>
+                    <i id="vir-available-times-loading" class="fa fa-refresh fa-spin"></i>
+                  </div>
+                  <input type="hidden" id="fit-duration" name="duration" value="120">
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="customername">Customer</label>
+                </div>
+                <div class="small-10 columns">
+                  <input id="customername" class="input-text" title="Name" name="orderData[customername]" type="text" value="<?php echo $vir->getData('customername') ?>" autocomplete="off" />
+                  <div id="customername_autocomplete_choices" class="pt_autocomplete small-12 columns"></div>
+                </div>
+              </div>
+
+              <div class="address-validtion" data-address-url="/geo/index/address"><!-- for address validation -->
+
+                <div class="row">
+                  <div class="small-2 columns">
+                    <label for="addressline1">Building/Street Number</label>
+                  </div>
+                  <div class="small-4 columns">
+                    <input id="addressline1" class="input-text" title="Building/Street Number" name="orderData[addressline1]" type="text" value="<?php echo $vir->getData('addressline1') ?>" />
+                  </div>
+                  <div class="small-2 columns">
+                    <label for="addressline2">Street</label>
+                  </div>
+                  <div class="small-4 columns">
+                    <div class="input-box">
+                      <input id="addressline2" class="input-text validate-street" title="Street" name="orderData[addressline2]" type="text" value="<?php echo $vir->getData('addressline2') ?>" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="small-2 columns">
+                    <label for="suburb">City/Suburb</label>
+                  </div>
+                  <div class="small-4 columns">
+                    <div class="input-box">
+                      <input id="suburb" class="input-text validate-city" title="Suburb" name="orderData[suburb]" type="text" value="<?php echo $vir->getData('suburb') ?>" />
+                    </div>
+                  </div>
+                  <div class="small-2 columns">
+                    <label for="postcode">Postcode</label>
+                  </div>
+                  <div class="small-4 columns">
+                    <div class="input-box">
+                      <input id="postcode" class="input-text validate-postcode" title="Postcode" name="orderData[postcode]" type="text" value="<?php echo $vir->getData('postcode') ?>" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="small-2 columns">
+                  <label for="phonenumber">Phone Number (Day)</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="phonenumber" class="input-text" title="Phone Number" name="orderData[phonenumber]" type="tel" value="<?php echo $vir->getData('phonenumber') ?>" />
+                </div>
+                <div class="small-2 columns">
+                  <label for="phonemobile">Mobile Number</label>
+                </div>
+                <div class="small-4 columns">
+                  <input id="phonemobile" class="input-text" title="Mobile Number" name="orderData[phonemobile]" type="tel" value="<?php echo $vir->getData('phonemobile') ?>" />
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <?php
+                $field = 'regonumber';
+                $label = 'Vehicle Registration';
+                ?>
+                <div class="small-2 columns">
+                  <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                </div>
+                <div class="small-2 columns">
+                  <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                </div>
+                <?php
+                $field = 'fleetnumber';
+                $label = 'Fleet Number';
+                ?>
+                <div class="small-2 columns">
+                  <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                </div>
+                <div class="small-2 columns">
+                  <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                </div>
+                <?php
+                $field = 'speedohubreading';
+                $label = 'Speedo/Hub';
+                ?>
+                <div class="small-2 columns">
+                  <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                </div>
+                <div class="small-2 columns">
+                  <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <div class="medium-3 columns text-center">
+                  <div class="wheel-grid">
+                    <ul>
+                      <li></li>
+                      <li>
+                        <?php $field = 'wheelp2'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp1'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li></li>
+                      <li>
+                        <?php $field = 'wheelp2a'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp1a'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheelp6'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp5'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp4'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp3'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheelp10'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp9'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp8'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelp7'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="medium-3 columns text-center">
+                  <div class="wheel-grid">
+                    <ul>
+                      <li>
+                        <?php $field = 'wheela4'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela3'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela2'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela1'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheela8'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela7'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela6'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela5'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheela12'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela11'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela10'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheela9'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="medium-3 columns text-center">
+                  <div class="wheel-grid">
+                    <ul>
+                      <li>
+                        <?php $field = 'wheelb4'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb3'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb2'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb1'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheelb8'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb7'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb6'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb5'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'wheelb12'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb11'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb10'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'wheelb9'; $n = substr($field, 6); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                  
+                  <div class="medium-3 columns text-center">
+                  <div class="wheel-grid">
+                    <ul>
+                      <li>
+                        <?php $field = 'spare4'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare3'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare2'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare1'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'spare8'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare7'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare6'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare5'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <?php $field = 'spare12'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare11'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare10'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                      <li>
+                        <?php $field = 'spare9'; $n = substr($field, 5); ?>
+                        <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                        <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $n; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        <label for="<?php echo $field; ?>"><?php echo $n; ?></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="medium-3 columns text-center">Prime Mover</div>
+                  <div class="medium-3 columns text-center">Trailer A</div>
+                  <div class="medium-3 columns text-center">Trailer B</div>
+                  <div class="medium-3 columns text-center">Spare Tyre</div>
+                </div>
+                <hr>
+                    
+                    <div class="row">
+                        <div class="small-12 columns">
+                          Please tick the preferred payment method:
+                        </div>
+                      </div>
+                      <div clas="row">
+                        <div class="small-3  columns">
+                          <?php
+                          $cb = '';
+                          if ($vir->getData('custapprpaycash') == 1) {
+                              $cb = ' checked="checked"';
+                          }
+                          ?>
+                          <label>
+                            <input id="custapprpaycash" class="input-cb" title="Cash"<?php echo $cb ?> name="orderData[custapprpaycash]" type="checkbox" value="1" />
+                            Cash
+                          </label>
+                        </div>
+                      <div class="small-3  columns">
+                          <?php
+                          $cb = '';
+                          if ($vir->getData('custapprpayeftpos') == 1) {
+                              $cb = ' checked="checked"';
+                          }
+                          ?>
+                          <label>
+                              <input id="custapprpayeftpos" class="input-cb" title="Eftpos"<?php echo $cb ?> name="orderData[custapprpayeftpos]" type="checkbox" value="1" />
+                              Eftpos
+                          </label>
+                      </div>
+                        <div class="small-3 columns">
+                          <?php
+                          $cb = '';
+                          if ($vir->getData('custapprpayvisamaster') == 1) {
+                              $cb = ' checked="checked"';
+                          }
+                          ?>
+                          <label>
+                            <input id="custapprpayvisamaster" class="input-cb" title="Visa/Mastercard"<?php echo $cb ?> name="orderData[custapprpayvisamaster]" type="checkbox" value="1" />
+                            Visa/M'card
+                          </label>
+                        </div>
+                          <div class="small-3 columns">
+                              <?php
+                              $cb = '';
+                              if ($vir->getData('custapprpayamexdiners') == 1) {
+                                  $cb = ' checked="checked"';
+                              }
+                              ?>
+                              <label>
+                                  <input id="custapprpayamexdiners" class="input-cb" title="Amex/Diners"<?php echo $cb ?> name="orderData[custapprpayamexdiners]" type="checkbox" value="1" />
+                                  Amex/Diners&nbsp;&nbsp;
+                              </label>
+                          </div>
+                        <div class="small-3 columns">
+                          <?php
+                          $cb = '';
+                          if ($vir->getData('custapprpayaccount') == 1) {
+                              $cb = ' checked="checked"';
+                          }
+                          ?>
+                          <label>
+                            <input id="custapprpayaccount" class="input-cb" title="Account"<?php echo $cb ?> name="orderData[custapprpayaccount]" type="checkbox" value="1" />
+                            Account
+                          </label>
+                        </div>
+                        <div class="small-3 columns ">
+                          <?php
+                          $cb = '';
+                          if ($vir->getData('custapprpayfinance') == 1) {
+                              $cb = ' checked="checked"';
+                          }
+                          ?>
+                          <label>
+                            <input id="custapprpayfinance" class="input-cb" title="Finance"<?php echo $cb ?> name="orderData[custapprpayfinance]" type="checkbox" value="1" />
+                            Finance
+                          </label>
+                        </div>
+                          <div class="small-3 columns end">
+                              <?php
+                              $cb = '';
+                              if ($vir->getData('custapprpayother') == 1) {
+                                  $cb = ' checked="checked"';
+                              }
+                              ?>
+                              <label>
+                                  <input id="custapprpayother" class="input-cb" title="Other"<?php echo $cb ?> name="orderData[custapprpayother]" type="checkbox" value="1" />
+                                  Other
+                              </label>
+                          </div>
+                      </div>    
+                <hr>
+                
+                <div class="row">
+                    <div class="small-12 columns">
+                        <textarea name="orderData[sketch_container]" data-form-key="<?php echo $this->getFormKey(); ?>" data-vir-url="<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/ordercommercial/savedrawing/'); ?>" data-vir-id="<?php echo $this->getRequest()->getParam('id') ?>" class="hide" id="sketchContainer"><?php echo $vir->getData('sketch_container'); ?></textarea>
+                        <a href="#" data-reveal-id="DrawPad" class="button  insert-drawing">Add drawing</a>
+                        <a href="#" class="preview-image  button">Preview image</a>
+                        <div id="previewImage" class="hide">
+                            <div>
+                                <a href="" class="delete_image hide"><i class="fa fa-trash fa-3x"></i></a>
+                                <img class="preview th" src="<?php echo $vir->getData('sketch_container'); ?>"/>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div id="DrawPad" class="reveal-modal full" data-reveal aria-labelledby="Draw" aria-hidden="true" role="dialog">
+                            <a href="#" class="button grey close-link right">Cancel</a>
+                            <a href="javascript:void(0)" aria-label="Close" class="button save-link right">Save</a>
+                            <div class="load-indicator hide right"><i class="fa fa-refresh fa-2x fa-spin"></i></div>
+                            <div id="wPaint" style="position:relative; width:100%; border: 1px solid #c8c8c8 ;height:300px; margin:70px auto 20px auto;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                  <div class="small-2 columns">
+                    <?php
+                    $field = 'workrequireddone';
+                    $label = 'Work Required / done';
+                    ?>
+                    <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                  </div>
+                  <div class="small-10 columns">
+                    <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                  </div>
+                </div>
+
+
+                <hr>
+
+                <div class="row">
+                  <div class="small-2 small-offset-3 columns"><strong>Size</strong></div>
+                  <div class="small-2 columns"><strong>Pattern</strong></div>
+                  <div class="small-1 columns"><strong>QTY</strong></div>
+                  <div class="small-4 columns"><strong>Comments</strong></div>
+                </div>
+
+
+
+                    <?php
+                    $rowtypes = array(
+                        'newsteer',
+                        'newdrive',
+                        'newtrailer',
+                        'rdttrailer',
+                        'rdtdrive',
+                        'casing',
+                        'puncture',
+                        'scrap',
+                        'rotate',
+                        'tube',
+                        'fitsteelalloylttrk',
+                        'balancestalloyltpowder',
+                        'rustband',
+                        'valvestem',
+                        'valveext'
+                    );
+
+                    $rowlabels = array(
+                        'New Steer',
+                        'New Drive',
+                        'New Trailer',
+                        'RDT Trailer',
+                        'RDT Drive',
+                        'Casing',
+                        'Puncture',
+                        'Scrap',
+                        'Rotate',
+                        'Tube',
+                        'Fit Steel/Alloy/LT TRK',
+                        'Balance ST/Alloy/LT/Powder',
+                        'Rustband',
+                        'Valve stem',
+                        'Valve ext'
+                    );
+
+                    foreach ($rowtypes as $index=>$rowtype):
+                        $rowlabel = $rowlabels[$index];
+                    ?>
+
+
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <?php echo $rowlabel; ?>
+                        </div>
+
+                        <?php if ($rowtype != 'valveext'): ?>
+                        <div class="small-2 columns">
+                            <?php
+                            $field = $rowtype . 'size';
+                            $label = 'Size';
+                            $title = $rowlabel . ' ' . $label;
+                            ?>
+                            <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $title; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                        </div>
+
+                        <div class="small-2 columns">
+                        <?php else: ?>
+                        <div class="small-2 small-offset-2 columns">
+                        <?php endif; ?>
+                            <?php
+                            $field = $rowtype . 'pattern';
+                            $label = 'Pattern';
+                            $title = $rowlabel . ' ' . $label;
+                            ?>
+                            <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $title; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                        </div>
+                        <div class="small-1 columns">
+                            <?php
+                            $field = $rowtype . 'qty';
+                            $label = 'Qty';
+                            $title = $rowlabel . ' ' . $label;
+                            ?>
+                            <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $title; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field)>0 ? $vir->getData($field) : ''; ?>" />
+                        </div>
+                        <div class="small-4 columns">
+                            <?php
+                            $field = $rowtype . 'comments';
+                            $label = 'Comments';
+                            $title = $rowlabel . ' ' . $label;
+                            ?>
+                            <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $title; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                        </div>
+                    </div>
+
+                    <?php endforeach; ?>
+                    
+
+                      <hr>
+                   
+                    <h3>Quality Check</h3>
+
+                    <div class="row">
+                        <div class="small-3 columns">
+                          <?php
+                          $field = 'workperformedandcheckedby';
+                          $label = 'Work Performed and Checked by';
+                          ?>
+                          <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <?php
+                            $field = 'customeralertothernuts';
+                            $label = 'Wheel Nuts have been Tensioned with a Tension Wrench';
+                            ?>
+                            <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+
+                            <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                        </div>
+                        <div class="small-1 columns">
+                          <input id="<?php echo $field; ?>" title="<?php echo $label; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" />
+                        </div>
+                        <div class="small-2 columns">
+                          Nuts Tensioned by <!-- my ex girlfriend -->
+                        </div>
+                        <div class="small-3 columns">
+                          <?php
+                          $field = 'nutstentionedby';
+                          $label = 'Nuts Tensioned by';
+                          ?>
+                          <input id="<?php echo $field; ?>" class="input-text" title="<?php echo $label; ?>" name="orderData[<?php echo $field; ?>]" type="text" value="<?php echo $vir->getData($field); ?>" />
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3>Customer Safety Alert!</h3>
+
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <?php
+                            $field = 'customeralertnuts';
+                            $label = 'Truck Wheel Nuts must be re-tensioned after 50km travel';
+                            ?>
+
+                            <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                            <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $label; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" style = "float: left" />
+
+                            <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <?php
+                            $field = 'customeralertforkliftnuts';
+                            $label = 'Forklift and Off-the-road wheel nuts must be re-tensioned after 2 hours use';
+                            ?>
+                            <?php $cb = ''; if ($vir->getData($field) == 1) $cb = ' checked="checked"'; ?>
+                            <input id="<?php echo $field; ?>" class="input-cb" title="<?php echo $label; ?>"<?php echo $cb ?> name="orderData[<?php echo $field; ?>]" type="checkbox" value="1" style = "float: left" />
+
+                            <label for="<?php echo $field; ?>"><?php echo $label; ?></label>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                       <div class="small-12 columns">
+                           <h3>Customer Approval</h3>   
+                        <p>I agree that all the above work was carried out and acknowledge I have been informed that I am to re-check the wheel nut tension on all wheels after traveling for 50km / 2 hours from having the new tyres fitted. (sign below).</p>
+                        <button id="customersignature_reset">Clear signature</button>
+                        <div id="customersignature_canvas" style="width: 700px"></div>
+                        <input id="customersignatureimage" name="orderData[customersignatureimage]" type="hidden" value="<?php echo $vir->getData('customersignatureimage'); ?>" />
+                        <script>
+                        var customerSignature = new signatureHelper();
+                        customerSignature.$sigdiv = jQuery("#customersignature_canvas");
+                        customerSignature.$data = jQuery("#customersignatureimage");
+                        customerSignature.$clear = jQuery('#customersignature_reset');
+                        customerSignature.init();
+                        </script>
+
+                        </div>
+                    </div>
+
+                <!-- end main container -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Clean form end -->
+
+
+<?php if ($this->hasFooterButtons()): ?>
+    <div class="content-footer">
+        <p class="form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+//    editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+
+    jQuery(document).ready(function () {
+        function makeResponsive() {
+            jQuery("body").width(jQuery(window).width());
+        }
+
+        makeResponsive();
+        jQuery(window).resize(function () {
+            makeResponsive();
+        });
+    });
+
+
+    ajaxAutocomplete = new Ajax.Autocompleter("customername", "customername_autocomplete_choices", autocompleteUrl, {
+        minChars: 3,
+        afterUpdateElement: populateCommercialFormFields
+    });
+
+    Event.observe($("customername"),'keyup', function(){
+        window.stop(); // Kill all existing Ajax requests.
+    });
+</script>
+
+<!-- FE form scripts -->
+<!-- jQuery already included for other things -->
+<!-- <script src="/skin/bower_components/jquery/dist/jquery.min.js"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/jqueryui/jquery-ui.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js"></script>
+<!-- <script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/datepicker/foundation-datepicker.js"></script> -->
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/jquery.ui/ui/datepicker.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/app.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/address.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/pages/vir-form.js"></script>
+<!-- END FE form scripts -->
+
+
+
+
+<?php echo $this->getFormScripts() ?>
+
+
+<?php //paint  ?>
+<!-- jQuery UI -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.core.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.widget.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.mouse.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.draggable.1.10.3.min.js"></script>
+
+<!-- wColorPicker -->
+<link rel="Stylesheet" type="text/css" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/wColorPicker.min.css" />
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/wColorPicker.min.js"></script>
+
+<!-- wPaint -->
+<link rel="Stylesheet" type="text/css" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.css" />
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.utils.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.js"></script>
+
+<!-- wPaint main -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/main/src/fillArea.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/main/src/wPaint.menu.main.js"></script>
+
+<!-- wPaint text -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/text/src/wPaint.menu.text.js"></script>
+
+<!-- wPaint shapes -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/shapes/src/shapes.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/shapes/src/wPaint.menu.main.shapes.js"></script>
+
+<!-- wPaint file -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/file/src/wPaint.menu.main.file.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/custom.init.js"></script>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Beau Dev Campaign</title>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../bower_components/modernizr/modernizr.js') %>"></script>
+  </head>
+  <body class="page-campaign">
+
+    <%= require('html-loader?minimize=false!./templates/campaign_header.html') %>
+
+    <main class="campaign">
+      <%= require('html-loader?minimize=false!./templates/campaign_main.html') %>
+      <%= require('html-loader?minimize=false!./templates/campaign_map.html') %>
+      <%= require('html-loader?minimize=false!./templates/campaign_sections.html') %>
+    </main>
+    <%= require('html-loader?minimize=false!./templates/campaign_footer.html') %>
+
+
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../bower_components/jquery/dist/jquery.min.js') %>"></script>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../bower_components/foundation/js/foundation.min.js') %>"></script>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../bower_components/slick-carousel/slick/slick.min.js') %>"></script>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../js/app.js') %>"></script>
+    <script type="text/javascript">
+      //var jQ = jQuery.noConflict()
+
+      $(function(){
+        $('.slider').slick()
+
+        $(document).foundation({
+            abide:{
+                patterns :{
+                    vehicle_make: /^.{1,15}$/,
+                    vehicle_model: /^.{1,200}$/,
+                    vehicle_size: /^.{0,200}$/
+                }
+            }
+        })
+
+
+        var $instantQuoteBtn = $('[data-get-instant-quote-btn]'),
+            $instantQuoteForm = $('[data-get-instant-quote-form]'),
+            $htmlBody = $('html, body'),
+            $window = $(window),
+            $flashBar = $('[data-flash-bar]'),
+            $nearestStoreBtn = $('[data-nearest-store-btn]')
+            $mapSection = $('section.map'),
+
+        $instantQuoteBtn.on('click', function(event){
+          event.preventDefault();
+          var offsetTop = $instantQuoteForm.offset().top - ($flashBar.height() + 5)
+          $htmlBody.animate({ scrollTop: offsetTop }, 1000)
+          $instantQuoteForm.find('input[type="text"]').first().focus()
+        })
+
+        $nearestStoreBtn.on('click', function(event){
+          event.preventDefault();
+          var offsetTop = $mapSection.offset().top - ($flashBar.height() + 5)
+          $htmlBody.animate({ scrollTop: offsetTop }, 1000)
+          $instantQuoteForm.find('input[type="text"]').first().focus()
+        })
+
+
+
+        // $window.on('scroll', function(){
+        //   var wScroll = $(this).scrollTop(),
+        //       flashBarHeight = $flashBar.outerHeight()
+
+        //   if(wScroll > flashBarHeight) {
+        //     $flashBar.addClass('sticky')
+        //   } else {
+        //      $flashBar.removeClass('sticky')
+        //   }
+        // }).scroll()
+
+      })
+    </script>
+  </body>
+</html>

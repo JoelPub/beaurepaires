@@ -1,0 +1,141 @@
+
+
+@mixin button-properties($font-size, $height, $side-padding){
+  height: $height;
+  line-height: $height - 2;
+  padding: 0 $side-padding;
+  font-size: $font-size;
+}
+
+@mixin button-post-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+ -webkit-border-bottom-right-radius: $radius;
+        -moz-border-radius-topright: $radius;
+     -moz-border-radius-bottomright: $radius;
+            border-top-right-radius: $radius;
+         border-bottom-right-radius: $radius;
+}
+
+.button {
+  @include button-properties($base-font + 2, 40px, 12px);
+  background-color: $colour-congressblue;
+  color: $colour-white;
+  font-family: $font-family-fe-sinclair-medium;
+  transition: none;
+  text-transform: uppercase;
+
+	&:hover, &:focus {
+    background-color: $colour-schoolbusyellow;
+    color: $colour-congressblue;
+	}
+	&.secondary {
+    background-color: $colour-denim;
+    color: $colour-white;
+
+		&:hover, &:focus {
+			background-color: $colour-congressblue;
+		}
+	}
+  &.small {
+    font-weight: normal;
+    @include button-properties($base-font, 28px, 10px);
+  }
+  &.half {
+  	width:49.5%;
+  }
+  &.adjust {
+  	margin-right:3px;
+  }
+  &.postfix {
+    border: none;
+    display: inline-block;
+    text-transform: uppercase;
+    width: auto;
+    @include bg-gradient-color(#F00, #F00);
+    @include button-properties($base-font, 34px, 5px);
+    @include button-post-radius(2px);
+    &:hover, &:focus {
+      background: #F00;
+      -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+      transition: 0s;
+    }
+  }
+  &.light {
+    background-color: $colour-white;
+    color: $colour-congressblue;
+
+		&:hover, &:focus {
+			background-color: $colour-schoolbusyellow;
+		}
+  }
+  &.tertiary{
+    background: $colour-schoolbusyellow;
+    color: $colour-congressblue;
+
+    &:hover, &:focus {
+      background-color: $colour-denim;
+    }
+  }
+
+  &.quaternary {
+    background-color: $colour-schoolbusyellow;
+    color: $colour-congressblue;
+
+    &:hover, &:focus {
+			background-color: $colour-congressblue;
+      color: $colour-white;
+		}
+  }
+}
+
+.button.disabled,
+button[disabled],
+.button.disabled,
+.button[disabled]{
+  background-color: $colour-congressblue;
+  background-image: none;
+  color: $white;
+  opacity: 0.7;
+
+  &:hover {
+    background-color: $colour-congressblue;
+  }
+}
+
+
+.button.white{
+  background: #FFF;
+  color: $black;
+
+  .fa{
+    color: $orange-count-color;
+    font-size: inherit;
+  }
+
+  &:hover{
+    background: $colour-schoolbusyellow;
+    color: $colour-congressblue;
+  }
+}
+
+.button.tertiary{
+  @include bg-gradient-color($aqua-blue-color, $venice-blue);
+}
+
+
+div.button{
+  cursor: default;
+}
+
+.button.full{
+  width: 100%;
+}
+
+button.button, input[type="submit"]{
+  background: $colour-Lochmara;
+
+  &:hover{
+    background-color: $colour-congressblue;
+    color: $white;
+  }
+}

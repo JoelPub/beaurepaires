@@ -1,0 +1,236 @@
+// Variables
+$orange-color-from: #f78f1d;
+$orange-color-to: #dc801c;
+$orange-color-hover: #e56d00;
+
+$blue-color-from: #00b7ff;
+$blue-color-to: #009fd6;
+$blue-color-hover: #0096d6;
+
+$dark-blue-color-from: #0067b1;
+$dark-blue-color-to: #045a9b;
+$dark-blue-color-hover: #034b77;
+
+$base-font: 14px;
+
+@mixin button-properties($font-size, $height, $side-padding){
+  height: $height;
+  line-height: $height + 2;
+  padding: 0 $side-padding;
+  font-size: $font-size;
+}
+
+@mixin button-post-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+ -webkit-border-bottom-right-radius: $radius;
+        -moz-border-radius-topright: $radius;
+     -moz-border-radius-bottomright: $radius;
+            border-top-right-radius: $radius;
+         border-bottom-right-radius: $radius;
+}
+
+.button {
+	@include bg-gradient-color($orange-color-from, $orange-color-to);
+  @include button-properties($base-font + 2, 36px, 12px);
+	&:hover, &:focus {
+		background:$orange-color-hover;
+    -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+    transition: 0s;
+	}
+	&.secondary {
+		@include bg-gradient-color($blue-color-from, $blue-color-to);
+		&:hover, &:focus {
+			background: $blue-color-hover;
+      -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+      transition: 0s;
+		}
+	}
+  &.small {
+    font-weight: normal;
+    @include button-properties($base-font, 28px, 10px);
+  }
+  &.half {
+  	width:49.5%;
+  }
+  &.adjust {
+  	margin-right:3px;
+  }
+  &.postfix {
+    border: none;
+    display: inline-block;
+    text-transform: uppercase;
+    width: auto;
+    @include bg-gradient-color($dark-blue-color-from, $dark-blue-color-to);
+    @include button-properties($base-font, 34px, 5px);
+    @include button-post-radius(2px);
+    &:hover, &:focus {
+      background:$dark-blue-color-hover;
+      -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+      transition: 0s;
+    }
+  }
+  &.flat {
+    background: $tree-poppy;
+  }
+}
+
+.button.disabled,
+button[disabled],
+.button.disabled,
+.button[disabled]{
+  background-color: $iron;
+  background-image: none;
+  color: $white;
+
+  &:hover{
+    background-color: $iron;
+  }
+}
+
+
+.button.white{
+  background: #FFF;
+  border: solid 1px $mercury;
+  color: $black;
+  font-weight: $font-weight-bold;
+
+  .fa{
+    color: $orange-count-color;
+    font-size: rem-calc(20);
+  }
+}
+
+.button.tertiary{
+  @include bg-gradient-color($aqua-blue-color, $venice-blue);
+}
+
+
+div.button{
+  cursor: default;
+}
+
+.button.full{
+  width: 100%;
+}
+
+
+
+
+
+// new ui/ux
+$hoverPercentage: 10%;
+
+a.flat-button,
+button.flat-button,
+div.flat-button,
+span.flat-button,
+input.flat-button {
+  height: 40px;
+  line-height: 42px;
+  text-align: center;
+  font-size: rem-calc(16px);
+  padding: 0 18px;
+  margin: 0 0 10px 0;
+  display: inline-block;
+  background: $primary-color;
+  font-family: $font-family-sans-serif-bold;
+  border-radius: 2px;
+  color: $white;
+  transition: all 0.3s ease-in-out;
+
+  .flat-button-icon {
+    margin-right: 2px;
+  }
+
+  &:hover,
+  &:focus {
+    background: darken($primary-color, $hoverPercentage);
+  }
+
+  &.tiny {
+    height: 28px;
+    line-height: 30px;
+    font-family: $font-family-sans-serif;
+    font-size: rem-calc(14px);
+    padding: 0 15px;
+  }
+
+  &.small {
+    height: 34px;
+    line-height: 36px;
+  }
+
+  &.large {
+    height: 50px;
+    line-height: 52px;
+    font-size: rem-calc(18px);
+    padding: 0 25px;
+  }
+
+  &.secondary {
+    background: $secondary-color;
+    &:hover,
+    &:focus {
+      background: darken($secondary-color, $hoverPercentage);
+    }
+  }
+
+  &.tertiary {
+    background: $dodger-blue-color;
+    &:hover,
+    &:focus {
+      background: darken($dodger-blue-color, $hoverPercentage);
+    }
+  }
+
+  &.white {
+    background: $white;
+    color: $tundora;
+    border: 1px solid $iron;
+    line-height: 40px;
+
+    &.tiny { line-height: 24px; }
+    &.small { line-height:  30px; }
+    &.large { line-height: 52px; }
+
+    &:hover,
+    &:focus {
+      background: darken($white, 5%);
+    }
+
+    .flat-button-icon {
+      color: $secondary-color;
+    }
+  }
+
+  &.dark {
+    background: $tundora;
+    &:hover,
+    &:focus {
+      background: lighten($tundora, $hoverPercentage);
+    }
+  }
+
+  &.disabled,
+  &[disabled] {
+    background: $alto-color;
+    cursor: not-allowed;
+    &:hover,
+    &:focus {
+      background: $alto-color;
+    }
+  }
+
+  &.full-width {
+    width: 100%;
+    display: block;
+  }
+
+  &.hide {
+    display: none;
+  }
+  
+  .color-orange {
+    color: $secondary-color;
+  }
+}

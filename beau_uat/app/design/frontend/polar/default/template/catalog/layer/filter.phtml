@@ -1,0 +1,28 @@
+<ul class="no-bullet">
+  <?php foreach ($this->getItems() as $_item): ?>
+     <?php if ($_item->getCount() > 0): ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
+          <li>
+              <?php
+                $labelValue = $_item->getLabel();
+                $arr = explode(' ', trim(strtolower($labelValue)));
+              ?>
+              <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>" class="<?php echo $arr[0] ?>"><?php echo $_item->getLabel() ?> (<?php echo $_item->getCount() ?>)</a> 
+           </li>
+      <?php endif; ?>
+    <?php /*
+    // We don't want to show the filter highliting zero article. Please don't uncomment the section below.
+    <?php else: ?>
+      <?php if ($this->shouldDisplayProductCount()): ?>
+          <li>
+              <?php
+                $labelValue = $_item->getLabel();
+                $arr = explode(' ',trim($labelValue));
+              ?>
+              <span class="<?php echo $arr[0] ?> disable"><?php echo $_item->getLabel() ?> (<?php echo $_item->getCount() ?>)</span> 
+        </li>
+      <?php endif; ?>
+      */ ?>
+    <?php endif; ?>
+  <?php endforeach ?>
+</ul>

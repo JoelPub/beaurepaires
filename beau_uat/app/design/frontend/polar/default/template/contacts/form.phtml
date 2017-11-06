@@ -1,0 +1,97 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+
+<h1 class="page-title"><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+
+<p><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-us-feature')->toHtml();?></p>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<p><em>* Required Fields</em></p>
+
+<form data-abide action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+
+<div class="row">
+
+	<div class="medium-6 columns">
+		<label for="name"><?php echo Mage::helper('contacts')->__('Name') ?> *</label>
+		<input autocomplete="off" id="name" name="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" type="text" required />
+        <small class="error">This is a required field</small>
+	</div>
+
+	<div class="medium-6 columns">
+		<label for="email"><?php echo Mage::helper('contacts')->__('Email') ?> *</label>
+		<input autocomplete="off" id="email" name="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" type="email" required />
+        <small class="error">This is a required field - It must be a valid email address</small>
+	</div>
+	
+</div>
+
+<div class="row">
+	<div class="columns">
+		<label for="comment">Message *</label>
+		<textarea name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" rows="5" required></textarea>
+        <small class="error">This is a required field</small>
+	</div>
+</div>
+
+<div class="row">
+	<div class="columns">
+		<?php echo $this->getChildHtml('studioforty9.recaptcha.explicit'); ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="columns">
+        <input type="hidden" name="hideit" id="hideit" value="" />
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button radius"><?php echo Mage::helper('contacts')->__('Submit') ?></button>
+    </div>
+</div>
+
+<?php
+        $store_id = Mage::app()->getRequest()->getParam('storeid');
+	if(isset($store_id) && $store_id!='')
+	{
+		$collection = Mage::getModel('storelocator/stores')->load($store_id);
+		if($collection) 
+		{
+		?>
+				<input type='hidden' name='storename'  value='<?php echo htmlentities($collection->getTitle());?>'/>
+				<input type='hidden' name='storeemail'  value='<?php echo htmlentities($collection->getEmail());?>'/>
+		<?php		
+		}
+	}
+	 
+?>
+
+</form>
+
+<script>
+//<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Wheels>
+            <version>0.1.0</version>
+        </ApdInteract_Wheels>
+    </modules>
+    <frontend>
+        <routers>
+            <visualizer>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Wheels</module>
+                    <frontName>wheelinfo</frontName>
+                </args>
+            </visualizer>
+        </routers>
+        <layout>
+            <updates>
+                <visualizer>
+                    <file>wheels.xml</file>
+                </visualizer>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <helpers>
+            <visualizer>
+                <class>ApdInteract_Wheels_Helper</class>
+            </visualizer>
+        </helpers>
+        <blocks>
+            <visualizer>
+                <class>ApdInteract_Wheels_Block</class>
+            </visualizer>
+        </blocks>
+        <models>
+            <visualizer>
+                <class>ApdInteract_Wheels_Model</class>
+            </visualizer>
+        </models>
+    </global>
+
+</config>

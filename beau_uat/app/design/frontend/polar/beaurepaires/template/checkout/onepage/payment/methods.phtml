@@ -1,0 +1,179 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * One page checkout payment methods
+ *
+ * @var $this Mage_Checkout_Block_Onepage_Payment_Methods
+ */
+$grandtotal = Mage::getModel('checkout/cart')->getQuote()->getGrandTotal();
+$minimumPurchaseAmt = Mage::helper('gefinance')->getConfig('ge_6mo_min');
+?>
+
+<?php
+    $methods = $this->getMethods();
+    $oneMethod = count($methods) <= 1;
+?>
+<div class="payment-method" data-minimum="<?php echo $minimumPurchaseAmt?>" data-total="<?php echo $grandtotal?>">
+	<div class="form-wrapper">
+<?php if (empty($methods)): ?>
+    <ul class="no-bullet">
+        <li><?php echo $this->__('No Payment Methods') ?></li>
+    </ul>
+<?php else:?>
+<select id="payment_select" name="payment[method]">
+<option value="">Select Payment Method</option>
+<?php 
+    foreach ($methods as $_method):
+        $_code = $_method->getCode();
+		//Hide 'Pay By Phone' from checkout, Its only used when order created from 'Price Request Form in Product detail page'
+		if($_code=='paybyphone'){
+			continue;
+		}
+        if ($html = $this->getPaymentMethodFormHtml($_method)):
+       		 $hidden_val = '<dd id="dd_method_'.$_code.'">'.$html.'</dd>';
+        endif;
+?>
+      
+    		<option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_method->getTitle()) ?></option>
+    	
+    
+    
+<?php endforeach;
+?>
+</select>
+<!--<input type="radio" name="payment[method]" onchange="">-->
+<?php
+echo $hidden_val;
+    endif;
+?>
+<?php echo $this->getChildChildHtml('additional'); ?>
+	</div>
+</div>
+
+<div class="end-page-load-indicator"></div>
+
+<script type="text/javascript">
+/*jQuery( document ).ready(function() {
+   jQuery( "#opc-payment button" ).prop('disabled', true);
+   jQuery( "#payment_select" ).change(function() {
+   	
+	  var code = jQuery(this).val();
+	  	jQuery("div[id^='payment_form_']").css("display","none");
+	  	jQuery("ul[id^='payment_form_']").css("display","none");
+	  	jQuery("dd[id^='dd_method_']").find('input, textarea, button, select').prop('disabled', true);
+	  	jQuery( "#payment_form_"+code ).css("display","block");
+	  	jQuery("#payment_form_"+code).find('input, textarea, button, select').prop('disabled', false);
+	  	
+	  	if(code=='')
+	  	jQuery( "#opc-payment button" ).prop('disabled', true);
+	  	else
+	  	jQuery( "#opc-payment button" ).prop('disabled', false);
+	  
+	  
+	  var radioBtn = jQuery('<input type="radio" id="p_method_"'+code+' value="'+code+'" name="payment[method]" checked="checked" style="display:none" />');
+    	radioBtn.appendTo('#opc-payment');
+	  	
+	});
+});*/
+
+/* Paul: here is my rewrite of the above code*/
+
+jQuery(function() { // on document ready short cut
+	
+	// avoid using anonymous functions
+	var paymentSelectUpdate = function() {
+		var $this = jQuery(this),
+			code = jQuery(this).val(),
+			$opcPaymentButton = jQuery('#opc-payment button'),
+			$opcReviewSection = jQuery('#opc-review'),
+			$opcPaymentButtonSpan = jQuery('#opc-payment button span span'),
+			$opcPaymentContainer = jQuery('.payment-method'),
+			$opcMinimum = parseFloat($opcPaymentContainer.attr('data-minimum')),
+			$opcTotal = parseFloat($opcPaymentContainer.attr('data-total')),
+			$opcGEForm = jQuery('#payment_form_gefinance');
+		
+		
+		jQuery('div[id^="payment_form_"],ul[id^="payment_form_"]').hide(); // use jquery function, not CSS display none
+		jQuery('#payment_form_'+code ).show(); // Single quotes, not double
+		jQuery('dd[id^="dd_method_"]').find('input, textarea, button, select').prop('disabled', true);
+		jQuery('#payment_form_'+code).find('input, textarea, button, select').prop('disabled', false);
+		
+		if ( code == '' ) {
+			$opcPaymentButton.prop('disabled', true);
+		}
+	  	else {
+			$opcPaymentButton.prop('disabled', false);
+			if(code=='gefinance' && $opcTotal>=$opcMinimum) {						
+				$opcPaymentButtonSpan.text("Pay with Interest Free");
+				$opcGEForm.show();
+				$opcReviewSection.hide();
+			}  else if(code=='gefinance' && $opcTotal<$opcMinimum) {						
+				alert("Minimum purchase of $"+$opcMinimum+" is required for Interest Free Payment.");
+				jQuery(this).val('');
+				$opcPaymentButton.prop('disabled', true);
+				$opcGEForm.hide();
+			} else {
+				$opcPaymentButton.prop('disabled', false);
+				$opcPaymentButtonSpan.text("Continue");
+				$opcReviewSection.show();
+			}
+				
+		}
+		
+		var radioBtn = jQuery('<input type="radio" id="p_method_"'+code+' value="'+code+'" name="payment[method]" checked="checked" style="display:none" />')
+			radioBtn.appendTo('#opc-payment');
+	}
+	
+	
+	var setPaymentChange = function() {
+		// cache dom elements
+		var $paymentSelect = jQuery('#payment_select');
+		
+		// Don't act on absent elements
+		if ( $paymentSelect.length ) {
+			$paymentSelect.on('change', paymentSelectUpdate);
+		}
+	}
+	
+	// assign onChange on page load
+	setPaymentChange();
+	
+	// also put setPaymentChange() in AJAX result/seccess function
+	
+	
+});
+
+
+    //<![CDATA[
+    <?php echo $this->getChildChildHtml('scripts'); ?>
+    payment.init();
+    <?php if (is_string($oneMethod)): ?>
+    payment.switchMethod('<?php echo $oneMethod ?>');
+        <?php endif; ?>
+    //]]>
+</script>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/***************************************
+ *** Multistore Newsletter Subscription ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_MulistoreNewsletter
+ * @author 		NetGo
+ * @dev			netattingomails@gmail.com
+ *
+ */
+-->
+<config>
+  <modules>
+    <Netgo_MulistoreNewsletter>
+      <version>1.0.0</version>
+    </Netgo_MulistoreNewsletter>
+  </modules>
+  <global>
+    <helpers>
+      <mulistorenewsletter>
+        <class>Netgo_MulistoreNewsletter_Helper</class>
+      </mulistorenewsletter>
+    </helpers>
+	<models>
+	  <mulistorenewsletter>
+		<class>Netgo_MulistoreNewsletter_Model</class>
+		<resourceModel>mulistorenewsletter_mysql4</resourceModel>
+	  </mulistorenewsletter>
+		<newsletter_mysql4>
+			<rewrite>
+				<subscriber>Netgo_MulistoreNewsletter_Model_Newsletter_Mysql4_Subscriber</subscriber>
+			</rewrite>
+		</newsletter_mysql4>
+	</models>
+  </global>
+</config> 

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+		<default>
+			<reference name="header">
+				<block type="addblock/addblock" after='-'  name="custom_toplink" template="addblocks/custom_toplink.phtml" />
+			</reference>
+		</default>
+		<catalogsearch_result_index>
+		  <reference name="content">
+			 <block type="addblock/addblock" name="listing.finder.all" before="-" />
+		  </reference>
+   		</catalogsearch_result_index>
+		<searchtyre_index_result>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchtyre_index_result>
+		<searchresult_index_index>
+			<reference name="content">
+	            <block type="addblock/addblock" name="listing.finder.all" />
+			</reference>
+		</searchresult_index_index>
+		<catalog_category_view>
+                    <reference name="content">
+                        <block type="addblock/addblock" name="listing.finder.all" />
+                        <block type="addblock/addblock" after="category.products" name="seoblock_index" template="addblocks/seo_content.phtml" />
+                    </reference>
+		</catalog_category_view>
+		<onsale_index_index>
+			 <reference name="content">
+				<block type="addblock/addblock" after="onsale_container" name="seoblock_index" template="addblocks/seo_content.phtml" />
+			</reference>
+		</onsale_index_index>
+		<cms_index_index>
+			<reference name="content">
+				<block type="addblock/addblock" before="auguria_sliders" name="homepage_static_promo" template="addblocks/homepage_promo.phtml" />
+			</reference>
+		</cms_index_index>
+
+	<checkout_cart_index>
+		<reference name="content">
+			<block type="addblock/addblock" before="_" name="checkout_cart_progressbar" template="addblocks/checkout_cart_progressbar.phtml" />
+		</reference>
+	</checkout_cart_index>
+</layout>

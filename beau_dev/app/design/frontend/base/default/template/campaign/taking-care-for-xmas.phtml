@@ -1,0 +1,46 @@
+<?php $session = Mage::getSingleton('core/session'); ?>
+<?php $postData = $session->getPostdata(); ?>
+<?php echo $this->getChildHtml('global_messages') ?>
+<form action="/campaign" method="post" data-abide novalidate="novalidate">
+  <div class="column medium-12">
+    <div class="row">
+        <div class="column medium-6">
+          <label aria-label="first_name">First Name*</label>
+          <input type="text" value="<?php if(isset($postData['first_name'])) echo $postData['first_name']?>" name="first_name" required pattern="[a-zA-Z]+">
+          <small class="error">This is a required field. Please use letters only (a-z or A-Z) in this field. </small>
+        </div>
+
+        <div class="column medium-6">
+          <label aria-label="last_name"> Last Name*</label>
+          <input type="text" value="<?php if(isset($postData['first_name'])) echo $postData['last_name']?>" name="last_name" required pattern="[a-zA-Z]+">
+          <small class="error">This is a required field. Please use letters only (a-z or A-Z) in this field.</small>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="column medium-6">
+          <label aria-label="email">Email*</label>
+        <input type="email" value="<?php if(isset($postData['first_name'])) echo $postData['email']?>" name="email" required>
+        <small class="error">This is a required field - This is a required field - Please enter a valid email address</small>
+        </div> 
+
+        <div class="column medium-4">
+          <label aria-label="mobile">Mobile</label>
+          <input type="text" value="<?php if(isset($postData['first_name'])) echo $postData['mobile']?>" name="mobile" pattern="[0-9]+">
+          <small class="error">This is a required field. Please enter valid mobile.</small>
+        </div> 
+
+        <div class="column medium-2">
+          <label aria-label="postcode">Postcode</label>
+          <input type="text" value="<?php if(isset($postData['first_name'])) echo $postData['postcode']?>" name="postcode" pattern="[0-9]+">
+          <small class="error">This is a required field.  Please enter valid postcode.</small>
+        </div> 
+    </div>
+    <div class="column text-center">
+      <input type="checkbox" name="tnc_pp" required /> By entering I accept the <a href="<?php echo Mage::getStoreConfig('campaign/campaign/campaign_tc')?>">Terms & Conditions</a> & Beaurepaires <a href="https://www.beaurepaires.com.au/privacy-policy">Privacy Policy</a> <small class="error">This is a required field.</small>
+    </div>
+
+    <div class="column text-center">
+      <input type="submit" value="Enter Now" class="button button-secondary">
+    </div> 
+  </div> 
+</form> 

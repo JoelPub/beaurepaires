@@ -1,0 +1,21 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+    <campaign_index_index> 
+        <block type="campaign/campaign" name="root" output="toHtml" template="campaign/save-campaign.phtml" />      
+    </campaign_index_index>
+    <default>
+        <reference name="content">
+            <block type="core/messages" name="global_messages" as="global_messages"/>
+        </reference>
+    </default>
+    <campaign_easter_index>
+            <block type="campaign/easter" name="easter_campaign" output="toHtml" template="campaign/easter/save-easter-campaign.phtml" />
+    </campaign_easter_index>
+    <campaign_tyresfrom399_index>
+        <block type="campaign/tyresfrom399" name="tyresfrom399_campaign" output="toHtml" template="campaign/tyresfrom399/save-tyresfrom399-campaign.phtml" />
+    </campaign_tyresfrom399_index>
+    <campaign_batoffer_index>
+        <block type="campaign/batoffer" name="batoffer_campaign" output="toHtml" template="campaign/batoffer/save-batoffer-campaign.phtml" />
+    </campaign_batoffer_index>
+</layout>
+	

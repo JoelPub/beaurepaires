@@ -1,0 +1,45 @@
+input:focus, 
+select:focus,
+textarea:focus, 
+div:focus,
+a:focus,
+button:focus,
+input:hover, 
+select:hover,
+textarea:hover, 
+div:hover,
+a:hover,
+button:hover,{
+    outline: none;
+}
+
+.collapse-left-margin{
+ margin-left: 0; 
+}
+
+ul.accordion{
+  margin-left: 0;
+}
+
+img.expand{
+  height: auto;
+  width: 100%;
+}
+
+table{
+  width: 100%;
+}
+
+.line-through{
+  text-decoration: line-through;
+}
+
+strong{
+ font-weight: normal; 
+}
+
+input{
+  &.calendar[type="text"][readonly] {
+    cursor: pointer;
+  }
+}

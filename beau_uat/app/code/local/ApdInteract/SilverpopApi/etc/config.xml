@@ -1,0 +1,49 @@
+<config>
+    <modules>
+        <ApdInteract_SilverpopApi>
+            <version>0.1.0</version>
+        </ApdInteract_SilverpopApi>
+    </modules>
+    <global>
+        <resources>
+            <apdinteract_silverpopapi_setup>
+                <setup>
+                    <module>ApdInteract_SilverpopApi</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_silverpopapi_setup>
+        </resources>
+        <helpers>
+            <silverpopapi>
+                <class>ApdInteract_SilverpopApi_Helper</class>
+            </silverpopapi>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <silverpopapi>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_SilverpopApi</module>
+                    <frontName>silverpopapi</frontName>
+                </args>
+            </silverpopapi>
+        </routers>
+    </frontend>
+    
+    <default>
+        <silverpop_api>
+            <settings>
+        	<api_url>http://api7.ibmmarketingcloud.com/XMLAPI</api_url>
+        	<username>magento.goodyear@apdgroup.com</username>
+                <password>G00dy3@r</password>
+                <db_name>Beaurepaires</db_name>
+                <list_prefix>Beaurepaires - Marketing -</list_prefix>
+            </settings>
+        </silverpop_api>
+    </default>
+  
+</config>

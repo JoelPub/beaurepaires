@@ -1,0 +1,198 @@
+#product-filter-panel {
+    background: $gallery-color;
+    padding: 12px;
+    box-shadow: 0 4px 2px -2px #c0bdbd;
+
+    .with-caret-arrow::after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\F0D7";
+        position: absolute;
+        right: 12px;
+        top: 12px;
+    }
+
+    .filter {
+        background: $white;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 100%;
+        font-size: rem-calc(14px);
+        font-weight: bold;
+        padding: 12px;
+        border: solid 1px $silver-color; 
+        position: relative;
+        cursor: pointer;
+
+        i.fa-filter {
+            color: #f7991e;
+            margin-right: 8px;
+            margin-top: -3px;
+        }
+
+        i.caret {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            
+            &.fa-caret-down {
+                display: none;
+            }
+        }
+    }
+
+    .filter-content {
+        display: none; // by default, it hide
+    }
+
+    .categories {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 12px;
+        border: solid 1px $silver-color; 
+        border-bottom: none;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        
+
+        .category {
+            width: 100%;
+
+            .category-title {
+                border-bottom: solid 1px $silver-color;
+                background: $light-gray-bg;
+                height: 40px;
+                padding: 0 12px;      
+                font-size: rem-calc(14px);
+                font-weight: bold;
+                line-height: 40px;
+                color: $tundora;
+                position: relative;
+                cursor: pointer;
+            }
+
+            .category-content {
+                background: $white;
+                border-bottom: solid 1px $silver-color;
+                padding: 12px;
+                display: none; // by default, it hide
+
+                &.active {
+                    display: block;
+                }
+            }
+
+            hr {
+                border-color: $silver-color;
+                margin: 10px 0;
+            }
+
+            ul {
+                margin: 0;
+                list-style: none;
+
+                li:last-child { margin: 0; }
+            }
+
+            &:last-child .category-content {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .cta-container {
+        border: solid 1px $silver-color;  
+        border-top: none;
+        background: $white;
+        padding: 12px; 
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        button {
+            margin: 0;
+            width: 100%;
+        }
+    }
+
+    &.disabled {
+        .filter {
+            pointer-events: none;
+            color: $silver-color;
+
+            .fa {
+                color: $silver-color;
+            }
+
+            .fa-filter { color: #ffdeba; }
+        }
+    }
+
+    &.active {
+        .filter.with-caret-arrow::after {
+            content: "\F0D8";
+        }
+        .filter-content {
+            display: block;
+        }
+    }
+
+
+    @media #{$medium-up} {
+        .categories {
+            flex-direction: row;
+            margin-top: 25px;
+            border: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+
+            .category {
+                width: 21%;
+                padding: 0 18px;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+    
+                &:last-child {
+                    padding-right: 0;
+                }
+
+                .category-title,
+                .category-content {
+                    background: $gallery-color;
+                    padding: 0;
+                }
+                .category-title {
+                    pointer-events: none;
+                    font-size: rem-calc(16px);
+
+                    &:after {
+                        content: '';
+                    }
+                }
+                .category-content {
+                    padding-top: 12px;
+                    border-bottom: none;
+                    display: block;
+                }
+            }
+        }
+        
+        .cta-container {
+            text-align: right;
+            border: none;
+            padding: 0;
+            background: $gallery-color;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            button { width: auto; }
+        }
+    }
+}

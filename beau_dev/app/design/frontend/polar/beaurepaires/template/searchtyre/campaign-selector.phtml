@@ -1,0 +1,383 @@
+<?php
+$make = Mage::helper('searchtyre')->getMakes();
+$helper = Mage::helper('searchtyre');
+?>
+<div class="quick-finder" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+    <div class="row">
+        <div class="columns"> <?php // large-4 medium-5 columns small-zero-guther quick-finder-box ?>
+            <ul class="tabs" data-tab>
+                <li class="tab-title active"><a href="#find-tyres"><i class="fa-lg icon-bfttyre"></i> Search Tyres</a></li>
+                <?php /* TODO: #find wheels and #find-batteries Temporarily off */?>
+                <!--<li class="tab-title"><a href="#find-wheels"><i class="fa-lg icon-bftwheel"></i> Search Wheels</a></li>-->
+                <!--<li class="tab-title"><a href="#find-batteries">Find Batteries</a></li>-->
+                <?php /**/ ?>
+            </ul>
+            <div class="panel">
+                <div class="tabs-content">
+                    <!-- Find Tyres -->
+                    <div class="content active" id="find-tyres">
+                        <ul class="accordion" data-accordion>
+                            <li class="accordion-navigation active">
+                                <a href="#vehicle-type">Vehicle Type</a>
+                                <div id="vehicle-type" class="vehicle-type content active">
+                                    <!-- Vehicle Type -->
+                                    <form class="ajax-call" method="post" action="" data-action-format="/tyresearch/[vehicle-name]/id/[vehicle-id]/y/[vehicle-year]">
+                                        <input type="hidden" name="type" value="tyres">
+                                        <input type="hidden" name="section" value="vehicles">
+                                        <input type="hidden" name="category" value="41">
+                                        <div class="row collapse">
+                                            <div class="small-6 columns pad-right">
+                                                <select name="make-tyres" class="make-tyres flat" title="Select Make" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTMakeF() !='') ? Mage::getSingleton('core/session')->getTMakeF() : $_COOKIE['make-tyres']?>" >
+                                                    <option value="">Select Make</option>
+                                                    <?php foreach ($make as $m => $v) { ?>
+                                                        <option value="<?php echo $m ?>"><?php echo $v ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="small-6 columns pad-left">
+                                                <select name="model-tyres" class="model-tyres flat" title="Select Model" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTModelF() !='') ? Mage::getSingleton('core/session')->getTModelF() : $_COOKIE['model-tyres']?>" disabled>
+                                                    <option value="">Select Model</option>
+                                                </select>
+                                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                            </div>
+                                            <div class="small-6 columns pad-right">
+                                                <select name="year-tyres" class="year-tyres flat" title="Select Year" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTYearF() !='') ? Mage::getSingleton('core/session')->getTYearF() : $_COOKIE['year-tyres'];?>" >
+                                                    <option value="">Select Year</option>
+                                                    <?php for ($i = date("Y"); $i >= 1990; $i--) { ?>
+                                                        <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="small-6 columns pad-left">
+                                                <select name="series-tyres" class="series-tyres final-select flat" title="Select Series" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getSeriesF() != '') ? Mage::getSingleton('core/session')->getSeriesF() : $_COOKIE['series-tyres'];?>" disabled>
+                                                    <option value="">Select Series</option>
+                                                </select>
+                                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <input type="submit" value="Search" class="radius button expand flat" disabled />
+                                                <div class="request-error">
+                                                    Sorry, there was a problem retrieving your requested data.<br>
+                                                    <a href="/tyres">View full list of products here</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="accordion-navigation home-quick-finder">
+                                <a href="#tyre-size">Tyre Size</a>
+                                <div id="tyre-size" class="tyre-size content">
+                                    <!-- Tyre Size -->
+                                    <form class="ajax-call" method="post" action="" data-action-format="/tyresize/[tyre-size]">
+                                        <input type="hidden" name="type" value="tyres">
+                                        <input type="hidden" name="section" value="size">
+                                        <input type="hidden" name="category" value="41">
+                                        <div class="row collapse tyre-size-graphic-container">
+                                            <div class="small-12 columns">
+                                                <div class="type-size-graphic">
+                                                    <img src="<?php echo $this->getSkinUrl('images/svg/tyre_size_graphic.svg'); ?>" class="svg" alt="">
+                                                </div>
+                                            </div>
+                                              <div class="small-4 columns form-wrapper">
+                                                 <select name="width-tyres" class="width-tyres flat" data-pre-load="<?php echo Mage::getSingleton('core/session')->getWidthF()?>" data-show-active="width" disabled>
+                                                    <option value="">Width</option>
+                                                 </select>
+                                                 <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                              </div>
+                                              <div class="small-4 columns form-wrapper">
+                                                 <select name="profile-tyres" class="profile-tyres flat" data-pre-load="<?php echo Mage::getSingleton('core/session')->getProfileF()?>" data-show-active="aspect" disabled>
+                                                    <option value="">Aspect</option>
+                                                 </select>
+                                                 <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                              </div>
+                                              <div class="small-4 columns form-wrapper">
+                                                 <select name="diameter-tyres"  class="diameter-tyres final-select flat" data-pre-load="<?php echo Mage::getSingleton('core/session')->getDiameterF()?>" data-show-active="rim" disabled>
+                                                    <option value="">Rim</option>
+                                                 </select>
+                                                 <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                              </div>
+                                           </div>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <input type="submit" name="tyre-size-btn" id="tyre-size-btn" value="Search" disabled class="radius button expand flat" />
+                                                <div class="request-error">
+                                                    Sorry, there was a problem retrieving your requested data.<br>
+                                                    <a href="/tyres">View full list of products here</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <?php if($helper->checkIfApplicable()):
+                                $vehicles = $helper->getAllVehicleByUser();
+                            ?>
+                            <li class="accordion-navigation">
+                              <a href="#saved-vehicles">Saved Vehicles</a>
+                              <div id="saved-vehicles" class="content">
+                                  <form method="post" id="frm-tyres" action="/searchresult/index/">
+                                        <input type="hidden" name="type" value="tyres">
+                                        <input type="hidden" name="section" value="vehicles">
+                                        <input type="hidden" name="category" value="41">
+
+                                    <div class="row">
+                                       <div class="small-12 columns">
+                                          <select name="saved_vehicles" id="brand-tyres" class="flat">
+                                             <option value="">Series</option>
+                                             <?php foreach($vehicles as $vehicle):?>
+                                                <?php $details = json_decode($vehicle->getDetails(),true);?>
+                                                <option value="<?php echo $details['make-tyres'].':'.$details['year-tyres'].':'.$details['model-tyres'].':'.$details['series-tyres'].':'.$vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option>
+                                             <?php endforeach;?>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="large-12 columns">
+                                          <input type="submit" value="Search" id="tyre-saved-btn" name="tyre-saved-btn" class="small radius button expand flat" />
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </li>
+                           <?php endif;?>
+                           <?php /*
+                            <!--<li class="accordion-navigation">
+                              <a href="#tyre-brand">Tyre Brand</a>
+                              <div id="tyre-brand" class="content">
+                                 <form method="post" action="searchresult/index/index/type/tyres/section/brand">
+                                        <input type="hidden" name="type" value="tyres">
+                                        <input type="hidden" name="section" value="brand">
+                                        <input type="hidden" name="category" value="41">
+                                         <input type="hidden" id="brand" name="brand" value="">
+
+                                    <div class="row">
+                                       <div class="small-12 columns">
+                                          <select name="brand-tyres" id="brand-tyres">
+                                             <option value="">Brand</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="large-12 columns">
+                                          <input type="submit" value="Search" id="tyre-brand-btn" name="tyre-brand-btn" disabled="disabled" class="small radius button expand" />
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </li>-->
+                           */ ?>
+                        </ul>
+                    </div>
+
+                    <!-- Find Wheels -->
+                    <div class="content" id="find-wheels">
+                        <ul class="accordion" data-accordion>
+                           <li class="accordion-navigation active">
+                              <a href="#vehicle-type-2">Vehicle Type</a>
+                              <div id="vehicle-type-2" class="vehicle-type content active">
+
+                                  <form class="ajax-call" method="post" action="" data-action-format="/wheelsearch/[vehicle-name]/id/[vehicle-id]/y/[vehicle-year]">
+                                  <?php // <form method="post" action="searchresult/index/index/type/wheels/section/size#find-wheels"> ?>
+                                        <input type="hidden" name="type" value="wheels">
+                                        <input type="hidden" name="section" value="vehicles">
+                                        <input type="hidden" name="category" value="42">
+                                    <div class="row collapse">
+                                            <div class="small-6 columns pad-right">
+                                                <select name="make-wheels" class="make-wheels flat" title="Select Make">
+                                                    <option value="">Select Make</option>
+                                                    <?php foreach ($make as $m => $v) { ?>
+                                                        <option value="<?php echo $m ?>"><?php echo $v ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="small-6 columns pad-left">
+                                                <select name="model-wheels" class="model-wheels flat" title="Select Model" disabled>
+                                                    <option value="">Select Model</option>
+                                                </select>
+                                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                            </div>
+                                            <div class="small-6 columns pad-right">
+                                                <select name="year-wheels" class="year-wheels flat" title="Select Year">
+                                                    <option value="">Select Year</option>
+                                                    <?php for ($i = date("Y"); $i >= 1990; $i--) { ?>
+                                                        <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="small-6 columns pad-left">
+                                                <select name="series-wheels" class="series-wheels flat" title="Select Series" disabled>
+                                                    <option value="">Select Series</option>
+                                                </select>
+                                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                            </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="large-12 columns">
+                                            <input type="submit" value="Search" class="radius button expand flat" disabled />
+                                            <div class="request-error">
+                                                Sorry, there was a problem retrieving your requested data.<br>
+                                                <a href="/tyres">View full list of products here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </li>
+                            <?php if($helper->checkIfApplicable()):
+                                $vehicles = $helper->getAllVehicleByUser();
+                            ?>
+                            <li class="accordion-navigation">
+                              <a href="#saved-vehicles">Saved Vehicles</a>
+                              <div id="saved-vehicles" class="content">
+                                  <form method="post" id="frm-tyres" action="/searchresult/index/">
+                                        <input type="hidden" name="type" value="wheels">
+                                        <input type="hidden" name="section" value="vehicles">
+                                        <input type="hidden" name="category" value="42">
+
+                                    <div class="row">
+                                       <div class="small-12 columns">
+                                          <select name="saved_vehicles" id="brand-tyres" class="flat">
+                                             <option value="">Series</option>
+                                             <?php foreach($vehicles as $vehicle):?>
+                                                <?php $details = json_decode($vehicle->getDetails(),true);?>
+                                                <option value="<?php echo $details['make-tyres'].':'.$details['year-tyres'].':'.$details['model-tyres'].':'.$details['series-tyres'].':'.$vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option>
+                                             <?php endforeach;?>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="large-12 columns">
+                                          <input type="submit" value="Search" id="tyre-saved-btn" name="tyre-saved-btn" class="small radius button expand flat" />
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </li>
+                           <?php endif;?>
+                           <?php /* disable brands for now ?>
+                           <li class="accordion-navigation">
+                              <a href="#tyre-brand-2">Wheel Brand</a>
+                              <div id="tyre-brand-2" class="content">
+
+                                 <form method="post" action="searchresult/index/index/type/wheels/section/size#find-size">
+                                        <input type="hidden" name="type" value="wheels">
+                                        <input type="hidden" name="section" value="brand">
+                                        <input type="hidden" name="category" value="42">
+                                    <div class="row">
+                                       <div class="small-12 columns">
+                                          <select id="brand-wheels" name="brand-wheels">
+                                             <option value="">Select Brand</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="large-12 columns">
+                                          <input type="submit" value="Search" name="wheel-brand-btn" id="wheel-brand-btn"  disabled="disabled" class="radius button expand" />
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </li>
+                            */ ?>
+                        </ul>
+                    </div>
+
+                    <!--<div class="content" id="find-batteries">
+                       <ul class="accordion" data-accordion>
+                          <li class="accordion-navigation">
+                             <a href="#vehicle-batteries">Vehicle Type</a>
+                             <div id="vehicle-batteries" class="content active">
+                    <!-- Vehicle Type -->
+                    <!--<form action="">
+                       <div class="row">
+                          <div class="small-12 columns">
+                             <select name="make-batteries" id="make-batteries">
+                                <option value="">Loading...</option>
+                             </select>
+                          </div>
+                          <div class="small-12 columns">
+                             <select name="year-batteries" id="year-batteries">
+                                <option value="">Select Year</option>
+                             </select>
+                          </div>
+                          <div class="small-12 columns">
+                             <select name="model-batteries" id="model-batteries">
+                                <option value="">Select Model</option>
+                             </select>
+                          </div>
+                          <div class="small-12 columns">
+                             <select name="series-batteries" id="series-batteries">
+                                <option value="">Select Series</option>
+                             </select>
+                          </div>
+                       </div>
+                       <div class="row">
+                          <div class="large-12 columns">
+                             <input type="submit" value="Search" class="small radius button expand" />
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+              </li>
+              <li class="accordion-navigation">
+                 <a href="#brand-battery">Battery Brand</a>
+                 <div id="brand-battery" class="content active">
+                         <select name="brand-batteries" id="brand-batteries">
+                        <option value="">Select Brand</option>
+                     </select>
+                 </div>
+              </li>
+          </ul>
+      </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php /*
+ *
+
+  <div>
+  <h2>Vehicle Make</h2>
+  <form>
+  <select name="make" id="make">
+  <option value="">Loading...</option>
+  </select>
+
+  <select name="year" id="year">
+  <option value="">Select Year</option>
+  </select>
+
+  <select name="model" id="model">
+  <option value="">Select Model</option>
+  </select>
+
+
+  <select name="series" id="series">
+  <option value="">Select Series</option>
+  </select>
+
+  <input type="submit" value="Find Tyres">
+
+  </form>
+  <h2>Tire Size</h2>
+  <form>
+  <select name="width" id="width">
+  <option value="">Loading...</option>
+  </select>
+  <select name="profile" id="profile">
+  <option value="">Profile</option>
+  </select>
+  <select name="diameter" id="diameter">
+  <option value="">Rim Diameter</option>
+  </select>
+  <input type="submit" value="Find Tyres">
+  </form>
+  </div>
+
+ */ ?>

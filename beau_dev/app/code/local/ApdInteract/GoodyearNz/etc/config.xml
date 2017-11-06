@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_GoodyearNz>
+      <version>0.2.0</version>
+    </ApdInteract_GoodyearNz>
+  </modules>
+  <global>
+    <helpers>
+      <goodyearnz>
+        <class>ApdInteract_GoodyearNz_Helper</class>
+      </goodyearnz>
+    </helpers>
+	<resources>
+	  <apdinteract_goodyearnz_setup>
+		<setup>
+		  <module>ApdInteract_GoodyearNz</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </apdinteract_goodyearnz_setup>
+	  <apdinteract_goodyearnz_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </apdinteract_goodyearnz_write>
+	  <apdinteract_goodyearnz_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </apdinteract_goodyearnz_read>
+	</resources>
+  </global>
+</config> 

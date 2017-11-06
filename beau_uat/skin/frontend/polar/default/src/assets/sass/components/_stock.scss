@@ -1,0 +1,61 @@
+
+.stock-availability {
+  
+}
+.product-stock {
+	i.fa-exclamation-triangle {
+		color:#d30505;
+	}
+	.stock-msg i.fa-check-circle {
+		color:#8abe04;
+    }
+    .select-store {
+        margin-top: 30px;
+        position: relative;
+        input[type='text']{
+            background: #fff;
+            height: 40px;
+            margin: 0;
+            &.loading:after {
+                font-family: 'FontAwesome';
+                color:red;
+                position: relative;
+                left: -5px;
+                content: "\f007";
+            }
+        }
+        i {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            display: none;
+            &.loading {
+                display: block;
+            }
+        }
+        ul{
+            background: #fff;
+            border: 1px solid #aaa;
+            margin: 0;
+            max-width: 296px;
+            max-height: 250px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 2;
+            li{
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+                cursor: pointer;
+                font-size: 13px;
+                list-style: none;
+                padding: 2px 10px;
+                &:hover{
+                    background: #DADADA;
+                    border-top: 1px solid #bfbfbf;
+                    border-bottom: 1px solid #bfbfbf;
+                }
+            }
+        }
+    }
+}

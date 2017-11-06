@@ -1,0 +1,335 @@
+.banner-panel{
+	background: $colour-tree-poppy;
+	padding-top: 50px;
+
+	@media screen and (max-width: 768px){
+		padding: 50px 15px 0;
+	}
+
+	h1, h1.easter-header{
+		color: $white;
+		font-family: $font-boris;
+		font-size: 64px;
+		margin-bottom: 30px;
+		margin-top: 40px;
+		word-spacing: 5px;
+		line-height: 1.1;
+
+		@media screen and (max-width: 768px){
+			font-size: 50px;
+		}
+	}
+
+	.easter-logo {
+		margin-top: 30px;
+		max-width: 350px;
+	}
+
+	@media #{$small-only}{
+		h1.easter-header{
+			font-size: 30px;
+			text-align: center;
+		}
+
+		.easter-logo{
+			max-width: 300px;
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	h3{
+		color: $white;
+		font-family: $font-boris;
+		font-size: 20px;
+		letter-spacing: 1px;
+		margin-top: 20px;
+		line-height: 1;
+
+
+		@media screen and (max-width: 768px){
+			font-size: 16px;
+		}
+	}
+
+	img{
+		&.wheels{
+			margin: 50px 0 10px;
+		}
+
+		&.chair{
+			margin: 75px 0;
+		}
+
+		@media screen and (max-width: 768px){
+			width: 100%;
+		}
+	}
+}
+
+.banner-container{
+	margin: 0 auto;
+	max-width: 650px;
+	text-align: center;
+
+	p{
+		color: $black;
+	}
+
+	&.thank-you-container{
+		max-width: 800px;
+
+		p a{
+			color: $colour-endeavour;
+		}
+	}
+}
+
+.text-container{
+	padding-bottom: 80px;
+	padding-top: 30px;
+	strong{
+		font-family: $font-family-sans-serif-bold;
+	}
+
+	p{
+		color: $colour-dusty-gray;
+		font-size: 14px;
+	}
+
+	@media screen and (max-width: 768px){
+		padding: 20px 15px 30px;
+	}
+}
+
+.button-container, .form-container{
+	margin: 0 auto;
+	padding-bottom: 50px;
+	padding-top: 50px;
+
+	@media screen and (max-width: 768px){
+		padding: 20px 0;
+	}
+
+	.button{
+		font-family: $font-avant;
+		font-size: 14px;
+		height: auto;
+		min-width: 270px;
+		text-transform: uppercase;
+
+		&-primary{
+			background: $colour-sea-buckthorn;
+			border-bottom: 5px solid $colour-christine;
+
+			&:hover{
+				background: $colour-christine;
+				border-color: $colour-sea-buckthorn;
+			}
+		}
+
+		&-secondary{
+			background: $colour-endeavour;
+			border-bottom: 5px solid $colour-venice-blue;
+
+			&:hover{
+				background: $colour-venice-blue;
+				border-color: $colour-endeavour;
+			}
+		}
+
+		i{
+			font-size: 20px;
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+	}
+
+	form{
+		label{
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 15px;
+		}
+
+		input, .error small.error{
+			margin-bottom: 50px;
+
+			@media screen and (max-width: 767px){
+				margin-bottom: 20px;
+			}
+		}
+
+		.error input{
+			margin-bottom: 0;
+		}
+
+		.button{
+			margin-top: 20px;
+		}
+	}
+}
+
+// easter campaign styles
+
+.banner-form{
+
+	@media #{$medium-up}{
+		 padding-top: 50px;
+	}
+
+
+    	p{
+    		font-family: $font-family-sans-serif-bold;
+			font-size: 24px;
+			letter-spacing: 1px;
+			color: $black;
+			margin-top: 20px;
+			color: $white;
+    	}
+
+	form{
+		background: $white;
+		padding: 20px;
+
+		input[type="text"], input[type="email"]{
+			border-radius: 0;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+		.button{
+			background: $colour-endeavour;
+			border-bottom: 5px solid $colour-venice-blue;
+			font-family: $font-family-sans-serif-bold;
+			font-size: 24px;
+			padding: 15px;
+		    height: auto;
+		    width: 100%;
+		    margin-bottom: 0;
+
+			&:hover{
+				background: $colour-christine;
+				border-color: $colour-sea-buckthorn;
+			}
+		}
+
+		h3{
+			color: $black;
+			font-family: $font-boris;
+			font-size: 36px;
+			letter-spacing: 1px;
+			font-weight: bold;
+
+			@media screen and (max-width: 768px){
+				font-size: 20px;
+			}
+		}
+
+		h4{
+			font-family: $font-boris;
+			font-size: 28px;
+			letter-spacing: 1px;
+			font-weight: bold;
+
+			@media screen and (max-width: 768px){
+				font-size: 14px;
+			}
+		}
+
+
+	}
+}
+
+.after-banner{
+	margin: 50px auto;
+	display: table;
+	padding: 0 15px;
+
+	h3{
+		color: $black;
+		font-weight: bold;
+	    font-size: 34px;
+	    line-height: 1.1;
+	    font-family: $font-boris;
+	    margin-bottom: 20px;
+
+	    @media #{$small-only}{
+			font-size: 22px;
+		}
+	}
+
+	.align-middle-panel{
+		display: inline-block;
+		vertical-align: middle;
+
+		&.offer-image{
+			max-width: 480px;
+			width: 100%;
+		}
+		&.text-panel{
+			width: calc(100% - 500px);
+			margin-right: 15px;
+		}
+
+		@media screen and (max-width: 768px){
+			&.offer-image{
+				width: 100%;
+				max-width: 100%;
+			}
+			&.text-panel{
+				width: 100%;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.content-section{
+	margin-bottom: 50px;
+
+	h5.sub-title{
+		text-align: center;
+	    color: rgb(0, 103, 177);
+	    font-size: 16px;
+	    margin-top: 20px;
+	}
+}
+
+
+.testimonials-container{
+	width: 100%;
+	background: #f9f9f9;
+	padding: 40px 20px;
+
+	h3{
+		color: $black;
+		font-family: $font-boris;
+	    font-size: 24px;
+	    line-height: 1;
+	    margin-bottom: 30px;
+	}
+
+	.testi-item{
+		padding-top: 10px;
+	    padding-left: 40px;
+	    font-size: 14px;
+
+		&:before{
+			content: '';
+			background: url($images_path +'/easter_campaign/Forma-1.png') center / contain no-repeat;
+			height: 30px;
+		    width: 30px;
+		    display: block;
+		    left: 0px;
+		    top: 0;
+		    position: absolute;
+		}
+
+		span{
+			color: #e36c09;
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+}

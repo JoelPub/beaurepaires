@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ApdInteract_Core>
+            <version>0.1.0</version>
+        </ApdInteract_Core>
+    </modules>
+    <global>        
+        <models>
+            <apdinteract_core>
+                <class>ApdInteract_Core_Model</class>
+            </apdinteract_core>
+            <core>
+                <rewrite>
+                    <cookie>ApdInteract_Core_Model_Cookie</cookie>                     
+                </rewrite>
+            </core>
+        </models>
+        
+        <helpers>
+            <core>
+                <rewrite>
+                    <data>ApdInteract_Core_Helper_Data</data>
+                </rewrite>
+            </core>
+        </helpers>
+    </global>                         
+</config>

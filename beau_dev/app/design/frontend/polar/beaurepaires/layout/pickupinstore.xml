@@ -1,0 +1,7 @@
+<?xml version="1.0"?>   
+<layout>   
+  <pickupinstore_index_storesbylatlng>            
+    <block type="pickupinstore/storesbylatlng" name="root" output="getStoresAsJson" />  
+  </pickupinstore_index_storesbylatlng>   
+</layout>   
+	

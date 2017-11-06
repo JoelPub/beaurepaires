@@ -1,0 +1,80 @@
+<?php
+$make = Mage::helper('searchtyre')->getMakes();
+?>
+<div class="row">
+    <div class="large-9 small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <h1 class="db-page-title"><?php echo $this->__('Add New Vehicle') ?></h1>
+            </div>
+        </div>
+
+        <div class="quick-finder static vehicle" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+            <form autocomplete="off" id="form-validate" method="post" action="<?php echo Mage::getUrl('',array('_secure'=>true)) ?>customer/vehicle/save">
+
+                <div class="row">
+                    <div class="columns medium-6 small-12">
+                        <ul class="form-list checkout_ul no-bullet">
+                            <li class="fields">
+                                <select name="make-tyres" class="required-entry make-tyres"  placeholder="">
+                                    <option value="">Select Make*</option>
+                                    <?php foreach ($make as $m => $v): ?>
+                                        <option  value="<?php echo $m ?>"><?php echo $v ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </li>
+                            <li class="fields">
+                                <select name="year-tyres" class="required-entry year-tyres">
+                                    <option value="">Select Year*</option>
+                                    <?php for ($i = date("Y"); $i >= 1990; $i--): ?>
+                                        <option  value="<?php echo $i ?>"><?php echo $i ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </li>
+                            <li class="fields">
+                                <div class="relative">
+                                    <select name="model-tyres" class="required-entry model-tyres"  title="Select Model" disabled>
+                                        <option value="">Select Model*</option>
+                                    </select>
+                                    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                            </li>
+                            <li class="fields">
+                                <div class="relative">
+                                    <select name="series-tyres" class="required-entry series-tyres final-select" title="Select Series" disabled>
+                                        <option value="">Select Series*</option>
+                                    </select>
+                                    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                            </li>
+                            <li class="fields">
+                                <label for="registration">Registration *</label>
+                                <input id="registration" type="text" class="required-entry" maxlength="255" title="Registration" value="" name="registration">
+                            </li>
+
+                            <li class="fields">
+                                <label><?php echo $this->__('* Mandatory Field') ?></label>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                    <input type="hidden" name="details-tyres" class="details-tyres"/>
+                <div class="row">
+                    <div class="columns medium-6 small-12">
+
+                        <a href="<?php echo Mage::getUrl('',array('_secure'=>true)) . 'account/vehicles' ?>" class="button btn-cart radius">Cancel</a>
+
+                        <input type="submit" value="Save Vehicle" class="button btn-cart radius right"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

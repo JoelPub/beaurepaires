@@ -1,0 +1,110 @@
+<?php $area = Mage::registry('url-key'); ?>
+<?php if ($area):?>
+	<?php $data = Mage::helper('storelocator')->getAreaDetails($area);?>
+	<?php $search_address = $data['search_address']?>
+<?php else:?>
+	<?php $search_address = Mage::app()->getRequest()->getParam('address'); ?>
+<?php endif;?>
+<?php /* Already loaded in header. TODO: Move API key there ?>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $this->getApiKey() ?>&sensor=true&v=3"></script>-->
+<?php */ ?>
+
+
+	
+<?php $blockId = Mage::getStoreConfig('storelocator/global/blockid'); ?>            
+<?php if (!empty($blockId)): ?>
+	<?php $item = Mage::getModel('cms/block')->load($blockId); ?>
+	<div class="row">
+		<div class="columns">
+			<div class="cms-block"><?php echo $item->getContent(); ?></div>
+		</div>
+	</div>
+<?php endif; ?>
+
+<?php if ($area):?>
+<div class="row">
+   <div class="medium-12 columns">
+        <h1>Beaurepaires <?php echo $data['name']?> Stores</h1>   
+        <h4 class="sub-margin-bottom">Need high quality tyres that will never let you down? Count on our tyres available in all our stores!</h4>
+    </div>
+</div>
+<?php endif;?>
+
+<div class="row">
+		
+		<div class="small-12 medium-5 columns">
+			
+			<form id="storelocator-search">
+			
+			<div class="quick-finder relative">
+				 <div class="row">
+					<div class="large-12 columns">
+						
+						<ul class="tabs" data-tab="">
+							   <li class="tab-title active"><a href="#"><i class="fa fa-dot-circle-o"></i>Store Locator</a></li>
+						</ul>
+						
+						<div class="panel listing">
+							<div class="tabs-content">
+								 <div class="content active " id="fond-tyres">
+									
+									
+										<div class="row collapse">
+											<div class="small-12 columns form-wrapper">
+                                                                                           
+												<input name="address" id="address" title="<?php echo Mage::helper('storelocator')->__('Address') ?>" value="<?php echo $search_address; ?>" class="input-text get-google-places" type="text" placeholder="<?php echo Mage::helper('storelocator')->__('Enter your Postcode, Suburb or Town') ?>"/>
+											</div>
+										</div>
+										
+										<div class="row collapse">
+											<div class="small-12 columns">
+												<input id="autotriggersearch" value="Search By This Address" type="submit" class="button radius expand">            
+											</div>
+										</div>
+					   
+								 </div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+<?php
+			// <!--<button type="submit" class="button radius secondary btn-current-location"><i class="fa fa-street-view "></i> Use my current location</button>-->
+			// add show-for-small-only  to above button class to only show for mobile ?>
+			</form>
+			
+			<div class="search-result" id="search-result"></div>
+			
+		</div>
+		
+		<div class="medium-7 columns">
+			
+			<div class="store-map th hide-for-small-only">
+				<div id="map-canvas"></div>
+			</div>
+			
+			<?php if ($area):?>
+				<?php echo  $this->getLayout()->createBlock('cms/block')->setBlockId($area.'-landing-page')->toHtml();?>
+			<?php endif;?>
+		</div>
+
+</div>
+
+
+<?php /* PKL 2015/07/10: Evil coding!  Get ye script out of thee file! */ ?>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var form = new VarienForm('storelocator-search', false);
+    var IWDStoreLocatorConfig = '<?php echo $this->getJsonConfig() ?>';
+    
+    <?php if (!empty($search_address)): ?>
+    jQuery(document).ready(function() {    
+        jQuery('#autotriggersearch').on('click');
+        });
+        
+    <?php endif; ?>
+//]]>
+</script>

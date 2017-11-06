@@ -1,0 +1,33 @@
+<section class="product-compatibility compatibility" data-selected-sizes="<?php echo $this->getAllCompatibleSizes()?>">
+    <?php if($this->ifApplicable()) :?>
+        <hr>
+        <div class="compatible hide">
+            <p>
+                <i class="fa fa-check-circle i-check-circle"></i>
+                <strong>This tyre is compatible with your vehicle.</strong>
+            </p>
+            <p>
+                <strong>Vehicle Type:</strong> <?php echo Mage::getSingleton('core/session')->getTSeriesNameF();?></p>
+            <p>
+                <?php echo $this->__('Based on OE Manufacturer Specifications.'); ?>
+            </p>
+            <p>
+                <strong><?php echo $this->getLabel()?>:</strong> <span class="matched-size"></span>
+            </p>
+        </div>
+        <div class="not-compatible hide">
+            <p>
+                <i class="fa fa-times i-times" aria-hidden="true"></i>
+                <strong>This tyre is incompatible with your vehicle.</strong>
+            </p>
+            <p>
+                <strong>Vehicle Type:</strong> <?php echo Mage::getSingleton('core/session')->getTSeriesNameF();?>
+            </p>
+            <p>
+                <a href="<?php echo $this->getUrl()?>">View Compatible products</a>
+            </p>
+        </div>  
+    <?php endif;?>  
+</section>
+
+

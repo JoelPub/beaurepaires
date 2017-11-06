@@ -1,0 +1,36 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">
+    <customer_mobility_index translate="label">
+        <label>Customer Mobility</label>
+        <reference name="head">
+            <action method="setForcedTitle"><title>Customer Mobility</title></action>
+        </reference>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="core/template" name="customer_mobility" template="customer/mobility.phtml"/>
+        </reference>
+    </customer_mobility_index>
+    <customer_vehicle_index translate="label">
+        <label>Vehicle Details</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="vehicle" template="customer/vehicle/list.phtml"/>
+        </reference>
+    </customer_vehicle_index>
+
+    <customer_vehicle_new translate="label">
+        <label>Vehicle Details</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="vehicle" template="customer/vehicle/form.phtml"/>
+        </reference>
+    </customer_vehicle_new>
+
+    <customer_vehicle_edit translate="label">
+        <label>Edit Existing Vehicle</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="vehicle" template="customer/vehicle/edit.phtml"/>
+        </reference>
+    </customer_vehicle_edit>
+</layout>   

@@ -1,0 +1,236 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+$session = Mage::getSingleton('checkout/session');
+$convertTime = Mage::getSingleton("core/session")->getDtime();
+$storeId = Mage::getSingleton("core/session")->getStorelocation();
+$quote = $session->getQuote();
+$payment = $quote->getPayment();
+$term = $payment->getGeTerm();
+$method = $payment->getMethodInstance()->getCode()
+?>
+<?php echo $this->getChildHtml('items_before'); ?>
+
+<table class="data-table">
+	<thead>
+		<tr>
+			<th colspan="3" scope="colgroup"><strong>Your fitting location and time</strong></th>
+		</tr>
+		<tr>
+			<th scope="col">Store</th>
+			<th scope="col" class="a-center">Date</th>
+			<th scope="col" class="a-center">Time</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<?php echo Mage::helper('apdinteract_checkout')->getStoreDetails($storeId);?>
+			</td>
+			<td class="a-center"><?php echo Mage::getSingleton("core/session")->getDeliveryDate();?></td>
+			<td class="a-center"><?php echo Mage::helper('apdinteract_checkout')->getBookingTime($convertTime);?></td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="checkout-review-table-wrapper">
+    <table class="data-table" id="checkout-review-table" data-method="<?php echo $method?>">
+        <?php /*if ($this->helper('tax')->displayCartBothPrices()): $colspan = $rowspan = 2; else: $colspan = $rowspan = 1; endif; ?>
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+        <col width="1" />
+        <col width="1" />
+        <?php endif; */?>
+        <thead>
+            <tr>
+                <th rowspan="<?php echo $rowspan ?>"><?php echo $this->__('Product Name') ?></th>
+                <th colspan="<?php echo $colspan ?>" class="a-center hide-for-small-only"><?php echo $this->__('Included') ?></th>
+                <th colspan="<?php echo $colspan ?>" class="a-center review-price"><?php echo $this->__('Price') ?></th>
+                <th rowspan="<?php echo $rowspan ?>" class="a-center review-qty"><?php echo $this->__('Qty') ?></th>
+                <th colspan="<?php echo $colspan ?>" class="a-center review-subtotal hide-for-small-only"><?php echo $this->__('Subtotal') ?></th>
+            </tr>
+            <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <tr>
+                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                    <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                </tr>
+            <?php endif; ?>
+        </thead>
+        <tbody>
+        <?php foreach($this->getItems() as $_item): ?>
+
+            <?php echo $this->getItemHtml($_item)?>
+
+			<?php $helper = Mage::helper('apdinteract_catalog');?>
+			<?php $options = $helper->getCustomOptions($_item);?>
+
+	                    <?php foreach($options as $_option): ?>
+	                    <?php $unformattedPrice = $_option['price'];?>
+	                    <?php $formattedPrice = Mage::helper('checkout')->formatPrice($_option['price']); ?>
+	                         <tr class="add-ons">
+	                            <td class="label-padding">
+									<div class="row">
+										<div class="medium-3 columns product-image hide-for-small-only">
+											&nbsp;
+										</div>
+										<div class="small-12 medium-9 columns product-desc">
+											<h5><?php echo $_option['label']?></h5>
+										</div>
+									</div>
+
+								</td>
+								<td class="hide-for-small-only">&nbsp;</td>
+	                            <td><span class="cart-price"><span class="price"><?php echo $formattedPrice?></span></span></td>
+	                            <!-- <td>
+	<!--                                <input type="text" name="cart[3028][qty]" value="6" title="Qty" class="input-text qty" maxlength="12">
+	                                <a href="http://beaurepaires.local/checkout/cart/configure/id/3028/" title="Edit item parameters" class="link-edit">Update</a>
+	                            </td>  -->
+	                            <td>&nbsp;</td>
+	                            <td class="hide-for-small-only"><?php echo $this->helper('checkout')->formatPrice($unformattedPrice * $_item->getQty());?></td>
+
+	                            <!-- <td class="hide-for-small-only">
+	                                <!--<a href="http://beaurepaires.local/checkout/cart/delete/id/3028/uenc/aHR0cDovL2JlYXVyZXBhaXJlcy5sb2NhbC9jaGVja291dC9jYXJ0Lw,,/" title="Remove item" class="btn-remove btn-remove2"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>
+	                            </td>  -->
+	                        </tr>
+	                        <?php
+	                        //$sub = $quote->getSubtotal();
+	                        //$tot = $quote->getGrandTotal();
+	                        //$quote->setSubtotal($sub + $unformattedPrice); // Mage::getModel('checkout/cart')->getQuote()->getGrandTotal()
+	                        //$quote->setGrandTotal($tot + $unformattedPrice);
+	                        ?>
+	                    <?php endforeach ?>
+        <?php endforeach ?>
+        </tbody>
+		<?php echo $this->getChildHtml('totals'); ?>
+    </table>
+
+</div>
+
+<div class="row">
+	<div class="columns small-6">
+		<div class="secure-payment-panel">
+			<?php for ($i = 1; $i < 9; $i++): ?>
+				<?php
+				$image = Mage::helper('apdinteract_checkout')->getPaymentLogos($i);
+				$title = Mage::helper('apdinteract_checkout')->getPaymentLogoTitles($i);
+				?>
+				<?php if ($image): ?>
+					<img data-tooltip title="<?php echo $title?>" aria-haspopup="true" class="has-tip open" src=<?php echo $image ?> alt=<?php echo 'payment-logo-' . $i ?>>
+				<?php endif; ?>
+			<?php endfor; ?>
+		</div>
+	</div>
+	<div class="columns small-6">
+		<div class="secure-lock-panel right">
+			<i class="fa fa-lock"></i>
+			<?php echo Mage::helper('apdinteract_checkout')->getSafetyInfo();?>
+		</div>
+	</div>
+</div>
+
+<?php echo $this->getChildHtml('items_after'); ?>
+<div id="checkout-review-submit">
+    <?php echo $this->getChildHtml('agreements') ?>
+    <div class="buttons-set" id="review-buttons-container">
+        <p class="f-left"><!-- <?php //echo $this->__('Forgot an Item?') ?> --> <a href="<?php echo $this->getUrl('checkout/cart') ?>" class="underlined"><?php echo $this->__('Edit Your Cart') ?></a></p>
+        <label class="custom-field checkbox">
+			<input type="checkbox" data-required-checkbox />
+			<span>I have read and I accept the <a href="https://www.beaurepaires.com.au/terms-and-conditions-of-trade" target="_blank">terms and conditions of sale</a></span>
+			<div class="indicator"></div>
+		</label>
+
+		<label class="custom-field checkbox">
+			<input type="checkbox" data-required-checkbox />
+			<span>I have read and I accept the <a href="https://www.beaurepaires.com.au/privacy-policy" target="_blank">Privacy Policy</a></span>
+			<div class="indicator"></div>
+		</label>
+		<button type="submit" title="Submit Booking" class="button btn-checkout radius" data-button-checkbox-dependencies disabled>Submit Booking</button>
+		<?php echo $this->getChildHtml('button') ?>
+        <span class="please-wait" id="review-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting your booking...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting your booking...')) ?>" class="v-middle" /> <?php echo $this->__('Submitting your booking...') ?>
+        </span>
+    </div>
+
+	<?php $classIndex =   ($quote->getGrandTotal() == 0) ? 1 : 0; ?>
+	<script type="text/javascript">
+    //<![CDATA[
+	var newClass = function(index){
+		switch(index){
+			case 0:
+				return new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+				break;
+			case  1:
+				return new ExcellenceReview('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+				break;
+		}
+	};
+        review = newClass(<?php echo $classIndex ?>);
+	//]]>
+
+    jQuery(function () {
+   		jQuery( "#checkout-review-submit .btn-checkout" ).click(function(e) {
+                review.save();
+            return true;
+
+//		 	var posturl = '/pickupinstore/index/checkavailability';
+//
+//			var storeloc = '<?php echo Mage::getSingleton("core/session")->getStorelocation();?>';
+//			var ddate = '<?php echo Mage::getSingleton("core/session")->getDeliveryDate();?>';
+//			var dtime = '<?php echo Mage::getSingleton("core/session")->getDtime();?>';
+//			var duration = '<?php echo Mage::getSingleton("core/session")->getDuration();?>';
+//			var response;
+//
+//			jQuery.post(posturl, {ddate: ddate, storeloc: storeloc, dtime:dtime, duration:duration}, function (result) {
+//				if(result=='ok') {
+//					review.save();
+//				} else {
+//					alert(result);
+//					location.href="/checkout/cart/";
+//
+//				}
+//			});
+//
+//			return response;
+		});
+
+		var autoPay = function() {
+			var $this = jQuery(this),
+		        $opcPayButton = jQuery('#checkout-review-submit .btn-checkout'),
+		        $opcMethod = jQuery('#checkout-review-table').attr('data-method');
+				if($opcMethod=='gefinance') {
+			   		$opcPayButton.trigger( "click" );
+			    }
+		}
+
+		autoPay();
+
+   	});
+    </script>
+</div>

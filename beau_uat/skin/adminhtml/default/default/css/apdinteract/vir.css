@@ -1,0 +1,414 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26/06/2015, 8:29:06 AM
+    Author     : soreilly
+*/
+
+#edit_form {
+    font-size: 20px;
+    width: 960px;
+    margin: auto;
+}
+
+#edit_form h3.virheader{
+    font-size: 24px;
+    color: orange;
+    margin-left: -2px;
+}
+
+#parentid {
+    width: 30px;
+    height: 20px;
+    margin-left: 20px;
+}
+
+.actionbutton {
+    border-radius: 5px;
+    width: 150px;
+    height: 25px;   
+    padding: 2px 5px 2px 5px;
+    margin-left: 20px;
+}
+
+#edit_form input[type="text"]{
+    width: 210px;
+    height: 49px;
+    background-color: #FFFFCC;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    text-decoration: none;
+    color: #000000;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#edit_form input[type="text"].datefield{
+    width: 50px !important; 
+}
+#edit_form input[type="text"].datefield.longer{
+    width: 100px !important; 
+}
+
+#edit_form input[type="text"].datefieldhidden{
+    display: none !important;
+}
+#edit_form input[type="text"].measurefield{
+    width: 30px !important;
+    height: 20px !important;
+    margin-bottom: 0px;
+}
+
+#edit_form input[type="text"].greyfield{
+    background-color: lightgray;
+}
+
+#edit_form input[type="text"].greyfield.long{
+    width: 500px;
+}
+#edit_form input[type="text"].greyfield.shorter{
+    width: 250px;
+}
+#edit_form input[type="text"].greyfield.short{
+    width: 210px;
+}
+#edit_form input[type="text"].greyfield.paddedtop{
+    margin-top: 20px;
+}
+
+
+#edit_form input[type="text"].yellow{
+    background-color: #FFFFCC; 
+}
+#edit_form input[type="text"].yellow.longer{
+    width: 300px;
+}
+
+#edit_form textarea{
+    width: 500px;
+    height: 200px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#virpanel {
+    height: 600px;
+    width: 960px;
+    border: 1px solid black;
+    margin: auto;
+    overflow-y: scroll;
+}
+
+.txtfield {
+    width: 200px;
+}
+.txtfieldint {
+    width: 30px;
+}
+
+textarea {
+    width: 400px;
+    height: 50px;
+}
+
+#edit_form .field {
+    margin-top: 50px;
+}
+
+#edit_form .field.viroptiontable {
+    margin-top: 10px !important;
+}
+
+#edit_form .field.viroptiontable tr, #edit_form .field.viroptiontableheader tr{
+    width: 450px;
+}
+
+table.newline {
+    clear: both;
+}
+table.newline.paddedtop{
+    padding-top: 25px;
+}
+table.newline.textgroup tr{
+    float: left;
+    display: block;
+}
+table.viroptiontable, table.viroptiontableheader {
+    clear: both;
+}
+
+table.virbigcheckbox {    
+    float: left;
+    margin-left: 50px;
+    width: 100px;
+}
+
+table.virbigcheckbox.middlebox  {    
+    margin-left: 100px;
+}
+
+table.viroptiontable tr, table.viroptiontableheader tr {
+    display: block;
+    float: left;
+}
+
+table.viroptiontable tr+tr, table.viroptiontableheader tr+tr {
+    display: block;
+    float: right;
+}
+
+table.virbigcheckbox tr+tr td {
+    display: none;
+}
+
+table.virbigcheckbox tr td {
+    width: 80px;
+    height: 80px;
+    border: 1px solid red;
+    float: left;
+    background-color: #FFFFCC;
+    border-radius: 5px;
+}
+
+table.virbigcheckbox tr td label{
+    margin: 16px;
+    top: 10px;
+    position: relative;
+}
+
+table.virbigcheckbox.middlebox tr td {
+    width: 150px;
+}
+table.virbigcheckbox.middlebox tr td+td {
+    width: 20px;
+}
+
+table.virbigcheckbox tr td+td {
+    float: left;
+    margin: -30px 0px 0px 18px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    background-color: lightgrey;
+    border-radius: 3px;
+}
+
+table.virbigcheckbox tr+tr td+td {
+    display: block;
+    margin: 6px 0px;
+    border: none;
+}
+
+table.virbigcheckbox input.input-text {
+    width: 50px;
+}
+
+/*table.virbigcheckbox input[type="radio"] {
+    width: inherit;
+    -webkit-appearance: checkbox;  Chrome, Safari, Opera 
+    -moz-appearance: checkbox;     Firefox 
+    -ms-appearance: checkbox;      not currently supported 
+    width: 20px; 
+}*/
+
+#edit_form table.virbigcheckbox input[type="text"].input-text{
+    width: 75px;
+    height: 30px;
+    background-color: white;
+    font-family: 'Arial Regular', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    text-align: left;
+    
+}
+
+table.viroptiontable tr td.label:after {
+    content:'';
+}
+
+.optiongroupgrey {
+    display: block;
+    float: left !important;
+    clear: left !important;
+    width: 35px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.optiongroupgrey+label {
+    display: block;
+    width:  200px !important;
+    float: left !important;
+    margin-top: 10px;
+}
+
+.option1border,.option2border,.option3border {
+    border: 1px solid grey;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+.option1border{
+    top: -50px;
+    left: 0px;
+}
+.option2border{
+    top: -37px;
+    left: 0px;
+}
+.option3border{
+    top: -27px;
+    left: 0px;
+}
+
+.textgroup .option1border{
+    top: -27px;
+    left: 0px;
+}
+
+
+#edit_form table tr td.label label {
+    color: blue !important;
+}
+
+.field.optiongroup {   
+    float: left;
+/*    border: 1px solid blue;*/
+}
+
+/*.optiongroup input[type="radio"], .optiongroup span {
+    float: left;
+}*/
+.optiongroup .option {
+    width: 32%;
+    float: left;
+/*    border: 1px solid orange;*/
+}
+.field.optiongroup.leftgroup{
+    float: left
+}
+field.optiongroup.rightgroup{
+    float: left
+}
+
+div.spacer {
+    width: 99%;
+    height: 25px;
+}
+div.headinggroup{
+    margin-bottom: 40px;
+}
+div.headinggroup div{
+    float:left;
+    color: blue;
+}
+div.headinggroup div.heading1{
+    width: 600px;
+}
+div.headinggroup div.heading2{
+    width: 80px;
+}
+div.headinggroup div.heading3{
+    width: 250px;
+}
+
+table.textgroup input[type="checkbox"]{
+  margin: -4px 24px 0px 3px;
+  width: 20px;
+  height: 20px;
+}
+
+table.textgroup.type2 {
+  width: 600px;
+}
+table.textgroup.type2 tr+tr{
+  float: right !important;
+}
+
+/* Commercial css stuff */
+.spacecheck {
+  display: none;
+}
+
+.textgroup .option2border {
+  top: -43px;
+  left: 0px;
+  width: 50px;
+  height: 50px;
+  padding-left: 0px;
+  border-radius: 5px;
+  text-align: center;
+}
+.textgroup .spaceborder {
+  top: -43px;
+  left: 0px;
+  width: 40px;
+  height: 50px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 0px none transparent !important;
+}
+
+table.textgroup input[type="checkbox"].wheelcheck {
+  margin: 5px 15px 0px 15px;
+  width: 20px;
+  height: 20px;
+}
+
+div.headinggroup div.heading4{
+    width: 135px;
+}
+
+#parent_id {display: none;}
+
+.biginsert{
+    width: 150px;
+    height: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ed6502 #a04300 #a04300 #ed6502;
+    padding: 1px 7px 2px 7px;
+    background: #ffac47 url(images/btn_bg.gif) repeat-x 0 100%;
+    color: #fff;
+    font: bold 18px arial, helvetica, sans-serif;
+    cursor: pointer;
+    text-align: center !important;
+    white-space: nowrap;
+}
+
+// Autocomplete stylesheet
+div.autocomplete {
+  position:absolute;
+  width:250px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected { background-color: #ffb;}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
+}
+
+div.autocomplete ul li .data {
+  display:none;  
+}
+

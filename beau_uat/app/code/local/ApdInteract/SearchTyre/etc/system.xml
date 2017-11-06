@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <apdinteract translate="label" module="searchtyre">
+            <label>apdinteract Extensions</label>
+            <sort_order>100</sort_order>
+        </apdinteract>
+    </tabs>
+    <sections>
+        <apdinteract translate="label" module="searchtyre">
+            <label>Vehicle Logic API</label>
+            <tab>apdinteract</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+ 
+            <groups>
+                <apdinteract_group translate="label" module="searchtyre">
+                    <label>Credentials</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+ 
+                    <fields>
+                        <apdinteract_api translate="label">
+                            <label>API URL</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_api>
+                       <apdinteract_user translate="label">
+                            <label>API Username </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_user>
+                        <apdinteract_pass translate="label">
+                            <label>API Password </label>
+                            <comment></comment>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_pass>
+                    </fields>
+                </apdinteract_group>
+            </groups>
+        </apdinteract>
+        <apimonitoring  translate="label" module="searchtyre">
+            <label>Api Provider Monitoring</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <vlapi translate="label">
+                    <label>Vehicle Logic Api Monitoring</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <vlenabled translate="label">
+                            <label>Enable Vehicle Logic API Monitoring</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </vlenabled>
+                        <vlapi translate="label">
+                            <label>API URL</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vlapi>
+                        <vlusername translate="label">
+                            <label>API Username </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vlusername>
+                        <vlpassword translate="label">
+                            <label>API Password </label>
+                            <comment></comment>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </vlpassword>
+                        <email_interval_time>
+                            <label>Email Inteval Time</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Time in minute - Default 60 minutes</comment>
+                        </email_interval_time>
+                        <email_trigger_time>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_trigger_time>
+                    </fields>
+                </vlapi>
+            </groups>
+        </apimonitoring>
+    </sections>
+</config>

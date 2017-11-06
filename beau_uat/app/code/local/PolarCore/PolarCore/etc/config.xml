@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PolarCore_PolarCore>
+            <version>0.0.1</version>
+        </PolarCore_PolarCore>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <polarcore module="PolarCore_PolarCore">
+                    <file>polarcore.xml</file>
+                </polarcore>
+            </updates>
+        </layout>
+    </frontend>
+    <!-- There doesn't seem to be any other way to add a new template file to the settings? -->
+    <global>
+        <page>
+            <layouts>
+                <page_one_column_checkout module="page" translate="label">
+                    <label>1 column - Checkout</label>
+                    <template>page/1column-checkout.phtml</template>
+                    <layout_handle>page_one_column_checkout</layout_handle>
+                </page_one_column_checkout>
+                <page_one_column_fullwidth module="page" translate="label">
+                    <label>1 column - Full width</label>
+                    <template>page/1column-fullwidth.phtml</template>
+                    <layout_handle>page_one_column_fullwidth</layout_handle>
+                </page_one_column_fullwidth>
+                
+                <!-- custom beaurepaires template -->
+                <page_beau_rwd_onecol module="page" translate="label">
+                    <label>Beaurepaires - 1 col full width</label>
+                    <template>page/beau-rwd-1col.phtml</template>
+                    <layout_handle>page_one_column_fullwidth</layout_handle>
+                </page_beau_rwd_onecol>
+                
+                <beau_rwd_onecol_custom module="page" translate="label">
+                    <label>Beaurepaires - 1 col full width - Custom</label>
+                    <template>page/beau-rwd-1col-custom.phtml</template>
+                    <layout_handle>beau_rwd_onecol_custom</layout_handle>
+                </beau_rwd_onecol_custom>
+            </layouts>
+        </page>
+    </global>
+</config>

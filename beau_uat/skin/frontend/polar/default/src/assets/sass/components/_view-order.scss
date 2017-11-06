@@ -1,0 +1,32 @@
+.view-order-box{
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.item-options{
+  margin-bottom: 10px;  
+    dt{      
+      font-size: 16px;
+      font-weight: normal;
+    }
+    dd{
+      font-size: 12px;
+    }
+}
+
+strong.product-name{
+  font-size: 16px;
+}
+
+.price{
+  .label{
+    background: transparent;
+    color: $monsoon;
+    @extend strong;
+  }
+}
+
+.custom-table{
+  width: 40%;
+}

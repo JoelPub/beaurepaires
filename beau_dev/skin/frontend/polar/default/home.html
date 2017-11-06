@@ -1,0 +1,616 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaurepairs</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="dist/static/app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+    
+    <!-- Top Nav -->
+    <div class="top-banner-wrapper">
+      <div class="row">
+        <div class="medium-4 columns hide-for-small">
+            <h1 class="title"><img src="images/beaurepaires-logo.png" class="logo" alt="Beaurepaires logo" /></h1>
+        </div>
+        
+        <div class="medium-8 columns">
+              
+            <!-- Top card -->
+            <div class="top-link-wrapper right text-right">
+              <ul class="collapse-left-margin">
+                <li><a href="#">Login</a></li><li><a href="#">Register</a></li><li class="cart-icon"><a href="#"><i class="fa fa-shopping-cart fa-lg fa-fw"></i>Cart</a><span class="cart-item-count">4</span></li><li><a href="#"><i class="fa top-search-link js-toggle-click fa-search fa-lg fa-fw"></i></a></li>
+              </ul>
+              <div class="hide top-search-form">
+                  <form action="">
+                    <input type="text" placeholder="Search">
+                    <a href="#" class="close-btn"><i class="fa js-toggle-click fa-times fa-lg fa-fw"></i></a>
+                  </form>
+                </div>
+<!--
+                <div class="small-2 columns">
+                  <a href="#" class="postfix close-btn"><i class="fa top-search-link fa-times fa-lg fa-fw"></i></a>
+                </div>
+-->
+            </div>  
+              
+            <div class="row hide-for-small">
+              <div class="medium-12 columns">
+
+                <!-- Store Locator -->
+                <div class="store-locator text-right">
+                  <form action="">
+                    <a href="#"><i class="fa fa-map-marker fa-lg fa-fw"></i>Store Locator</a>
+                    <input type="text" class="field" placeholder="Suburb/Postcode">
+                    <!-- <input type="submit" value="Go" class="button radius tiny">-->
+                  </form>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- Main Nav -->
+<!--
+    <div class="contain-to-grid sticky top-bar-wrapper">
+      <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: large">    
+-->
+     <div class="contain-to-grid top-bar-wrapper">
+      <nav class="top-bar" data-topbar role="navigation">  
+        <ul class="title-area inline-list">
+          <li class="toggle-topbar menu-icon"><a href="#"><span><!-- Mobile menu --></span></a></li>
+          <li class="name show-for-small-only">
+             <h1><a href="#">Beaurepaires</a></h1>
+          </li>
+          <li class="mobile-store-locator show-for-small-only">
+             <a href="#"><i class="fa fa-map-marker fa-lg fa-fw text-rigt"></i>Store Locator</a>
+          </li>
+        </ul>
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+            <li class="has-dropdown">
+              <a href="#" class="Active">Tyres</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li class="active"><a href="#">Menu 2 - Active</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Wheels</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Batteries</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Services</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Learn</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">Stores</a>
+              <ul class="dropdown">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+    
+   <!-- Hero -->
+   <div class="hero">
+        
+       <!-- slider -->
+        <div class="hero-slider">
+          <div data-interchange="[images/800x600.png, (default)], [images/1200x700.png, (medium)]">
+            <div class="row">
+              <div class="large-8 large-offset-4 columns">
+                <h2 class="title"><strong>Beaurepaires are your one stop shop for tyres.</strong></h2>
+                <a href="#" class="radius button">Find out more</a>
+              </div>
+            </div>
+          </div>
+          <div data-interchange="[images/800x600.png, (default)], [images/1200x700.png, (medium)]">
+            <div class="row">
+              <div class="large-8 large-offset-4 columns">
+                <h2 class="title">Beaurepaires are your one stop shop for tyres 2</h2>
+                <a href="#" class="radius button">Find out more</a>
+              </div>
+            </div>
+          </div>
+          <div data-interchange="[images/800x600.png, (default)], [images/1200x700.png, (medium)]">
+            <div class="row">
+              <div class="large-8 large-offset-4 columns">
+                <h2 class="title">Beaurepaires are your one stop shop for tyres 3</h2>
+                <a href="#" class="radius button">Find out more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        <!-- Quick Finder -->
+        <div class="quick-finder">
+       
+            <div class="row">
+              <div class="large-4 columns">
+                <ul class="tabs" data-tab>
+                    <li class="tab-title active"><a href="#find-tyres">Find Tyres</a></li>
+                    <li class="tab-title"><a href="#find-wheels">Find Wheels</a></li>
+                </ul>
+                <div class="panel">
+                  <div class="tabs-content">
+                    
+                    <!-- Find Tyres -->
+                    <div class="content active" id="find-tyres">
+                        
+                      <ul class="accordion" data-accordion>
+                        <li class="accordion-navigation active">
+                          <a href="#vehicle-type">Vehicle Type</a>
+                          <div id="vehicle-type" class="content active">
+                            
+                              <!-- Vehicle Type -->
+                              <form action="">
+                                <div class="row">
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="2008">2008</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2010">2010</option>
+                                      <option value="2011">2011</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="large-12 columns">
+                                    <input type="submit" value="Search" class="radius button expand" />
+                                  </div>
+                                </div>
+                              </form>
+                            
+                          </div>
+                        </li>
+                        <li class="accordion-navigation">
+                          <a href="#tyre-size">Tyre Size</a>
+                          <div id="tyre-size" class="content">
+                            
+                            <!-- Tyre Size -->
+                              <form action="">
+                                <div class="row">
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                      <option value="Suzuki">Suzuki</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                      <option value="Grand Vitara">Grand Vitara</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="2008">2008</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2010">2010</option>
+                                      <option value="2011">2011</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                      <option value="JT V6">JT V6</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row">
+									 <div class="large-12 columns">
+										<input type="submit" name="tyre-size-btn" value="Search" class="radius button expand" />
+									 </div>
+								  </div>
+                              </form>
+                           
+                          </div>
+                        </li>
+                      </ul>
+                      
+                    </div>
+                    <!-- Find Wheels -->
+                    <div class="content" id="find-wheels">
+
+                      <ul class="accordion" data-accordion>
+                        <li class="accordion-navigation active">
+                          <a href="#vehicle-type-2">Vehicle Type 2</a>
+                          <div id="vehicle-type-2" class="content active">
+                            
+                              <!-- Vehicle Type -->
+                              <form action="">
+                                <div class="row">
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="2008">2008</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2010">2010</option>
+                                      <option value="2011">2011</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="large-12 columns">
+                                    <input type="submit" value="Search" class="radius button expand" />
+                                  </div>
+                                </div>
+                              </form>
+                            
+                          </div>
+                        </li>
+                        <li class="accordion-navigation">
+                          <a href="#tyre-size-2">Tyre Size 2</a>
+                          <div id="tyre-size-2" class="content">
+                            
+                            <!-- Tyre Size -->
+                              <form action="">
+                                <div class="row">
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="2008">2008</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2010">2010</option>
+                                      <option value="2011">2011</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="large-12 columns">
+                                    <input type="submit" value="Search" class="small radius button expand" />
+                                  </div>
+                                </div>
+                              </form>
+                           
+                          </div>
+                        </li>
+                        <li class="accordion-navigation">
+                          <a href="#tyre-brand-2">Tyre Brand 2</a>
+                          <div id="tyre-brand-2" class="content">
+                              
+                              <!-- Find brand -->
+                              <form action="">
+                                <div class="row">
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                      <option value="Suzuki">Suzuki 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                      <option value="Grand Vitara">Grand Vitara 2</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="2008">2008</option>
+                                      <option value="2009">2009</option>
+                                      <option value="2010">2010</option>
+                                      <option value="2011">2011</option>
+                                    </select>
+                                  </div>
+                                  <div class="small-12 columns">
+                                    <select>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                      <option value="JT V6">JT V6 2</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="large-12 columns">
+                                    <input type="submit" value="Search" class="radius button expand" />
+                                  </div>
+                                </div>
+                              </form>
+                            
+                          </div>
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                        
+          </div>
+          
+    </div>
+
+    <!-- Promo slider -->
+    <div class="promo-slider-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+
+          <!-- Promo slider -->
+          <div class="row">  
+            <div class="promo-slider">
+              <div class="medium-4 columns text-center">
+                <a href="#" class="th">
+                  <img src="http://placehold.it/500x500" class="expand" alt="" />
+                </a>
+                <a href="#"><h3>Lorem ipsum dolor sit amet</h3></a>
+                <a href="#" class="small radius button">Find out more</a>
+              </div>
+              <div class="medium-4 columns text-center">
+                <a href="#" class="th">
+                  <img src="http://placehold.it/500x500" class="expand" alt="" />
+                </a>
+                <a href="#"><h3>Lorem ipsum dolor sit amet</h3></a>
+                <a href="#" class="small radius button">Find out more</a>
+              </div>
+              <div class="medium-4 columns text-center">
+                <a href="#" class="th">
+                  <img src="http://placehold.it/500x500" class="expand" alt="" />
+                </a>
+                <a href="#"><h3>Lorem ipsum dolor sit amet</h3></a>
+                <a href="#" class="small radius button">Find out more</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Featured article -->
+          <div class="row">
+            <div class="large-6 columns">
+                <a href="#"><img src="http://placehold.it/800x500" class="expand" alt="" /></a>
+            </div>
+            <div class="large-6 columns">
+                <a href="#"><h3>Lorem ipsum dolor</h3></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis metus nec eleifend molestie. Aliquam mattis nisi ut ornare accumsan. Nullam pulvinar justo vel aliquam efficitur. Donec interdum lectus nisl, vitae facilisis arcu pharetra non. Ut turpis arcu, congue et consectetur non, bibendum eget urna. Donec nec purus eu tellus rutrum imperdiet. Ut tellus arcu, imperdiet quis accumsan in, aliquam sit amet nisi. Sed nulla sapien, sodales sit amet ex non, blandit sagittis tortor. Sed tempus dolor a felis dictum viverra. Nunc lobortis nisi id turpis cursus, et porttitor urna hendrerit. Nullam mi arcu, ullamcorper ac nulla tempus, congue tempor arcu. Etiam tempus mauris eget lacinia porttitor. Quisque gravida diam ac turpis tristique dictum.</p>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- Product slider-->
+    <div class="product-slider-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <h2 class="text-center">Popular product</h2>
+           
+          <!-- Product slider -->
+          <div class="row">
+            <div class="product-slider">
+              <div class="medium-3 columns text-center">
+                <a href="#"><img src="http://placehold.it/500x500" class="expand" alt="" /></a>
+                <a href="#"><h4>EAGLE F1 Directional 5</h4></a>
+                <p>Enjoy style and performance, on the track or on the street</p>
+               </div>
+               <div class="medium-3 columns text-center">
+                <a href="#"><img src="http://placehold.it/500x500" class="expand" alt="" /></a>
+                <a href="#"><h4>EAGLE F1 Directional 5</h4></a>
+                <p>Enjoy style and performance, on the track or on the street</p>
+              </div>
+              <div class="medium-3 columns text-center">
+                <a href="#"><img src="http://placehold.it/500x500" class="expand" alt="" /></a>
+                <a href="#"><h4>EAGLE F1 Directional 5</h4></a>
+                <p>Enjoy style and performance, on the track or on the street</p>
+              </div>
+              <div class="medium-3 columns text-center">
+                <a href="#"><img src="http://placehold.it/500x500" class="expand" alt="" /></a>
+                <a href="#"><h4>EAGLE F1 Directional 5</h4></a>
+                <p>Enjoy style and performance, on the track or on the street</p>
+              </div>
+              <div class="medium-3 columns text-center">
+                <a href="#"><img src="http://placehold.it/500x500" class="expand" alt="" /></a>
+                <a href="#"><h4>EAGLE F1 Directional 5</h4></a>
+                <p>Enjoy style and performance, on the track or on the street</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer-wrapper">
+       <div class="row">
+          <div class="medium-6 large-3 columns hide-for-medium-down">
+              <ul class="no-bullet">
+                <li><a href="#">Tyres</a></li>
+                <li><a href="#">Wheels</a></li>
+                <li><a href="#">Batteries</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Learn</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns hide-for-medium-down">
+              <ul class="no-bullet">
+                <li><a href="#">Cars</a></li>
+                <li><a href="#">4WDs</a></li>
+                <li><a href="#">Light Commercial</a></li>
+                <li><a href="#">Truck</a></li>
+                <li><a href="#">Agriculture</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns">
+              <ul class="no-bullet">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Sitemap</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+          </div>
+          <div class="medium-6 large-3 columns">
+              <ul class="no-bullet">
+                <li><b class="aligned-title">Email Enquiry:</b> <a href="#">Click here</a></li>
+                <li><b class="aligned-title">General Enquiries:</b> <a href="tel://13-23-81">13 23 81</a></li>
+                <li><b class="aligned-title">Customer Service:</b> <a href="tel://1-800-809-514">1800 809 514</a></li>
+                <li><b class="aligned-title">Emergency Hotline:</b> <a href="tel://1-800-106-010">1800 106 010</a></li>
+              </ul>
+          </div>
+        </div>
+    </div>
+    
+    <!-- Sub Footer -->
+    <div class="social-footer-wrapper">
+        <div class="row">
+          <div class="medium-6 columns">
+            <div class="copyright">&copy; Copyright Beaurepaires 2015</div>
+          </div>
+          <div class="medium-6 columns">
+            <div class="social medium-text-right">
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a href="#">
+                <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

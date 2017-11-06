@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <wheels_index_index>
+        <block type="wheels/wheelinfo" name="root" output="toHtml" template="wheels/wheel_widget_ajax.phtml" />
+    </wheels_index_index>
+    
+    <wheels_index_wheelcodes>
+        <block type="wheels/wheelcodes" name="root" output="toHtml" template="wheels/wheelcodes_ajax.phtml" />
+    </wheels_index_wheelcodes>
+    
+    <wheels_index_savecar>
+        <block type="wheels/savecar" name="root" output="toHtml" template="wheels/savecar_ajax.phtml" />
+    </wheels_index_savecar>
+    
+    <CATEGORY_42>
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/home</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>wheels</crumbName>
+                <crumbInfo>
+                    <label>Wheels</label>
+                    <title>Wheels</title>
+                </crumbInfo>
+            </action>
+        </reference>
+        <!-- Remove much from the wheels category product list page. Change category id if it's not 42 -->
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+
+
+        </reference>
+
+    </CATEGORY_42>
+</layout>

@@ -1,0 +1,252 @@
+<html>
+    <head>
+        <title><?php echo $this->getTitle() ?></title>
+    </head>
+    <style type="text/css">
+        h1,h2,h3,h4,h5{
+            font-family: 'helvetica';
+            font-weight: bold;
+        }
+
+        html,body{
+            font-family: 'helvetica';
+            font-size:12px;
+            color:#555555
+        }
+        .bold{
+            font-family: 'helvetica;
+            font-weight: bold;
+        }
+        .header{
+            margin: 20px 0px 20px;
+        }
+        .s16{
+            font-size:16px;
+            height: 17px;
+        }
+        .s14{
+            font-size:14px;
+            height: 15px;
+        }
+        div{
+            margin: 0px;
+            height: 15px;
+        }
+        img.tel{
+            width: 10px;
+            margin-top: 1px;
+        }
+        .payment-cell{
+            width: 180px;
+            color: #ffffff;
+            background-color: #f7901a;
+            padding: 10px;
+        }
+        .total-cell{
+            width: 180px;
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+        .total-table{
+            margin-top: 15px;
+            width: 100%;
+        }
+        .spacing-cell{
+            width: 10px;
+        }
+        .table-items{
+            width: 100%;
+            border-collapse: collapse;
+            border-width: .1px;
+        }
+        div.style1{
+            width: 100%;
+            margin:10px 0px;
+            border-top:1px solid #d1d1d1;
+            border-width: 2px;
+        }
+        .table-items tr td{
+            border: 1px solid #D1D1D1;
+        }
+        .table-items tr:nth-child(even){
+            background-color:  #f5f5f5;
+        }
+
+    </style>
+
+<body>
+<?php
+$helper = Mage::helper('apdinteract_pdf');
+$invoice = $this->getInvoice();
+$order = $this->getInvoice()->getOrder();
+$vir = Mage::helper('apdinteract_vir')->getConsumerDetail($order->getIncrementId());
+?>
+<table  width="100%">
+    <tr>
+        <td width="50%" align="left">
+            <div class="header bold s16"><?php echo $this->__('Tax Invoice') ?></div>
+            <div class="bold"><?php echo $helper->getStoreTitle() ?></div>
+            <div>ABN: <?php echo $helper->getStoreAbn() ?></div>
+        </td>
+        <td width="50%" align="right">
+            <img src="<?php echo $helper->getLogoSrc() ?>" width="120px" alt="<?php echo $this->__('Logo Image') ?>" />
+        </td>
+    </tr>
+</table>
+<table style="margin-top: 10px" width="100%">
+    <tr>
+        <td width="50%" align="left" valign="top">
+            <div class="bold">To:</div>
+            <div><?php echo $order->getBillingAddress()->getName(); ?></div>
+            <div><?php echo $order->getCustomerEmail() ?></div>
+            <div><?php echo $order->getBillingAddress()->getData('street'); ?></div>
+            <div>
+                <?php
+                $location = array(
+                    $order->getBillingAddress()->getData('city'),
+                    $order->getBillingAddress()->getData('region'),
+                    $order->getBillingAddress()->getData('postcode')
+                );
+                echo implode(" ",$location);
+                ?>
+            </div>
+            <br>
+            <div>Date: <span class="bold"><?php echo date('j F Y',strtotime($invoice->getCreatedAt())) ?></span></div>
+            <div>Vehicle Registration: <strong><?php echo $order->getRegistrationNumber() ?></strong></div>
+            <br>
+            <div class="s14">Order: <span class="bold"><?php echo $order->getIncrementId() ?></span></div>
+            <div class="s14">Invoice: <span class="bold"><?php echo $invoice->getIncrementId() ?></span></div>
+        </td>
+        <td width="50%" align="right" valign="top">
+            <div><span class="bold">beaurepaires.com.au</span></div>
+            <div><img class="tel" src="<?php echo $helper->getPhoneSrc() ?>"/> <span class="bold"><?php echo $helper->getStorePhone() ?></span></div>
+            <br>
+            <?php
+            // Store Details
+            $storeLocation = $order->getStorelocation();
+            if(!empty($storeLocation)): ?>
+                <div><span class="bold">Your Store:</span></div>
+                <?php
+                $store = Mage::getModel('storelocator/stores')->load($storeLocation);
+                $region = Mage::getModel('directory/region')->load($store->getRegionId());
+
+                $completeAddress = array($region->getName(),$store->getCity(),$store->getPostalCode());
+                ?>
+                <div><?php echo $store->getTitle(); ?></div>
+                <div><?php echo $store->getPhone(); ?></div>
+                <div><?php echo $store->getStreet(); ?></div>
+                <div><?php echo implode(" ",$completeAddress); ?></div>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <br>
+            <div><span class="bold">Vehicle:</span></div>
+            <div><?php echo $vir->getFirstItem()->getVehicleseries() ?></div>
+        </td>
+    </tr>
+</table>
+<br/>
+
+<?php // invoice items ?>
+<table class="table-items"  cellpadding="5">
+    <tr align="center">
+        <td width="13%"><span>SKU</span></td>
+        <td width="30%"><span>Product</span></td>
+        <td width="20%"><span>Size</span></td>
+        <td width="7%"><span>Qty</span></td>
+        <td width="13%"><span>RRP<br/>ex GST</span></td>
+        <td width="13%"><span>Sales Price<br/>ex GST</span></td>
+        <td width="13%"><span>Total<br/>ex GST</span></td>
+    </tr>
+    <?php  foreach ($invoice->getAllItems() as $item): ?>
+    <?php
+    if ($item->getOrderItem()->getParentItem()) {
+        continue;
+    }
+    $size = "";
+    $_qty = (int)$item->getQty();
+    $productOptions = $item->getOrderItem()->getProductOptions();
+    if(isset($productOptions['attributes_info'])){
+        $size = $productOptions['attributes_info'][0]['value'];
+    }
+
+    $taxAmount = $helper->getTaxPercentage($item->getOrderItem()->getTaxPercent());
+    $rrp = (float)$item->getOrderItem()->getRrPrice() >= 0 ? $item->getOrderItem()->getRrPrice() : $item->getBasePrice();
+    $rrpExclTax =   $rrp / $taxAmount;
+
+    $salesPriceExclTax =  $item->getBasePrice();
+    $rowBaseTotalExclTax = $item->getBaseRowTotalInclTax() - $item->getBaseTaxAmount();
+    ?>
+    <tr>
+        <td><span class="bold"><?php echo $item->getSku() ?></span></td>
+        <td><span class="bold"><?php echo $item->getName() ?></span></td>
+        <td align="center"><span class="bold"><?php echo $size ?></span></td>
+        <td align="center"><span class="bold"><?php echo $_qty ?></span></td>
+        <td align="center"><span class="bold"><?php echo $helper->formatPrice($rrpExclTax) ?></span></td>
+        <td align="center"><span class="bold"><?php echo $helper->formatPrice($salesPriceExclTax) ?></span></td>
+        <td align="center"><span class="bold"><?php echo $helper->formatPrice($rowBaseTotalExclTax) ?></span></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<?php // Displaying Totals ?>
+
+    <table class="total-table">
+        <tr>
+            <td class="space-cell">&nbsp;</td>
+            <td class="payment-cell">
+                <table cellspacing="0" cellpadding="0" width="100%" >
+                    <tr>
+                        <td><span>Paid on: </span><span class="bold"><?php echo date('j F Y',strtotime($invoice->getCreatedAt())) ?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Using: </span><span class="bold"><?php echo $this->displayPayment($order) ?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>&nbsp;</span> </td>
+                    </tr>
+                    <tr>
+                        <td><span class="bold s16">Thank you</span></td>
+                    </tr>
+                </table>
+            </td>
+            <td class="spacing-cell">&nbsp;</td>
+            <td class="total-cell">
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><span>Discount</span></td>
+                        <td align="right"><span><?php echo $helper->formatPrice($invoice->getBaseDiscountAmount()) ?></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Sub Total ex GST</span></td>
+                        <td align="right"><?php echo $helper->formatPrice($invoice->getBaseSubtotalInclTax() - $invoice->getBaseTaxAmount()) ?></td>
+                    </tr>
+                    <tr>
+                        <td><span>GST</span></td>
+                        <td align="right"><?php echo $helper->formatPrice($invoice->getBaseTaxAmount()) ?></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td><span class="bold">Total incl GST</span></td>
+                        <td align="right"><span class="bold"><?php echo $helper->formatPrice($invoice->getBaseGrandTotal()) ?></span></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+<table width="100%">
+    <tr>
+        <td><div class="style1"></div></td>
+    </tr>
+</table>
+<?php echo $this->getStaticBlock('block_1') ?>
+<?php echo $this->getStaticBlock('block_2') ?>
+<?php echo $this->getStaticBlock('block_3') ?>
+<?php echo $this->getStaticBlock('block_4') ?>
+</body>
+</html>

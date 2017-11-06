@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+   <!--
+
+  When using polarcore as a starter theme (and not a parent theme) you can edit either polarcore.xml or local.xml. We recommend being consistent to avoid confusion.
+
+  However, if you're using polarcore as a parent theme, we recommend only using local.xml and leaving the polarcore.xml alone. Then an eventual upgrade will be easier.
+
+    -->
+    <default>
+        <reference name="head">
+            <action method="addJs">
+                <script>lib/lazysizes.min.js</script>
+                <params><![CDATA[data-group="js002"]]></params>
+            </action>
+            <!--<action method="addItem"><type>skin_js</type><name>bower_components/modernizr/modernizr.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>bower_components/jquery/dist/jquery.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>bower_components/foundation/js/foundation.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>bower_components/slick-carousel/slick/slick.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>-->
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/polar.js</name>
+                <params />
+            </action>
+        </reference>
+        <reference name="top.links">
+            <block type="checkout/cart_sidebar" name="cart_header" template="checkout/cart/sidebar.phtml">
+                <!-- to stop varnish caching a block, do this -->
+                <action method="setEsiOptions">
+                    <params>
+                        <access>private</access>
+                    </params>
+                </action>
+            </block>
+            <!--<block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml" />-->
+            <block type="wishlist/links" name="wishlist_link" />
+            <action method="removeLinkByUrl">
+                <url helper="storelocator/getLocatorUrl" />
+            </action>
+            <action method="removeLinkBlock">
+                <blockName>wishlist_link</blockName>
+            </action>
+            <action method="removeLinkByUrl">
+                <url helper="customer/getAccountUrl" />
+            </action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Log In</label>
+                <url helper="customer/getLoginUrl" />
+                <title>Log In</title>
+                <prepare />
+                <urlParams />
+                <position>100</position>
+            </action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Register</label>
+                <url helper="customer/getRegisterUrl" />
+                <title>Register</title>
+                <prepare />
+                <urlParams />
+                <position>100</position>
+            </action>
+        </reference>
+      
+        <reference name="root">
+            <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
+            </block>
+        </reference>
+      
+    </default>
+    <catalog_category_view>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="left">
+            <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml" />
+        </reference>
+    </catalog_category_view>
+    <catalog_category_layered>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-cdp.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_layered>
+    <searchresult_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-cdp.phtml</template>
+            </action>
+        </reference>
+    </searchresult_index_index>
+    <catalogsearch_result_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column-cdp.phtml</template>
+            </action>
+        </reference>
+    </catalogsearch_result_index>
+    <catalog_category_default>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_default>
+    <cms_index_index>
+        <reference name="content">
+            <block type="cms/block" name="homepage-feature" after="auguria_sliders">
+                <action method="setBlockId">
+                    <block_id>homepage-feature</block_id>
+                </action>
+            </block>
+        </reference>
+    </cms_index_index>
+    <customer_logged_in>
+        <reference name="top.links">
+            <action method="removeLinkByUrl">
+                <url helper="customer/getLoginUrl" />
+            </action>
+            <action method="removeLinkByUrl">
+                <url helper="customer/getRegisterUrl" />
+            </action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>My Account</label>
+                <url helper="customer/getAccountUrl" />
+                <title>My Account</title>
+                <prepare />
+                <urlParams />
+                <position>10</position>
+            </action>
+        </reference>
+    </customer_logged_in>
+    <customer_account_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-left-customer.phtml</template>
+            </action>
+        </reference>
+    </customer_account_index>
+    <customer_logged_out>
+        <!---<reference name="right">
+            <block type="customer/form_login" name="customer_form_mini_login" before="-" template="customer/form/mini.login.phtml"/>
+        </reference>-->
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="customer">
+                <label>Log In</label>
+                <url helper="customer/getLoginUrl" />
+                <title>Log In</title>
+                <prepare />
+                <urlParams />
+                <position>100</position>
+            </action>
+        </reference>
+        <remove name="reorder" />
+    </customer_logged_out>
+    <beau_rwd_onecol_custom translate="label">
+        <label>All One-Column Layout Pages</label>
+        <reference name="content">
+            <block type="auguria_sliders/cms_page_slider" name="auguria_sliders" before="dynamicblock" as="sliders" template="auguria/sliders/slider.phtml">
+                <block type="searchtyre/index" name="searchtyre_index" as="searchtyre_index" template="searchtyre/index.phtml" />
+            </block>
+            <action method="setTemplate">
+                <template>page/beau-rwd-1col.phtml</template>
+            </action>
+            <!-- Mark root page block that template is applied -->
+            <!--<action method="setIsHandle"><applied>1</applied></action>-->
+        </reference>
+    </beau_rwd_onecol_custom>
+    <!--<customer_account translate="label">
+        <reference name="customer_account_navigation">
+                <action method="addLink" translate="label" module="sales"><name>orders</name><path>sales/order/history/</path><label>My Orders</label></action
+            <action method="addLink" translate="label" module="customer"><name>review</name><path>review/customer/</path><label>My Product Reviews</label></action>
+        </reference>
+    </customer_account>-->
+    <customer_account translate="label">
+        <reference name="left">
+            <!--Unset the whole block then add back later-->
+            <action method="unsetChild">
+                <name>customer_account_navigation</name>
+            </action>
+            <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
+                <action method="addLink" translate="label" module="customer">
+                    <name>account</name>
+                    <path>account/dashboard/</path>
+                    <label>Dashboard</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>account_edit</name>
+                    <path>account/details</path>
+                    <label>Account Details</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>address_book</name>
+                    <path>account/contacts</path>
+                    <label>Contact Details</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>vehicle</name>
+                    <path>account/vehicles/</path>
+                    <label>Vehicle Details</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>newsletter</name>
+                    <path>account/communications</path>
+                    <label>Communications</label>
+                </action>
+                <action method="addLink" translate="label" module="sales">
+                    <name>orders</name>
+                    <path>account/orders</path>
+                    <label>Orders</label>
+                </action>
+                <action method="addLink" translate="label" module="review">
+                    <name>reviews</name>
+                    <path>account/reviews</path>
+                    <label>Product Reviews</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>mobility</name>
+                    <path>account/mobility</path>
+                    <label>Mobility Data</label>
+                </action>
+            </block>
+        </reference>
+    </customer_account>
+    <sales_order_history>
+        <reference name="head">
+            <action method="setForcedTitle">
+                <title>Orders</title>
+            </action>
+        </reference>
+    </sales_order_history>
+    <searchresult_index_index>
+        <reference name="head">
+            <action method="setForcedTitle">
+                <title>Search Result</title>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/quick-cart.js</name>
+                <params />
+            </action>
+        </reference>
+    </searchresult_index_index>
+    <onsale_index_index>
+        <reference name="head"> 
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/quick-cart.js</name>
+                <params />
+            </action>
+        </reference>
+    </onsale_index_index>
+    <catalogsearch_result_index>
+        <reference name="head">
+            <action method="setForcedTitle">
+                <title>Search Result</title>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/quick-cart.js</name>
+                <params />
+            </action>
+        </reference>
+    </catalogsearch_result_index>
+    <sales_order_print>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>dist/static/app.css</name>
+            </action>
+        </reference>
+    </sales_order_print>
+    <catalog_product_view>
+        <reference name="head">
+            <action method="setProductTitle">
+                <title>| Beaurepaires</title>
+            </action>
+            <action method="setPtagValue">         	
+                <title>Ptag</title>
+            </action>  
+        </reference>
+    </catalog_product_view>
+    <checkout_onepage_success>
+        <reference name="head">
+            <action method="setTagValue">
+                <title>tag</title>
+            </action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="cms/block" name="ecom.conversion.script" as="ecom_conversion_script">
+                <action method="setBlockId"><block_id>ecom_conversion_script</block_id></action>
+            </block>
+        </reference>
+    </checkout_onepage_success>
+    <cms_page_view translate="label">
+        <reference name="left">
+            <block type="apdwidgets/apdpagemenu" name="heirarchy.leftnav" before="-" template="cms/menu.phtml"></block>
+        </reference>        
+    </cms_page_view>
+
+    <contacts_index_index>
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/home</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>contacts</crumbName>
+                <crumbInfo>
+                    <label>Contact Us</label>
+                    <title>Contact Us</title>
+                </crumbInfo>
+            </action>
+        </reference>
+    </contacts_index_index>
+    <customer_account_login>
+        <reference name="head">
+            <action method="setForcedTitle"><title>Customer Register &amp; Login</title></action>
+        </reference>
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/home</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>login</crumbName>
+                <crumbInfo>
+                    <label>Customer Register &amp; Login</label>
+                    <title>Customer Register &amp; Login</title>
+                </crumbInfo>
+            </action>
+        </reference>
+    </customer_account_login>
+    <customer_account_create>
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/home</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>login</crumbName>
+                <crumbInfo>
+                    <label>Register</label>
+                    <title>Register</title>
+                </crumbInfo>
+            </action>
+        </reference>
+    </customer_account_create>
+    <checkout_cart_index>
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/home</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>login</crumbName>
+                <crumbInfo>
+                    <label>Shopping Cart</label>
+                    <title>Shopping Cart</title>
+                </crumbInfo>
+            </action>
+        </reference>
+    </checkout_cart_index>
+    <customer_address_index>
+        <reference name="head">
+            <action method="setTitle" translate="title">
+                <title>Contact Details</title>
+            </action>
+        </reference>
+    </customer_address_index>
+</layout>

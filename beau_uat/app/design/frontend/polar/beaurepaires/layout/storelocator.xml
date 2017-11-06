@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout  version="0.1.0">
+
+        <!--We don't want a store locator link in the toplinks, because it's already part of the header template-->
+<!--	<default>
+            <reference name="top.links">
+                <action ifconfig="storelocator/global/show_toplink" method="addLink" translate="label title" module="customer"><label>Store Locator</label><url helper="storelocator/getLocatorUrl"/><title></title><prepare/><urlParams/><position>10</position></action>
+            </reference>
+        </default>-->
+
+    <storelocator_index>
+        
+    </storelocator_index>    
+
+    <storelocator_index_storedetail>
+
+        <!--<update handle="storelocator_index_storedetail"/>-->      
+        <label>Store Locator - View A Store</label>
+        <remove name="right"/>
+        <remove name="left"/>
+       
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+       
+       <reference name="head">
+       		<!--<action method="removeItem"><type>js</type><name>prototype/prototype.js</name></action>-->
+                <!-- TODO: Remove some more unneeded JS/CSS here -->
+       </reference>
+        
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>store_locator</crumbName>
+                <crumbInfo>
+                    <label>Store Locator</label>
+                    <title>Store Locator</title>
+                    <!-- relative link -->
+                    <link>./</link>                    
+                </crumbInfo>
+            </action>
+        </reference>
+        
+        
+        <reference name="content">
+        	<block type="storelocator/storedetail" name="storelocator.storedetail" template="storelocator/storedetail.phtml"></block>
+        </reference>
+    </storelocator_index_storedetail>
+    
+    <!-- for some reason the frontname 'storelocator' is truncated decided to use _index_storeregion tag instead -->
+    <_index_storeregion>
+    	<update handle="storelocator_index_index"/>      
+		<label>Store Locator</label>
+        <remove name="right"/>
+        <remove name="left"/>
+       
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>tyres</crumbName>
+                <crumbInfo>
+                    <label>Tyres</label>
+                    <title>Tyres</title>
+                    <link>./</link>
+                </crumbInfo>
+            </action>
+        </reference>
+        
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+       
+       <reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/iwd/storelocator/chosen.jquery.min.js</name></action>	
+			<action method="addItem"><type>skin_js</type><name>js/iwd/storelocator/storelocator.js</name></action>			
+       </reference>
+    	<!-- remove this globally called blocks -->
+    	<remove name="right.reports.product.viewed" />
+    	<remove name="catalog.compare.sidebar" />
+    	<remove name="sale.reorder.sidebar" />
+    	<reference name="content">
+    		<block type="storelocator/search" name="storelocator.search" as="storelocator" template="storelocator/search.phtml" />
+    		<block type="storelocator/storeregion" name="storelocator.storeregion"></block>
+    	</reference>
+    </_index_storeregion>
+
+
+	<dealers_index_index translate="label">
+		<update handle="storelocator_index_index"/>      
+		<label>Store Locator</label>
+        <remove name="right"/>
+        <remove name="left"/>
+       
+        <reference name="breadcrumbs">
+            <action method="addCrumb">
+                <crumbName>Home</crumbName>
+                <crumbInfo>
+                    <label>Home</label>
+                    <title>Home</title>
+                    <link>/</link>
+                </crumbInfo>
+            </action>
+            <action method="addCrumb">
+                <crumbName>store_locator</crumbName>
+                <crumbInfo>
+                    <label>Store Locator</label>
+                    <title>Store Locator</title>
+                    <link>/storelocator/</link>
+                </crumbInfo>
+            </action>
+        </reference>
+        
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+       
+       <reference name="head">
+<!--
+       		<action method="removeItem"><type>js</type><name>prototype/prototype.js</name></action>
+			<action method="addJs"><script>prototype/prototype-1.7.2.js</script><params/><sort_order>0</sort_order></action>
+-->
+			
+<!--			<action method="addCss"><stylesheet>css/iwd/storelocator/chosen.css</stylesheet></action>-->
+			<action method="addItem"><type>skin_js</type><name>js/iwd/storelocator/chosen.jquery.min.js</name></action>	
+			<action method="addItem"><type>skin_js</type><name>js/iwd/storelocator/storelocator.js</name></action>			
+       </reference>
+        
+        <reference name="content">
+        	<block type="storelocator/search" name="storelocator.search" as="storelocator" template="storelocator/search.phtml">
+        	
+        	</block>
+        </reference>
+	
+	</dealers_index_index>
+	
+</layout>

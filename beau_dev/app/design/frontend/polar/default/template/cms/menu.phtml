@@ -1,0 +1,15 @@
+<?php
+// Get heirarchy from Jmmegamenu (defined in admin section) 
+// See ApdInteract_Widgets_Block_Apdpagemenu
+?>
+<div class="row">
+    <div class="columns">
+        <div class="my-account cms-page block"> 
+            <?php echo $this->getPagemenu(); ?>
+        </div>
+
+        <div class="content">
+        	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promo-services-cdp')->toHtml();?>
+        </div>
+    </div>
+</div>

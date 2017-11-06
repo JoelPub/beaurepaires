@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Campaign September 2017</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0" />
+  </head>
+  <body class="page-campaign">
+    <%= require('html-loader?minimize=false!./templates/flash-bar.html') %>
+    <%= require('html-loader?minimize=false!./templates/header.html') %>
+
+    <main class="campaign">
+
+      <section class="main">
+        <div class="row">
+          <div class="column large-8">
+            <%= require('html-loader?minimize=false!./templates/hero.html') %>
+          </div>
+          <div class="column large-4">
+            <%= require('html-loader?minimize=false!./templates/tyres-widget.html') %>
+          </div>
+          <div class="column text-center">
+            <p class="terms">Offer Ends 30 September 2017. Terms and Conditions apply <br />*Puppies not included</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="store-locator-map" class="map"></section>
+
+      <%= require('html-loader?minimize=false!./templates/features.html') %>
+
+      <%= require('html-loader?minimize=false!./templates/process.html') %>
+
+      <%= require('html-loader?minimize=false!./templates/best-value.html') %>
+
+      <%= require('html-loader?minimize=false!./templates/deliver.html') %>
+
+      <%= require('html-loader?minimize=false!./templates/testimonials.html') %>
+
+      <%= require('html-loader?minimize=false!./templates/who-cares.html') %>
+
+    </main>
+
+    <footer>
+        <p>&copy; Copyright Beaurepaires 2017. <a href="https://www.beaurepaires.com.au/privacy-policy">Privacy Policy</a></p>
+    </footer>
+
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../../../bower_components/jquery/dist/jquery.min.js') %>"></script>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../../../bower_components/foundation/js/foundation.min.js') %>"></script>
+    <script type="text/javascript" src="<%= require('file-loader?name=js/[hash].script.[ext]!../../../bower_components/slick-carousel/slick/slick.min.js') %>"></script>
+    <script>
+    $(function(){
+      $('.slider').slick()
+
+      $(document).foundation({
+          abide:{
+              patterns :{
+                  vehicle_make: /^.{1,15}$/,
+                  vehicle_model: /^.{1,200}$/,
+                  vehicle_size: /^.{0,200}$/
+              }
+          }
+        })
+
+          var $instantQuoteBtn = $('[data-get-instant-quote-btn]'),
+              $instantQuoteForm = $('[data-get-instant-quote-form]'),
+              $htmlBody = $('html, body'),
+              $window = $(window),
+              $flashBar = $('[data-flash-bar]'),
+              $nearestStoreBtn = $('[data-nearest-store-btn]')
+              $mapSection = $('section.map')
+
+          $instantQuoteBtn.on('click', function(event){
+            event.preventDefault();
+            var offsetTop = $instantQuoteForm.offset().top - ($flashBar.height() + 5)
+            $htmlBody.animate({ scrollTop: offsetTop }, 1000)
+            $instantQuoteForm.find('input[type="text"]').first().focus()
+          })
+
+          $nearestStoreBtn.on('click', function(event){
+            event.preventDefault();
+            var offsetTop = $mapSection.offset().top - ($flashBar.height() + 5)
+            $htmlBody.animate({ scrollTop: offsetTop }, 1000)
+            $instantQuoteForm.find('input[type="text"]').first().focus()
+          })
+
+    })
+    </script>
+
+  </body>
+</html>

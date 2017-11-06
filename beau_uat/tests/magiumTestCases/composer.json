@@ -1,0 +1,24 @@
+{
+  "name": "jagdeep/magium",
+  "description": "Magento-based functionality for the Magium test library",
+  "minimum-stability": "stable",
+  "keywords": ["magento", "selenium", "webdriver", "testing"],
+  "license": "ASL-1.0",
+  "authors": [
+    {
+      "name": "Jagdeep Singh",
+      "email": "jsingh@apdgorup.com",
+      "role": "Team Lead - Magento"
+    }
+  ],
+  "autoload" : {
+    "psr-4" : {
+      "BeauTests\\": "beautests",
+      "BeauLib\\" : "lib/"
+    }
+  },
+  "require": {
+    "phpunit/phpunit": "*",
+    "magium/magento": "0.6.6"
+  }
+}

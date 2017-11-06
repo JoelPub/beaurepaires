@@ -1,0 +1,104 @@
+<header class="main-header">
+  <script id="header-icons-config" type="application/json">
+    [
+      {
+        "label": "Search",
+        "icon": "fa-search",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleSearch",
+        "visibility": "all",
+        "badge": 0
+      },
+      {
+        "label": "Login",
+        "icon": "fa-user-o",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleLogin",
+        "visibility": "desktop",
+        "badge": 0
+      },
+      {
+        "label": "Account",
+        "icon": "fa-user",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleAccount",
+        "visibility": "desktop",
+        "badge": 0
+      },
+      {
+        "label": "Minicart",
+        "icon": "fa-phone",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": false,
+        "link": "tel:1111111324",
+        "action": null,
+        "visibility": "mobile",
+        "badge": 0
+      },
+      {
+        "label": "Cart",
+        "icon": "fa-shopping-cart",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleCart",
+        "visibility": "all",
+        "badge": 7
+      }
+    ]
+  </script>
+  <main-header
+    header-title="Beaurepaires"
+    header-icons-config-id="header-icons-config"
+    search-panel-text="Search entire store here..."
+    search-panel-input-name="q"
+    search-panel-action="/catalogsearch/result/"
+    search-panel-no-result="No results!"
+    search-connection-error="Request failed/error"
+    search-api="http://localhost:8082/proxy/searchautocomplete/ajax/get/?q="
+    search-view-all="/catalogsearch/result/?q="
+    login-login-text="Submit"
+    login-login-icon="fa-sign-in"
+    login-login-url="customer/account/loginPost/"
+    login-signup-text="Register"
+    login-signup-icon="fa-user-plus"
+    login-signup-url="customer/account/create/"
+    login-forgot-password="customer/account/forgotpassword/"
+    login-social-fb-url="pslogin/account/use/type/facebook/"
+    login-social-fb-popup-width="650"
+    login-social-fb-popup-height="350"
+    login-social-google-url="pslogin/account/use/type/facebook/"
+    login-social-google-popup-width="650"
+    login-social-google-popup-height="350"
+    account-my-account-text="My Account"
+    account-formkey="formkey"
+    account-my-account-icon="fa-address-card-o"
+    account-my-account-url="myaccount"
+    account-logout-text="Logout"
+    account-logout-icon="fa-sign-out"
+    account-logout-url="logmeout"
+    minicart-display-url="http://localhost:8082/proxy/checkout/cart/ajaxDisplay"
+    minicart-update-url="http://localhost:8082/proxy/checkout/cart/ajaxUpdate"
+    minicart-delete-url="http://localhost:8082/proxy/checkout/cart/ajaxDelete"
+    minicart-checkout-url="/checkout"
+    minicart-cart-url="/checkout/cart/"
+    minicart-change-store-url="/store-locator"
+  >
+    <!-- Content replaced by main-header compontent.  Content added for SEO only  -->
+    <h1>Beaurepaires</h1>
+    <a href="tell:1111111324">Call Us: 1111111324</a>
+    <a href="loginurl">Login</a>
+    <a href="signupurl">Register</a>
+  </main-header>
+</header>

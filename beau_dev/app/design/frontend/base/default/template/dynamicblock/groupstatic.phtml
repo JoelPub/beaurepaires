@@ -1,0 +1,14 @@
+<?php
+$group_id = Mage::getSingleton('customer/session')->getCustomerGroupId();
+echo $group_id.'dddd';
+$blocks = Mage::getModel('dynamicblock/dynamicblock')->getBlockByGroup($group_id);
+$count = $blocks->count();
+$block = $blocks->getFirstItem();
+$identifier = $block->getIdentifier();
+
+if ($count > 0):
+    ?>
+    <div class="row">
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+    </div>
+<?php endif; ?>

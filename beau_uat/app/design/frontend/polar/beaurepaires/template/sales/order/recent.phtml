@@ -1,0 +1,72 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="box-account box-recent info-box">
+<?php $_orders = $this->getOrders(); ?>
+    <div class="title">
+        <h5><?php echo $this->__('Recent Orders') ?></h5>
+        <?php if( sizeof($_orders->getItems()) > 0 ): ?>
+            <a href="<?php echo $this->getUrl('account/orders') ?>"><?php echo $this->__('View All') ?></a>
+        <?php endif; ?>
+    </div>
+    
+    <div class="responsive-table">
+      <table class="data-table">
+          <thead>
+              <tr>
+                  <th scope="col">Order #</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Ship To</th>
+                  <th scope="col">Order Total</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php if( sizeof($_orders->getItems()) > 0 ): ?>
+                  <?php foreach ($_orders as $_order): ?>
+                      <tr>            
+                          <td><?php echo $_order->getRealOrderId() ?></td>
+                          <td><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></td>
+                          <td><?php echo $_order->getShippingAddress() ? $this->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+                          <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                          <td><?php echo $_order->getStatusLabel() ?></td>
+                          <td>
+                              <a href="/account/orders/view/order_id/<?php echo $_order->getId(); ?>">
+                                  <i class="fa fa-eye" aria-hidden="true"></i>
+                              </a>
+                          </td>
+                      </tr>
+                  <?php endforeach; ?>
+              <?php else: ?>
+                  <tr>
+                      <td colspan="6"><?php echo $this->__('You have placed no orders.'); ?></td>
+                  </tr>
+              <?php endif; ?>
+          </tbody>
+      </table>
+    </div>
+</div>

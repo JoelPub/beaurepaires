@@ -1,0 +1,722 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+$isEnabledCart = Mage::getStoreConfig('catalog/frontend/enable_quick_button');
+$isCustomerLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+
+//$codes = Mage::helper('apdinteract_catalog')->fetchCodes();
+?>
+<?php if (!$_productCollection->count()): ?>
+    <?php
+    $param = $this->getRequest()->getParam('type');
+    $message = '';
+    switch ($param){
+        case 'tyres':
+            $message = $this->getLayout()->createBlock('cms/block')->setBlockId('tyres-search-not-found')->toHtml();
+            break;
+        default:
+            $message = 'There are no products matching the selection.';
+    }
+    ?>
+    <p class="note-msg"><?php echo $this->__($message) ?></p>
+<?php else: ?>
+    <div class='hide'>
+        <?php echo $this->getLayout()->createBlock('page/html_pager', 'pagination')->setCollection($this->getLoadedProductCollection())->toHtml(); ?>
+    </div>
+    <div class="category-products">
+
+        <?php $this->setMode('list'); ?>
+        <?php echo $this->getToolbarHtml() ?>
+
+        <?php // List mode ?>
+        <?php if ($this->getMode() != 'grid'): ?>
+            <?php $_iterator = 0; ?>
+            <?php $mobile_product_list_html = ''; ?>
+
+            <!--<ol class="products-list" id="products-list">-->
+
+            <!-- Product List -->
+
+            <div class="comp-product-list products-list">
+                <div class="products-list-holder">
+
+
+                    <?php
+                    foreach ($_productCollection as $_product):
+
+                        $fields->product->overlay = $_product->getOverlayValue();
+                        $fields->product->url = $_product->getProductUrl();
+                        $fields->product->title = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
+                        $fields->product->img->src = $this->helper('catalog/image')->init($_product, 'small_image')->resize(400);
+                        $fields->product->img->label = $fields->product->title;
+                        $fields->product->brand = $_product->getAttributeText('brand');
+                        if (empty($fields->product->brand))
+                            $fields->product->brand = $_product->getData('brand_value');
+                        $fields->product->brandlogo = Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand);
+
+
+                        $fields->product->name = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                        // leaving short_description here for in case we need to switch it on later
+                        $fields->product->short_description = $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description');
+                        $fields->product->name_stripped = $this->stripTags($fields->product->name);
+                        $fields->product->categorization = $_product->getCategorizationValue();
+                        $fields->product->badge = "";
+                        $productx = Mage::getModel('catalog/product')->load($_product->getId());
+                        $fields->product->finish = "<p><strong>Finish:</strong> " . $productx->getFinish() . "</p>";
+
+//                Do this in the helper. Not here. Please. Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand);
+//		$title = ucwords(strtolower($_product->getAttributeText('brand')));
+//        $identifier = str_replace(' ','-',strtolower($title));
+//
+//		$brand_path = $this->getSkinUrl('images/brands/' . strtolower($fields->product->brand) . '-logo.png');
+//		$url = getimagesize($brand_path);
+//		if(is_array($url))
+//			$fields->product->brandlogo = '<a href="'.$identifier.'">'.Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand).'</a>';
+//		else
+//			$fields->product->brandlogo = "";
+                        // TODO move brand badge logic to helper:
+
+                        $badge_big = "";
+                        $badge = "";
+                        $fields->product->badge_big = "";
+
+                        $overlay_text = $_product->getAttributeText('overlay');
+
+                        $fields->product->show_rrp = "none";
+
+                        $badge = Mage::helper('apdinteract_catalog')->getBadgeSrc($overlay_text, $thumb = true);
+
+                        if (isset($badge) && trim($badge) != "")
+                            $fields->product->badge = "<img class=\"product-badge\" src=\"{$badge}\" alt=\"{$overlay_text}\">";
+                        $badge_big = Mage::helper('apdinteract_catalog')->getBadgeSrc($overlay_text, $thumb = false);
+                        $no_badge = "no-badge";
+
+                        if (isset($badge_big) && trim($badge_big) != "") {
+                            $no_badge = "";
+                            $fields->product->badge_big = "<img class=\"product-badge\" src=\"{$badge_big}\" alt=\"{$overlay_text}\">";
+                        }
+
+                        $fields->product->no_badge = $no_badge;
+
+                        $catId = 0;
+                        $catName = "";
+                        $categoryIds = $_product->getCategoryIds();
+                        if (count($categoryIds)) {
+                            $catId = $categoryIds[0];
+                            $_category = Mage::getModel('catalog/category')->load($catId);
+                            $catName = strtolower($_category->getName());
+                        }
+                        if ($catName == "" && Mage::registry('current_category')) {
+                            // get the id, or by category name
+                            $catId = Mage::registry('current_category')->getId();
+                            $catName = strtolower(Mage::registry('current_category')->getName());
+                        }
+
+                        if ($catName == "tyres") {
+
+                            $attributes_array = Mage::helper('apdinteract_catalog')->getTyreAttributesArray();
+                            $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                            $attributes = Mage::helper('apdinteract_hierarchy')->getSortedAttributes($attribute_values, $_product);
+
+                        }elseif ($catName == "batteries"){
+
+                            $attributes_array = Mage::helper('apdinteract_catalog')->getBatteryAttributesArray();
+                            $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                            $attributes = $attributes_array;
+
+                        }
+                        $fields->product->subcategory = $attribute_values['application'];
+
+                        $fields->product->bar_rating = array();
+                        $fields->product->bar_ratingtext = array();
+                        $fields->product->bar_ratingclass = array();
+                        $fields->product->attribute_code = array();
+
+                        $counter = 0;
+
+                        if (isset($attributes)) {
+                            foreach ($attributes as $attribute) {
+                                if ($counter == 3) {
+                                    break;
+                                }
+
+                                if ($attribute_values[$attribute] > 0) {
+                                    $fields->product->bar_rating[] = '';
+                                    //        	$fields->product->bar_rating[] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml(Mage::helper('apdinteract_catalog')->getRatingScore($attribute,$attribute_values) * 33.3);
+                                    $fields->product->bar_ratingtext[] = Mage::helper('apdinteract_hierarchy')->getAttributeText($attribute);
+                                    $fields->product->bar_ratingclass[] = Mage::helper('apdinteract_hierarchy')->getAttributeIcon($attribute);
+                                    $fields->product->attribute_code[] = Mage::helper('apdinteract_hierarchy')->getAttributeCode($attribute);
+
+                                    $counter++;
+                                }
+                            }
+                        }
+
+                        $fields->product->ratingSummary = Mage::helper('apdwidgets')->getProductRatingSummaryHtml($_product->getEntityId(), $_product->getProductUrl());
+                        $fields->product->rrpText = $this->__('RRP:');
+                        $fields->product->onlineText = $this->__('Online price:');
+                        $fields->product->priceHtml = Mage::helper('core')->currency($_product->getPrice(), true, false);
+
+                        $add_button_class = 'button radius add-product-button';
+                        $moduleName = Mage::App()->getRequest()->getModuleName();
+                        $fields->product->finalPriceHtml = Mage::helper('core')->currency($_product->getFinalPrice(), true, false);
+
+
+                        if ($moduleName == 'searchresult' || $moduleName == 'catalogsearch') {
+
+                            $categoryIds = $_product->getCategoryIds();
+                            $isTyreCategory = in_array(41, $categoryIds);
+                            $isWheelCategory = in_array(42, $categoryIds);
+                        }
+
+                        $fields->product->show_onp = "block";
+                        $from = Mage::helper('apdinteract_catalog')->shouldDisplayFromText($_product);
+                        if (Mage::getSingleton('core/session')->getSeriesF() == '' && Mage::app()->getRequest()->getParam('section')!='size' && $_product->isConfigurable()) {
+                          
+                            $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_product);
+                            $fprice = Mage::helper('core')->currency($minimumPriceFromSimple['online_price']);
+
+                            if ($minimumPriceFromSimple['online_price'] > 0 && $minimumPriceFromSimple['rrp_price'] > 0 || $from){
+                                $fields->product->finalPriceHtml = "<div class=\"from\">" . $from . "</div>" . $fprice;
+                                $fields->product->show_rrp = "block";
+                                $fields->product->rrpText = 'RRP:';
+                                $fields->product->priceHtml = $minimumPriceFromSimple['rrp_price'];
+                            }elseif ($minimumPriceFromSimple['rrp_price'] <= $minimumPriceFromSimple['online_price']){
+                                $fields->product->finalPriceHtml = "<div class=\"from\">" . $from . "</div>" . $fprice;
+                                $fields->product->show_rrp = "none";
+                                $fields->product->rrpText = '';
+                            }
+                            else
+                                $fields->product->show_onp = "none";
+
+                            if ($minimumPriceFromSimple['online_price'] < 1) {
+                                // hide add to cart when product's price is 0; BCC-200
+                                $fields->product->onlineText = $this->__('');
+                                $add_button_class = 'hide';
+                            }
+                        }elseif (!$_product->isConfigurable()){
+                            $rrp = $_product->getPrice();
+                            $onlinePrice = $_product->getSpecialPrice();
+                            if ($onlinePrice > 0 && $rrp > 0 && $onlinePrice < $rrp){
+                                $fields->product->finalPriceHtml = "<div class=\"from\">" . $from . "</div>" . $fprice;
+                                $fields->product->show_rrp = "block";
+                                $fields->product->rrpText = 'RRP:';
+                                $fields->product->priceHtml = $rrp;
+                            }elseif ($rrp <= $onlinePrice){
+                                $fields->product->show_rrp = "none";
+                                $fields->product->rrpText = '';
+                                $fields->product->show_onp = "block";
+                                $fields->product->onlineText = $this->__('Online Price:');
+                            }
+                        }
+
+                        $priceOfSimpleProductSelected = null;
+                        // See BCC BCC-205 : CDP Tyres page - Show the price for the matching size if customer has searched for a vehicle
+                        if ((Mage::getSingleton('core/session')->getSeriesF() != '' || Mage::getSingleton('core/session')->getSizeF() != '') && $moduleName == 'searchresult' && $_product->isConfigurable()) {
+                            
+                            if($isWheelCategory && Mage::app()->getRequest()->getParam('section')!='size')
+                                $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicleWheel($_product,'rim_diameter_configurable');
+                            elseif($isTyreCategory && Mage::app()->getRequest()->getParam('section')=='size')
+                                $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicleWheel($_product,'size'); 
+                            else
+                                $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicle($_product); 
+                            
+                            if (isset($priceOfSimpleProductSelected)) {
+
+                                if ($priceOfSimpleProductSelected['online_price'] < 1) {
+                                    // hide add to cart when product's price is 0; BCC-200
+                                    $fields->product->onlineText = $this->__('');
+                                    $add_button_class = 'hide';
+                                }
+
+                                $formattedPrice = Mage::helper('core')->currency($priceOfSimpleProductSelected['online_price']);
+                                $fields->product->finalPriceHtml = $formattedPrice;
+                            }
+                        } else if (Mage::getSingleton('core/session')->getSeriesF() != ''  && $moduleName == 'catalogsearch' && $_product->isConfigurable() && $isWheelCategory) { //wheels search match if with session of series exists
+                            $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->matchedPrice($_product, $codes);
+                            if ($priceOfSimpleProductSelected['online_price'] > 0) {
+                                $fields->product->onlineText = $this->__('Online Price:');
+                                $formattedPrice = Mage::helper('core')->currency($priceOfSimpleProductSelected['online_price']);
+                                $fields->product->finalPriceHtml = $formattedPrice;
+                            } else {
+
+                                $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_product);
+
+                                $fields->product->finalPriceHtml = "<div class=\"from\">" . $from . "</div>" . Mage::helper('core')->currency($minimumPriceFromSimple['online_price']);
+
+                                if ($minimumPriceFromSimple['online_price'] < 1) {
+                                    // hide add to cart when product's price is 0; BCC-200
+                                    $fields->product->onlineText = $this->__('');
+                                    $add_button_class = 'hide';
+                                }
+                            }
+                        }
+
+                        if ($_product->getFinalPrice() > 0 && $_product->getFinalPrice() < $_product->getPrice()) {
+                            $fields->product->show_rrp = "block";
+                        }
+
+                        if ($_product->getFinalPrice() > 0) {
+                            $fields->product->show_onp = "block";
+                        }
+
+                        $specialPrice =  $_product->getSpecialPrice();
+                        $specialPriceFromDate =  $_product->getSpecialFromDate();
+                        $specialPriceToDate = $_product->getSpecialToDate();
+
+                        $specialPricing = Mage::helper('updateprice')->checkSpecialPrice($specialPrice,$specialPriceFromDate,$specialPriceToDate);
+                        if($specialPricing <= 0 && !$_product->isConfigurable()){
+                            $fields->product->show_onp = "none";
+                            $add_button_class = 'hide';
+                        }elseif($specialPricing > 0 && !$_product->isConfigurable()){
+                            $fields->product->finalPriceHtml = Mage::helper('core')->currency($specialPrice);
+                        }
+
+                        $fields->product->addButtons = '
+          <p class="button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>';
+
+                        $fields->product->addButtonsMobile = '
+          <p class="small button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>';
+
+                        $isSalable = $_product->isSaleable(); // getData('is_salable'); ;
+                        if ($isSalable) {
+                            $fields->product->addtocartUrl = $fields->product->url;
+
+                            $fields->product->addButtons = '
+			<ul class="stack button-group">
+				<li><a href="#" class="' . $add_button_class . '" data-reveal-id="add-product-modal" data-product-id="' . $_product->getId() . '">Add to Cart</a></li>
+				<li><a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('View Details') . '" class="button radius">' . $this->__('View Details') . '</a></li>
+			</ul>';
+
+                            $fields->product->addButtonsMobile = '
+          <a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('Add to Cart') . '" class="small button radius">' . $this->__('Add to Cart') . '</a>';
+                        }
+
+                        $fields->product->addToCompareLink = '';
+                        if ($_compareUrl = $this->getAddToCompareUrl($_product)) {
+                            $fields->product->addToCompareLink = '<p><a href="' . $_compareUrl . '" class="link-compare">' . $this->__('Add to Compare') . '</a></p>';
+                        }
+
+                        $productCompareHelper = $this->helper('catalog/product_compare');
+                        $_items = $productCompareHelper->getItemCount() > 0 ? $productCompareHelper->getItemCollection() : null;
+
+                        $compareProductIds = array();
+                        foreach ($_items as $item) {
+                            $compareProductIds[] = $item->getId();
+                        }
+
+                        $fields->product->viewCompareLink = '';
+                        if ($_items && (in_array($_product->getId(), $compareProductIds))) {
+                            $fields->product->viewCompareLink = '<p><a href="javascript:;" class="link-compare"  onclick="popWin(\'' . $productCompareHelper->getListUrl() . '\',\'compare\',\'top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes\')">' . $this->__('View Compare') . '</a></p>';
+                            $fields->product->addToCompareLink = '';
+                        }
+                        ?>
+
+                        <!-- <div class="row hide-for-small-only"> -->
+                        <?php
+                        // get the id, or by category name
+                        //$catId = 0;
+                        //$catName = "";
+                        if ($catName == "") {
+                            $categoryIds = $_product->getCategoryIds();
+                            if (count($categoryIds)) {
+                                $catId = $categoryIds[0];
+                                $_category = Mage::getModel('catalog/category')->load($catId);
+                                $catName = strtolower($_category->getName());
+                            }
+                        }
+
+                        if ($catName == "" && Mage::registry('current_category')) {
+                            // get the id, or by category name
+                            $catId = Mage::registry('current_category')->getId();
+                            $catName = strtolower(Mage::registry('current_category')->getName());
+                        }
+
+                        if ($catName != "") {
+                            // get the id, or by category name
+                            if ($catId == 0) {
+                                $catId = Mage::registry('current_category')->getId();
+                                $catName = strtolower(Mage::registry('current_category')->getName());
+                            }
+
+                            if ($catName == "tyres" || $catId == 41) {
+                                echo Mage::helper('apdwidgets')->getProductListViewHtml($fields);
+                            }
+                            if ($catName == "wheels" || $catId == 42) {
+                                echo Mage::helper('apdwidgets')->getProductListViewHtmlWheels($fields);
+                            }
+                            if ($catName == "batteries" || $catId == 43) {
+                                echo Mage::helper('apdwidgets')->getProductListViewHtmlBattery($fields);
+                            }
+                        } else {
+                            echo Mage::helper('apdwidgets')->getProductListViewHtml($fields);
+                        }
+                        ?>
+                        <!-- </div>  -->
+                        <?php #$mobile_product_list_html .= Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>
+                        <!-- REMOVED CALL TO MOBILE VIEW FUNCTION 7/8/2015
+                        <div class="row show-for-small-only">
+                          <div class="comp-product-list-mobile">
+                            <div class="small-12 columns">
+
+                        <?php #echo Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>
+
+                            </div>
+                          </div>
+                        </div>  -->
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+
+
+            <!-- Product List for mobile -->
+
+
+
+            <!--    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>-->
+
+        <?php else: ?>
+            
+            <div>
+                <div class="comp-product-details products-grid">
+                    <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-3" data-equalizer data-equalizer-mq="medium-up">
+                        <?php // Grid Mode  ?>
+                        <?php $_collectionSize = $_productCollection->count() ?>
+                        <?php $_columnCount = $this->getColumnCount(); ?>
+                        <?php
+                        $i = 0;
+                        foreach ($_productCollection as $_product):
+                            $overlay_text = $_product->getAttributeText('overlay');
+                            $moduleName = Mage::App()->getRequest()->getModuleName();
+
+                            if ($moduleName == 'searchresult' || $moduleName == 'catalogsearch') {
+                                $categoryIds = $_product->getCategoryIds();
+                                $isTyreCategory = in_array(41, $categoryIds);
+                                $isWheelCategory = in_array(42, $categoryIds);
+                            }
+
+                            $vehicleSelector = Mage::getSingleton('core/session')->getSeriesF();
+                            $priceOfSimpleProductSelected = null;
+                            $show = 'show-none-price';
+
+                            $from = '';
+                            $productDetails = '';
+                            // The following code determines when should a product price be displayed or the 'From' text
+                            // When vehicle selector are empty and product is configurable OR
+                            // When vehicle selector are not empty and the user used the global product search (catalogsearch)
+                            if (($vehicleSelector == '' && Mage::app()->getRequest()->getParam('section')!='size' && $_product->isConfigurable()) ||
+                                ($vehicleSelector != '' && $moduleName == 'catalogsearch' && $isTyreCategory) ||
+                                ($vehicleSelector != '' && $moduleName == 'catalogsearch' && $_product->isConfigurable() && $isWheelCategory)) {
+                                $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_product);
+                                $productDetails = $minimumPriceFromSimple;
+                                $from = Mage::helper('apdinteract_catalog')->shouldDisplayFromText($_product);
+                                $rrp = Mage::helper('core')->currency($minimumPriceFromSimple['rrp_price']);
+                                $onlinePrice = Mage::helper('core')->currency($minimumPriceFromSimple['online_price']);
+
+                                $show = Mage::helper('apdinteract_catalog')->gridViewClass($minimumPriceFromSimple);
+                                // This only refers to batteries. No 'From' text for batteries since it is only a simple product
+                                // See BFT-1674 on why we use the Special price
+                            }elseif (!$_product->isConfigurable()){
+                                $from = '';
+                                $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_product);
+                                $productDetails = $minimumPriceFromSimple;
+                                $rrp = Mage::helper('core')->currency($minimumPriceFromSimple['rrp_price']);
+                                $onlinePrice = Mage::helper('core')->currency($minimumPriceFromSimple['online_price']);
+
+                                $show = Mage::helper('apdinteract_catalog')->gridViewClass($minimumPriceFromSimple);
+                            }
+
+                            // When user used the vehicle selector
+                            // See BCC BCC-205 : CDP Tyres page - Show the price for the matching size if customer has searched for a vehicle
+                            // No 'From' text will be displayed since we only need to show the price matching the size of the search vehicle (See BCC-205)
+                            elseif (
+                                ($vehicleSelector != '' || Mage::app()->getRequest()->getParam('section')=='size') && $moduleName == 'searchresult' && $_product->isConfigurable() ||
+                                ($vehicleSelector != '' && $moduleName == 'catalog' && $_product->isConfigurable() )
+                            ) {
+
+
+                                $categoryIds = $_product->getCategoryIds();
+                                $isTyreCategory = in_array(41, $categoryIds);
+                                $isWheelCategory = in_array(42, $categoryIds);
+
+                                if($isWheelCategory && Mage::app()->getRequest()->getParam('section')!='size')
+                                    $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicleWheel($_product,'rim_diameter_configurable');
+                                elseif($isTyreCategory && Mage::app()->getRequest()->getParam('section')=='size')
+                                    $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicleWheel($_product,'size');    
+                                else
+                                    $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->getPriceFromSearchVehicle($_product);    
+                                
+                                $productDetails = $priceOfSimpleProductSelected;
+                                $rrp = Mage::helper('core')->currency($priceOfSimpleProductSelected['rrp_price']);
+                                $onlinePrice = Mage::helper('core')->currency($priceOfSimpleProductSelected['online_price']);
+                                $from = $priceOfSimpleProductSelected['from'];
+
+                                $show = Mage::helper('apdinteract_catalog')->gridViewClass($priceOfSimpleProductSelected);
+                            }
+
+                            // Added this condition for BFT-1982/BCC-208
+                            // Commented out this entire condition since this is in conflict with the request from BFT-1957 , BFT-1978 , BFT-1466 instead included it on the first condition
+//            else if (Mage::getSingleton('core/session')->getSeriesF() != '' && $moduleName == 'catalogsearch' && $_product->isConfigurable() && $isWheelCategory) { //wheels search match if with session of series exists
+//                $priceOfSimpleProductSelected = Mage::helper('apdinteract_catalog')->matchedPrice($_product, $codes);
+//                if ($priceOfSimpleProductSelected > 0) {
+//                    $fields->product->onlineText = $this->__('Online Price:');
+//                    $formattedPrice = Mage::helper('core')->currency($priceOfSimpleProductSelected);
+//                    $fields->product->finalPriceHtml = $formattedPrice;
+//                } else {
+//                    $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_product);
+//
+//                    $fields->product->finalPriceHtml = "<div class=\"from\">" . $from . "</div>" . Mage::helper('core')->currency($minimumPriceFromSimple);
+//
+//                    if ($minimumPriceFromSimple < 1) {
+//                        // hide add to cart when product's price is 0; BCC-200
+//                        $fields->product->onlineText = $this->__('');
+//                        $add_button_class = 'hide';
+//                    }
+//                }
+//            }
+                            ?>
+                            <?php if ($i++ % $_columnCount == 0): ?>
+
+                        <?php endif ?>
+                        <li class="item" new itemscope itemtype="http://schema.org/Product" data-equalizer-watch>
+                                <?php
+                                // Sort attribute icons before rendering
+                                $catName = Mage::helper('apdinteract_catalog')->getCategoryName($_product->getCategoryIds());
+                                if ($catName == "tyres") {
+
+                                    $attributes_array = Mage::helper('apdinteract_catalog')->getTyreAttributesArray();
+                                    $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                                    $attributes = Mage::helper('apdinteract_hierarchy')->getSortedAttributes($attribute_values, $_product);
+                                    $tooltipCode = 'tw';
+
+                                }elseif ($catName == "batteries"){
+
+                                    $attributes_array = Mage::helper('apdinteract_catalog')->getBatteryAttributesArray();
+                                    $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                                    $attributes = $attributes_array;
+                                    $tooltipCode = 'b';
+                                }
+                                ?>
+                                <?php $counter = 0; ?>
+                                <?php if (isset($attributes)):?>
+                                    <?php
+                                    $attributeToDisplay = [];
+                                    foreach ($attributes as $attribute){
+                                        if ($attribute_values[$attribute] > 0){
+                                            $class = Mage::helper('apdinteract_hierarchy')->getAttributeIcon($attribute);
+                                            $code = Mage::helper('apdinteract_hierarchy')->getAttributeCode($attribute);
+                                            $text = Mage::helper('apdinteract_hierarchy')->getAttributeText($attribute);
+                                            $attributeToDisplay[] = array(
+                                                'text' => $text,
+                                                'class' => $class,
+                                                'code' => $code,
+                                                'tooltip' => Mage::helper('apdwidgets')->getAltforIcon($code,$tooltipCode),
+                                                'icon' => 'fa fa-2x ' . $class
+                                            );
+                                        }
+
+                                    }
+                                    ?>
+                                <?php endif; ?>
+                                <?php $show = (bool)$_product->getFreeProduct() ? 'show-free-product' : $show; ?>
+                                <?php $productName = $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                <?php $formattedProductName = Mage::helper('apdinteract_catalog')->getFormattedProductName($productName); ?>
+                                <div href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $productName?>" class="product-item <?php echo $show ?>">
+                                    <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $productName?>" class="item-link"></a>
+                                    
+                                    <div class="<?php if (count($attributeToDisplay) == 0) :?> no-attributes<?php endif;?>">  <!-- grid-product-detail -->                                 
+                                        <?php $badge = Mage::helper('apdinteract_catalog')->getBadgeSrc($overlay_text, $thumb = true); ?>
+                                        <?php if ($overlay_text!=''): ?>
+                                            <?php
+                                            $catalogue = str_replace(' ', '', strtolower($overlay_text));
+                                            if (strpos($catalogue, 'new') !== false){
+                                                $catalogue = 'new';
+                                            }
+                                            ?>
+                                            <div class="product-badge-block large <?php echo $catalogue; ?>"><?php echo $overlay_text ?></div>
+                                        <?php else: ?>
+                                            <div class="product-badge-placeholder"></div>
+                                        <?php endif;?>
+
+                                        <div class="product-image">
+                                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(400); ?>" class="expand">
+                                        </div>
+
+                                        <?php
+                                            $brand = Mage::helper('apdwidgets')->getBrandLogo($_product->getAttributeText('brand'));
+                                            $title = ucwords(strtolower($_product->getAttributeText('brand')));
+                                            $identifier = str_replace(' ', '-', strtolower($title));
+                                            echo $brand;
+                                        ?>
+                                        
+                                        <h3 class="product-title" title="<?php echo $productName?>"><?php echo $productName ?></h3>
+
+                                        <!-- Product Application-->
+                                        <!-- <div class="product-type"><?php echo $attribute_values['application'];?></div> -->                                        
+                                    </div>
+
+                                    <?php if(!empty($minimumPriceFromSimple['online_price'])): ?>
+                                        <div class="grid-product-price">
+                                            <?php $hasDiscount = (!empty($minimumPriceFromSimple['special_price']) && $minimumPriceFromSimple['rrp_price'] > $minimumPriceFromSimple['special_price']) ?>                                       
+                                            <p class="main-price <?php echo ($hasDiscount) ? 'red' : '' ?>"><?php echo $from .' '. $onlinePrice; ?>/tyre</p>
+                                            <?php if($hasDiscount): ?>
+                                                <p class="discounted-price"><?php echo $this->__('Save %s, was %s', Mage::helper('core')->currency($minimumPriceFromSimple['rrp_price'] - $minimumPriceFromSimple['special_price']), $rrp) ?></p>                                    
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if (count($attributeToDisplay) > 0) :?>                                        
+                                        <ul class="no-bullet product-features">
+                                            <?php foreach ($attributeToDisplay as $data) :?>
+                                                <?php if ($counter == 3):?>
+                                                    <?php break;?>
+                                                <?php endif;?>
+                                                <li>
+                                                    <i class="<?php echo $data['icon']?>" aria-hidden="true" data-tooltip aria-haspopup="true" class="has-tip" title="<?php echo $data['tooltip']?>">
+                                                        <span class="show-for-sr"><?php echo $data['text']?></span>
+                                                    </i>
+                                                    <?php echo $data['text']?>
+                                                </li>
+                                                <?php $counter++;?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+
+                                    <!-- <p class="desc-container">
+                                        <?php echo strip_tags($_product->getShortDescription())?>
+                                    </p> -->
+
+                                    <?php $productCompareHelper = $this->helper('catalog/product_compare');
+                                    $_items = $productCompareHelper->getItemCount() > 0 ? $productCompareHelper->getItemCollection() : array();
+                                    $compareProductIds = array();
+                                    foreach ($_items as $item) {
+                                        $compareProductIds[] = $item->getId();
+                                    }
+                                    ?>
+
+
+                                    <!-- Product Rating-->
+                                    <?php 
+                                        $prodReviewStoredId = Mage::app()->getStore()->getStoreId();
+                                        $ratings = Mage::getModel('review/review_summary');
+                                        $ratings = $ratings->setStoreId($prodReviewStoredId)->load($_product->getId());
+                                        
+                                        if($ratings['total_approved'] == 0) {
+                                            $ratings['total_approved'] = Mage::getModel('review/review')->getTotalReviews($_product->getId(), TRUE, $prodReviewStoredId);
+                                        }
+                                    ?>
+                                    <?php if ((bool)$ratings['rating_summary'] && $ratings['total_approved']): ?>
+                                        <div class="total-approved">
+                                            <?php echo Mage::helper('apdinteract_review')->displayTotalReview($ratings['total_approved']); ?>
+                                        </div>
+                                        <div class="star-rating">
+                                            <?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); ?>
+                                        </div>                                        
+                                    <?php endif; ?>
+
+                                    <!-- CTA -->
+                                    <?php if($isEnabledCart): ?>
+                                        <div class="grid-product-add">
+                                            <?php if($productDetails['online_price'] > 0 || $_product->getFreeProduct()): ?>
+                                                <span class="add-product-button" data-product-details="<?php echo htmlentities($productDetails['product_details']); ?>" <?php /* data-reveal-id="add-product-modal" */ ?> data-product-id="<?php echo $_product->getId()?>"><?php echo ($isCustomerLoggedIn) ? 'Learn more' : 'Buy Now' ?></span>
+                                            <?php else: ?>
+                                                <span class="request-price-product-button" data-product-details="<?php echo htmlentities($productDetails['product_details']); ?>" <?php /* data-reveal-id="add-product-modal" */ ?> data-product-id="<?php echo $_product->getId()?>">Request Price</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            </div>
+        <?php endif; ?>
+        <!-- <div class="toolbar-bottom">
+                    <?php echo $this->getToolbarHtml() ?>
+        </div> -->
+
+    </div>
+
+<?php endif; ?>
+
+<?php $base_url = Mage::getBaseUrl(); ?>
+<div id="add-product-modal" class="reveal-modal add-product-modal" data-rquest-url="<?php echo $base_url; ?>searchtyre/index/getConfigurable/product_id/" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+    <div class="popup-loading">
+        <i class="fa fa-refresh fa-spin fa-2x"></i>
+        <p>Loading product details...</p>
+    </div>
+
+    <div class="popup-form">
+        <div class="row modal-product-details">
+            <div class="column small-4">
+                <img src="#" class="cart-modal-image"/>
+            </div>
+            <div class="column small-8">
+                <img src="#" class="cart-modal-logo"/>
+                <h4 class="cart-modal-product-name"></h4>
+            </div>
+        </div>
+        <form id="quickForm" action="<?php echo $base_url; ?>searchtyre/index/addcart" method="post">
+            <input type="hidden" name="supperattr" value="180">
+            <div class="row field-size">
+                <div class="small-4 columns">
+                    Select Size:
+                </div>
+                <div class="small-8 columns">
+                    <select name="super_attribute" id="test" class="select-size"></select>
+                </div>
+            </div>
+            <div class="row field-quantity">
+                <div class="small-4 columns">
+                    Quantity:
+                </div>
+                <div class="small-8 columns">
+                    <select name="qty" class="select-quantity">
+                        <?php for ($qty = 1; $qty < 7; $qty++): ?>
+                            <option><?php echo $qty; ?></option>
+                        <?php endfor; ?>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row field-price">
+                <div class="small-4 columns">
+                    Total:
+                </div>
+                <div class="small-8 columns">
+                    <span class="total-price"></span>
+                </div>
+            </div>
+            <div class="row field-button">
+                <div class="medium-5 columns">
+                    <input type="submit" value="Continue shopping" class="quick-cart-button button radius secondary">
+                </div>
+                <div class="medium-6 columns">
+                    <button  class="button radius proceed-to-cart">Proceed to Cart</button>
+                </div>
+            </div>
+
+            <input type="hidden" class="model-field-product-id" name="productId" value="">
+
+        </form>
+
+    </div>
+
+    <div class="popup-error">
+        <h2>Failed to load product details</h2>
+        <p>
+            Message: <span class="error-msg"></span>
+        </p>
+    </div>
+
+</div>

@@ -1,0 +1,31 @@
+<?php $lists =  $this->loadExportProducts(); ?>
+    <div class="content-header" style="height: 30px;">
+        <h3 class="icon-head"><?php echo Mage::helper('exportpanel')->__('Products') ?></h3>
+    </div>
+<?php if(count($lists) > 0): ?>
+    <div class="entry-edit">
+        <fieldset class="np"><div class="grid np">
+                <table cellspacing="0" style="border:0;" id="lastOrdersGrid_table">
+                    <thead>
+                    <tr class="headings">
+                        <th class=" no-link"><span class="nobr"><?php echo Mage::helper('exportpanel')->__('Filename') ?></span></th>
+                        <th class=" no-link"><span class="nobr"><?php echo Mage::helper('exportpanel')->__('Date') ?></span></th>
+                        <th class=" no-link"><span class="nobr"><?php echo Mage::helper('exportpanel')->__('Size') ?></span></th>
+                        <th class=" no-link last"><span class="nobr"><?php echo Mage::helper('exportpanel')->__('Action') ?></span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($lists as $item): ?>
+                        <tr>
+                            <td class=" "><?php echo $item['text'] ?></td>
+                            <td class=""><?php echo $item['mod_date'] ?></td>
+                            <td class=""><?php echo $item['size'] ?></td>
+                            <td class="a-center a-center last"><a target="_blank" href="<?php echo $this->getRowUrl('products',$item['text']) ?>">Download</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+<?php endif; ?>

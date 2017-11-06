@@ -1,0 +1,278 @@
+.static-block-column {
+    .full-columns {
+        > div { /* Background layer */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            display: table;
+            height: 400px;;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            width: 100%;
+
+            @media screen and (min-width: 1070px) { // large and up
+                height: 620px;
+
+                &.medium-6{
+                    height: 400px;
+                }
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5, p{
+                color: $white;
+                text-shadow: $black 1px 0 0;
+            }
+
+            a.white{
+                color: $colour-congressblue;
+                text-shadow: none;
+            }
+
+            @media screen and (max-width: 450px) {
+                height: 320px;
+
+                > div {
+                    padding: 15px;
+
+                    > h3 {
+                        font-size: 24px !important;
+                    }
+                    > p {
+                        font-size: 18px !important;
+                    }
+                }
+            }
+
+            &.shade {
+                &:before {
+                    background-color: rgba(0,0,0,0.46);
+                    bottom: 0;
+                    content: "";
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+
+                > div {
+                    $width-size: 400px;
+
+                    h3 {
+                        color: $ghost;
+                        font-size: 34px;
+                        line-height: 1.1;
+                        margin: 0 auto 10px auto;
+                        max-width: $width-size;
+
+                    }
+                    p {
+                        color: $white;
+                        font-size: 21px;
+                        line-height: 1.4;
+                        margin: 0 auto 20px auto;
+                        max-width: $width-size;
+                    }
+                }
+            }
+
+            > div {
+                display: table-cell;
+                padding: 25px;
+                position: relative;
+                vertical-align: middle;
+                z-index: 10;
+
+                h3 {
+                    font-size: 28px;
+                    margin-bottom: 10px;
+                }
+                p {
+                    font-size: 21px;
+
+                    &.small {
+                        font-size: 15px;
+
+                        @media screen and (min-width: 733px) {
+                            text-align: left;
+                        }
+                    }
+                }
+
+                img + h3 {
+                    margin-top: 45px;
+                }
+
+                @media screen and (max-width: 450px) {
+
+                    h3 {
+                        font-size: 24px;
+                    }
+                    p {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+.static-block-slider {
+    margin: 15px 0;
+
+    div {
+        text-align: center;
+    }
+
+    h3 {
+        font-family: $font-family-sans-serif;
+        font-size: 21px;
+        line-height: 28px;
+        margin: 18px 0;
+    }
+
+}
+
+// home promo bar
+// Create for task GAN-121
+.home-promo-bars {
+  $bar-default-colour: $silver;
+  $bar-overlay-colour: $colour-congressblue;
+  $bar-overlay-opacity: 0.7;
+  $bar-title-colour: $white;
+  $button-colour: $colour-schoolbusyellow;
+  $button-text-colour: $colour-congressblue;
+
+  $bar-hieght-desktop: 300px;
+  $bar-hieght-mobile: 450px;
+  $bar-spacing: 10px;
+  $bar-overlay-width: 960px;
+
+  $pos-right: 96px;
+  $pos-top-title: 80px;
+  $pos-top-button: 160px;
+
+  display: block;
+  overflow: hidden;
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    margin: $bar-spacing 0 0 0;
+    padding: 0;
+
+    li {
+      display: none;
+      background-color: $bar-default-colour;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin: 0 0 $bar-spacing 0;
+      overflow: hidden;
+      position: relative;
+
+      h2 {
+        color: $bar-title-colour;
+        display: block;
+        position: absolute;
+      }
+
+      .button {
+        $border: 3px;
+
+        background-color: $button-colour;
+        color: $button-text-colour;
+        display: block;
+        position: absolute;
+      }
+
+      &.rendered {
+        display: block;
+      }
+
+      // Desktop version
+      @media #{$large-up} {
+        height: $bar-hieght-desktop;
+
+        &:before {
+          border-color: transparent rgba($bar-overlay-colour, $bar-overlay-opacity) transparent transparent;
+          border-style: solid;
+          border-width: 0 $bar-overlay-width $bar-overlay-width 0;
+          content: '';
+          height: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 0;
+        }
+
+        h2 {
+          font-size: 74px;
+          right: $pos-right;
+          top: $pos-top-title;
+        }
+
+        .button {
+          $height: 58px;
+          $width: 400px;
+          $border: 3px;
+
+          border: $border solid $button-colour;
+          font-size: 22px;
+          height: ($height - ($border * 2));
+          line-height: ($height - ($border * 2)) - 9px;
+          right: $pos-right;
+          top: $pos-top-button;
+          width: ($width - ($border * 2));
+
+          &:hover {
+            background-color: $button-text-colour;
+            border-color: $button-colour;
+            color: $button-colour;
+          }
+        }
+      }
+
+      // non-desktop version
+      @media only screen and (max-width: 1093px) {
+        height: $bar-hieght-mobile;
+        text-align: center;
+
+        &:before {
+          background-color: rgba($bar-overlay-colour, $bar-overlay-opacity);
+          bottom: 0;
+          content: '';
+          height: 180px;
+          left: 0;
+          position: absolute;
+          right: 0;
+        }
+
+        h2 {
+          bottom: 100px;
+          font-size: 34px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .button {
+          $height: 42px;
+          $width: 300px;
+          $border: 0;
+
+          border: 0;
+          bottom: 33px;
+          font-size: 18px;
+          height: $height;
+          line-height: $height - 4px;
+          margin-right: -150px;
+          right: 50%;
+          width: $width;
+        }
+      }
+    }
+  }
+}

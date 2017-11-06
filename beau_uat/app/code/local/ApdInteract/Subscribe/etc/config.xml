@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Subscribe>
+      <version>1.0.0</version>
+    </ApdInteract_Subscribe>
+  </modules>
+  <global>      
+    <models>
+      <subscribe>
+        <class>ApdInteract_Subscribe_Model</class>
+      </subscribe>
+    </models>
+    <events>
+      <sales_quote_address_save_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <apdinteract_subscribe_sales_quote_address_save_after> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>subscribe/observer</class> <!-- observers class alias -->
+            <method>AssignNewletter</method>  <!-- observer's method to be called -->
+          </apdinteract_subscribe_sales_quote_address_save_after>
+        </observers>
+      </sales_quote_address_save_after>
+    </events>
+  </global>
+  <frontend>
+        <routers>
+            <subscribe>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Subscribe</module>
+                    <frontName>subscribe</frontName>
+                </args>
+            </subscribe>
+        </routers>
+  </frontend>
+</config> 

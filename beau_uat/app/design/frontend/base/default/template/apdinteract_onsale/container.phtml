@@ -1,0 +1,7 @@
+<?php if ($this->getTitle()) : ?>
+    <div class="page-title category-title">
+    	On Sale Now
+    </div>
+<?php endif;?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml();?>

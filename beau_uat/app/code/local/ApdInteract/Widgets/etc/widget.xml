@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<widgets>
+  <apdwidgets_tripleblockcarousel type="apdwidgets/tripleblockcarousel">
+    <name>Triple Block Carousel</name>
+    <description type="desc">Inserts a carousel of 3 blocks: [home-left], [home-middle], [home-right]</description>
+    <parameters>
+<!--            <products_count translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>5</value>
+                <label>Number of Products to Display</label>
+                <type>text</type>
+            </products_count>-->
+            <template>
+                <visible>0</visible>
+                <value>apdwidgets/tripleblockcarousel.phtml</value>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+
+  </apdwidgets_tripleblockcarousel>
+</widgets>

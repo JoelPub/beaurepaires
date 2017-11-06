@@ -1,0 +1,92 @@
+// Variable
+$lint: #7F7F7F;
+$ghost: #F7F7F7;
+$sky: #EDF5F9;
+$charocal: #4C4C4C;
+$oil: #323232;
+
+$cart-label-font-size: 12px;
+
+// Mini cart
+.cart-component{
+  
+  label{
+    color: $lint;
+    font-size: $cart-label-font-size;
+  }
+
+  label + a{
+    display: inline-block;
+  }
+
+  select{
+    height: 34px;
+    margin: 0;
+  }
+
+  .select-collapse{
+    display: inline-block;
+    margin-right: 3px;
+    width: 80%;
+  }
+
+  .cart-wrapper {
+    border: 1px solid darken($cement-color, 10%);
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+  }
+
+  .rrp-price{
+    font-size: 16px;
+  }
+
+  .online-price{
+    font-size: 28px;
+    color: $oil;
+  }
+
+  .pricing{
+    color: $charocal;
+    font-size: $base-font;
+
+    &:last-child{
+      margin-bottom: 0;
+    }
+
+    .cart-price{
+      color: $anchor-font-color;
+      text-transform: uppercase;
+    }
+
+    label{
+      color: $charocal;
+      font-size: $base-font;
+    }
+  }
+
+  .pricing + span{
+    display: block;
+    font-size: $base-font;
+    margin-bottom: 10px;
+  }
+
+  input[type="checkbox"] + label, input[type="radio"] + label{
+    margin-right: 10px;
+  }
+
+  .upper-cart, .mid-cart, .bottom-cart{
+    padding: 10px;
+  }
+
+  .upper-cart{
+    background-color: $ghost;
+    border-radius: 5px 5px 0px 0;
+    border-bottom: 1px solid darken($cement-color, 10%);
+  }
+
+  .bottom-cart{
+    background-color: $sky;
+    border-radius: 0px 0 5px 5px;
+    border-top: 1px solid darken($cement-color, 10%);
+  }
+}

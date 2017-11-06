@@ -1,0 +1,147 @@
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+?>
+
+<?php
+function seoUrl($string) {
+    //Unwanted:  {UPPERCASE} ; / ? : @ & = + $ , . ! ~ * ' ( )
+    $string = strtolower($string);
+    //Strip any unwanted characters
+    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+    //Clean multiple dashes or whitespaces
+    $string = preg_replace("/[\s-]+/", " ", $string);
+    //Convert whitespaces and underscore to dash
+    $string = preg_replace("/[\s_]/", "-", $string);
+    return $string;
+}
+
+$appliedFilters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
+
+?>
+<?php if($this->canShowBlock()): ?>
+<div class='row show-for-large-up'>
+	<div class="columns">
+	<div id='filterdesktop' class="block block-layered-nav">
+        <?php if(count($appliedFilters)>0) {?>
+            <div class="block-title">
+                <h2><?php echo $this->__('Currently shopping by:') ?></h2>		
+            </div>
+        <?php }?>	
+		<div class="block-content">
+			<?php echo $this->getStateHtml() ?>
+			<?php if ($this->getLayer()->getState()->getFilters()): ?>
+				<div class="action"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+			<?php endif; ?>
+			<?php if($this->canShowOptions()): ?>
+
+				<?php //echo $this->__('Shopping Options') ?>
+
+				<dl id="accordion-wrapper">
+					<?php $_filters = $this->getFilters() ?>
+					<?php foreach ($_filters as $_filter): ?>
+                                        <?php
+                                            $filterCounter = $_filter->getItemsCount();
+                                            $filterName = strtolower($_filter->getName());
+                                            $displayFilter = true;
+                                            if($filterName == "customer segment" || $filterName == "driving style")
+                                            {
+                                                if(Mage::registry('current_category'))
+                                                {
+                                                    // get the id, or by category name
+                                                    $catId = Mage::registry('current_category')->getId();
+                                                    $catName = strtolower(Mage::registry('current_category')->getName());
+
+                                                    if($catName == "wheels" || $catId==42)
+                                                    {
+                                                        $displayFilter = false;
+                                                    }	
+                                                    if($catName == "batteries" || $catId==43)
+                                                    {
+                                                        $displayFilter = false;
+                                                    }	
+                                                    if($catName == "tyres" || $catId==41)
+                                                    {
+                                                        if($filterName == "customer segment") { $displayFilter = false; }
+                                                    }
+                                                }
+                                            }
+                                        ?>
+					<?php if($filterCounter && $displayFilter): ?>					    
+                                            <dt class='filterdt active'>
+                                            <i class="fa fa-fw fa-caret-down"></i>
+                                            <!-- This kind of checking was done so as not to add attributes before go live, reused existing -->
+                                            <?php if ($_filter->getName() == 'Battery Categorization'):?>
+                                            <?php echo $this->__('Consumer')?>
+                                            <?php else:?>
+                                            <?php echo $this->__($_filter->getName()) ?>
+                                            <?php endif;?>
+                                            </dt>
+                                            <dd class='filtercont'>
+                                              <?php echo $_filter->getHtml() ?>
+                                            </dd>
+					<?php endif; ?>
+					<?php endforeach; ?>
+                            
+                    <?php $currentUrl = Mage::helper('core/url')->getCurrentUrl(); ?>                        
+                    <?php $block = Mage::helper('apdinteract_catalog')->getPromoBlock($currentUrl);?>
+                    <dd class='content'>
+                    	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($block)->toHtml();?>
+                    </dd>
+
+				</dl>
+			<?php endif; ?>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+<div class="row hide-for-large-up">
+  <div class="small-12 columns">
+	<div class="filter">
+	  <ul class="accordion" data-accordion="">
+		<li class="accordion-navigation">
+		  <a href="#filter-mobile" aria-expanded="false">Filter</a>
+		  <div id="filter-mobile" class="content">
+			
+			<div class="filter-state">
+				<?php if(count($appliedFilters)>0) {?>
+				<div class="block-title">
+					<h2><?php echo $this->__('Currently shopping by:') ?></h2>		
+				</div>
+				<?php }?>
+				<?php echo $this->getStateHtml() ?>
+				<?php if ($this->getLayer()->getState()->getFilters()): ?>
+					<div class="action"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+				<?php endif; ?>
+			</div>
+		  
+				<dl id="accordion-wrapper">
+					<?php $_filters = $this->getFilters() ?>
+					<?php foreach ($_filters as $_filter): ?>
+					<?php if($_filter->getItemsCount()): ?>
+						<dt class='filterdt active'>
+						<i class="fa fa-fw fa-caret-down"></i>
+						<?php if ($_filter->getName() == 'Battery Categorization'):?>
+						<?php echo $this->__('Consumer')?>
+						<?php else:?>
+						<?php echo $this->__($_filter->getName()) ?>
+						<?php endif;?>
+						</dt>
+						<dd class='filtercont'>
+						  <?php echo $_filter->getHtml() ?>
+						</dd>
+					<?php endif; ?>
+					<?php endforeach; ?>
+				</dl>
+		  </div>
+		</li>
+	  </ul>
+	</div>
+  </div> 
+</div>
+<?php endif; ?>

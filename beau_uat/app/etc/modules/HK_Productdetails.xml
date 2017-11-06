@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <HK_Productdetails>
+            <active>true</active>
+            <codePool>local</codePool>
+        </HK_Productdetails>
+    </modules>
+</config> 

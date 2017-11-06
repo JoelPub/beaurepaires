@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Bookings>
+            <version>0.1.0</version>
+        </ApdInteract_Bookings>
+    </modules>
+    <frontend>
+        <routers>
+            <bookings>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Bookings</module>
+                    <frontName>bookings</frontName>
+                </args>
+            </bookings>
+        </routers>
+        <layout>
+            <updates>
+                <bookings>
+                    <file>bookings.xml</file>
+                </bookings>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <helpers>
+            <bookings>
+                <class>ApdInteract_Bookings_Helper</class>
+            </bookings>
+        </helpers>
+        <blocks>
+            <bookings>
+                <class>ApdInteract_Bookings_Block</class>
+            </bookings>
+        </blocks>
+    </global>
+    <admin>
+        <routers>
+            <bookings>
+                <use>admin</use>
+                <args>
+                    <module>ApdInteract_Bookings</module>
+                    <frontName>admin_bookings</frontName>
+                </args>
+            </bookings>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <apdinteract_vir translate="title" module="apdinteract_vir">
+                <children>
+                    <bookingsbackend module="bookings">
+                        <title>Store Manager Console</title>
+                        <sort_order>0</sort_order>
+                        <action>admin_bookings/adminhtml_bookingsbackend</action>
+                    </bookingsbackend>
+                </children>
+            </apdinteract_vir>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <apdinteract_vir translate="title" module="apdinteract_vir">
+                            <children>
+                                <bookingsbackend translate="title">
+                                    <title>Store Manager Console</title>
+                                </bookingsbackend>
+                            </children>
+                        </apdinteract_vir>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <booking translate="title" module="bookings">
+                                            <title>Booking Section</title>
+                                            <sort_order>0</sort_order>
+                                        </booking>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <bookings>
+                    <file>bookings.xml</file>
+                </bookings>
+            </updates>
+        </layout>
+    </adminhtml>
+</config> 

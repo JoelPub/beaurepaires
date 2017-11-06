@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <costar_adminhtml_costarbackend_index>
+        <reference name="content">
+            <block type="costar/adminhtml_costar" name="costarbackend"/>
+        </reference>
+    </costar_adminhtml_costarbackend_index>
+    <costar_adminhtml_costarbackend_orders>
+        <reference name="content">
+            <block type="costar/adminhtml_rejected" name="costarrejected"/>
+        </reference>
+    </costar_adminhtml_costarbackend_orders>
+    <costar_adminhtml_costarbackend_new>      
+        <reference name="content">
+            <block type="costar/adminhtml_form_edit" name="costarform"/>
+        </reference>
+    </costar_adminhtml_costarbackend_new>
+</layout>

@@ -1,0 +1,14 @@
+
+// Variables
+$slider-panel-bg: #f7f7f7;
+$slider-panel-border: #bfbfbf;
+// Mixins
+
+// Stlyes
+
+.product-item-column {
+	background-color: $slider-panel-bg;
+	border: 1px solid $slider-panel-border;
+	border-radius: 4px;
+	margin: 0 0 0 22px;
+}

@@ -1,0 +1,17 @@
+<?php
+//This block is replaced by hardcode link in links.phtml. This file can be removede later
+$websites = Mage::app()->getWebsites();
+
+if (count($websites) > 1): ?>
+<div class="website-switcher">    
+    <ul>
+    <?php foreach ($websites as $website): // print out each website name and code ?>        
+        <?php if($website->getCode()=='base'):?>
+        <li><a target="_blank" href="http://www.goodyear.com/">Goodyear International</a></li>
+        <?php elseif($website->getCode()=='goodyear_au' || $website->getCode()=='goodyear_nz'):?>
+            <li><a href="<?php echo $website->getDefaultStore()->getBaseUrl()?>"><?php echo $this->htmlEscape($website->getName()) ?></a></li>
+        <?php endif;?>
+    <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

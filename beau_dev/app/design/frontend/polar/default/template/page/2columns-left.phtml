@@ -1,0 +1,56 @@
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<?php echo $this->getChildHtml('head') ?>
+
+<!-- p/b/2colL -->
+
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+    <?php echo $this->getChildHtml('after_body_start') ?>
+<?php echo $this->getChildHtml('footer_misc_html') ?>
+<?php echo $this->getChildHtml('global_notices') ?>
+<?php echo $this->getChildHtml('header') ?>
+<?php echo $this->getChildHtml('breadcrumbs') ?>
+<div class="extra-padding main-wrapper">
+  <div class="main-container show-page-notice">
+        <div class="row">
+                <?php echo $this->getChildHtml('global_messages') ?>
+            <div class="col-left sidebar large-3 small-12 columns">
+
+                <div class="page-notice hide-for-large-up"></div>
+
+                <?php echo $this->getChildHtml('left') ?>
+            </div>
+            <div class="col-main last large-9 small-12 columns">
+
+                <div class="page-notice show-for-large-up"></div>
+
+                <?php //echo $this->getChildHtml('global_messages') ?>
+                <?php echo $this->getChildHtml('content') ?>
+            </div>
+        </div>
+  </div>
+
+
+</div>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php echo $this->getChildHtml('bottom') ?>
+
+	<?php echo $this->getChildHtml('footer') ?>
+
+
+<!-- before /body sub-footer scripts -->
+<?php $hash = $this->helper('apdinteract_smartcache')->getSkinLastChangedHash(); ?>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/imagesloaded/imagesloaded.pkgd.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/app.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/dist/static/js/default.js?t=<?php echo $hash; ?>"></script>
+
+</body>
+</html>

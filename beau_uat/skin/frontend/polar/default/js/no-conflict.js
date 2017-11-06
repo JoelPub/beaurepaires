@@ -1,0 +1,2 @@
+"use strict";
+jQuery.noConflict();

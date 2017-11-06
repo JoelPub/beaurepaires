@@ -1,0 +1,213 @@
+.sg-heading{
+    border-bottom: 1px solid;
+    border-color: #e5e5e5;
+    border-color: rgba(229, 229, 229, 0.8);
+    margin: 2em 0 2em;
+    position: relative;
+    margin: 1em 0 1em 0;
+    padding: 1.3em 0 0.5em 0;
+}
+
+.sg-title{
+    background: #555;
+    border-radius: 1px;
+    color: $white;
+    clear: both;
+    display: block;
+    float: left;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    margin: 1em 0 1em;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.sg-subheader{
+  color: $secondary-color;
+}
+
+code{
+  border: 1px solid $silver;
+  background: $ghost;
+  display: block;
+  font-family: monospace;
+  margin: 20px 0;
+  padding: 10px;
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+}
+
+.sg-typography{
+  margin-bottom: 30px;
+
+  p{
+     font-size: 20px;
+    margin-bottom: 0;
+
+    &.sg-primary{
+      font-family: $font-family-sans-serif;
+    }
+    &.sg-primary-i{
+      font-family: $font-family-sans-serif-italic;
+    }
+    &.sg-primary-b{
+      font-family: $font-family-sans-serif-bold;
+    }
+    &.sg-primary-bi{
+      font-family: $font-family-sans-serif-bold-italic;
+    }
+    &.sg-primary-c{
+      font-family: $font-family-sans-serif-condensed;
+    }
+  }
+}
+
+.sg-colours{
+  &-panel{
+    border: 1px solid $silver;
+    height: 100px;
+    width: 100%;
+
+    &.primary{
+      background: $primary-color;
+    }
+    &.secondary{
+      background: $secondary-color;
+    }
+    &.handchor{
+      background: $handchor-color;
+    }
+    &.alert{
+      background: $alert-color
+    }
+    &.success{
+      background: $success-color
+    }
+    &.bitum{
+      background: $bitum
+    }
+    &.dark-blue{
+      background: $nav-dark-blue-color
+    }
+    &.aqua{
+      background: $aqua-blue-color;
+    }
+    &.gray{
+      background: $primary-gray-border;
+    }
+    &.slider-dot{
+      background: $slider-dot-color
+    }
+    &.evergreen{
+      background: $evergreen-color;
+    }
+    &.sky{
+      background: $sky-colour;
+    }
+    &.venice{
+      background: $venice-blue;
+    }
+    &.aluminum{
+      background: $aluminum;
+    }
+    &.white{
+      background: $white;
+    }
+    &.ghost{
+      background: $ghost;
+    }
+    &.snow{
+      background: $snow;
+    }
+    &.vapor{
+      background: $snow;
+    }
+    &.white-smoke{
+      background: $white-smoke
+    }
+    &.silver{
+      background: $silver;
+    }
+    &.smoke{
+      background: $smoke;
+    }
+    &.iron{
+      background: $iron;
+    }
+    &.iron2{
+      background: $iron2
+    }
+    &.monsoon{
+      background: $monsoon;
+    }
+    &.tuatara{
+      background: $tuatara
+    }
+    &.oil{
+      background: $oil
+    }
+    &.black{
+      background: $black;
+    }
+    &.mercury{
+      background: $mercury;
+    }
+    &.red{
+      background: $red;
+    }
+  }
+}
+
+.sg-buttons{
+  .button{
+    margin-bottom: 20px;
+  }
+}
+
+.sg-icons{
+
+  &-sets{
+    list-style: none;
+    margin: 0 0 20px;
+
+    li{
+      display: inline-block;
+      list-style: none;
+      margin-bottom: 5px;
+      width: 24%;
+
+      i{
+        margin-right: 10px;
+      }
+    }
+
+    &.icomoons-icons{
+      font-family: 'icomoon'
+    }
+  }
+}
+
+
+.sg-quick-finder{
+  position: relative;
+  top: 0;
+}
+
+.sg-layout{
+  background: $secondary-color;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+
+  p:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.sg-price{
+  border: 0 !important;
+}

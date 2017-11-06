@@ -1,0 +1,26 @@
+<?php
+/**
+ * APD Review Summary Template
+ */
+?>
+
+<div class="star-rating">
+
+    <?php
+    $product_id = $this->getProduct()->getId();
+    $count = Mage::helper('apdinteract_review')->getReviewCount($product_id);
+    $getRatingSummary = Mage::Helper('apdwidgets')->getRatingSummary($product_id);
+    $rating = "";
+    if (!empty($getRatingSummary)) {
+        $rating = Mage::Helper('apdwidgets')->getStarHtmlFromRating($getRatingSummary);
+    }
+
+    echo $rating;
+    ?>
+
+    <span class="review-links">
+        <a class="customer-reviews"><?php echo $this->__('%d Review(s)', $count) ?></a> | 
+        <a class="add-review"><?php echo $this->__('Add Your Review') ?></a>
+    </span>
+
+</div>

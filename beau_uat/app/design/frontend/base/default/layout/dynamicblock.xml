@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+
+    <cms_index_index>    
+        <reference name="content">    
+            <block type="core/template" name="dynamicblock" as="dynamicblock" template="dynamicblock/dynamicblock.phtml" before="_"></block>
+            <block type="core/template" name="dynamicblock_fullwidth" as="dynamicblock_fullwidth" template="dynamicblock/dynamicblock_fullwidth.phtml" before="dynamicblock"></block>
+        </reference>
+    </cms_index_index>	    
+
+    <customer_account_index>
+        <reference name="customer_account_dashboard">                           
+            <block type="dynamicblock/dynamicblock" name="dynamicgroupblock" as="dynamicgroupblock" template="dynamicblock/groupstatic.phtml" />
+        </reference>
+    </customer_account_index>
+</layout>

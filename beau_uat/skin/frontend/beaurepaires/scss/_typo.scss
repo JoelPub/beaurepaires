@@ -1,0 +1,48 @@
+/////// Typography //////////////
+// Home Slideshow Header
+.slick-slide {
+  .title {
+	@include font-attributes-bold(38px, $base-font + 26, $pure-white-color);
+    font {
+      color:$pure-white-color;
+    }
+  }
+}
+
+// Section Headline
+h2 {
+  @include font-attributes($charcoal, $base-font + 20, bold, $base-font + 26);
+}
+
+// WYSIWYG Headline
+h3 {
+  @include font-attributes($charcoal, $base-font + 10, bold, $base-font + 14);
+}
+
+// WYSIWYG Subline + Tile Headline
+h4 {
+  @include font-attributes($charcoal, $base-font + 7, normal, $base-font + 14);
+}
+
+// Large price + Superscript + Supporting text
+
+// Main Navigation links
+.top-bar {
+  .menu-title {
+    @include font-attributes($pure-white-color, $base-font + 4, bold, $base-font + 10);
+  }
+}
+
+// Product Filter Title
+.review-component {
+  h3 {
+    @include font-attributes($charcoal, $base-font + 4, normal, $base-font + 10);
+  }
+}
+
+
+// Product Detail Title
+.product-title {
+  @include font-attributes($charcoal, $base-font + 10, bold, $base-font + 14);
+  text-transform: uppercase;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <sections>    
+        <wiser translate="label" module="apdinteract_wiser">
+            <label>Wiser Analytics</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<wisersetting translate="label">
+                    <label>Wiser Analytics Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <wiser_analytics translate="label">
+                            <label>Wiser API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wiser_analytics>
+                        <wiser_store_id translate="label">
+                            <label>Wiser Store ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wiser_store_id>                        
+                    </fields>
+                </wisersetting>
+            </groups>
+             
+        </wiser>
+    </sections>
+</config>

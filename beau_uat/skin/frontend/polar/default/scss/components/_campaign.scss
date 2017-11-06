@@ -1,0 +1,98 @@
+
+.campaign-header {
+  $banner-padding: 65px;
+
+  background-color: $secondary-color;
+  background-image: url('../images/easter_campaign/watermark.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  padding: $banner-padding 0;
+  text-align: center;
+
+  @media #{$small-only} {
+    background-size: auto 160%;
+  }
+}
+
+.campaign-body {
+  background-color: $colour-black-haze;
+  min-height: 500px;
+  padding: 10px 0;
+
+  @media #{$medium-up} {
+    padding: 70px 0 54px 0;
+  }
+
+  .page-title {
+    line-height: 1.1;
+  }
+
+  p {
+    font-size: em-calc(16px);
+    line-height: 1.3;
+
+    .button {
+      margin-bottom: 19px;
+    }
+  }
+
+  ul {
+    font-size: em-calc(16px);
+  }
+}
+
+.campaign-form {
+  padding: 25px 0;
+
+  @media #{$medium-up} {
+    padding: 70px 0;
+  }
+}
+
+.campaign-footer {
+  background-color: #F78F1E;
+  color: $white;
+  padding: 36px 0;
+
+  a {
+    color: $ghost;
+    text-decoration: underline;
+  }
+
+  img {
+    margin: 5px 0 15px 0;
+
+    @media #{$medium-up} {
+      margin: 65px 0;
+    }
+  }
+
+  hr {
+    margin-bottom: 50px;
+  }
+
+  small {
+    font-size: em-calc(12);
+    line-height: 1;
+  }
+}
+
+.cms-mygiftcard{
+  .column{
+    .load-indicator {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 25px;
+    }
+  }
+
+  .column.loading{
+    .load-indicator {
+      display: block;
+    }
+
+  }
+}
+

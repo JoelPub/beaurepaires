@@ -1,0 +1,30 @@
+<div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+  <div>
+    <label><?php echo $this->__('Payment Term') ?>*</label>
+    <span>
+      <!--<input type="text" title="<?php echo $this->__('Payment Term') ?>" name="payment[ge_term]" value="<?php echo $this->htmlEscape($this->getInfoData('ge_term')) ?>" />-->
+      <select title="<?php echo $this->__('Payment Term') ?>" name="payment[ge_term]">      
+      		<?php
+      		$terms = Mage::helper('gefinance')->getAvailableTerms();
+      		$count = count($terms)-1;
+      		$i=0;
+      		 for($i=0;$i<=$count;$i++) {			
+      			
+      			$term = $terms[$i];
+      			
+      			$term_label = $term['label'];
+      			$term_value = $term['value'];      			
+      		  				
+      		  	if($i==$count) {?>
+      			<option selected="selected" value="<?php echo $term_value?>"><?php echo $term_label?></option>
+      			<?php } else {?>
+				<option value="<?php echo $term_value?>"><?php echo $term_label?></option>	
+				
+      		<?php }}?>
+      </select>
+    </span>
+  </div>
+</div>
+<div>
+    <?php echo $this->getMethod()->getConfigData('message');?>
+</div>

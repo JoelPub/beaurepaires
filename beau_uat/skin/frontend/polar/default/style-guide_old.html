@@ -1,0 +1,3096 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaurepairs styleguide</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="dist/static/app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+</head>
+
+<body>
+
+    <!-- Top Nav -->
+    <div class="top-banner-wrapper">
+        <div class="row">
+            <div class="medium-4 columns hide-for-small">
+                <h1 class="title"><img src="images/beaurepaires-logo.png" class="logo" alt="Beaurepaires logo" /></h1>
+            </div>
+
+            <div class="medium-8 columns">
+
+                <!-- Top card -->
+                <div class="top-link-wrapper right">
+                    <ul class="top-link-inner-link collapse-left-margin">
+                        <li><a href="#">Login</a>
+                        </li>
+                        <li><a href="#">Register</a>
+                        </li>
+                        <li class="cart-icon"><a href="http://lipsum.com" data-dropdown="mini-cart2" data-options="is_hover:true; hover_timeout:1000" aria-controls="mini-cart2" aria-expanded="false"><i class="fa fa-calendar-o fa-lg fa-fw"></i>Bookings</a>
+                            <!-- Mini Cart -->
+                            <div id="mini-cart2" class="mini-cart f-dropdown content" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+                                <!--                  <span class="close-button"><i class="fa fa-close"></i></span>-->
+                                <div class="mini-cart-item">
+                                    <div class="row">
+                                        <div class="columns small-4 mini-cart-img">
+                                            <img src="images/wheel-img.jpg" class="expand">
+                                        </div>
+                                        <div class="columns small-8 mini-cart-detail">
+                                            <img src="images/dunlop-temp.png" width="100">
+                                            <h5 class="mini-cart-title">Wrangler Adventure</h5>
+                                            <div class="row">
+                                                <div class="columns small-3">
+                                                    <label>Price:</label>
+                                                </div>
+                                                <div class="columns small-9">
+                                                    <span class="mini-cart-price-value">$ 229.00ea</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="columns small-3">
+                                                    <label>Qty:</label>
+                                                </div>
+                                                <div class="columns small-9">
+                                                    <input type="text" class="mini-cart-qty-field">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="columns small-12">
+                                                    <ul class="inline-list mini-cart-edit-item">
+                                                        <li><a href="">Edit item</a>
+                                                        </li>
+                                                        <li><a href="">Remove item</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row small-collapse">
+                                    <div class="columns small-12">
+                                        <div class="mini-cart-subtotal">
+                                            Cart Subtotal: $229.00
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="columns small-12">
+                                        <div class="mini-cart-checkout">
+                                            <a href="" class="button radius secondary">View Cart</a>
+                                            <input type="submit" value="Checkout" class="button radius">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="cart-item-count">4</span>
+                        </li>
+                        <li><a href="#"><i class="fa top-search-link js-toggle-click fa-search fa-lg fa-fw"></i></a>
+                        </li>
+                    </ul>
+
+                    <div class="hide top-search-form">
+                        <form method="get" action="http://localhost:1234/bft-tyres/beaurepaires/catalogsearch/result/" id="search_mini_form">
+                            <div class="form-search">
+                                <input type="text" placeholder="Search here..." autocomplete="off" id="search" name="q" value="" class="input-text" maxlength="128">
+                                <a href="#" class="close-btn"><i class="fa js-toggle-click fa-times fa-fw"></i></a>
+                                <!--<button type="submit" title="Search" class="button"><span><span>Search</span></span></button>-->
+                                <div class="search-autocomplete" id="search_autocomplete" style="display: none;"></div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row hide-for-small">
+                    <div class="medium-12 columns">
+
+                        <!-- Store Locator -->
+                        <div class="store-locator right">
+                            <form action="">
+                                <a href="#"><i class="fa fa-map-marker fa-lg fa-fw"></i>Store Locator</a>
+                                <div class="store-locator collapse-field right">
+                                    <input type="text" autocomplete="off" id="quickLocateAddress" name="address" class="field" placeholder="Suburb/Postcode">
+                                    <input type="submit" class="button radius tiny" value="Go">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main Nav -->
+    <div class="contain-to-grid top-bar-wrapper">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area inline-list">
+                <li class="toggle-topbar"><a href="#"><span><i class="fa fa-lg fa-navicon"></i></span></a>
+                </li>
+                <li class="name show-for-small-only">
+                    <h1><a href="#">Beaurepaires</a></h1>
+                </li>
+                <li class="mobile-store-locator show-for-small-only">
+                    <a href="#"><i class="fa fa-map-marker fa-lg fa-fw text-rigt"></i>Store Locator</a>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right">
+                    <li class="has-dropdown">
+                        <a href="#" class="Active">Tyres</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Wheels</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Batteries</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Services</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Learn</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Stores</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Menu 1</a>
+                            </li>
+                            <li><a href="#">Menu 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+  
+    
+  
+  
+  
+    <div class="hero">
+       
+       <!-- slider -->
+        <div class="hero-slider">
+  
+              <div style="background-image: url(images/home-banner2.jpg);" class="slick-slide slick-active" data-slick-index="0" aria-hidden="false">
+                <div class="row">
+                  <div class="large-8 large-offset-4 medium-7 medium-offset-5 columns">
+                    <h1 class="title">Replace these banners with your own content</h1>
+                    <a href="#" class="radius button">Find out more</a>
+                  </div>
+                </div>
+              </div>
+              <div style="background-image: url(images/home-banner2.jpg);" class="slick-slide" data-slick-index="1" aria-hidden="true">
+                <div class="row">
+                  <div class="large-8 large-offset-4 medium-7 medium-offset-5 columns">
+                    <h1 class="title">Running around? Come visit us for the best deals on Tyres, Wheels and Batteries. Test  -EDIT</h1>
+                    <a href="#" class="radius button">Find out more</a>
+                  </div>
+                </div>
+              </div>
+      </div> 
+
+       <div class="quick-finder">
+   <div class="row">
+      <div class="large-4 medium-5 columns">
+         <ul class="tabs" data-tab="">
+            <li class="tab-title active"><a href="#find-tyres" aria-selected="true" tabindex="0"><i class="fa-lg icon-bfttyre"></i> Find Tyres</a></li>
+            <li class="tab-title"><a href="#find-wheels" aria-selected="false" tabindex="-1"><i class="fa-lg icon-bftwheel"></i> Find Wheels</a></li>
+            <!--<li class="tab-title"><a href="#find-batteries">Find Batteries</a></li>-->
+         </ul>
+         <div class="panel">
+            <div class="tabs-content">
+               <!-- Find Tyres -->
+               <div class="content active" id="find-tyres" aria-hidden="false">
+                  <ul class="accordion" data-accordion="">
+                     <li class="accordion-navigation active">
+                        <a href="#vehicle-type" aria-expanded="true">Vehicle Type</a>
+                        <div id="vehicle-type" class="content active">
+                           <!-- Vehicle Type -->
+                           <form method="post" action="#">
+                              <div class="row">
+                                 <div class="small-12 columns">
+                                    <select name="make-tyres" id="make-tyres">
+                                        <option value="">Select Make</option>
+                                        <option value="140">Abarth</option>
+                                        <option value="7">Alfa Romeo</option>
+                                        <option value="141">...</option>
+                                   </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="year-tyres" id="year-tyres">
+                                        <option value="">Select Year</option>
+                                        <option value="">2015</option>
+                                        <option value="">...</option>
+                                   </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="model-tyres" id="model-tyres">
+                                       <option value="">Select Model</option>
+                                    </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="series-tyres" id="series-tyres">
+                                       <option value="">Select Series</option>
+                                    </select><input type="hidden" name="tyre-series-name" id="tyre-series-name"> <input type="hidden" name="make-model" id="make-model">        
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="large-12 columns">
+                                    <input type="submit" name="tyre-vehicle-btn" disabled="disabled" id="tyre-vehicle-btn" value="Search" class="radius button expand">
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </li>
+                     <li class="accordion-navigation">
+                        <a href="#tyre-size" aria-expanded="false">Tyre Size</a>
+                        <div id="tyre-size" class="content">
+                           <!-- Tyre Size -->
+                            <form method="post" action="searchresult/index/index/type/tyres/section/size#find-wheels">
+                           	  <input type="hidden" name="type" value="tyres">
+                           	  <input type="hidden" name="section" value="size">
+                           	  <input type="hidden" name="category" value="41">
+                              <div class="row">
+                                 <div class="small-12 columns">
+                                    <select name="width-tyres" id="width-tyres">
+                                      <option value="">Select Width</option>
+                                      <option value="">105</option>
+                                      <option value="">109</option>
+                                      <option value="">...</option>
+                                   </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="profile-tyres" id="profile-tyres">
+                                       <option value="">Profile</option>
+                                    </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="diameter-tyres" id="diameter-tyres">
+                                       <option value="">Rim Diameter</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="large-12 columns">
+                                    <input type="submit" name="tyre-size-btn" id="tyre-size-btn" value="Search" disabled="disabled" class="radius button expand">
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+              
+               <!-- Find Wheels -->
+               <div class="content" id="find-wheels" aria-hidden="true" tabindex="-1">
+                  <ul class="accordion" data-accordion="">
+                     <li class="accordion-navigation active">
+                        <a href="#vehicle-type-2" aria-expanded="true">Vehicle Type</a>
+                        <div id="vehicle-type-2" class="content active">
+                           <!-- Vehicle Type -->
+                            <form method="post" action="searchresult/index/index/type/wheels/section/size#find-wheels">
+                           	  <input type="hidden" name="type" value="wheels">
+                           	  <input type="hidden" name="section" value="vehicles">
+                           	  <input type="hidden" name="category" value="42">
+                              <div class="row">
+                                 <div class="small-12 columns">
+                                    <select name="make-wheels" id="make-wheels">
+                                       <option value="">Select Make</option>
+                                        <option value="">Abarth</option>
+                                        <option value="">...</option>
+                                    </select>
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="model-wheels" id="model-wheels">
+                                       <option value="">Select Model</option>
+                                    </select><input type="hidden" name="wheels-series-name" id="wheels-series-name"><input type="hidden" name="wheels-make-name" id="wheels-make-name">
+                                                                                                   
+                                 </div>
+                                 <div class="small-12 columns">
+                                    <select name="size-wheels" id="size-wheels">
+                                       <option value="">All Sizes</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="large-12 columns">
+                                    <input type="submit" name="wheels-vehicle-btn" id="wheels-vehicle-btn" disabled="disabled" value="Search" class="radius button expand">
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </li>
+                     <li class="accordion-navigation">
+                        <a href="#tyre-brand-2" aria-expanded="false">Wheel Brand</a>
+                        <div id="tyre-brand-2" class="content">
+                           <!-- Find brand -->
+                           <form method="post" action="searchresult/index/index/type/wheels/section/size#find-wheels">
+                           	  <input type="hidden" name="type" value="wheels">
+                           	  <input type="hidden" name="section" value="brand">
+                           	  <input type="hidden" name="category" value="42">
+                              <div class="row">
+                                 <div class="small-12 columns">
+                                    <select id="brand-wheels" name="brand-wheels"><option value="">Select Brand</option><option value="Adela">Adela</option><option value="BBS">BBS</option><option value="BLACK RHINO">BLACK RHINO</option><option value="CSA">CSA</option><option value="KING WHEELS">KING WHEELS</option><option value="OZ RACING">OZ RACING</option><option value="PDW">PDW</option><option value="Procast">Procast</option><option value="Speedy Wheels">Speedy Wheels</option><option value="SSW">SSW</option><option value="TSW">TSW</option></select>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="large-12 columns">
+                                    <input type="submit" value="Search" name="wheel-brand-btn" id="wheel-brand-btn" disabled="disabled" class="radius button expand">
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </li>
+                  </ul>
+               </div>                                           
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+
+    
+
+
+    
+    <!-------------------------- Promo slider ---------------------------->
+    <div class="extra-padding main-wrapper">
+        
+        <div class="row">
+            <div class="medium-12 columns">
+              <hr>
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="medium-12 columns">
+                <h2><strong>Promo slider</strong></h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="promo-slider" data-equalizer>
+                <div class="medium-4 columns text-center">
+                    <a href="#" class="th">
+                        <img src="http://placehold.it/500x500" alt="">
+                    </a>
+                    <a href="#"><h3 data-equalizer-watch>Lorem ipsum dolor sit amet</h3></a>
+                    <a href="#" class="radius button">Find out more</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <a href="#" class="th">
+                        <img src="http://placehold.it/500x500" alt="">
+                    </a>
+                    <a href="#"><h3 data-equalizer-watch>Vestibulum pretium, magna quis vestibulum molestie</h3></a>
+                    <a href="#" class="radius button">Find out more</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <a href="#" class="th">
+                        <img src="http://placehold.it/500x500" alt="">
+                    </a>
+                    <a href="#"><h3 data-equalizer-watch>Lorem ipsum dolor sit amet</h3></a>
+                    <a href="#" class="radius button">Find out more</a>
+                </div>
+            </div>
+        </div>
+      
+      <!-------------------------- Featured article ---------------------------->
+      
+      <div class="row">
+            <div class="medium-12 columns">
+              <hr>
+            </div>
+        </div>
+      
+        <div class="row">
+            <div class="medium-12 columns">
+                <h2><strong>Featured article</strong></h2>
+            </div>
+        </div>
+      
+      <div class="row">
+          	  <div class="homepage-feature">
+              	<div class="large-6 medium-6 columns">
+                    <a class="th" href="#"><img class="expand" alt="" src="http://placehold.it/800x500"></a>
+                </div>
+                <div class="large-6 medium-6 columns">
+                    <h3>Title</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis metus nec eleifend molestie. Aliquam mattis nisi ut ornare accumsan. Nullam pulvinar justo vel aliquam efficitur. Donec interdum lectus nisl, vitae facilisis arcu pharetra non. Ut turpis arcu, congue et consectetur non, bibendum eget urna. Donec nec purus eu tellus rutrum imperdiet. Ut tellus arcu, imperdiet quis accumsan in, aliquam sit amet nisi. Sed nulla sapien, sodales sit amet ex non, blandit sagittis tortor. Sed tempus dolor a felis dictum viverra.</p>
+                    <a class="radius button" href="#">Learn more</a>
+                </div> 
+          </div>
+      </div>
+      
+       <!-------------------------- Icons ---------------------------->
+  <div class="row">
+            <div class="columns">
+              <hr>
+	<a name="fontawesome"></a>
+  <h2><strong>Font Awesome's icons used in the project</strong></h2>
+          
+            <i class="fa fa-phone fa-2x"></i>
+            <i class="fa fa-star fa-2x"></i>
+            <i class="fa fa-chevron-down fa-2x"></i>
+            <i class="fa fa-chevron-up fa-2x"></i>
+            <i class="fa fa-angle-right fa-2x"></i>
+            <i class="fa fa-times fa-2x"></i>
+            <i class="fa fa-search fa-2x"></i>
+            <i class="fa fa-map-marker fa-2x"></i>
+            <i class="fa fa-cart-arrow-down fa-2x"></i>
+            <i class="fa fa-home fa-2x"></i>
+            <i class="fa fa-arrow-circle-right fa-2x"></i>
+            <i class="fa fa-long-arrow-down fa-2x"></i>
+            <i class="fa fa-th-list fa-2x"></i>
+            <i class="fa fa-th-large fa-2x"></i>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <i class="fa fa-check-circle fa-2x"></i> 
+            <i class="fa fa-calandar fa-2x"></i> 
+            <i class="fa fa-info-circle fa-2x"></i>  
+			<i class="fa fa-envelope fa-2x"></i>  
+			<i class="fa fa-check-square-o fa-2x"></i>  
+			<i class="fa fa-calendar-o fa-2x"></i>  
+			<i class="fa fa-print fa-2x"></i>  
+			<i class="fa fa-car fa-2x"></i>  
+			<i class="fa fa-expand fa-2x"></i>  
+              
+            <hr>
+			
+			<a name="customicons"></a>
+            <h2><strong>Custom Font icons</strong></h2>
+          
+            <i class="icon-bfttyre fa-2x"></i> 
+            <i class="icon-bftvalue fa-2x"></i> 
+            <i class="icon-bftwheel fa-2x"></i> 
+            <i class="icon-bftoffroad fa-2x"></i> 
+            <i class="icon-bftperformance fa-2x"></i> 
+            <i class="icon-bftslowwear fa-2x"></i> 
+            <i class="icon-bftfuelsaver fa-2x"></i> 
+            <i class="icon-bftgrip fa-2x"></i> 
+            <i class="icon-bfthandling fa-2x"></i> 
+            <i class="icon-bftmileage fa-2x"></i> 
+            <i class="icon-bftcyclingability fa-2x"></i> 
+            <i class="icon-bftdurability fa-2x"></i> 
+            <i class="icon-bftevenwear fa-2x"></i> 
+            <i class="icon-bftcomfort fa-2x"></i>
+          
+
+            <hr>
+
+      <h2><strong>Custom Font icons 2</strong></h2>
+      
+      <i class="icon2 icon-2x icon-value-tyre"></i> 
+      <i class="icon2 icon-value-battery"></i> 
+      <i class="icon2 icon-lg icon-fuel-economy"></i> 
+      <i class="icon2 icon-2x icon-grip-performance"></i> 
+
+      <i class="icon2 icon-2x icon-handling-performance"></i> 
+      <i class="icon2 icon-2x icon-offroad-performance"></i> 
+      <i class="icon2 icon-2x icon-wet-performance"></i> 
+      <i class="icon2 icon-2x icon-low-noise"></i> 
+
+      <i class="icon2 icon-2x icon-comfort-performance"></i> 
+      <i class="icon2 icon-2x icon-sports-performance"></i> 
+      <i class="icon2 icon-2x icon-breaking-performancee"></i> 
+      <i class="icon2 icon-2x icon-dry-performance"></i> 
+ 
+      <i class="icon2 icon-2x icon-wetdry-performance"></i>
+      <i class="icon2 icon-2x icon-all-terrain"></i>
+      <i class="icon2 icon-2x icon-winter-tyres"></i> 
+      <i class="icon2 icon-2x icon-original-equipment"></i> 
+ 
+      <i class="icon2 icon-2x icon-run-on-flat"></i>
+      <i class="icon2 icon-2x icon-traction-tyres"></i>
+      <i class="icon2 icon-2x icon-cornering-performance"></i>
+      <i class="icon2 icon-2x icon-road-hazard-resistant"></i>
+
+      <i class="icon2 icon-2x icon-slow-wear"></i>
+
+      <hr>
+			
+			<a name="socialnedia"></a>
+            <h2><strong>Social media icons (Footer)</strong></h2>
+            <a href="https://www.facebook.com" target="_blank" class="icon-facebook">
+                <span class="fa-stack fa-lg fa-fw">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="https://www.twitter.com" target="_blank" class="icon-twitter">
+                <span class="fa-stack fa-lg fa-fw">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="https://www.youtube.com" target="_blank" class="icon-youtube">
+                <span class="fa-stack fa-lg fa-fw">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="https://www.plus.google.com" target="_blank" class="icon-google-plus">
+                <span class="fa-stack fa-lg fa-fw">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="https://www.linkedin.com" target="_blank" class="icon-linkedin">
+                <span class="fa-stack fa-lg fa-fw">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+    </div>
+  </div>
+
+    
+
+<!-------------------------- Products slider ------------------------->
+        <div class="row">
+            <div class="medium-12 columns">
+                <hr />
+                <h2><strong>Product slider</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+          <div class="related-product-slider" data-equalizer>
+            
+
+            <div class="item medium-3 columns">
+              <div class="row product-item">
+                        <div class="small-3 columns">
+                          <div class="product-image">
+                            <a title="SP ROAD GRIPPER S" href="">
+                                <img src="images/tyre-1.png" class="expand">
+                            </a>
+                          </div>
+                        </div>
+                        <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                          <div class="product-details">
+                            <img src="images/badge-best-seller-small.png" class="product-badge">
+                            <img src="images/gy-temp-logo.png">
+
+                            <h5 class="product-title"><a href="">SP ROAD GRIPPER S SP ROAD GRIPPER S</a></h5>
+                            <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star empty"></i>
+                                <i class="fa fw fa-star empty"></i>
+                            </div>
+                            <div class="rrp">
+                                <span class="rrp-amount">$329.00/ea</span>
+                            </div>
+                            <div class="online-price">
+                                <span class="online-price">$289.00<sub>ea</sub></span>
+                            </div>
+                            <a class="add-compare" href="#">Add to compare</a>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="item medium-3 columns">
+				<div class="row product-item">
+                        <div class="small-3 columns">
+                          <div class="product-image">
+                            <a title="SP ROAD GRIPPER S" href="">
+                                <img src="images/tyre-1.png" class="expand">
+                            </a>
+                          </div>
+                        </div>
+                        <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                          <div class="product-details">
+                            <img src="images/badge-best-seller-small.png" class="product-badge">
+                            <img src="images/gy-temp-logo.png">
+
+                            <h5 class="product-title"><a href="">SP ROAD GRIPPER S SP ROAD GRIPPER S</a></h5>
+                            <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star empty"></i>
+                                <i class="fa fw fa-star empty"></i>
+                            </div>
+                            <div class="rrp">
+                                <span class="rrp-amount">$329.00/ea</span>
+                            </div>
+                            <div class="online-price">
+                                <span class="online-price">$289.00<sub>ea</sub></span>
+                            </div>
+                            <a class="add-compare" href="#">Add to compare</a>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+			
+            <div class="item medium-3 columns">
+				<div class="row product-item">
+                        <div class="small-3 columns">
+                          <div class="product-image">
+                            <a title="SP ROAD GRIPPER S" href="">
+                                <img src="images/tyre-1.png" class="expand">
+                            </a>
+                          </div>
+                        </div>
+                        <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                          <div class="product-details">
+                            <img src="images/badge-on-sale-small.png" class="product-badge">
+                            <img src="images/gy-temp-logo.png">
+
+                            <h5 class="product-title"><a href="">SP ROAD GRIPPER S SP ROAD GRIPPER S</a></h5>
+                            <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star empty"></i>
+                                <i class="fa fw fa-star empty"></i>
+                            </div>
+                            <div class="rrp">
+                                <span class="rrp-amount">$329.00/ea</span>
+                            </div>
+                            <div class="online-price">
+                                <span class="online-price">$289.00<sub>ea</sub></span>
+                            </div>
+                            <a class="view-compare" href="#">View compare</a>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+			
+            <div class="item medium-3 columns">
+				<div class="row product-item">
+                        <div class="small-3 columns">
+                          <div class="product-image">
+                            <a title="SP ROAD GRIPPER S" href="">
+                                <img src="images/tyre-1.png" class="expand">
+                            </a>
+                          </div>
+                        </div>
+                        <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                          <div class="product-details">
+                            <img src="images/badge-best-seller-small.png" class="product-badge">
+                            <img src="images/gy-temp-logo.png">
+
+                            <h5 class="product-title"><a href="">SP ROAD GRIPPER S SP ROAD GRIPPER S</a></h5>
+                            <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star empty"></i>
+                                <i class="fa fw fa-star empty"></i>
+                            </div>
+                            <div class="rrp">
+                                <span class="rrp-amount">$329.00/ea</span>
+                            </div>
+                            <div class="online-price">
+                                <span class="online-price">$289<sup>.00</sup><sub>/ea</sub></span>
+                            </div>
+                            <a class="view-compare" href="#">View compare</a>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+			
+            <div class="item medium-3 columns">
+				<div class="row product-item">
+                        <div class="small-3 columns">
+                          <div class="product-image">
+                            <a title="SP ROAD GRIPPER S" href="">
+                                <img src="images/tyre-1.png" class="expand">
+                            </a>
+                          </div>
+                        </div>
+                        <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                          <div class="product-details">
+                            <img src="images/badge-best-seller-small.png" class="product-badge">
+                            <img src="images/gy-temp-logo.png">
+
+                            <h5 class="product-title"><a href="">SP ROAD GRIPPER S SP ROAD GRIPPER S</a></h5>
+                            <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star full"></i>
+                                <i class="fa fw fa-star empty"></i>
+                                <i class="fa fw fa-star empty"></i>
+                            </div>
+                            <div class="rrp">
+                                <span class="rrp-amount">$329.00/ea</span>
+                            </div>
+                            <div class="online-price">
+                                <span class="online-price">$289.00<sub>/ea</sub></span>
+                            </div>
+                            <a class="add-compare" href="#">Add to compare</a>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+      
+      
+      
+        <!-------------------------- Product listing (list) -------------------------->
+        <div class="row">
+            <div class="category-products">
+                <div class="columns">
+                   <hr>
+                  <h2><strong>Product List</strong></h2>
+                </div>
+                <div class="comp-product-list products-list">
+                    <div class="small-12 columns">
+                        <div class="row no-badge">
+                            <div class="small-4 medium-3 columns product-media-section">
+                              <a class="product-image" title="GRANDTREK PT2" href="#">
+                                <img alt="GRANDTREK PT2" class="expand" src="images/product-image-temp.png">
+                              </a>
+                            </div>
+                            <div class="small-8 medium-6 columns product-info-section">
+                                <img src="images/badge-best-seller-small.png" class="product-badge">
+                                <img src="images/gy-temp-logo.png" alt="DUNLOP" class="dealer-logo">              
+                                <h3 class="product-title">
+                                  <a title="GRANDTREK PT2" href="#">GRANDTREK PT2</a>
+                                </h3>
+                              <span class="product-type">Passenger</span>
+                              <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> 
+                                <span class="review-links"><a href="#">1 Review(s)</a> | <a href="#">Add your review</a></span>
+                              </div>
+                              <ul class="no-bullet product-features small-block-grid-3 large-block-grid-3" data-equalizer>
+                                <li>
+                                  <i class="fa-lg icon-bfthandling"></i>
+                                  <p data-equalizer-watch>Sports Performance Sports Performance </p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle empty"></i><i class="fa fa-check-circle empty"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                                <li>
+                                  <i class="fa-lg icon-bftdurability"></i>
+                                  <p data-equalizer-watch>Durability (toughness)</p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i><i class="fa fa-check-circle empty"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                                <li>
+                                  <i class="fa-lg icon-bftperformance"></i>
+                                  <p data-equalizer-watch>Wet Weather</p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="small-8 medium-3 columns pricing-section">
+                                <div class="rrp">
+                                    <span class="rrp-label">RRP:</span>
+                                    <span class="rrp-amount">$329.00/ea</span>
+                                </div>
+                                <div class="online-price">
+                                    <span class="online-price-label">Online price:</span>
+                                    <span class="online-price">$289<sup>.00</sup><sub>/ea</sub></span>
+                                </div>    
+                                <a class="button radius" title="Add to Cart" href="#">Add to Cart</a>
+                                <a href="#" class="view-compare">View Compare</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-4 medium-3 columns product-media-section">
+                              <img src="images/badge-on-sale-big.png" class="product-badge">
+                              <a class="product-image" title="GRANDTREK PT2" href="#">
+                                <img alt="GRANDTREK PT2" class="expand" src="images/product-image-temp.png">
+                              </a>
+                            </div>
+                            <div class="small-8 medium-6 columns product-info-section">
+                                <img src="images/badge-on-sale-small.png" class="product-badge">
+                                <img src="images/gy-temp-logo.png" alt="DUNLOP" class="dealer-logo">              
+                                <h3 class="product-title">
+                                  <a title="GRANDTREK PT2" href="#">GRANDTREK PT2</a>
+                                </h3>
+                              <span class="product-type">Passenger</span>
+                              <div class="star-rating">                    
+                                <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> 
+                                <span class="review-links"><a href="#">1 Review(s)</a> | <a href="#">Add your review</a></span>
+                              </div>
+                              <ul class="no-bullet product-features small-block-grid-3 large-block-grid-3">
+                                <li>
+                                  <i class="fa-lg icon-bfthandling"></i>
+                                  <p>Sports Performance</p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle empty"></i><i class="fa fa-check-circle empty"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                                <li>
+                                  <i class="fa-lg icon-bftdurability"></i>
+                                  <p>Durability (toughness)</p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i><i class="fa fa-check-circle empty"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                                <li>
+                                  <i class="fa-lg icon-bftperformance"></i>
+                                  <p>Wet Weather</p>
+                                  <div class="feature-rating">
+                                    <div class="feature-rating">                    
+                                        <i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i><i class="fa fa-check-circle"></i> 
+                                    </div>                       
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="small-8 medium-3 columns pricing-section">
+                                <div class="rrp">
+                                    <span class="rrp-label">RRP:</span>
+                                    <span class="rrp-amount">$329.00/ea</span>
+                                </div>
+                                <div class="online-price">
+                                    <span class="online-price-label">Online price:</span>
+                                    <span class="online-price">$289<sup>.00</sup><sub>/ea</sub></span>
+                                </div>    
+                                <a class="button radius" title="Add to Cart" href="#">Add to Cart</a>
+                                <a href="#" class="view-compare">View Compare</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+      
+      <!-------------------------- Product listing (Grid) -------------------------->
+      <div class="row">
+       <div class="columns">
+            <hr>
+            <h2><strong>Product List grid</strong></h2>
+        </div>
+        <div class="columns">
+          <div class="comp-product-details">
+          <ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-3 products-grid" data-equalizer>
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="#"><img src="http://beau.local/skin/frontend/polar/default/images/brands/DUNLOP-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="images/badge-best-seller-small.png">
+                      GRANDTREK PT2</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7166">
+                                              <span class="price">$100.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+                              <div class="ratings">
+                                  <div class="rating-box">
+                                      <div class="rating" style="width:46%"></div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+            
+            
+            
+            
+            
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="/bluestreak"><img src="http://beau.local/skin/frontend/polar/default/images/brands/BLUESTREAK-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="http://beau.local/catalog/product/view/id/7180/">
+                      GT665+</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7180">
+                                              <span class="price">$100.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+                              <div class="ratings">
+                                  <div class="rating-box">
+                                      <div class="rating" style="width:60%"></div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="/dunlop"><img src="http://beau.local/skin/frontend/polar/default/images/brands/DUNLOP-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="http://beau.local/catalog/product/view/id/7177/">
+                      GRANDTREK ST30</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7177">
+                                              <span class="price">$100.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="/dunlop"><img src="http://beau.local/skin/frontend/polar/default/images/brands/DUNLOP-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="http://beau.local/catalog/product/view/id/7248/">
+                      SP SPORT MAXX GT600</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7248">
+                                              <span class="price">$100.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="/dunlop"><img src="http://beau.local/skin/frontend/polar/default/images/brands/DUNLOP-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="http://beau.local/catalog/product/view/id/7202/">
+                      SP SPORT 01A</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7202">
+                                              <span class="price">$100.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="row collapse product-item">
+                      <div class="small-2 medium-3 columns">
+                          <div class="product-image">
+                              <a href="#">
+                                  <img src="images/product-image-temp.png" class="expand">
+                              </a>
+                          </div>
+                      </div>
+                      <div class="small-10 medium-9 columns">
+                          <div class="product-details" data-equalizer-watch>
+                              <img src="images/badge-best-seller-small.png" class="product-badge">
+                              <a href="/dunlop"><img src="http://beau.local/skin/frontend/polar/default/images/brands/DUNLOP-logo.png">
+                              </a>
+                              <h3 class="product-title"><a href="http://beau.local/catalog/product/view/id/7245/">
+                      SP SPORT 7000</a></h3>
+
+                              <div class="star-rating">
+                                  <i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i> </div>
+
+                              <h4 class="product-price">
+
+
+      <div class="price-box">
+                                                                  <span class="regular-price" id="product-price-7245">
+                                              <span class="price">$560.00</span>                                    </span>
+
+          </div>
+
+  </h4>
+
+                          </div>
+                      </div>
+                  </div>
+              </li>
+
+          </ul>
+      </div>
+    </div>
+</div>
+
+      <!-------------------------- Shopping Cart table -------------------------->
+    <div class="row">
+        <div class="columns">
+            <hr>
+            <h2><strong>Shopping Cart table</strong></h2>
+        </div>
+        <div class="cart columns">
+            <form method="post" action="#">
+                <table class="cart-items">
+                    <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Price</th>
+                          <th>Qty</th>
+                          <th class="hide-for-small-only">Subtotal</th>
+                          <th class="hide-for-small-only"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="small-12 medium-3 columns product-image">
+                                        <a class="product-image" title="ASSURANCE TRIPLEMAX" href="#">
+                                            <img alt="ASSURANCE TRIPLEMAX" src="images/bft-temp-th.png">
+                                        </a>
+                                    </div>
+                                    <div class="small-12 medium-5 end columns product-desc">
+                                        <img src="images/gy-temp-logo.png">
+                                        <p>ASSURANCE TRIPLEMAX</p>
+                                    </div>
+                                    <div class="small-12 show-for-small-only columns subtotal-mobile">
+                                        Subtotal: 
+                                        <span class="cart-price">
+                                            <span class="price">$100.00</span>                                      
+                                        </span>
+                                        <a href="#" title="Remove item" class="btn-remove">
+                                            <i class="right fa fa-fw fa-lg fa-times-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="cart-price">
+                                    <span class="price">$100.00</span>
+                                </span>   
+                            </td>
+                            <td>
+                                <input type="text" maxlength="12" class="input-text qty" title="Qty" value="1" name="cart[3001][qty]">
+                                    <a class="link-edit" title="Edit item parameters" href="#">Update</a>
+                                </td>
+                            <td class="hide-for-small-only">
+                                <span class="cart-price">
+                                    <span class="price">$100.00</span>                                      
+                                </span>
+                            </td>
+                            <td class="hide-for-small-only">
+                                <a class="btn-remove" title="Remove item" href="#">
+                                    <i class="right fa fa-fw fa-lg fa-times-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="small-12 medium-3 columns product-image">
+                                        <a class="product-image" title="ASSURANCE TRIPLEMAX" href="#">
+                                            <img alt="ASSURANCE TRIPLEMAX" src="images/bft-temp-th.png">
+                                        </a>
+                                    </div>
+                                    <div class="small-12 medium-5 end columns product-desc">
+                                        <img src="images/gy-temp-logo.png">
+                                        <p>ASSURANCE TRIPLEMAX</p>
+                                    </div>
+                                    <div class="small-12 show-for-small-only columns subtotal-mobile">
+                                        Subtotal: 
+                                        <span class="cart-price">
+                                            <span class="price">$100.00</span>                                      
+                                        </span>
+                                        <a href="#" title="Remove item" class="btn-remove">
+                                            <i class="right fa fa-fw fa-lg fa-times-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="cart-price">
+                                    <span class="price">$100.00</span>
+                                </span>   
+                            </td>
+                            <td>
+                                <input type="text" maxlength="12" class="input-text qty" title="Qty" value="1" name="cart[3001][qty]">
+                                    <a class="link-edit" title="Edit item parameters" href="#">Update</a>
+                                </td>
+                            <td class="hide-for-small-only">
+                                <span class="cart-price">
+                                    <span class="price">$100.00</span>                                      
+                                </span>
+                            </td>
+                            <td class="hide-for-small-only">
+                                <a class="btn-remove" title="Remove item" href="#">
+                                    <i class="right fa fa-fw fa-lg fa-times-circle"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>                
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recently viewed -->
+<!--
+    <div class="row">
+        <div class="small-12 columns">
+            <div class="col-left sidebar medium-3 small-12 columns">
+                <div class="row">
+                    <div class="small-12 columns">
+                        <div class="widget widget-viewed recently-viewed">
+                            <div class="widget-title">
+                                <strong><span>Recently Viewed</span></strong>
+                            </div>
+                            <div class="widget-products">
+                                <ul class="products-list no-bullet">
+                                    <li class="item">
+                                        <div class="row">
+                                            <div class="small-4 columns">
+                                                <a href="#"><img src="images/bft-temp-th.png"></a>
+                                            </div>
+                                            <div class="small-8 columns">
+                                                <div class="product-shop">
+                                                    <div class="f-fix">
+                                                        <h3 class="product-name"><a href="#">EAGLE F1 ASYMMETRIC</a></h3>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="row">
+                                            <div class="small-4 columns">
+                                                <a href="#"><img src="images/bft-temp-th.png"></a>
+                                            </div>
+                                            <div class="small-8 columns">
+                                                <div class="product-shop">
+                                                    <div class="f-fix">
+                                                        <h3 class="product-name"><a href="#">EAGLE F1 ASYMMETRIC</a></h3>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="row">
+                                            <div class="small-4 columns">
+                                                <a href="#"><img src="images/bft-temp-th.png"></a>
+                                            </div>
+                                            <div class="small-8 columns">
+                                                <div class="product-shop">
+                                                    <div class="f-fix">
+                                                        <h3 class="product-name"><a href="#">EAGLE F1 ASYMMETRIC</a></h3>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="row">
+                                            <div class="small-4 columns">
+                                                <a href="#"><img src="images/bft-temp-th.png"></a>
+                                            </div>
+                                            <div class="small-8 columns">
+                                                <div class="product-shop">
+                                                    <div class="f-fix">
+                                                        <h3 class="product-name"><a href="#">EAGLE F1 ASYMMETRIC</a></h3>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
+    <!-------------------------- Left hand side nav -------------------------->
+    <div class="row">
+        <div class="columns">
+            <div class="my-account block">  
+                <hr>
+                <h2><strong>Left hand side nav</strong></h2>
+                <ul class="no-bullet side-nav">
+                    <li class="current"><strong>Account Dashboard</strong></li>
+                    <li><a href="#">Account Information</a></li>
+                    <li><a href="#">Address Book</a></li>
+                    <li><a href="#">My Orders</a></li>
+                    <li class="last"><a href="#">My Product Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="large-12 medium-12 columns">
+
+
+            <hr />
+            <h5>Type</h5>
+
+            <h1>h1. This is a very large header.</h1>
+            <h2>h2. This is a large header.</h2>
+            <h3>h3. This is a medium header.</h3>
+            <h4>h4. This is a moderate header.</h4>
+            <h5>h5. This is a small header.</h5>
+            <h6>h6. This is a tiny header.</h6>
+
+            <br>
+
+            <h1 class="subheader">h1. subheader</h1>
+            <h2 class="subheader">h2. subheader</h2>
+            <h3 class="subheader">h3. subheader</h3>
+            <h4 class="subheader">h4. subheader</h4>
+            <h5 class="subheader">h5. subheader</h5>
+            <h6 class="subheader">h6. subheader</h6>
+
+            <h1 class="page-title">h1. Page title Header</h1>
+
+            <hr>
+
+            <h5>Un-ordered lists are great for making quick outlines bulleted.</h5>
+
+            <ul class="disc">
+                <li>List item with a much longer description or more content.</li>
+                <li>List item</li>
+                <li>List item
+                    <ul>
+                        <li>Nested List Item</li>
+                        <li>Nested List Item</li>
+                        <li>Nested List Item</li>
+                    </ul>
+                </li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+            </ul>
+
+            <ul class="no-bullet">
+                <li>List item with a much longer description or more content.</li>
+                <li>List item</li>
+                <li>List item
+                    <ul>
+                        <li>Nested List Item</li>
+                        <li>Nested List Item</li>
+                        <li>Nested List Item</li>
+                    </ul>
+                </li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+            </ul>
+            <ol>
+                <li>List Item 1</li>
+                <li>List Item 2</li>
+                <li>List Item 3</li>
+            </ol>
+
+            <hr />
+			<a name="forms"></a>
+            <h5>Forms</h5>
+			
+            <form data-enable-shim="true">
+				
+				<!-- header search form -->
+                <div class="row">
+                    <div class="small-12 columns">
+                        <div class="form-search">
+							<input type="text" placeholder="Search here..." autocomplete="off" id="search" name="q" value="" class="input-text" maxlength="128">
+							<input type='hidden' name='order' value='relevance'>
+							<input type='hidden' name='dir' value='desc'>
+							<a href="#" class="close-btn" title="Close Search"><i class="fa js-toggle-click fa-times fa-fw" aria-hidden="true"><span class="show-for-sr">Close Search</span></i></a>
+							<div class="search-autocomplete hide" id="search_autocomplete"></div>
+						</div>
+                    </div>
+                </div>
+				
+				<!-- header store local -->
+                <div class="row">
+                    <div class="small-12 columns">
+                        <div class="store-locator collapse-field">
+                            <input type="text" autocomplete="off" id="quickLocateAddress" name="address" class="field" placeholder="Suburb/Postcode">
+                            <input type="submit" class="button radius tiny" value="Go">
+                        </div>
+                    </div>
+                </div>
+				
+				<!-- basic field (Suburb/Postcode) -->
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label for="quickLocateAddress2">Label</label>
+						<input type="text" autocomplete="off" id="quickLocateAddress2" name="address" class="field" placeholder="Suburb/Postcode">
+                    </div>
+                </div>
+				
+				<!-- cart forms -->
+                <div class="row">
+                    <div class="medium-5 large-4 small-12 columns">
+						
+						<!-- cart forms | Select store -->
+                        <div class="form-field set-store">
+                            <div class="row collapse">
+                                <div class="small-12 columns">
+                                    <label for="cartaddress">Select store to fit your items</label>
+                                </div>
+                                <div class="small-9 columns">
+									<input type="text" id='cartaddress' name='cartaddress' placeholder="Enter suburb or postcode" />
+									<small class="hide cartaddress-error">Please specify the store location</small>
+									<i id="storesLoading" class="fa fa-refresh fa-spin"></i>
+									<input type="hidden" id='cartaddress-id' name='cartaddress-id' />
+                                </div>
+                                <div class="small-3 columns">
+                                    <input id="setStoreButton" onclick='savesession()' type="submit" class="button postfix" value="Set store" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+						
+						<!-- cart forms | date-->
+                        <div class="form-field date-calendar">
+                            <div class="row collapse">
+                              <form data-enable-shim="true">
+                                  <label for="sessiondate">Choose a date to fit your items</label>
+                                  <div class="small-10 columns">
+                                      <input id="sessiondate" onchange='savesessiondate()'  type="text" name="date" class="fit_date dp-shopping-cardxxxxx" placeholder="Choose a date" readonly />
+                                      <small class="hide sessiondate-error">Please specify the date to pickup</small>
+                                      <div id="savesessiondate" class="hide"><i class="fa fa-refresh fa-spin"></i> Saving date..</div>
+                                  </div>
+                                  <div class="small-2 columns">
+                                      <a class="button postfix select_date"><i class="fa fa-lg fa-fw fa-calendar"></i></a>
+                                  </div>
+                              </form>
+                            </div>
+                        </div>
+						
+						<div class="row">
+							<div class="columns">
+								
+							</div>
+						</div>
+						
+                    </div>
+                </div>
+				
+				<!-- select -->
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="select-example1">Select Box</label>
+						<select id="select-example1">
+							<option value="husker">Huskper</option>
+							<option value="starbuck">Starbuck</option>
+							<option value="hotdog">Hot Dog</option>
+							<option value="apollo">Apollo</option>
+						</select>
+                    </div>
+                </div>
+              
+              
+				<!-- Textarea -->
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>Textarea Label</label>
+                        <textarea rows="10"></textarea>
+                    </div>
+                </div>
+              
+
+				<!-- errors -->
+                <div class="row">
+                    <div class="columns error">
+                        <label for="error-example1">Error</label>
+                        <input type="text" id="error-example1" />
+                        <small class="error">Invalid entry</small>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="columns error">
+                        <label for="error-example2">Error</label>
+                        <textarea id="error-example2" class="error" placeholder="Message..."></textarea>
+                        <small class="error">Invalid entry</small>
+                    </div>
+                </div>
+
+            </form>
+
+            <hr />
+			
+			<a name="buttons"></a>
+            <h5>Buttons</h5>
+			
+			<p>
+				<a href="#" class="button radius" title="Find out more">Find out more</a>
+            </p>
+			
+			<p>
+				<a href="#" class="button radius small" title="Compare">Compare</a>
+			</p>
+			
+			<p>
+				<input type="submit" value="Disabled" disabled="disabled" class="button radius">
+			</p>
+           
+		   <p>
+				<input type="submit" value="Disabled" disabled="disabled" class="button small radius">
+			</p>
+           
+		   <p>
+				<a href="tel:132381" class="button radius small secondary" title="132381"><i class="fa fa-phone"></i> 132381</a>
+			</p>
+           
+		   <p>
+				<a class="close-btn" href="#" title="Clsoe"><i class="fa fa-fw fa-lg fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>
+			</p>
+			
+			<p>
+				<a href="#" class="button radius" title="Print a copy of this request"><i class="fa fa-print" aria-hidden="true"><span class="show-for-sr">Print</span></i> Print a copy of this request</a>
+			</p>
+			
+			<a name="tables"></a>
+            <h5>Tables</h5>
+			
+            <table class="specification-table">
+				<tbody>
+					<tr>
+						<th scope="row">Section width</th>
+						<td class="width">923672983647 Km</td>
+					</tr>
+					<tr>
+						<th scope="row">Aspect Ratio</th>
+						<td class="aspect-ratio">50</td>
+					</tr>
+					<tr>
+						<th scope="row">Rim</th>
+						<td class="rim">15</td>
+					</tr>
+					<tr>
+						<th scope="row">Position (wheels)x</th>
+						<td class="position-wheels"></td>
+					</tr>
+					<tr>
+						<th scope="row">Measuring rim</th>
+						<td class="measuring-rim">23424</td>
+					</tr>
+					<tr>
+						<th scope="row">Tread depth (mm)</th>
+						<td class="tread-depth"></td>
+					</tr>
+					<tr>
+						<th scope="row">Overall width</th>
+						<td class="overall-width"></td>
+					</tr>
+					<tr>
+						<th scope="row">Speed rating</th>
+						<td class="speed-rating">Fast</td>
+					</tr>
+					<tr>
+						<th scope="row">Load index</th>
+						<td class="load-index">1</td>
+					</tr>
+				</tbody>
+			</table>
+
+            <hr />
+			
+			<a name="producttags"></a>
+            <h5>Product Tags</h5>
+			
+			<div class="product-detail-page">
+				<p>
+					<img class="product-badge" src="images/badge-best-seller-big.png" alt="Best Seller">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-on-sale-big.png" alt="On Sale">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-best-seller-small.png" alt="Best Seller">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-on-sale-small.png" alt="On Sale">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-coming-soon-small.png" alt="Comming Soon">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-new-arrival-big.png" alt="New Arrival">
+				</p>
+				<p>
+					<img class="product-badge" src="images/badge-new-arrival-small.png" alt="New Arrival">
+				</p>
+			</div>
+			
+            <hr />
+			
+			<a name="feature-rating"></a>
+            <h5>Feature Rating</h5>
+			
+			<ul class="no-bullet product-features small-block-grid-3 large-block-grid-3" data-equalizer >
+				<li>
+					<i class="fa fa-2x icon-bftdurability" aria-hidden="true"><span class="show-for-sr">Durability</span></i>
+					<p data-equalizer-watch>Durability</p>
+					<div class="feature-rating">             
+						<i class="fa fa-check-circle empty" aria-hidden="true"><span class="show-for-sr">0 out of 3</span></i>
+						<i class="fa fa-check-circle empty" aria-hidden="true"><span class="show-for-sr">0 out of 3</span></i>
+						<i class="fa fa-check-circle empty" aria-hidden="true"><span class="show-for-sr">0 out of 3/</span></i>                
+					</div>
+				</li>				
+				<li>
+					<i class="fa fa-2x icon-bftmileage" aria-hidden="true"><span class="show-for-sr">Mileage</span></i>
+					<p data-equalizer-watch>Mileage</p>
+					<div class="feature-rating">                    
+						<i class="fa fa-check-circle full" aria-hidden="true"><span class="show-for-sr">1 out of 3</span></i>
+						<i class="fa fa-check-circle empty" aria-hidden="true"><span class="show-for-sr">1 out of 3</span></i>
+						<i class="fa fa-check-circle empty" aria-hidden="true"><span class="show-for-sr">1 out of 3/</span></i>    
+					</div>                       
+				</li>				
+				<li>
+					<i class="fa fa-2x icon-bftperformance" aria-hidden="true"><span class="show-for-sr">Performance</span></i>
+					<p data-equalizer-watch>Performance</p>
+					<div class="feature-rating">                    
+						<i class="fa fa-check-circle full" aria-hidden="true"><span class="show-for-sr">3 out of 3</span></i>
+						<i class="fa fa-check-circle full" aria-hidden="true"><span class="show-for-sr">3 out of 3</span></i>
+						<i class="fa fa-check-circle full" aria-hidden="true"><span class="show-for-sr">3 out of 3</span></i>    
+					</div>                       
+				</li> 
+              </ul>
+
+            <hr />
+			
+			<a name="reviews"></a>
+			<h2>Customer Reviews / Review Form</h2>
+			
+			<div class="review-component">
+				
+				<a name="customer-reviews"></a>
+				<h3 class="section-title">Customer Reviews</h3>
+				
+				<div class="review-item">
+					<h5>Best</h5>
+					<div class="star-rating">
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>  
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+					</div>
+					<p>Best tyre so far!</p>
+				</div>
+				
+				<div class="review-item">
+					<h5>V Good!</h5>
+					<div class="star-rating">
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">4 out of 5</span></i>  
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">4 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">4 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">4 out of 5</span></i>
+						<i class="fa fw fa-star empty" aria-hidden="true"><span class="show-for-sr">4 out of 5</span></i>
+					</div>
+					<p>Very Good!</p>
+				</div>
+				
+				<div class="review-item">
+					<h5>Didn't like the colour</h5>
+					<div class="star-rating">
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">2 out of 5</span></i>  
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">2 out of 5</span></i>
+						<i class="fa fw fa-star empty" aria-hidden="true"><span class="show-for-sr">2 out of 5</span></i>
+						<i class="fa fw fa-star empty" aria-hidden="true"><span class="show-for-sr">2 out of 5</span></i>
+						<i class="fa fw fa-star empty" aria-hidden="true"><span class="show-for-sr">2 out of 5</span></i>
+					</div>
+					<p>Why don't they have other colours to match my car?</p>
+				</div>
+				
+				<div class="review-item">
+					<h5>Wheels on the bus</h5>
+					<div class="star-rating">
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>  
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">5 out of 5</span></i>
+						<i class="fa fw fa-star full" aria-hidden="true"><span class="show-for-sr">6 out of 5</span></i>
+					</div>
+					<p>Product went round and round. 5 out of 5.</p>
+				</div>
+				
+				<div class="review-component">
+
+					<!-- review form -->
+					<div class="review-form">
+						<h3 class="section-title">
+							<a name="add-review"></a>
+							Do you own this product?
+							<span class="sub">Let us know what you think!</span>
+						</h3>
+
+						<div class="review-body">
+							<form novalidate="novalidate" data-abide="" action="/review/product/post/id/62/" method="post" id="review-form">
+				
+								<input name="form_key" value="QtfwEYHBriSwaJI9" type="hidden">
+				
+								<label>How do you rate this product?</label>
+
+								<div class="rating">
+									<input name="ratings[0]" value="0" id="star-0" class="hide" title="Rate 0" type="radio"><label for="star-0" class="hide"></label>
+									<input name="ratings[1]" value="1" id="star-1" title="Rate 1" required="" type="radio"><label for="star-1"><i class="fa fa-star"></i></label>
+									<input name="ratings[1]" value="2" id="star-2" title="Rate 2" required="" type="radio"><label for="star-2"><i class="fa fa-star"></i></label>
+									<input name="ratings[1]" value="3" id="star-3" title="Rate 3" required="" type="radio"><label for="star-3"><i class="fa fa-star"></i></label>
+									<input name="ratings[1]" value="4" id="star-4" title="Rate 4" required="" type="radio"><label for="star-4"><i class="fa fa-star"></i></label>
+									<input name="ratings[1]" value="5" id="star-5" title="Rate 5" checked="" required="" type="radio"><label for="star-5"><i class="fa fa-star"></i></label>
+								</div>
+
+								<div class="row">
+								  <div class="columns large-12">
+									<label id="summary_field">What is the title of your review?</label>
+									<input placeholder="Review title" name="title" id="summary_field" class="input-text required-entry" value="" required="" type="text">
+									<small class="error">This is a required field</small>
+								  </div>
+								</div>
+								<div class="row">
+								  <div class="columns large-12">
+									<label for="review_field">Write a short review:</label>
+									<textarea name="detail" rows="6" placeholder="Your review" id="review_field" class="required-entry" required=""></textarea>
+									<small class="error">This is a required field</small> 
+								  </div>
+								</div>
+								<div class="row">
+								  <div class="columns large-12">
+									<label for="nickname_field">What's your name?</label>
+									<input placeholder="Your name" name="nickname" id="nickname_field" class="input-text required-entry" value="" required="" type="text">
+									<small class="error">This is a required field</small> 
+								  </div>
+								</div>
+								<div class="row">
+									<div class="columns">
+										<div id="recaptcha-wrapper" data-captcha-sitekey="6LeVCQoTAAAAAJj4rDx09U9bfM8sSPTDgBnrfHcr" data-captcha-theme="light">
+											(recaptcha goes here)
+										</div>
+										<em>This helps us know your review is not spam</em>
+									</div>
+								</div>
+								<button type="submit" title="Submit Review" class="button radius small" id="btn-submit">Submit Review</button>
+							</form>
+						</div>
+
+					</div>
+
+				</div>
+			
+			<hr />  
+			
+			
+			<a name="productmodal"></a>
+			<h2>Product Form Modal</h2>
+			
+			<input class="button radius product-modal-open" data-reveal-id="bookFittingModal" value="Book A Fitting" type="button">
+			
+			<div tabindex="0" id="bookFittingModal" class="reveal-modal request-price-modal product-form-modal open" data-page-view-open="" data-page-view-submitted="" data-reveal aria-labelledby="modalTitle" aria-hidden="false" role="dialog">
+				<a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+				
+				<div class="popup-form">
+				
+					<h2 id="modalTitle" class="modalTitle">Save Time. Book Online.</h2>
+					
+					<p>
+						Simply fill in the fields below and one of our team will contact your shortly with your confirmation details.
+						Alternatively, book via phone on 13 23 81.
+					</p>
+					
+					<form novalidate="novalidate" action="/requestprice/index/" method="post" data-abide="ajax">
+						
+						<div class="field">
+							<label for="booking-store">Select store to fit your items</label>
+							<input autocomplete="off" placeholder="Enter suburb or postcode" name="store" id="booking-store" title="Enter suburb or postcode" class="store-finder ui-autocomplete-input" value="" type="text">
+							<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+							<input name="cartaddress-id" class="store-finder-id hidden-input" required pattern="number" type="text">
+							<small class="error">You must select a store.</small>
+						</div>
+						<div class="field">
+							<label for="booking-data">Choose a date to fit your items</label>
+							<input placeholder="Choose a date" name="data" id="booking-data" title="Choose a date" class="fit-date hasDatepicker" data-min-date="4" value="" required pattern="^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$" type="text">
+							<small class="error">You must select a date.</small>
+						</div>
+						
+						<hr>
+						
+						<div class="field">
+							<input placeholder="First Name" name="fname" title="First Name" class="input-text required-entry" value="" required pattern="[a-zA-Z]+" type="text">
+							<small class="error">First name is required.</small>
+						</div>
+						<div class="field">
+							<input placeholder="Last Name" name="lname" title="Last Name" class="input-text required-entry" value="" required pattern="[a-zA-Z]+" type="text">
+							<small class="error">Last name is required.</small>
+						</div>
+						<div class="field">
+							<input placeholder="Email" name="email" title="Email" class="input-text required-entry" value="" required type="email">
+							<small class="error">Email is required.</small>
+						</div>
+						<div class="field">
+							<input placeholder="Phone number" name="phone" title="Phone number" class="input-text required-entry" value="" required pattern="^[0-9]+$" type="tel">
+							<small class="error">Please use numbers only in this field.  Please avoid spaces or other characters such as dots or commas.</small>
+						</div>
+						<div class="field checkbox-field">
+							<input name="subcribe" id="subcribe-book" value="true" type="checkbox"><label for="subcribe-book">Please subscribe me to the Beaurepaires newsletter. <a href="/terms-of-use-disclaimer" target="_blank">Terms &amp; Conditions</a></label>
+						</div>
+						<div class="field">
+							<input id="selectedProductId-book" name="requestedProductId" type="hidden">
+							<input id="selectedSizeValue-book" name="requestedSize" value="225/65R17" type="hidden">
+							<input id="selectedQuantity-book" name="requestedQuantity" value="1" type="hidden">
+							<input name="productId" value="62" type="hidden">
+							<input class="button radius submit-form" value="Request booking" type="submit">
+						</div>
+						
+					</form>
+				
+				</div>
+				<div class="popup-loading">
+					<i class="fa fa-refresh fa-spin fa-2x"></i>
+					<p>Processing request...</p>
+				</div>
+				<div class="popup-result">
+					<span class="logo" title="Beaurepaires Logo"></span>
+					
+					<h2>Thank you for booking with us</h2>
+					<p>
+						One of our customer service representatives will be in touch with you shortly to confirm your booking.
+					</p>
+					<p>
+						Regards,<br>
+						The Beaurepaires Team
+					</p>
+					<ul class="inline-list">
+						<li><a href="/tyres" class="button radius">Continue Browsing</a></li>
+						<li><a href="#" class="button radius close-modal-button">Close</a></li>
+					</ul>
+				</div>
+				<div class="popup-error">
+					<h2>There was a error proccessing your request</h2>
+					<p>
+						Message: <span class="error-msg"></span>
+					</p>
+				</div>
+		</div>
+			
+			<hr>
+			
+			<a name="cart"></a>
+            <h2>Cart Component</h2>
+			
+            <!-- Cart Component -->
+            <div class="cart-component">
+                <div class="row">
+                    <div class="columns small-12">
+                        <div class="cart-wrapper">
+                            <div class="upper-cart">
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                        <div class="row">
+                                            <div class="columns small-8">
+                                                <label class="select-collapse">Select size: *
+                                                    <select class="size">
+                                                        <option value="husker">225/50R17</option>
+                                                        <option value="starbuck">225/50R17</option>
+                                                        <option value="hotdog">225/50R17</option>
+                                                        <option value="apollo">225/50R17</option>
+                                                    </select>
+                                                </label>
+                                                <a href="#">
+                                                    <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!">
+                        <i class="fa fa-lg fa-info-circle"></i>
+                      </span>
+                                                </a>
+                                            </div>
+                                            <div class="columns small-4">
+                                                <label class="quantity">Quantity: *
+                                                    <select>
+                                                        <option value="husker">1</option>
+                                                        <option value="starbuck">2</option>
+                                                        <option value="hotdog">3</option>
+                                                        <option value="apollo">4</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mid-cart">
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                        <div class="row">
+                                            <div class="columns small-5">
+                                                <label>RRP:
+                                                    <div class="rrp-price line-through">$348.00/ea</div>
+                                                </label>
+                                            </div>
+                                            <div class="columns small-7">
+                                                <label>Online Price:
+                                                    <div class="online-price">$229.<sup>00</sup><sub>/ea</sub></div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom-cart">
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                        <ul class="pricing no-bullet">
+                                            <li>Fitting <span class="cart-price right">Free</span>
+                                            </li>
+                                            <li>Wheel Balancing <span class="cart-price right">Free</span>
+                                            </li>
+                                            <li>Tyre Disposal/Recycling <span class="cart-price right">Free</span>
+                                            </li>
+                                        </ul>
+                                        <span>Recommended Extras</span>
+                                        <ul class="pricing no-bullet">
+                                            <li>
+                                                <input id="checkbox1" type="checkbox">
+                                                <label for="checkbox1">Wheel Alignment</label>
+                                                <a href="#">
+                                                    <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!">
+                        <i class="fa fa-lg fa-info-circle"></i>
+                      </span>
+                                                </a>
+                                                <span class="right">$39.95</span>
+                                            </li>
+                                            <li>
+                                                <input id="checkbox2" type="checkbox">
+                                                <label for="checkbox2">Suspension</label>
+                                                <a href="#">
+                                                    <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!">
+                        <i class="fa fa-lg fa-info-circle"></i>
+                      </span>
+                                                </a>
+                                                <span class="right">$39.95</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <input type="submit" class="button radius right" value="Add to Cart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="small-12 columns">
+
+
+            <hr />
+
+            <!-- Breadcrumbs -->
+			<a name="breadcrums"></a>
+            <h5>Breadcrums</h5>
+
+            <div class="breadcrumbs-wrapper">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <ul class="breadcrumbs">
+                           <li><a href="#" title="Go to Home Page">Home</a></li>
+                           <li><a href="#" title="">Tyres</a></li>
+                           <li class="current">Product</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <h5>Accordion</h5>
+            <ul class="accordion" data-accordion>
+                <li class="accordion-navigation active">
+                    <a href="#panel1a">Accordion 1</a>
+                    <div id="panel1a" class="content active">
+                        <ul class="accordion" data-accordion>
+                            <li class="accordion-navigation active">
+                                <a href="#panel1b">Sub Accordion 1</a>
+                                <div id="panel1b" class="content active">
+                                    <ul class="small-block-grid-2 large-block-grid-3 ">
+                                        <li><img src="http://placehold.it/350x150">
+                                        </li>
+                                        <li><img src="http://placehold.it/350x150">
+                                        </li>
+                                        <li><img src="http://placehold.it/350x150">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="accordion-navigation">
+                                <a href="#panel2b">Sub Accordion 2</a>
+                                <div id="panel2b" class="content">
+                                    <div class="row">
+                                        <div class="small-6 columns">
+                                            <p>Panel 2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                        <div class="small-6 columns">
+                                            <img src="http://placehold.it/350x150">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#panel2a">Accordion 2</a>
+                    <div id="panel2a" class="content">
+                        <div class="row">
+                            <div class="small-6 columns">
+                                <p>Panel 2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="small-6 columns">
+                                <img src="http://placehold.it/350x150">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#panel3a">Accordion 3</a>
+                    <div id="panel3a" class="content">
+                        Panel 3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </li>
+                </ul>
+
+                <hr />
+
+                <h5>Accordion - Magento</h5>
+                <dl id="narrow-by-list">
+                  
+                  <dt class="filterdt active">
+				     <i class="fa fa-fw fa-caret-down"></i> Driving Style					
+                  </dt>
+                  <dd class="filtercont">
+                    <ul class="no-bullet">
+                        <li>
+                          <a href="#" class="durability">Durability (1)</a> 
+                        </li>
+                        <li>
+                          <a href="#" class="superior">Superior Braking & Grip (87)</a> 
+                        </li>
+                        <li>
+                          <a href="#" class="sport">Sports Performance & Handling (11)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="quiet">Quiet and Confort (25)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="fuel">Fuel Saver (34)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="mileage">Mileage (78)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="handling">Handling (45)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="grip">Grip (65)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="off">Off-Road (1)</a> 
+                        </li>
+                        <li>
+                          <a href="#" class="value">Value (38)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="slow">Slow water (38)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="even">Even Wear (38)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="performance">Performance (38)</a>
+                        </li>
+                        <li>
+                          <a href="#" class="cycling">Cycling Ability (38)</a>
+                        </li>
+                    </ul>                    
+                  </dd>
+                          
+                  <dt class="filterdt">
+				     <i class="fa fa-fw fa-caret-down"></i> Other filters					
+                  </dt>
+                  <dd class="filtercont" style="display: none;">
+                    <ul class="no-bullet">
+                        <li>
+                          <a href="#">Another filter (1)</a> 
+                        </li>
+                        <li>
+                          <a href="#">Another filter (87)</a> 
+                        </li>
+                    </ul>                    
+                  </dd>
+                  
+                </dl>
+
+                <hr />
+
+                <span data-tooltip aria-haspopup="true" class="has-tip" title="Tooltips are awesome, you should totally use them!"><i class="fa fa-lg fa-info-circle"></i></span>
+
+                <h5>Currently Shopping</h5>
+                <div class="block block-layered-nav">
+                    <div class="block-content">
+                        <div class="currently">
+                            <ul class="no-bullet">
+                                <li>
+                                    <span>Customer Segment:</span><span>Consumer</span>
+                                    <a href="http://localhost:1234/bft-tyres/beaurepaires/tyres.html?brand=1082"><i class="right fa fa-fw fa-lg fa-times-circle"></i><br style="clear:both;"></a>
+                                </li>
+                                <li>
+                                    <span>Brand:</span><span>GOODYEAR</span>
+                                    <a href="http://localhost:1234/bft-tyres/beaurepaires/tyres.html?customer_segment=250"><i class="right fa fa-fw fa-lg fa-times-circle"></i><br style="clear:both;"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="action"><a href="http://localhost:1234/bft-tyres/beaurepaires/tyres.html">Clear All</a></div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row show-for-large-up">
+                   <div class="small-12 columns">
+                      <div class="comp-compare-products">
+                         <h3>Compare Products(2)</h3>
+                            <ul class="no-bullet">
+                                <li>
+                                   <input type="hidden" value="6891" class="compare-item-id">
+                                   EAGLE F1 ASYMMETRIC <a onclick="return confirm('Are you sure you would like to remove this item from the compare products?');" class="btn-remove" title="Remove This Item" href="http://localhost:1234/bft-tyres/beaurepaires/catalog/product_compare/remove/product/6891/uenc/aHR0cDovL2xvY2FsaG9zdDoxMjM0L2JmdC10eXJlcy9iZWF1cmVwYWlyZXMvdHlyZXMuaHRtbD9icmFuZD0xMDgyJmN1c3RvbWVyX3NlZ21lbnQ9MjUw/"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>
+                                </li>
+                                <li>
+                                   <input type="hidden" value="7177" class="compare-item-id">
+                                   GRANDTREK ST30 <a onclick="return confirm('Are you sure you would like to remove this item from the compare products?');" class="btn-remove" title="Remove This Item" href="http://localhost:1234/bft-tyres/beaurepaires/catalog/product_compare/remove/product/7177/uenc/aHR0cDovL2xvY2FsaG9zdDoxMjM0L2JmdC10eXJlcy9iZWF1cmVwYWlyZXMvdHlyZXMuaHRtbD9icmFuZD0xMDgyJmN1c3RvbWVyX3NlZ21lbnQ9MjUw/"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>
+                                </li>
+                            </ul>
+    <div class="row">
+        <div class="small-5 columns">
+            <div class="action">
+           <a onclick="return confirm('Are you sure you would like to remove all products from your comparison?');" href="http://localhost:1234/bft-tyres/beaurepaires/catalog/product_compare/clear/uenc/aHR0cDovL2xvY2FsaG9zdDoxMjM0L2JmdC10eXJlcy9iZWF1cmVwYWlyZXMvdHlyZXMuaHRtbD9icmFuZD0xMDgyJmN1c3RvbWVyX3NlZ21lbnQ9MjUw/">Clear All</a>
+           </div>
+        </div>
+        <div class="small-7 columns text-right">
+           <input type="button" value="Compare" onclick="popWin('http://localhost:1234/bft-tyres/beaurepaires/catalog/product_compare/index/items/6891,7177/uenc/aHR0cDovL2xvY2FsaG9zdDoxMjM0L2JmdC10eXJlcy9iZWF1cmVwYWlyZXMvdHlyZXMuaHRtbD9icmFuZD0xMDgyJmN1c3RvbWVyX3NlZ21lbnQ9MjUw/','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')" class="small radius button">
+        </div>
+    </div>
+    </div>
+                       </div>
+                    </div>
+
+                    <h5>Tabs in panel - Home</h5>
+
+                    <div class="quick-finder relative">
+                       <div class="row">
+                          <div class="large-4 columns">
+                             <ul class="tabs" data-tab>
+                                <li class="tab-title active"><a href="#find-tyres"><i class="fa-lg icon-bfttyre"></i> Find Tyres</a></li>
+                                <li class="tab-title"><a href="#find-wheels"><i class="fa-lg icon-bftwheel"></i> Find Wheels</a></li>
+                                <!--<li class="tab-title"><a href="#find-batteries">Find Batteries</a></li>-->
+                             </ul>
+                             <div class="panel">
+                                <div class="tabs-content">
+                                   <!-- Find Tyres -->
+                                   <div class="content active" id="find-tyres">
+                                      <ul class="accordion" data-accordion>
+                                         <li class="accordion-navigation active">
+                                            <a href="#vehicle-type">Vehicle Type</a>
+                                            <div id="vehicle-type" class="content active">
+                                               <!-- Vehicle Type -->
+                                               <form method="post" action="searchresult/index/index/type/tyres/section/vehicle">
+                                                  <input type="hidden" name="type" value="tyres">
+                                                  <input type="hidden" name="section" value="vehicles">
+                                                  <input type="hidden" name="category" value="41">
+                                                  <div class="row">
+                                                     <div class="small-12 columns">
+                                                        <select name="make-tyres" id="make-tyres">
+                                                           <option value="">Select Make</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="year-tyres" id="year-tyres">
+                                                           <option value="">Select Year</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="model-tyres" id="model-tyres">
+                                                           <option value="">Select Model</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="series-tyres" id="series-tyres">
+                                                           <option value="">Select Series</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                  <div class="row">
+                                                     <div class="large-12 columns">
+                                                        <input type="submit" name="tyre-vehicle-btn" value="Search" class="radius button expand" />
+                                                     </div>
+                                                  </div>
+                                               </form>
+                                            </div>
+                                         </li>
+                                         <li class="accordion-navigation">
+                                            <a href="#tyre-size">Tyre Size</a>
+                                            <div id="tyre-size" class="content">
+                                               <!-- Tyre Size -->
+                                                <form method="post" action="searchresult/index/index/type/tyres/section/size#find-wheels">
+                                                  <input type="hidden" name="type" value="tyres">
+                                                  <input type="hidden" name="section" value="size">
+                                                  <input type="hidden" name="category" value="41">
+                                                  <div class="row">
+                                                     <div class="small-12 columns">
+                                                        <select name="width-tyres" id="width-tyres">
+                                                           <option value="">Loading...</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="profile-tyres" id="profile-tyres">
+                                                           <option value="">Profile</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="diameter-tyres" id="diameter-tyres">
+                                                           <option value="">Rim Diameter</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                  <div class="row">
+                                                     <div class="large-12 columns">
+                                                        <input type="submit" name="tyre-size-btn" value="Search" class="radius button expand" />
+                                                     </div>
+                                                  </div>
+                                               </form>
+                                            </div>
+                                         </li>
+                                         <li class="accordion-navigation">
+                                            <a href="#tyre-brand">Tyre Brand</a>
+                                            <div id="tyre-brand" class="content">
+                                               <form method="post" action="searchresult/index/index/type/tyres/section/brand">
+                                                  <input type="hidden" name="type" value="tyres">
+                                                  <input type="hidden" name="section" value="brand">
+                                                  <input type="hidden" name="category" value="41">
+                                                   <input type="hidden" id="brand" name="brand" value="">
+
+                                                  <div class="row">
+                                                     <div class="small-12 columns">
+                                                        <select name="brand-tyres" id="brand-tyres">
+                                                           <option value="">Brand</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                  <div class="row">
+                                                     <div class="large-12 columns">
+                                                        <input type="submit" value="Search" class="radius button expand" />
+                                                     </div>
+                                                  </div>
+                                               </form>
+                                            </div>
+                                         </li>
+                                      </ul>
+                                   </div>
+                                   <!-- Find Wheels -->
+                                   <div class="content" id="find-wheels">
+                                      <ul class="accordion" data-accordion>
+                                         <li class="accordion-navigation active">
+                                            <a href="#vehicle-type-2">Vehicle Type</a>
+                                            <div id="vehicle-type-2" class="content active">
+                                               <!-- Vehicle Type -->
+                                               <form action="">
+                                                  <div class="row">
+                                                     <div class="small-12 columns">
+                                                        <select name="make-wheels" id="make-wheels">
+                                                           <option value="">Select Make</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="year-wheels" id="year-wheels">
+                                                           <option value="">Select Year</option>
+                                                        </select>
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="model-wheels" id="model-wheels">
+                                                           <option value="">Select Model</option>
+                                                        </select>                                    
+                                                     </div>
+                                                     <div class="small-12 columns">
+                                                        <select name="size-wheels" id="size-wheels">
+                                                           <option value="">All Sizes</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                  <div class="row">
+                                                     <div class="large-12 columns">
+                                                        <input type="submit" value="Search" class="radius button expand" />
+                                                     </div>
+                                                  </div>
+                                               </form>
+                                            </div>
+                                         </li>
+                                         <li class="accordion-navigation">
+                                            <a href="#tyre-brand-2">Wheel Brand</a>
+                                            <div id="tyre-brand-2" class="content">
+                                               <!-- Find brand -->
+                                               <form action="">
+                                                  <div class="row">
+                                                     <div class="small-12 columns">
+                                                        <select id="brand-wheels" name="brand-wheels">
+                                                           <option value="Suzuki">Select Brand</option>
+                                                        </select>
+                                                     </div>
+                                                  </div>
+                                                  <div class="row">
+                                                     <div class="large-12 columns">
+                                                        <input type="submit" value="Search" class="radius button expand" />
+                                                     </div>
+                                                  </div>
+                                               </form>
+                                            </div>
+                                         </li>
+                                      </ul>
+                                   </div>                                                                                                     
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+
+
+                    <hr />
+
+                    <h5>Tabs in panel - Listing</h5>
+
+                    <div class="quick-finder listing relative">
+                      <div class="row">
+                        <div class="large-12 columns">
+                           <ul class="tabs" data-tab="">
+                              <li class="tab-title "><a href="#fond-tyres"><i class="fa fa-car"></i> Vehicle Type</a></li>
+                              <li class="tab-title active"><a href="#find-wheels"><i class="fa fa-expand"></i> Tyre Size</a></li>    
+                              
+                           </ul>
+                           <div class="panel listing">
+                              <div class="tabs-content">
+                                 <div class="content active" id="fond-tyres">
+                                    <!-- Find Tyres -->
+                                    <form method="post" action="/searchresult/index/index/type/tyres/section/vehicle">
+                                       <input type="hidden" name="type" value="tyres">
+                                       <input type="hidden" name="section" value="vehicles">
+                                       <input type="hidden" name="category" value="41">
+                                       <div class="row collapse">
+                                          <div class="large-3 medium-3 columns form-wrapper">
+                                             <select name="make-tyres">
+                                                <option value="">Select Make</option>
+                                             </select>
+                                          </div>
+                                          <div class="large-3 medium-3 columns form-wrapper">
+                                             <select name="year-tyres">
+                                                <option value="">Select Year</option>
+                                             </select>
+                                          </div>
+                                          <div class="large-3 medium-3 columns form-wrapper">
+                                             <select name="model-tyres">
+                                                <option value="">Select Model</option>
+                                             </select>
+                                          </div>
+                                          <div class="large-3 medium-3 columns form-wrapper">
+                                             <select name="series-tyres">
+                                                <option value="">Select Series</option>
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="small-12 columns">
+                                             <input type="submit" value="Search" class="radius button expand">
+                                          </div>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+          
+                    <hr />
+                    <h5>Mini Cart</h5>
+          
+                    <div class="large-4 medium-5 small-12 columns">
+                      <img class="product-badge show-for-small-only" src="http://beau.local/media/theme/">            <!-- Image Gallery -->
+                      <div class="main-photo-wrapper">
+                          <!-- placeholder -->
+                          <img class="magnify-source expand" src="images/tyre-1.png" alt="GRANDTREK PT2">            
+                      </div>
+                      <!-- Product slider -->
+                      <div class="row">
+                          <div class="detail-product-slider">
+                            <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="images/tyre-2.png" alt="">
+                            </div>                                                                                                                 <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="images/tyre-3.png" alt="">
+                            </div>
+                            <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="images/tyre-1.png" alt="">
+                            </div>
+                             <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="images/tyre-3.png" alt="">
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <hr />
+
+                    <h5>Mini Cart</h5>
+
+                    <!-- Mini Cart -->
+                    <div id="#" class="mini-cart f-dropdown content" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1" style="display:block; position:relative;">
+                        <!--                  <span class="close-button"><i class="fa fa-close"></i></span>-->
+                        <div class="mini-cart-item">
+                            <div class="row">
+                                <div class="columns small-4 mini-cart-img">
+                                    <img src="images/wheel-img.jpg" class="expand">
+                                </div>
+                                <div class="columns small-8 mini-cart-detail">
+                                    <img src="images/dunlop-temp.png" width="100">
+                                    <h5 class="mini-cart-title">Wrangler Adventure</h5>
+                                    <div class="row">
+                                        <div class="columns small-3">
+                                            <label>Price:</label>
+                                        </div>
+                                        <div class="columns small-9">
+                                            <span class="mini-cart-price-value">$ 229.00ea</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="columns small-3">
+                                            <label>Qty:</label>
+                                        </div>
+                                        <div class="columns small-9">
+                                            <input type="text" class="mini-cart-qty-field">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="columns small-12">
+                                            <ul class="inline-list mini-cart-edit-item">
+                                                <li><a href="">Edit item</a>
+                                                </li>
+                                                <li><a href="">Remove item</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-collapse">
+                            <div class="columns small-12">
+                                <div class="mini-cart-subtotal">
+                                    Cart Subtotal: $229.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="columns small-12">
+                                <div class="mini-cart-checkout">
+                                    <a href="" class="button radius secondary">View Cart</a>
+                                    <input type="submit" value="Checkout" class="button radius">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+ <div id="tooltip">TEST TIP</div>
+                    <hr />
+                    <h5>Sort Toolbar</h5>
+                    <div class="row">
+                        <div class="columns large-12">
+                            <div class="toolbar">
+                                <div class="sorter">
+                                    <div class="row">
+                                        <div class="columns medium-3 small-8">
+                                            <div class="sort-by">
+                                                <label>Sort By</label>
+                                                <select>
+                                                    <option value="">Position</option>
+                                                    <option value="">Name</option>
+                                                    <option value="" selected>Price</option>
+                                                </select>
+                                                    <a class="current-direction" href=">"><i class="fa fa-long-arrow-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="columns medium-3 hide-for-small-only">
+                                            <div class="view-mode">
+                                                <label>View as:</label>
+                                                <strong title="" class="grid"><i class="fa fa-th-large"></i></strong>&nbsp;
+                                                <a href="" title="" class="list"><i class="fa fa-th-list"></i></a>&nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="columns medium-6 small-4">
+                                            <div class="pager text-right">
+                                                <div class="amount">
+                                                    10 item(s)
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+					
+					<a name="checkout-progress-accordion"></a>
+                    <h2>Checkout Progress Accordion</h2>
+
+                    <div class="checkout">
+                        <ul id="checkoutSteps" class="opc no-bullet">
+                            <li class="section allow active">
+                                
+                                    <div class="form-wrapper">
+                                        <div class="step-title">
+                                            <h2><span class="number">1</span> Step One</h2>
+                                        </div>
+                                        <div class="step a-item form-wrapper invert">
+                                            <form>
+                                                <div class="form-field">
+                                                    <div class="row">
+                                                        <div class="columns medium-10 small-12">
+                                                            <!-- Content here -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                
+                            </li>
+                            <li class="section">
+                                <div class="form-wrapper">
+                                    <div class="step-title">
+                                        <h2><span class="number">2</span> Step Two</h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="section">
+                                <div class="form-wrapper">
+                                    <div class="step-title">
+                                        <h2><span class="number">3</span> Step Three</h2>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="section">
+                                <div class="form-wrapper">
+                                    <div class="step-title">
+                                        <h2><span class="number">4</span> Step Four</h2>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <hr />
+					
+					<a name="data-table"></a>
+					<h2>Data Table</h2>
+					
+					<div class="pager">
+					   <h6 class="subheader">
+						  Items 1 to 10 of 11 total            
+					   </h6>
+					   <div class="row">
+						  <div class="medium-4 small-12 columns">
+							 <div class="db-toolbar">
+								<div class="db-sorter">
+								   <div class="db-sort-by">
+									  <label for="show-per-page">Show</label>
+									  <select id="show-per-page" onchange="setLocation(this.value)">
+										 <option value="/review/customer/index/?limit=10" selected="selected">
+											10							
+										 </option>
+										 <option value="/review/customer/index/?limit=20">
+											20							
+										 </option>
+										 <option value="/review/customer/index/?limit=50">
+											50							
+										 </option>
+									  </select>
+									  <label for="show-per-page">per page</label>
+								   </div>
+								</div>
+							 </div>
+						  </div>
+						  <div class="medium-8 small-12 columns">
+							 <div class="pages right">
+								<strong>Page:</strong>
+								<ul class="pagination">
+								   <li class="current">1</li>
+								   <li><a href="/review/customer/index/?p=2">2</a></li>
+								   <li>
+									  <a class="next i-next" href="/review/customer/index/?p=2" title="Next">
+									  <img src="/skin/frontend/polar/default/images/pager_arrow_right.gif" alt="Next" class="v-middle" />
+									  </a>
+								   </li>
+								</ul>
+							 </div>
+						  </div>
+					   </div>
+					</div>
+
+					<table class="data-table" id="my-reviews-table">
+					   <thead>
+						  <tr>
+							 <th scope="col">Date</th>
+							 <th scope="col">Product</th>
+							 <th scope="col">Rating</th>
+							 <th class="hide-for-small" scope="col">Dsescription</th>
+							 <th scope="col">View</th>
+						  </tr>
+					   </thead>
+					   <tbody>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>
+								</div>
+							 </td>
+							 <td class="hide-for-small">These are round</td>
+							 <td><a href="/review/customer/view/id/172" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>
+								</div>
+							 </td>
+							 <td class="hide-for-small">Tyre</td>
+							 <td><a href="/review/customer/view/id/171" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">Boooooooooooooooooooooooooooo</td>
+							 <td><a href="/review/customer/view/id/170" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">I don't know why everyone hates these tyres?!</td>
+							 <td><a href="/review/customer/view/id/169" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">I am a human and therefor need tyres to move ar...</td>
+							 <td><a href="/review/customer/view/id/168" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">Suck suck suck!</td>
+							 <td><a href="/review/customer/view/id/167" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">Had to buy 4 just to get my car to move!</td>
+							 <td><a href="/review/customer/view/id/166" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">Yes</td>
+							 <td><a href="/review/customer/view/id/165" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">Took to Mars, didn't work.</td>
+							 <td><a href="/review/customer/view/id/164" class="nobr">View Details</a></td>
+						  </tr>
+						  <tr>
+							 <td><span class="nobr">3/08/2015</span></td>
+							 <td><span class="product-name"><a href="/catalog/product/view/id/9716">AT601</a></span></td>
+							 <td>
+								<div class="star-rating">
+								   <i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star full"></i><i class="fa fw fa-star empty"></i>						
+								</div>
+							 </td>
+							 <td class="hide-for-small">LOL, pwn teh noobs! Tyres!</td>
+							 <td><a href="/review/customer/view/id/163" class="nobr">View Details</a></td>
+						  </tr>
+					   </tbody>
+					</table>
+
+					<hr />
+					
+					<a name="recently-requested"></a>
+					<h2>Recently Requested</h2>
+					
+					<div class="sidebar">
+
+						<div class="block block-reorder">
+						   <div class="block-title">
+							  <h2>Recently Requested Items</h2>
+						   </div>
+						   <form method="post" action="/checkout/cart/addgroup/" id="reorder-validate-detail">
+							  <input name="form_key" value="qwqH4DERyNpDTnhJ" type="hidden">
+							  <div class="block-content">
+								 <ul class="no-bullet">
+									<li class="item">
+									   <input name="order_items[]" id="reorder-item-966" value="966" title="Add to Cart" class="checkbox validate-one-required-by-name" type="checkbox">
+									   <a href="/goodyear-eagle-f1-asymmetric" title="EAGLE F1 ASYMMETRIC">EAGLE F1 ASYMMETRIC</a>
+									</li>
+									<li class="item">
+									   <input name="order_items[]" id="reorder-item-964" value="964" title="Add to Cart" class="checkbox validate-one-required-by-name" type="checkbox">
+									   <a href="/hifly-at601" title="AT601">AT601</a>
+									</li>
+									<li class="item">
+									   <input name="order_items[]" id="reorder-item-962" value="962" title="Add to Cart" class="checkbox validate-one-required-by-name" type="checkbox">
+									   <a href="/goodyear-eagle-f1-asymmetric" title="EAGLE F1 ASYMMETRIC">EAGLE F1 ASYMMETRIC</a>
+									</li>
+								 </ul>
+								 <div id="cart-sidebar-reorder-advice-container"></div>
+								 <div class="actions">
+									<button type="submit" title="Add to Cart" class="button btn-cart radius small ">Add to Cart</button>
+									<a href="/customer/account/">View All</a>
+								 </div>
+							  </div>
+						   </form>
+						</div>
+					
+					</div>
+					
+					<hr />
+					
+					<!-------------------------- Lazy Loader ---------------------------->
+
+					<a name="lazyloader"></a>
+					<h2>Lazy Loader</h2>
+					
+					<div class="ias-spinner text-center"> 
+						<i class="fa fa-refresh fa-spin fa-lg"></i> <em>Loading more products...</em>
+					</div>
+
+					<div class="ias-trigger ias-trigger-next text-center">
+						<span>Load more products</span>
+					</div>
+					
+					<hr />
+					
+					<!-------------------------- compare list ---------------------------->
+
+					<a name="comparelist"></a>
+					<h2>Compare List</h2>
+					
+					<table class="compare-table responsive" id="product_comparison">
+						<tbody>
+							<tr class="product-shop-row">
+								<th scope="row">Product</th>
+								<td>
+									<a class="close-btn" href="#" title="Clsoe" onclick="removeItem('/catalog/product_compare/remove/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS9jYXRhbG9nL3Byb2R1Y3RfY29tcGFyZS9pbmRleC8,/');" title="Remove This Item"><i class="fa fa-fw fa-2x fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>					
+									<a class="product-image" href="#" onclick="setPLocation('/catalog/product/view/id/62/', true)" title="Assurance CS Fuelmax"><img src="/media/catalog/product/cache/1/small_image/125x125/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/imagecomingsoon_4.png" width="125" height="125" alt="Assurance CS Fuelmax" /></a>
+									<h2 class="product-name"><a href="#" onclick="setPLocation('/catalog/product/view/id/62/', true)" title="Assurance CS Fuelmax">Assurance CS Fuelmax</a></h2>
+								</td>
+								<td>
+									<a class="close-btn" href="#" title="Clsoe" onclick="removeItem('/catalog/product_compare/remove/product/64/uenc/aHR0cDovLzEyNy4wLjAuMS9jYXRhbG9nL3Byb2R1Y3RfY29tcGFyZS9pbmRleC8,/');" title="Remove This Item"><i class="fa fa-fw fa-2x fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>
+									<a class="product-image" href="#" onclick="setPLocation('/catalog/product/view/id/64/', true)" title="AT601"><img src="/media/catalog/product/cache/1/small_image/125x125/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/imagecomingsoon_4.png" width="125" height="125" alt="AT601" /></a>
+									<h2 class="product-name"><a href="#" onclick="setPLocation('/catalog/product/view/id/64/', true)" title="AT601">AT601</a></h2>
+								</td>
+								<td>
+									<a class="close-btn" href="#" title="Clsoe" onclick="removeItem('/catalog/product_compare/remove/product/65/uenc/aHR0cDovLzEyNy4wLjAuMS9jYXRhbG9nL3Byb2R1Y3RfY29tcGFyZS9pbmRleC8,/');" title="Remove This Item"><i class="fa fa-fw fa-2x fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>
+									<a class="product-image" href="#" onclick="setPLocation('/catalog/product/view/id/65/', true)" title="Atneo"><img src="/media/catalog/product/cache/1/small_image/125x125/9df78eab33525d08d6e5fb8d27136e95/placeholder/default/imagecomingsoon_4.png" width="125" height="125" alt="Atneo" /></a>
+									<h2 class="product-name"><a href="#" onclick="setPLocation('/catalog/product/view/id/65/', true)" title="Atneo">Atneo</a></h2>
+								</td>
+								<td>
+									<a class="close-btn" href="#" title="Clsoe" onclick="removeItem('/catalog/product_compare/remove/product/68/uenc/aHR0cDovLzEyNy4wLjAuMS9jYXRhbG9nL3Byb2R1Y3RfY29tcGFyZS9pbmRleC8,/');" title="Remove This Item"><i class="fa fa-fw fa-2x fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>
+									<a class="product-image" href="#" onclick="setPLocation('/catalog/product/view/id/68/', true)" title="Cargo Vector"><img src="/media/catalog/product/cache/1/small_image/125x125/9df78eab33525d08d6e5fb8d27136e95/d/u/dunlop_grandtrek_at22_angle.png" width="125" height="125" alt="Cargo Vector" /></a>
+									<h2 class="product-name"><a href="#" onclick="setPLocation('/catalog/product/view/id/68/', true)" title="Cargo Vector">Cargo Vector</a></h2>
+								</td>
+								<td>
+									<a class="close-btn" href="#" title="Clsoe" onclick="removeItem('/catalog/product_compare/remove/product/70/uenc/aHR0cDovLzEyNy4wLjAuMS9jYXRhbG9nL3Byb2R1Y3RfY29tcGFyZS9pbmRleC8,/');" title="Remove This Item"><i class="fa fa-fw fa-2x fa-times-circle" aria-hidden="true"><span class="show-for-sr">Close</span></i></a>
+									<a class="product-image" href="#" onclick="setPLocation('/catalog/product/view/id/70/', true)" title="Charger GT"><img src="/media/catalog/product/cache/1/small_image/125x125/9df78eab33525d08d6e5fb8d27136e95/d/u/dunlop_grandtrek_pt2_anglea.png" width="125" height="125" alt="Charger GT" /></a>
+									<h2 class="product-name"><a href="#" onclick="setPLocation('/catalog/product/view/id/70/', true)" title="Charger GT">Charger GT</a></h2>
+								</td>
+							</tr>
+							<tr class="attr-short_description">
+								<th scope="row"><span class="nobr">Short Description</span></th>
+								<td>N/A</td>
+								<td>
+									Hifly AT601 is an All Seasons All Terrain tyre offering great value. * Advanced pattern design provides excellent wet and dry performance * Tread compound allows for superiortraction both in on and of&hellip;
+								</td>
+								<td>N/A</td>
+								<td>N/A</td>
+								<td>N/A</td>
+							</tr>
+							<tr class="attr-sku">
+								<th scope="row"><span class="nobr">SKU</span></th>
+								<td>
+									<div class="std">sku 532615-P</div>
+								</td>
+									<td>
+									<div class="std">sku 3660809-P</div>
+								</td>
+									<td>
+									<div class="std">sku 3660823-P</div>
+								</td>
+									<td>
+									<div class="std">sku 560029-P</div>
+								</td>
+									<td>
+									<div class="std">sku 533704-P</div>
+								</td>
+							</tr>
+							<tr class="add-to-row">
+								<th scope="row">Price</th>
+								<td>
+									<div class="price-box">
+										<span class="regular-price online-price format-price" id="product-price-62-compare-list-bottom"><span class="price">$0.00</span></span>
+									</div>
+
+									<button type="button" title="Add to Cart" class="button radius btn-cart" onclick="setPLocation('/checkout/cart/add/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS90eXJlcw,,/form_key/tQ7K8v0xxCg1OkNF/', true)">Add to Cart</button>
+								</td>
+								<td>
+									<div class="price-box">
+										<span class="regular-price online-price format-price" id="product-price-62-compare-list-bottom"><span class="price">$0.00</span></span>
+									</div>
+
+									<button type="button" title="Add to Cart" class="button radius btn-cart" onclick="setPLocation('/checkout/cart/add/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS90eXJlcw,,/form_key/tQ7K8v0xxCg1OkNF/', true)">Add to Cart</button>
+								</td>
+								<td>
+									<div class="price-box">
+										<span class="regular-price online-price format-price" id="product-price-62-compare-list-bottom"><span class="price">$0.00</span></span>
+									</div>
+
+									<button type="button" title="Add to Cart" class="button radius btn-cart" onclick="setPLocation('/checkout/cart/add/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS90eXJlcw,,/form_key/tQ7K8v0xxCg1OkNF/', true)">Add to Cart</button>
+								</td>
+								<td>
+									<div class="price-box">
+										<span class="regular-price online-price format-price" id="product-price-62-compare-list-bottom"><span class="price">$0.00</span></span>
+									</div>
+
+									<button type="button" title="Add to Cart" class="button radius btn-cart" onclick="setPLocation('/checkout/cart/add/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS90eXJlcw,,/form_key/tQ7K8v0xxCg1OkNF/', true)">Add to Cart</button>
+								</td>
+								<td>
+									<div class="price-box">
+										<span class="regular-price online-price format-price" id="product-price-62-compare-list-bottom"><span class="price">$0.00</span></span>
+									</div>
+
+									<button type="button" title="Add to Cart" class="button radius btn-cart" onclick="setPLocation('/checkout/cart/add/product/62/uenc/aHR0cDovLzEyNy4wLjAuMS90eXJlcw,,/form_key/tQ7K8v0xxCg1OkNF/', true)">Add to Cart</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="extra-padding">
+        <!-- Footer -->
+        <div class="footer-wrapper">
+            <div class="row">
+                <div class="medium-6 large-3 columns hide-for-medium-down">
+                    <ul class="no-bullet">
+                        <li><a href="#">Tyres</a>
+                        </li>
+                        <li><a href="#">Wheels</a>
+                        </li>
+                        <li><a href="#">Batteries</a>
+                        </li>
+                        <li><a href="#">Services</a>
+                        </li>
+                        <li><a href="#">Learn</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="medium-6 large-3 columns hide-for-medium-down">
+                    <ul class="no-bullet">
+                        <li><a href="#">Cars</a>
+                        </li>
+                        <li><a href="#">4WDs</a>
+                        </li>
+                        <li><a href="#">Light Commercial</a>
+                        </li>
+                        <li><a href="#">Truck</a>
+                        </li>
+                        <li><a href="#">Agriculture</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="medium-6 large-3 columns">
+                    <ul class="no-bullet">
+                        <li><a href="#">About us</a>
+                        </li>
+                        <li><a href="#">Careers</a>
+                        </li>
+                        <li><a href="#">Sitemap</a>
+                        </li>
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms &amp; Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="medium-6 large-3 columns">
+                    <ul class="no-bullet">
+                        <li><span class="aligned-title">General Enquiries:</span> <a href="tel://13-23-81" class="hotline button radius small secondary"><i class="fa fa-phone"></i> 13 23 81</a>
+                        </li>
+                        <li><span class="aligned-title">Customer Service:</span> <a href="tel://1-800-809-514" class="hotline button radius small secondary"><i class="fa fa-phone"></i> 1800 809 514</a>
+                        </li>
+                        <li><span class="aligned-title">Emergency Hotline:</span> <a href="tel://1-800-106-010" class="hotline button radius small secondary"><i class="fa fa-phone"></i> 1800 106 010</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="extra-padding">
+        <!-- Sub Footer -->
+        <div class="social-footer-wrapper">
+            <div class="row">
+                <div class="medium-6 columns">
+                    <div class="copyright">&copy; Copyright Beaurepaires 2015</div>
+                </div>
+                <div class="medium-6 columns">
+                    <div class="social medium-text-right">
+                        <a href="#" class="icon-facebook">
+                            <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                        <a href="#" class="icon-twitter">
+                            <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                        <a href="#" class="icon-youtube">
+                            <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                        <a href="#" class="icon-google-plus">
+                            <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                        <a href="#" class="icon-linkedin">
+                            <span class="fa-stack fa-lg fa-fw">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+	<script src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+    <script src="js/vendor/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script src="bower_components/slick-carousel/slick/slick.min.js"></script>
+	<script src="bower_components/jquery.ui/ui/datepicker.min.js"></script>
+<!--	<script src="bower_components/HTML5-Form-Shim/build/jquery.html5form.min.js"></script>-->
+    <script src="js/app.js"></script>
+	
+	
+</body>
+
+</html>

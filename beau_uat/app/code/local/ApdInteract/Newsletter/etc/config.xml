@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Newsletter>
+            <version>0.1.0</version>
+        </ApdInteract_Newsletter>
+    </modules>   
+    <global>
+        <rewrite>          
+            <customer_newsletter_rewrite>
+                <from><![CDATA[#^/account/communications#]]></from>
+                <to>/newsletter/manage</to>
+                <complete>1</complete>
+            </customer_newsletter_rewrite>
+        </rewrite>  
+    </global> 
+    <frontend>
+        <routers>
+            <newsletter>
+                <args>
+                    <modules>
+                        <apdinteract_newsletter before="Mage_Newsletter">ApdInteract_Newsletter</apdinteract_newsletter>
+                    </modules>
+                </args>
+            </newsletter>
+        </routers>
+    </frontend>    
+</config>

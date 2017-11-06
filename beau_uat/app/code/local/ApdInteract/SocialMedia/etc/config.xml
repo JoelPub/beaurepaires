@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <modules>
+    <ApdInteract_SocialMedia>
+      <version>0.1.0</version>
+    </ApdInteract_SocialMedia>
+  </modules>
+  <global>
+  	<models>
+      <apdinteract_socialmedia>
+        <class>ApdInteract_SocialMedia_Model</class>
+      </apdinteract_socialmedia>
+    </models>
+    <helpers>
+      <apdinteract_socialmedia>
+        <class>ApdInteract_SocialMedia_Helper</class>
+      </apdinteract_socialmedia>
+    </helpers>
+  </global>
+  <!-- <frontend>
+    <routers>
+      <apdinteract_socialmedia>
+        <use>standard</use>
+          <args>
+            <module>ApdInteract_SocialMedia</module>
+            <frontName>socialmedia</frontName>
+          </args>
+      </apdinteract_socialmedia>
+    </routers>
+		<layout>
+		  <updates>
+			<apdinteract_socialmedia>
+			  <file>social_media.xml</file>
+			</apdinteract_socialmedia>
+		  </updates>
+		</layout>
+  </frontend>  -->
+</config>

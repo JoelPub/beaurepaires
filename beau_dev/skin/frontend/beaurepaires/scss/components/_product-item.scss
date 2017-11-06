@@ -1,0 +1,58 @@
+
+
+.product-item {
+    background-color: $white-smoke;
+    border: 1px solid $silver;
+    border-radius: 4px;
+    margin: 0 22px;
+    overflow:visible;
+    padding: 20px 35px 22px 0;
+    position: relative;
+    width: 206px;
+
+    .product-title {
+        line-height: 18px;
+        margin: 5px 0;
+        a {
+            color: $slick-dot-color-active;
+            font-size: $base-font-size;
+
+        }
+    }
+
+    .star-rating {
+        margin: 5px 0;
+    }
+    .product-tag {
+        background: $aqua-blue-color;
+        margin: 0 0 10px;
+    }
+    .product-image {
+        left: -22px;
+        position: absolute;
+        width:75px;
+    }
+    .product-details {
+        margin: 0 0 0 5px;
+    }
+    .product-price {
+        font-family: 'Swiss721BT-Bold';
+        font-size: $base-font-size + 2;
+        color: $slick-dot-color-active;
+    }
+
+}
+
+.products-grid {
+    margin: 20px 0 0;
+}
+
+.comp-product-details {
+    .item {
+         padding: 0 0 20px;
+    }
+}
+
+@media only screen and (min-width: 40em) {
+width:auto;
+	}

@@ -1,0 +1,80 @@
+<?php
+/**
+ * Based on 1column-fullwidth.phtml
+ *
+*/
+?>
+
+
+
+<?php echo $this->getChildHtml('head') ?>
+
+<!-- p/b/beaurwd1col -->
+
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<?php echo $this->getChildHtml('footer_misc_html') ?>
+
+<?php echo $this->getChildHtml('global_notices') ?>
+<?php echo $this->getChildHtml('header') ?>
+<?php echo $this->getChildHtml('breadcrumbs') ?>
+<?php echo $this->getChildHtml('sliders') ?>
+<div class="main-wrapper">
+  <div class="main-container-full-width">
+
+    <!-- Static mockup from FE for GAN-121  -->
+    <!-- BE: please remove these comments -->
+    <article class="home-promo-bars">
+      <ul>
+        <!-- start loop through static blocks -->
+        <li>
+          <!-- static block 1 start -->
+          <h2>Passenger</h2>
+          <a href="test1.html">View Passenger Tyres</a>
+          <img src="/skin/frontend/polar/goodyear/images/home-promo-bar1.jpg">
+          <!-- static block 1 end -->
+        </li>
+        <li>
+          <!-- static block 2 start -->
+          <h2>4WD &amp; SUV</h2>
+          <a href="test2.html">View 4WD &amp SUV Tyres</a>
+          <img src="/skin/frontend/polar/goodyear/images/home-promo-bar1.jpg">
+          <!-- static block 2 end -->
+        </li>
+        <li>
+          <!-- static block 3 start -->
+          <h2>Light Commercial</h2>
+          <a href="test3.html">View Light Commercial Tyres</a>
+          <img src="/skin/frontend/polar/goodyear/images/home-promo-bar1.jpg">
+          <!-- static block 3 end -->
+        </li>
+        <!-- end loop through static blocks -->
+      </ul>
+    </article>
+    <!-- end of static mock up -->
+
+    <div class="row">
+      <div class="column">
+      <?php echo $this->getChildHtml('global_messages') ?>
+      </div>
+    </div>
+      <?php echo $this->getChildHtml('content') ?>
+
+  </div>
+</div>
+<?php echo $this->getChildHtml('footer') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php echo $this->getChildHtml('bottom') ?>
+
+<!-- before /body sub-footer scripts -->
+<?php $hash = $this->helper('apdinteract_smartcache')->getSkinLastChangedHash(); ?>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/app.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/dist/static/js/default.js?t=<?php echo $hash; ?>"></script>
+
+</body>
+</html>

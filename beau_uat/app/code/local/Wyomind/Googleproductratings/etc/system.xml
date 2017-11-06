@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <WYOMIND translate="label">
+            <label>WYOMIND</label>
+            <sort_order>1000000</sort_order>
+        </WYOMIND>
+    </tabs>
+    <sections>
+        <googleproductratings translate="label">
+            <label>Google Product Ratings</label>
+            <tab>WYOMIND</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                   <license translate="label">
+		<label>License</label>
+		<frontend_type>text</frontend_type>
+		<sort_order>1</sort_order>
+		<show_in_default>1</show_in_default>
+		<show_in_website>1</show_in_website>
+		<show_in_store>1</show_in_store>
+		<fields>
+			<version translate="label comment">
+				<label>Extension version</label>
+				<frontend_type>text</frontend_type>
+				<frontend_model>Wyomind_Licensemanager_Block_Adminhtml_System_Config_Form_Field_Link</frontend_model>
+				<sort_order>0</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>0</show_in_website>
+				<show_in_store>0</show_in_store>
+			</version>
+			<activation_key translate="label comment">
+				<label>Activation key</label>
+				<comment>
+			<![CDATA[<span class="notice">Enter your activation key and click on `save config`.</span>]]>
+				</comment>
+				<frontend_type>text</frontend_type>
+				<sort_order>1</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>0</show_in_website>
+				<show_in_store>0</show_in_store>
+			</activation_key>
+		   
+			<activation_code translate="label comment">
+				<label>License code</label>
+				<comment><![CDATA[<span class="notice">Enter your license code <b>only if prompted<b>.</span>]]></comment>
+				<frontend_type>text</frontend_type>
+				<sort_order>3</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>0</show_in_website>
+				<show_in_store>0</show_in_store>
+			</activation_code>
+		</fields>
+</license> 
+                <settings translate="label">
+                    <label>Data Feed settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>150</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <publisher_name translate="label comment">
+                            <label>Publisher name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </publisher_name>
+                        <collection_method translate="label comment">
+                            <label>Collection method</label>
+                            <comment>
+                            <![CDATA[<span class="notice">The method used to collect the review. The value must
+                                be one of the following:
+                                unsolicited - The user was not responding to a specific
+                                solicitation when they submitted the review.
+                                post_fulfillment - The user submitted the review in
+                                response to a solicitation after fulfillment of the
+                                user's order.
+                            </span>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_collectionMethod</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </collection_method>
+                    </fields>
+                </settings>
+                <options translate="label">
+                    <label>Product settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <use_minimal_configuration translate="label comment">
+                            <label>Use minimmal configuration</label>
+                            <comment><![CDATA[<span class="notice">Minimal configuration doesn't require any additional settings </span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_minimal_configuration>
+                        <product_gtin translate="label comment">
+                            <label>Gtin attribute</label>
+                            <depends>
+                                <use_minimal_configuration>0</use_minimal_configuration>
+                            </depends>
+                            <comment><![CDATA[<span class="notice">Attribute to use as the Global Trade Item Number</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_attributes</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_gtin>
+                        <product_mpn translate="label comment">
+                            <label>Mpn attribute</label>
+                            <depends>
+                                <use_minimal_configuration>0</use_minimal_configuration>
+                            </depends>
+                            <comment><![CDATA[<span class="notice">Attribute to use as the Manufacturer Part Number</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_attributes</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_mpn>
+                        <product_sku translate="label comment">
+                            <label>Sku attribute</label>
+                            <depends>
+                                <use_minimal_configuration>0</use_minimal_configuration>
+                            </depends>
+                            <comment><![CDATA[<span class="notice">Attribute to use as the product SKU</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_attributes</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_sku>
+                        <product_brand translate="label comment">
+                            <label>Brand attribute</label>
+                            <depends>
+                                <use_minimal_configuration>0</use_minimal_configuration>
+                            </depends>
+                            <comment><![CDATA[<span class="notice">Attribute to use as the product's brand</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_attributes</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_brand>
+                        <product_name translate="label comment">
+                            <label>Name attribute</label>
+                            <depends>
+                                <use_minimal_configuration>0</use_minimal_configuration>
+                            </depends>
+                            <comment><![CDATA[<span class="notice">Attribute to use as the product name, if this attribute is empty, then the default name is used.</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googleproductratings/system_config_source_attributes</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product_name>
+                    </fields>
+                </options>
+                <schedule translate="label">
+                    <label>Data feeds update</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <schedule_report translate="label comment">
+                            <label>Task report</label>
+                            <comment><![CDATA[<span class="notice">Send a report by email when the data feed is successfully updated or if an error happens</span>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </schedule_report>
+                        <report_recipient translate="label comment">
+                            <label>Report recipients</label>
+                            <comment><![CDATA[<span class="notice">Email addresses (comma separated)</span>]]></comment>
+                            <validate>required-entry</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <depends>
+                                <schedule_report>1</schedule_report>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </report_recipient>
+                        <report_title translate="label comment">
+                            <label>Report title</label>
+                            <comment><![CDATA[<span class="notice">Subject of the report sent by email </span>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>30</sort_order>
+                            <depends>
+                                <schedule_report>1</schedule_report>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </report_title>
+                        <cron translate="label comment">
+                            <label>Schedule</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>Wyomind_Googleproductratings_Block_Adminhtml_System_Config_Form_Field_Cron</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron>
+                    </fields>
+                </schedule>
+                <storage translate="label">
+                    <label>File storage</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>350</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <file_path translate="label comment">
+                            <label>File path</label>
+                            <comment><![CDATA[<span class="notice">Directory where to store the data feed (relative to Magento root directory) </span>]]></comment>
+                            <validate>required-entry</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </file_path>
+                        <file_name translate="label comment">
+                            <label>File Name</label>
+                            <comment><![CDATA[<span class="notice">Use alphanumeric characters only</span>]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-alphanum</validate>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </file_name>
+                        <link translate="label comment">
+                            <label>File Link</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>Wyomind_Googleproductratings_Block_Adminhtml_System_Config_Form_Field_DataFeedLink</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </link>
+                        <generate_now translate="label comment">
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>Wyomind_Googleproductratings_Block_Adminhtml_System_Config_Form_Field_Button</frontend_model> 
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </generate_now>
+                    </fields>
+                </storage>
+            </groups>
+        </googleproductratings>
+    </sections>
+</config>

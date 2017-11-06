@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Configuration>
+      <version>0.1.0</version>
+    </ApdInteract_Configuration>
+  </modules>
+  <default>
+    <catalog>
+      <frontend>
+        <enable_quick_button>1</enable_quick_button>
+      </frontend>
+    </catalog>
+  </default>
+</config>

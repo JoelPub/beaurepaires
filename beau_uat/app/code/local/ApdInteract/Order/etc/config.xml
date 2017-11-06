@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Order>
+            <version>0.1.2</version>
+        </ApdInteract_Order>
+    </modules>
+    <frontend>
+        <routers>
+            <orderapd>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Order</module>
+                    <frontName>orderapd</frontName>
+                </args>
+            </orderapd>
+        </routers>   
+    </frontend>
+    <global>        
+        <rewrite>
+            <customer_sales_details_rewrite>
+                <from><![CDATA[#^/account/orders/view/order_id/#]]></from>
+                <to><![CDATA[sales/order/view/order_id/]]></to>
+                <complete>1</complete>
+            </customer_sales_details_rewrite>
+        </rewrite>
+        <rewrite>
+            <customer_sales_rewrite>
+                <from><![CDATA[#^/account/orders/#]]></from>
+                <to>/sales/order/history</to>
+                <complete>1</complete>
+            </customer_sales_rewrite>
+        </rewrite>
+        <models>
+            <order>
+                <class>ApdInteract_Order_Model</class>
+            </order>
+        </models>
+        <helpers>
+            <apdinteract_order>
+                <class>ApdInteract_Order_Helper</class>
+            </apdinteract_order>
+        </helpers>
+        <resources>
+            <apdinteract_order_setup>
+                <setup>
+                    <module>ApdInteract_Order</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_order_setup>
+            <apdinteract_order_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </apdinteract_order_write>
+            <apdinteract_order_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </apdinteract_order_read>
+        </resources>
+
+        <events>            
+            <!-- identifier of the event we want to catch -->
+            <sales_model_service_quote_submit_after>
+                <observers>
+                    <apdinteract_order_sales_quote_address_save_before> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>order/observer</class> <!-- observers class alias -->
+                        <method>sendCalendarData</method>  <!-- observer's method to be called -->
+                    </apdinteract_order_sales_quote_address_save_before>
+                </observers>
+            </sales_model_service_quote_submit_after>
+            <checkout_type_onepage_save_order> 
+                <observers>
+                    <apdinteract_order_sales_quote_address_save_after> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>order/observer</class> <!-- observers class alias -->
+                        <method>saveCustomData</method>  <!-- observer's method to be called -->
+                    </apdinteract_order_sales_quote_address_save_after>
+                </observers>
+            </checkout_type_onepage_save_order>
+        </events>
+    </global>
+    <!--
+                <crontab>
+                                <jobs>
+                                        <apdinteract_order_send>
+                                                <schedule><cron_expr>0 */12 * * *</cron_expr></schedule>
+                                                <run><model>order/observer::sendAppointmentNotification</model></run>
+                                        </apdinteract_order_send>
+                                </jobs>
+                </crontab>	
+    -->
+</config>

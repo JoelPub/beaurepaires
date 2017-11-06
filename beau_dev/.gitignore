@@ -1,0 +1,38 @@
+app/etc/local.xml
+media/
+var/
+var1/
+nbproject/
+.sass-cache/
+perso/
+.buildpath
+.project
+.settings/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.lock
+
+# Logs and databases #
+######################
+*.log
+sess_*
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+./media.tgz
+sql/update_magento_baseurl_path.sql

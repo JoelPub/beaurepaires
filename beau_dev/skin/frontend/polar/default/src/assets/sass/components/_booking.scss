@@ -1,0 +1,165 @@
+
+.booking-dashboard {
+  $colour-list-heading: $monsoon;
+  $colour-list-bg: $white-smoke;
+  $colour-list-border: $iron;
+  $colour-list-drag-bg: rgba($aqua-blue-color,0.5);
+  $colour-list-drag-border: $nav-dark-blue-color;
+  $colour-list-parent-bg: $white;
+  $colour-item-bg: $white;
+  $colour-item-border: $iron;
+  $colour-item-hover-bg: #fcce77;
+
+  .booking-filter {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+
+    > form > ul {
+      margin: 0;
+
+      > li {
+        float: left;
+        margin-right: 15px;
+        padding: 5px;
+
+        h3 {
+          color: $silver;
+          line-height: 22px;
+          margin-right: 5px;
+        }
+
+        input {
+          margin: 0 5px 4px 0;
+        }
+
+        label {
+          font-size: 18px;
+        }
+
+        li {
+          margin: 0 0 0 8px;
+        }
+      }
+    }
+  }
+
+  .booking-states {
+    display: table;
+    width: 100%;
+
+    .booking-col {
+      display: table-cell;
+      padding: 5px;
+      width: 20%;
+
+      h4 {
+        color: $colour-list-heading;
+        font-size: 16px;
+      }
+    }
+
+    .booking-list {
+      background-color: $colour-list-bg;
+      border: 1px solid $colour-list-border;
+      height: 500px;
+      line-height: 17px;
+      margin: 0;
+      overflow-y: auto;
+      padding: 12px;
+
+      li {
+        background-color: $colour-item-bg;
+        border: 1px solid $colour-item-border;
+        cursor: move;
+        display: block;
+        margin-bottom: 5px;
+        padding: 5px;
+
+        .name {
+          font-weight: bold;
+        }
+
+        &:hover {
+          background-color: $colour-item-hover-bg;
+        }
+      }
+
+      &.drag-over {
+        background-color: $colour-list-drag-bg;
+        border-color: $colour-list-drag-border;
+      }
+
+      &.drag-parent {
+        background-color: $colour-list-parent-bg;
+        border: 1px solid $colour-list-border;
+      }
+    }
+
+    &.dragging {
+      .booking-list:not(.drag-parent) {
+        border-style: dashed;
+      }
+    }
+
+    &.flex-layout {
+      display: flex;
+      .booking-col {
+        flex-direction: column;
+        display: flex;
+      }
+      .booking-list {
+        overflow: hidden;
+        height: auto;
+        min-height: 500px;
+        flex: 1;
+      }
+    }
+  }
+
+  .booking-iframe {
+    display: none;
+
+    iframe {
+      background-color: #EEE;
+      height: 600px;
+      width: 100%;
+    }
+  }
+
+  .booking-links {
+    ul {
+      display: block;
+      list-style-type: none;
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+
+      li {
+        float: left;
+        padding: 5px;
+        width: 25%;
+
+        .button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &.show-iframe {
+    .booking-filter,
+    .booking-states {
+      display: none;
+    }
+
+    .booking-iframe {
+      display: block;
+    }
+
+  }
+}

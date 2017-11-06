@@ -1,0 +1,372 @@
+// Checkout
+
+// Mixins
+
+@mixin heights($height){
+	height: $height;
+	line-height: $height;
+}
+
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin tabbed-radius($radius){
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-left-radius: $radius;
+	border-top-right-radius: $radius;
+}
+
+@mixin inverted-tabbed-radius($radius){
+	-webkit-border-bottom-left-radius: $radius;
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-left-radius: $radius;
+	border-bottom-right-radius: $radius;
+}
+
+@mixin table-top-left($radius){
+	-moz-border-radius-topleft:$radius;
+    -webkit-border-top-left-radius:$radius;
+    border-top-left-radius:$radius;
+}
+
+@mixin table-top-right($radius){
+	-moz-border-radius-topright:$radius;
+    -webkit-border-top-right-radius:$radius;
+    border-top-right-radius:$radius;
+}
+
+@mixin table-bottom-left($radius){
+	-moz-border-radius-bottomleft:$radius;
+    -webkit-border-bottom-left-radius:$radius;
+    border-bottom-left-radius:$radius;
+}
+
+@mixin table-bottom-right($radius){
+	-moz-border-radius-bottomright:$radius;
+    -webkit-border-bottom-right-radius:$radius;
+    border-bottom-right-radius:$radius;
+}
+
+// Checkout Method
+
+.checkout {
+	margin: 0;
+
+	.form-wrapper {
+		background: $smoke;
+		padding: 0;
+		margin: 0 0 15px;
+		  	.accordion {
+			margin: 0 0 14px;
+			line-height: 14px;
+		    .content {
+		      clear: both;
+		      padding: 15px 0;
+		      select,
+		      input[type="text"] {
+		      	display: inline-block;
+		      	width: 87%;
+		      }
+		      .form-field {
+		      	&:last-child {
+		      		input[type="text"] {
+		      			margin-bottom: 0;
+		      		}
+		      	}
+		      }
+		    }
+		  }
+		.create-account {
+			margin: 0 0 14px;
+	  	}
+		&.invert {
+	      background-color: $white;
+	    }
+		.step {
+			background: $white;
+			color: $tuatara;
+			border: 1px solid $iron;
+			padding: 20px 15px 35px 15px;
+			@include inverted-tabbed-radius(4px);
+			h4 {
+				color: $tuatara;
+				font-family: "Swiss721BT-Bold", Helvetica, Arial, sans-serif;
+				font-size: $base-font-size + 2;
+				margin: 0;
+			}
+			.buttons-set {
+				p {
+					margin: 0 0 14px;
+				}
+			}
+		}
+
+		form {
+			.extra-info-field {
+				padding: 0 0.57143rem 0 0;
+				.has-tip {
+					margin: 0 0 0 7px;
+				}
+			}
+		}
+	}
+	.messages {
+		margin: 0;
+	}
+
+	.section {
+		.step-title {
+			background: $white-smoke;
+			border: 1px solid $iron;
+			padding: 10px 16px;
+			@include border-radius(4px);
+			h2 {
+				color: $tuatara;
+				font-family: "Swiss721BT-Bold", Helvetica, Arial, sans-serif;
+				font-size: 18px;
+                line-height: 30px;
+				margin: 0;
+			}
+		}
+		&.active {
+			.step-title {
+				background: $aqua-blue-color;
+				border: 0;
+				@include border-radius(0px);
+				@include tabbed-radius(4px);
+				h2 {
+					color: $white;
+					margin: 0;
+				}
+			}
+		}
+	}
+	.checkout-guest {
+		margin: 10px 0 0;
+	}
+
+  @media only screen and (max-width: 40em) {
+	.guest {
+		
+		p {
+			margin: 0;
+		}
+	}
+  }
+
+	.form-field {
+
+	}
+
+	.checkout-social-share{
+		margin: 0 auto 20px;
+
+		.google_plusone_iframe_widget{
+			width: 60px !important;
+		}
+		.addthis_counter.addthis_pill_style{
+			display: block !important;
+		}
+	}
+
+}
+
+// Payment Method
+
+.sp-methods {
+	margin: 0;
+}
+
+.payment-method {
+	.form-wrapper {
+		background:none;
+		margin: 0;
+	}
+}
+
+// Order Review
+
+.order-review {
+	padding: 0;
+
+	.review-options-list {
+		margin: 0 0 8px 0;
+
+		li {
+			line-height: 14px;
+			word-break: break-all;
+			word-wrap: break-word;
+		}
+	}
+
+	.data-table {
+		border-collapse: separate;
+		border-spacing: 0;
+		margin: 0 0 14px;
+		@include border-radius(4px);
+		tr {
+			&:first-child{
+				th {
+					&:first-child {
+						@include table-top-left(4px);
+					}
+					&:last-child {
+						@include table-top-right(4px);
+					}
+				}
+			}
+			&:last-child {
+				td {
+					&:first-child {
+						@include table-bottom-left(4px);
+					}
+					&:last-child {
+						@include table-bottom-right(4px);
+					}
+				}
+			}
+		}
+		th {
+			background: $white-smoke;
+			color: $tuatara;
+			font-weight: normal;
+
+			&.review-price,
+			&.review-qty,
+			&.review-subtotal {
+				width: 9%;
+			}
+		}
+		td {
+			background: $white;
+			border-top: 1px solid $iron;
+			&:first-child {
+				background: $white;
+			}
+		}
+	}
+	.product-name {
+		color: $slider-dot-color;
+		display: block;
+		margin: 7px 0 14px;
+	}
+	.item-options {
+		dt,
+		dd {
+			color: $slider-dot-color;
+			font-weight: normal;
+			margin: 0;
+		}
+	}
+}
+
+.review-totals {
+	background: $white-smoke;
+	border: 1px solid $iron;
+	margin: 0 0 14px;
+	padding: 18px 0 20px;
+	@include border-radius(4px);
+}
+
+.btn-checkout {
+	margin: 0;
+}
+
+.review-subtotal {
+	&.show-for-small-only {
+		td {
+			border-top: 0;
+		}
+	}
+}
+
+// Responsive Mobile
+
+@media #{$medium-up} {
+	.checkout {
+		margin: 0;
+		.returning-customer {
+			border-right: 1px solid $iron;
+		}
+		.form-wrapper {
+			.accordion {
+				.content {
+					select,
+      		input[type="text"] {
+      			width: 95%;
+      		}
+				}
+			}
+		}
+	}
+	button {
+	 	margin: 0;
+	 }
+	 .order-review {
+	 	padding: 0 16px;
+	 }
+}
+
+.required {
+	&.right {
+		color: $monsoon;
+		font-size: $base-font-size - 2;
+	}
+}
+
+
+
+
+// CART PAGE
+/* TODO: to move somewhere else */
+.ui-autocomplete {
+  max-height: 250px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-width: 296px;
+  .ui-menu-item{
+    font-size: 12px;
+  }
+}
+
+#storesLoading {
+    display: none;
+    float: right;
+	margin-right: 10px;
+	position: relative;
+    top: -40px;
+
+}
+
+#setStoreButton { z-index: 1; }
+
+
+input.validation-failed {
+	margin-bottom: 0;
+}
+.validation-advice {
+	color: #F00;
+	margin-bottom: 10px;
+}
+
+
+#payment_form_authnetcim {
+
+	select {
+		padding: 0;
+		margin: 0 0 5px 0;
+	}
+
+	label {
+		padding-top: 8px;
+	}
+
+}

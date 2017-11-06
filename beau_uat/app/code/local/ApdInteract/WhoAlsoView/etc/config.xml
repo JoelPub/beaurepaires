@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_WhoAlsoView>
+      <version>0.1.0</version>
+    </ApdInteract_WhoAlsoView>
+  </modules>
+  <global>
+    <helpers>
+      <apdinteract_whoalsoview>
+        <class>ApdInteract_WhoAlsoView_Helper</class>
+      </apdinteract_whoalsoview>
+    </helpers>
+  </global>
+</config> 

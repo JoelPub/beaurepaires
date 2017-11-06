@@ -1,0 +1,24 @@
+<?php
+$installer = $this;
+$installer->startSetup();
+
+$installer->run("
+-- DROP TABLE IF EXISTS {$this->getTable('customer_vehicle')};
+CREATE TABLE {$this->getTable('customer_vehicle')} (
+`vehicle_id` int(10) unsigned NOT NULL auto_increment,
+  `customer_id` int(10) unsigned NOT NULL default '0',
+  `store_id` int(10) unsigned NOT NULL default '0',
+  `make` int(10) unsigned NOT NULL default '0',
+  `manufacture_year` int(10) unsigned NOT NULL default '0',
+  `model` int(10) unsigned NOT NULL default '0',
+  `series` int(10) unsigned NOT NULL default '0',
+  `registration` varchar(32) NOT NULL default '',
+  PRIMARY KEY  (`vehicle_id`),
+  KEY `FK_CUSTOMER_VEHICLE` (`customer_id`),
+  CONSTRAINT `FK_CUSTOMER_VEHICLE` FOREIGN KEY (`customer_id`) REFERENCES {$this->getTable('customer_entity')} (`entity_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+");
+
+
+$this->endSetup();

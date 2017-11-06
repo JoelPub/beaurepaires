@@ -1,0 +1,69 @@
+<pre>
+<?php
+
+// Mage::getSingleton('core/session')->unsetData('product_code_wheels');
+
+// print_r(Mage::getSingleton('core/session')->getData());
+
+$storelocatorUrl = Mage::getBaseUrl() . Mage::helper('storelocator')->getRoute() . '/';
+$countryCode = (Mage::getStoreConfig('general/country/default')!=''? strtolower(Mage::getStoreConfig('general/country/default')): 'au');
+?>
+</pre>
+
+<!-- Start: top banner -->
+<div class="top-banner-wrapper">
+
+    <div class="row full-width">
+
+        <div class="medium-4 columns hide-for-small">
+            <h1 class="title">
+                <a href="<?php echo $this->getUrl('') ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+            </h1>
+        </div>
+
+        <div class="medium-8 columns">
+
+            <div class="row full-width">
+                <div class="columns text-right">
+                    <!-- Login / Register -->
+                    <div class="top-link-wrapper">
+                        <?php echo $this->getChildHtml('topLinks') ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row full-width hide-for-small">
+
+                <div class="column">
+
+                    <ul class="location-options inline-list right">
+
+                        <li class="location find-location">
+                            <i class="fa fa-location-arrow"></i> <span class="store" data-default_store_id="<?php echo Mage::getSingleton("core/session")->getdefaultStoreId(); ?>" data-store_id="<?php echo Mage::getModel('core/cookie')->get('store_id'); ?>"></span>
+                            <a class="link" href="/store-locator/">Find the Nearest Store</a>
+                        </li>
+
+                        <li class="store-locator-link">
+                            <a href="<?php echo $storelocatorUrl; ?>" title="Store Locator"><i class="fa fa-map-marker fa-lg fa-fw" aria-hidden="true"><span class="show-for-sr">Store Locator</span></i>Store Locator</a>
+                        </li>
+
+                        <li class="store-locator hide-for-medium-only" data-country-code="<?php echo $countryCode?>">
+                            <form id="storeQuickLocate" method="GET" action="<?php echo $storelocatorUrl; ?>">
+                                <input type="text" placeholder="Suburb/Postcode" class="text-input" name="address" id="quickLocateAddress" title="Suburb/Postcode" autocomplete="off">
+                                <input type="submit" value="Go" class="button radius tiny">
+                            </form>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- End: top banner -->
+
+<?php echo $this->getChildHtml('topMenu') ?>

@@ -1,0 +1,39 @@
+
+section.flash-bar {
+  $bar-height: 46px;
+
+  color: $color-white;
+  height: $bar-height;
+
+  .flash {
+    width: 100%;
+    background: $color-secondary;
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+    height: $bar-height;
+
+    .flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    &.sticky {
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+
+    span {
+      font-size: rem-calc(18px);
+    }
+
+    .button {
+      margin: 4px 0 4px 15px;
+      padding: 0 25px;
+      text-transform: uppercase;
+    }
+  }
+}

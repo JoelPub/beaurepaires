@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Customeraddattr>
+      <version>0.1.1</version>
+    </ApdInteract_Customeraddattr>
+  </modules>
+  <global>
+    <helpers>
+      <customeraddattr>
+        <class>ApdInteract_Customeraddattr_Helper</class>
+      </customeraddattr>
+    </helpers>
+	<resources>
+	  <customeraddattr_setup>
+		<setup>
+		  <module>ApdInteract_Customeraddattr</module>
+                  <class>Mage_Eav_Model_Entity_Setup</class> 
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </customeraddattr_setup>
+	  <customeraddattr_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </customeraddattr_write>
+	  <customeraddattr_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </customeraddattr_read>
+	</resources>
+  </global>
+</config> 

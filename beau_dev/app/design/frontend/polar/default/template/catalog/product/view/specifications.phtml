@@ -1,0 +1,230 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+
+<?php $_product = $this->getProduct(); ?>
+<?php $type = $_product->getTypeId(); ?>
+
+<?php if ($type == 'configurable'):?> 
+
+    <h3>Specifications</h3>
+    <h5 class="specification-text">Please select a size to see product specifications</h5>			
+
+    <?php
+        /*if(Mage::registry('current_category'))
+        {
+            // get the id, or by category name
+            $catId = Mage::registry('current_category')->getId();
+            $catName = strtolower(Mage::registry('current_category')->getName());
+            $displayTyreSpecs = true;
+            if($catName == "wheels" || $catId==42)
+            {
+                    $displayTyreSpecs = false;
+            }
+        }*/
+        
+        
+         $_product = Mage::registry('current_product');	
+		 
+			$categoryIds = $_product->getCategoryIds();
+
+	        if(count($categoryIds) ){
+	            $firstCategoryId = $categoryIds[0];	 
+	        }
+	        
+	        if($firstCategoryId==42)
+            {
+                    $displayTyreSpecs = false;
+            }          
+        	
+    ?>
+    <?php if($firstCategoryId == 41): ?>
+        <table class="specification-table hide">
+            <tr id="row-section-width">
+                <th scope="row">Section width</th>
+                <td class="section-width"></td>
+            </tr>
+            <tr id="row-aspect-ratio">
+                <th scope="row">Aspect Ratio</th>
+                <td class="aspect-ratio"></td>
+            </tr>
+            <tr id="row-rim">
+                <th scope="row">Rim</th>
+                <td class="rim"></td>
+            </tr>
+            <tr id="row-position-wheels">
+                <th scope="row">Position (wheels)</th>
+                <td class="position-wheels"></td>
+            </tr>
+            <tr id="row-measuring-rim">
+                <th  scope="row">Measuring rim</th>
+                <td class="measuring-rim"></td>
+            </tr>
+            <tr id="row-tread-depth">
+                <th scope="row">Tread depth (mm)</th>
+                <td class="tread-depth"></td>
+            </tr>
+            <tr id="row-overall-width">
+                <th scope="row">Overall width</th>
+                <td class="overall-width"></td>
+            </tr>
+            <tr id="row-speed-rating">
+                <th scope="row">Speed rating</th>
+                <td class="speed-rating"></td>
+            </tr>
+            <tr id="row-load-index">
+                <th scope="row">Load index</th>
+                <td class="load-index"></td>
+            </tr>
+			
+            <tr id="row-rim-diameter">
+                <th scope="row">Rim Diameter (inch)</th>
+                <td class="rim-diameter"></td>
+            </tr>
+            <tr id="row-overall-diameter">
+                <th scope="row">Overall Diameter (mm)</th>
+                <td class="overall-diameter"></td>
+            </tr>
+            <tr id="row-static-loaded-radius">
+                <th scope="row">Static Loaded Radius (mm)</th>
+                <td class="static-loaded-radius"></td>
+            </tr>
+            <tr id="row-revs-per-km">
+                <th scope="row">Revs per km</th>
+                <td class="revs-per-km"></td>
+            </tr>			
+        </table>
+    <?php elseif($firstCategoryId == 42) : ?> 
+        <table class="specification-table hide">
+            <tr>
+                <th scope="row">Finish</th>
+                <td class="finish"></td>
+            </tr>
+            <tr>
+                <th scope="row">PCD</th>
+                <td class="pcd"></td>
+            </tr>
+            <tr>
+                <th scope="row">PCD Alternate</th>
+                <td class="pcd-alternate"></td>
+            </tr>
+            <tr>
+                <th scope="row">Studs</th>
+                <td class="studs"></td>
+            </tr>
+            <tr>
+                <th scope="row">Studs alternate</th>
+                <td class="studs-alternate"></td>
+            </tr>
+            <tr>
+                <th scope="row">Offset</th>
+                <td class="offset"></td>
+            </tr>
+            <tr>
+                <th scope="row">Wheel construction</th>
+                <td class="wheel-construction"></td>
+            </tr>
+            <tr>
+                <th scope="row">Wheel manufacture</th>
+                <td class="wheel-manufacture"></td>
+            </tr>
+        </table>
+    <?php elseif($firstCategoryId == 43) : ?> 
+        <table class="specification-table">
+            <tr>
+                <th scope="row">Volts</th>
+                <td class="volts"></td>
+            </tr>
+            <tr>
+                <th scope="row">Technology</th>
+                <td class="technology"></td>
+            </tr>
+            <tr>
+                <th scope="row">Length</th>
+                <td class="length"></td>
+            </tr>
+            <tr>
+                <th scope="row">Width</th>
+                <td class="width"></td>
+            </tr>
+            <tr>
+                <th scope="row">height</th>
+                <td class="height"></td>
+            </tr>
+            <tr>
+                <th scope="row">CCA</th>
+                <td class="cca"></td>
+            </tr>
+            <tr>
+                <th scope="row">RC</th>
+                <td class="rc"></td>
+            </tr>
+            <tr>
+                <th scope="row">AH</th>
+                <td class="ah"></td>
+            </tr>
+            <tr>
+                <th scope="row">Post</th>
+                <td class="post"></td>
+            </tr>
+        </table>
+    <?php endif; ?>                    
+<?php endif; ?>
+
+<?php if ($type == 'simple'):?> 
+<?php $attributes = array(
+    'application',
+    'volts',
+    'technology',
+    'cca',
+    'rc',
+    'ah',
+    'post',    
+    'length',
+    'width',
+    'height',
+    'warranty_standard',
+    'warranty_extended'
+    ); // if an attribute is empty it won't be shown 
+?>
+ <h3>Specifications</h3>   
+ <table class="specification-table">
+     <?php foreach ($attributes as $attribute_code): ?> 
+        <?php $value = $_product->getData($attribute_code); ?>
+        <?php $productAttribute = $_product->getResource()->getAttribute($attribute_code);?>
+        <?php $_label = $productAttribute->getStoreLabel(Mage::app()->getStore()->getName());?>
+        <?php if($attribute_code=='application') { $value = $_product->getAttributeText($attribute_code);}?>
+        <?php if (!empty($value)): ?>             
+            <tr>
+                <th scope="row"><?php echo $_label; ?></th>
+                <td class="simple-product-<?php echo $attribute_code; ?>"><?php echo $value; ?></td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>  
+    
+</table>                                  
+                        
+<?php endif; ?>                        

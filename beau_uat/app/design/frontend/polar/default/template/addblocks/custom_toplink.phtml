@@ -1,0 +1,33 @@
+<!-- Promo Bar -->
+<?php
+    // System Configuration > Promo > Promo Messages
+    $messages = array();
+    $messages[1] = Mage::getStoreConfig('badges/promo_message/message_1');
+    $link[1]    = Mage::getStoreConfig('badges/promo_message/link_1');
+    $messages[2] = Mage::getStoreConfig('badges/promo_message/message_2');
+    $link[2]    = Mage::getStoreConfig('badges/promo_message/link_2');
+
+    $arr_message = array_filter($messages);
+?>
+<div class="promo-bar hide-for-small">
+    <div class="row full-width">
+        <div class="small-8 columns">
+            <?php if(count($arr_message) > 0){ ?>
+            <i class="fa fa-play"></i>
+            <ul class="promo-messages promo-bar-msgs">
+                <?php foreach($arr_message as $key => $message){
+                    if($link[$key] != ''){
+                        echo "<li><a href='".$link[$key]."'>" . $message . "</a></li>";
+                    }else{
+                        echo "<li>" . $message . "</li>";
+                    }
+                } ?>
+            </ul>
+            <?php } ?>
+        </div>
+        <div class="small-4 columns text-right">
+          <span class="promo-number" itemprop="telephone"><a href="tel:1800185099">1800 185 099</a></span>
+        </div>
+    </div>
+</div>
+<!-- End Promo Bar -->

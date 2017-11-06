@@ -1,0 +1,24 @@
+<?php
+
+$data = Mage::getModel('dynamicblock/dynamicblock')->getBlockPromoContent();
+    if (isset($data['block' . 1])):
+        $blocks = $data['block' . 1];
+        $default_display = 0;
+        $count = count($blocks[$default_display]);
+            ?>
+            <article class="home-promo-bars">
+                <ul>
+                <?php
+                foreach ($blocks[$default_display] as $block):
+                    $identifier = $block['identifier'];
+                    $ar_identifer = explode("_", $identifier);
+                    $col = $ar_identifer = $ar_identifer[2];
+                    ?>
+                    <li>
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+                    </li>
+                <?php endforeach; ?>
+                    <ul>
+            </article>
+            <?php
+    endif;

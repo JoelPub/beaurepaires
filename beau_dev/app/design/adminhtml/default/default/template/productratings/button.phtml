@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    //<![CDATA[
+    function generate() {
+        new Ajax.Request('<?php echo $this->getActionUrl() ?>', {
+            method: 'get',
+            onSuccess: function (transport) {
+
+                if (transport.responseText) {
+                    data = transport.responseText.evalJSON();
+                  
+                    $('googleratings_link').update(data.link);
+                    $('googleratings_link').writeAttribute('href', data.link);
+
+                    $('googleratings_updated_at').update(data.updated_at);
+                    $('googleratings_alert').remove();
+
+                } else {
+                    alert('Unable to generate the data feed');
+                }
+            }
+        });
+    }
+    //]]>
+</script>
+
+<?php echo $this->getButtonHtml() ?>

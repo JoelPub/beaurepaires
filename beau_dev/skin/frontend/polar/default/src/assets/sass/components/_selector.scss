@@ -1,0 +1,350 @@
+
+.cdp-selector {
+  $main-body-colour: $venice-blue;
+  $deactive-body-colour: $teal-blue;
+  $text-colour: $white;
+
+  $tab-height-desktop: 60px;
+  $tab-height-mobile: 50px;
+  $tab-height-mobile-extra: 72px;
+
+  background-color: $main-body-colour;
+  color: $text-colour;
+
+  // select-title start
+  .select-title {
+    display: none;
+
+    @media #{$small-only} {
+      $height: 50px;
+
+      background-color: $white;
+      color: $primary-color;
+      display: block;
+      font-size: rem-calc(21);
+      height: $height;
+      line-height: $height;
+      margin: 0;
+      text-align: center;
+    }
+  }
+  // select-title end
+
+  // selector-tabs start
+  .selector-tabs {
+    background-color: $deactive-body-colour;
+    display: flex;
+    height: $tab-height-desktop;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    .selector-tab {
+      cursor: pointer;
+      flex-grow: 1;
+      font-size: rem-calc(16);
+      height: $tab-height-desktop;
+      line-height: $tab-height-desktop;
+      padding: 0 19px;
+      position: relative;
+
+      &:active {
+        outline: none;
+      }
+
+      &.active {
+        background-color: $main-body-colour;
+        cursor: default;
+        outline: none;
+
+        i {
+          color: $secondary-color;
+        }
+
+        span {
+          opacity: 1;
+        }
+      }
+
+      &.small {
+        flex-grow: 0;
+        padding: 0 30px;
+      }
+
+      i {
+        margin-right: 10px;
+      }
+
+      span {
+        font-family: $font-family-sans-serif-bold;
+        opacity: 0.6;
+      }
+
+    }
+
+    .selector-tab:not(.active) + .selector-tab:not(.active) {
+      $offset: 10px;
+
+      &:before {
+        border-left: 1px solid $main-body-colour;
+        bottom: $offset;
+        content: "";
+        // height: $tab-height-desktop - ($offset * 2);
+        left: 0;
+        position: absolute;
+        top: $offset;
+      }
+    }
+
+    // selector-tabs mobile start
+    @media #{$small-only} {
+      height: $tab-height-mobile;
+
+      &.tab-count-3 {
+        height: $tab-height-mobile-extra;
+
+        .selector-tab {
+          height: $tab-height-mobile-extra;
+
+          .title {
+            flex-direction: column;
+            padding: 15px 8px 0 8px;
+
+            i {
+              flex: 1 50%;
+              margin: 0;
+            }
+
+            span {
+              flex: 1 100%;
+              max-width: 100px;
+              padding: 4px;
+            }
+          }
+        }
+      }
+
+      .selector-tab {
+        display: flex;
+        flex: 1;
+        font-size: rem-calc(14);
+        height: $tab-height-mobile;
+        line-height: 18px;
+        padding: 0 5px;
+        text-align: center;
+
+        &.small {
+          flex: 1;
+          flex-grow: 1;
+          padding: 0 5px;
+        }
+
+        &.active {
+          .title span {
+            opacity: 1;
+          }
+        }
+
+        .title {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .title {
+          margin: 0 auto;
+
+          i {
+            font-size: rem-calc(16);
+          }
+
+          span {
+            max-width: 90px;
+            opacity: 0.6;
+          }
+
+          i + span {
+            max-width: 220px;
+          }
+        }
+      }
+    }
+    // selector-tabs mobile end
+  }
+  // selector-tabs end
+
+  // selector-panel start
+  .selector-panel {
+    display: none;
+    padding: 10px 7px;
+
+    &.active {
+      display: block;
+    }
+
+    .selector-fields {
+      align-items: flex-end;
+      display: flex;
+
+      .selector-field {
+        flex: 1;
+        padding: 0 3px;
+        position: relative;
+
+        select {
+          border: 1px solid $white;
+          height: 40px;
+          margin: 0;
+          transition: border 0.2s ease;
+
+          &:focus {
+            border: 1px solid $secondary-color;
+          }
+        }
+
+        .field-loader {
+          bottom: 0;
+          color: $oil;
+          display: inline-block;
+          position: absolute;
+          right: 25px;
+          top: 0;
+
+          &:before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+          }
+
+          > span {
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      .selector-button {
+        padding: 0 3px;
+
+        button {
+          margin: 0;
+          min-width: 77px;
+        }
+      }
+    }
+
+    // selector-panel mobile start
+    @media #{$small-only} {
+      .selector-fields {
+        flex-flow: row wrap;
+        width: 100%;
+
+        .selector-field {
+          flex: 1 auto;
+          padding: 3px;
+          width: 50%;
+        }
+        .selector-button {
+          flex: 2 100%;
+          padding: 3px;
+
+          button {
+            min-width: none;
+            width: 100%;
+          }
+        }
+      }
+    }
+    // selector-panel mobile end
+  }
+  // selector-panel end
+
+  // selector-actions start
+  .selector-actions {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 10px 10px 10px;
+
+    li {
+      margin-left: 15px;
+
+      a {
+        color: $white;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $ghost;
+        }
+
+        &.clear {
+          color: $secondary-color;
+
+          &:hover {
+            color: #FF7900;
+          }
+        }
+      }
+    }
+
+    // selector-actions mobile start
+    @media #{$small-only} {
+      justify-content: center;
+
+      li {
+        margin: 0 15px;
+      }
+    }
+    // selector-actions mobile end
+  }
+  // selector-actions end
+
+  .type-size-graphic {
+		$colour-path: $white;
+		$colour-text-active: $secondary-color;
+
+    height: 68px;
+    margin-right: 14px;
+    width: 205px;
+
+		svg {
+			path {
+				fill: $colour-path;
+				transition: all 0.4s ease;
+			}
+		}
+
+		img {
+			visibility: hidden;
+		}
+
+		&.show-active {
+			&-width {
+				svg .text-width {
+					fill: $colour-text-active;
+				}
+			}
+			&-aspect {
+				svg .text-aspect {
+					fill: $colour-text-active;
+				}
+			}
+			&-rim {
+				svg .text-rim {
+					fill: $colour-text-active;
+				}
+			}
+		}
+
+    @media #{$small-only} {
+      flex: 2 100%;
+      height: auto;
+      margin: 0 auto;
+      max-width: 420px;
+    }
+	}
+}

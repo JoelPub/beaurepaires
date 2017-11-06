@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <innovationtiles translate="label" module="apdinteract_innovationtiles">
+            <label>Beaurepaires</label>
+            <sort_order>100</sort_order>
+        </innovationtiles>
+    </tabs>
+    <sections>
+        <innovationtiles translate="label" module="apdinteract_innovationtiles">
+            <label>Innovation Tiles</label>
+            <tab>innovationtiles</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+ 
+            <groups>
+                <innovationtiles_first translate="label" module="apdinteract_innovationtiles">
+                    <label>First block</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+ 
+                    <fields>
+                        <innovationtiles_input_first translate="label">
+                        	<backend_model>apdinteract_innovationtiles/validate</backend_model>
+                            <label>Block Identifier: </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </innovationtiles_input_first>
+                    </fields>
+                </innovationtiles_first>   
+                <innovationtiles_second translate="label" module="apdinteract_innovationtiles">             
+                    <label>Second block</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1001</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    
+                    <fields>
+                        <innovationtiles_input_second translate="label">
+                        	<backend_model>apdinteract_innovationtiles/validate</backend_model>
+                            <label>Block Identifier: </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </innovationtiles_input_second>
+                    </fields>
+                </innovationtiles_second>  
+                <innovationtiles_third translate="label" module="apdinteract_innovationtiles">
+                    <label>Third block</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1002</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    
+                    <fields>
+                        <innovationtiles_input_third translate="label">
+                        	<backend_model>apdinteract_innovationtiles/validate</backend_model>
+                            <label>Block Identifier: </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </innovationtiles_input_third>
+                    </fields>
+                </innovationtiles_third>    
+
+            </groups>
+        </innovationtiles>
+    </sections>
+</config>

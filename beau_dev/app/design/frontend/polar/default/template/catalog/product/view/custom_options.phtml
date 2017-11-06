@@ -1,0 +1,73 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE     
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php /* ?>
+<div class="bottom-cart">
+<div class="row">
+<?php $_product = $this->getProduct(); ?>
+<div class="small-12 columns">
+                        <ul class="pricing no-bullet">
+                 	<?php $attVal = Mage::getModel('catalog/product')->load($_product->getId())->getOptions();?>
+                  	<?php $optStr = "";?>
+                  	<?php $flag = false;?>
+                  	<?php if (!empty($attVal)):?>
+                  	<?php foreach($attVal as $optionKey => $optionVal) :?>
+                  		<?php if ($optionVal->getType() == 'field'):?>
+                  			<li><?php echo $optionVal->getTitle()?> <span class="cart-price right">Free</span></li>
+                  		<?php endif;?>
+                  		<?php if ($optionVal->getType() == 'checkbox'):?>
+                  			<?php if (!$flag):?>
+                  				<li class="pricing-header">Recommended Extras</li>
+                  				<?php $flag = true;?>
+                  			<?php endif;?>
+                  			<?php $values = $optionVal->getValues();?>
+	                  		<?php foreach ($values as $value):?>
+	                  			<?php  $formattedPrice = Mage::helper('core')->currency($value->getPrice(), true, false);?>
+	                  			<?php $tooltip = Mage::helper('apdinteract_tooltip')->getTooltip($optionVal->getTitle());?>														
+								<li>
+								<?php
+								 
+								?>
+								<input id="checkbox<?php echo $optionVal->getId();?>" name="options[<?php echo $optionVal->getId();?>][]" type="checkbox" value="<?php echo $value->getId(); ?>">
+								<label for="checkbox<?php echo $optionVal->getId();?>"><?php echo $optionVal->getTitle()?></label>
+								<span data-tooltip="<?php echo $tooltip?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibhif5bj2" aria-describedby="tooltip-ibhif5bj2" title="<?php echo $tooltip?>">
+								<i class="fa fa-lg fa-info-circle"></i>
+								</span>
+								<!-- Hide Custom option price for phase 1 7/23/15 -->
+								<span class="right hide"><?php echo $formattedPrice;?></span>
+								</li>								
+								
+								
+	                  		<?php endforeach;?>	
+                  		<?php endif;?>	
+                  	<?php endforeach;?>   
+                  	<?php endif;?>
+                        </ul>
+</div>
+
+</div>
+i</div>
+<?php */ ?>

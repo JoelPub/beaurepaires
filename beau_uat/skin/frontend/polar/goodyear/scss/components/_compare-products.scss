@@ -1,0 +1,35 @@
+// Variable
+$dark-grey: #323232;
+$orange: #F78F1D;
+
+// Compare Products
+.comp-compare-products{
+  > h3{
+    color: $dark-grey;
+    font-size: 16px;
+    font-family: "Swiss721BT-Bold", Helvetica, Arial,sans-serif;
+    margin-bottom: 15px;
+  }
+
+  ul{
+    li{
+      margin-bottom: 5px;
+ 
+      a{
+        i{
+          color: $iron;
+          margin-top: 3px;
+          &:hover{
+            color: $orange;
+          }
+        } 
+      }
+    }
+  }
+
+  .action{
+    a{
+      text-decoration: underline;
+    }
+  }
+}

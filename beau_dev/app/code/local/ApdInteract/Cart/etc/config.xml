@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Cart>
+      <version>0.1.0</version>
+    </ApdInteract_Cart>
+  </modules>
+  <global>
+    <helpers>
+      <cart>
+        <class>ApdInteract_Cart_Helper</class>
+      </cart>
+    </helpers>
+	<models>
+	  <cart>
+		<class>ApdInteract_Cart_Model</class>
+		<resourceModel>cart_mysql4</resourceModel>
+	  </cart>
+	</models>
+    <events>
+	  <sales_quote_add_item> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_quote_add_item_handler> <!-- identifier of the event handler -->
+            <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>ApdInteract_Cart_Model_Observer</class> <!-- observers class alias -->
+            <method>addCustomProduct</method>  <!-- observer's method to be called -->
+          </sales_quote_add_item_handler>
+        </observers>
+      </sales_quote_add_item>
+        <checkout_cart_save_after> <!-- identifier of the event we want to catch -->
+            <observers>
+                <checkout_cart_save_after_handler> <!-- identifier of the event handler -->
+                    <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                    <class>ApdInteract_Cart_Model_Observer</class> <!-- observers class alias -->
+                    <method>updateProductCart</method>  <!-- observer's method to be called -->
+                </checkout_cart_save_after_handler>
+            </observers>
+        </checkout_cart_save_after>
+	  <sales_quote_remove_item> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_quote_remove_item_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>ApdInteract_Cart_Model_Observer</class> <!-- observers class alias -->
+            <method>deleteCustomProduct</method>  <!-- observer's method to be called -->
+          </sales_quote_remove_item_handler>
+        </observers>
+      </sales_quote_remove_item>
+    </events>
+  </global>
+</config>

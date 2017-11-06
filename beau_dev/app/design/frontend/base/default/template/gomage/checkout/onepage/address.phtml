@@ -1,0 +1,32 @@
+<?php
+/**
+ * GoMage LightCheckout Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2014 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 5.7
+ * @since        Class available since Release 1.0
+ */
+
+echo $this->getChildHtml('billing'); ?>
+
+<?php if (!Mage::getSingleton('checkout/session')->getQuote()->isVirtual() && intval(Mage::getStoreConfig('gomage_checkout/general/different_shipping_enabled'))): echo $this->getChildHtml('shipping'); endif; ?>
+
+<?php if (Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+    <script language="JavaScript">
+        var url_load_address = '<?php echo Mage::getUrl('gomage_checkout/onepage/ajax/action/load_address') ?>';
+        document.observe('dom:loaded', function () {
+            console.log('billing');
+            if ($('billing-address-select'))
+                checkout.loadAddress('billing', $('billing-address-select').value, '<?php echo Mage::getUrl('gomage_checkout/onepage/ajax/action/load_address') ?>');
+
+            if($('shipping-address-select') && $('billing_use_for_shipping_yes').checked == false) {
+                console.log('shipping agian');
+                checkout.loadAddress('shipping', $('shipping-address-select').value, '<?php echo Mage::getUrl('gomage_checkout/onepage/ajax/action/load_address') ?>');
+            }
+        });
+    </script>
+<?php endif; ?>

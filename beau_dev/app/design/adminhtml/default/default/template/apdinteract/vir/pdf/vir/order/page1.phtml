@@ -1,0 +1,193 @@
+<div class="row">
+    <div class="col col-50"><h2>10 Point Health Check</h2></div>
+    <div class="col col-25"><span class="value">Date: <?php echo $hc->getData('date') ?></span></div>
+    <div class="col col-25"><span class="value">Time: <?php echo $hc->getData('time') ?></span></div>
+</div>
+<div class="row">
+    <div class="col col-50">
+        <span>Customer</span>
+        <span class="value"><?php echo $hc->getData('customer_name') ?></span>
+    </div>
+    <div class="col col-25">
+        <div>Store</div>
+        <span class="value" style="white-space: nowrap;"><?php echo $hc->getData('store_name') ?></span>
+    </div>
+    <div class="col col-25">
+        <div>Store Manager</div>
+        <span class="value"><?php echo $hc->getData('store_manager') ?></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-25">
+        <div>Vehicle Registration</div>
+        <span class="value"><?php echo $hc->getData('vehicle_registration') ?></span>
+    </div>
+    <div class="col col-25">
+        <div>Vehicle Make</div>
+        <span class="value"><?php echo $hc->getData('vehicle_make') ?></span>
+    </div>
+    <div class="col col-25">
+        <div>Vehicle Model</div>
+        <span class="value"><?php echo $hc->getData('vehicle_model') ?></span>
+    </div>
+    <div class="col col-25">
+        <div>Odometer</div>
+        <span class="value"><?php echo $hc->getData('odometer') ?></span>
+    </div>
+</div>
+<div class="row tyre-specs">
+    <h2 style="position:absolute;top:10px;left:320px;">Tyres</h2>
+    <div class="col left" style="margin-left:30px;">
+        <dl class="fc">
+            <dt class="tyres"><span>LF</span></dt>
+            <dd><span class="fld">Tread Depth:&nbsp;</span><span class="value"><?php echo $hc->getData('lf_tread_depth') ?></span>&nbsp;<span class="unit">mm</span></dd>
+            <dd><span class="fld">Tyre Pressure:&nbsp;</span><span class="value"><?php echo $hc->getData('lf_tyre_pressure') ?></span>&nbsp;<span class="unit">psi</span></dd>
+            <dd><span class="fld">Tread Wear: </span><span class="value"><?php echo $hc->getData('lf_treadwear') ?></span></dd>
+            <dd><input type="radio" class="if5" <?php echo ($hc->getData('lf_hassixyears')) ? 'checked' : '' ?>/><span class="unit">More than 5 years old</span></dd>
+            <dd><input type="radio" class="if5" <?php echo (!$hc->getData('lf_hassixyears')) ? 'checked' : '' ?>/><span class="unit">Less than 5 years old</span></dd>
+        </dl>
+        <dl>
+            <dt class="tyres"><span>LR</span></dt>
+            <dd><span class="fld">Tread Depth:&nbsp;</span><span class="value"><?php echo $hc->getData('lr_tread_depth') ?></span>&nbsp;<span class="unit">mm</span></dd>
+            <dd><span class="fld">Tyre Pressure:&nbsp;</span><span class="value"><?php echo $hc->getData('lr_tyre_pressure') ?></span>&nbsp;<span class="unit">psi</span></dd>
+            <dd><span class="fld">Tread Wear: </span><span class="value"><?php echo $hc->getData('lr_treadwear') ?></span></dd>
+            <dd><input type="radio" class="if5" <?php echo ($hc->getData('lr_hassixyears')) ? 'checked' : '' ?>/><span class="unit">More than 5 years old</span></dd>
+            <dd><input type="radio" class="if5" <?php echo (!$hc->getData('lr_hassixyears')) ? 'checked' : '' ?>/><span class="unit">Less than 5 years old</span></dd>
+        </dl>
+    </div>
+    <div class="col" style="margin-left: 28px;margin-top: 75px;">
+        <dl class="fc">
+            <dt class="tyres"><span>SP</span></dt>
+            <dd><span class="fld">Tread Depth:&nbsp;</span><span class="value"><?php echo $hc->getData('spare_tread_depth') ?></span>&nbsp;<span class="unit">mm</span></dd>
+            <dd><span class="fld">Tyre Pressure:&nbsp;</span><span class="value"><?php echo $hc->getData('spare_tyre_pressure') ?></span>&nbsp;<span class="unit">psi</span></dd>
+            <dd><span class="fld">Tread Wear: </span><span class="value"><?php echo $hc->getData('spare_treadwear') ?></span></dd>
+            <dd><input type="radio" class="if5" <?php echo ($hc->getData('spare_hassixyears')) ? 'checked' : '' ?>/><span class="unit">More than 5 years old</span></dd>
+            <dd><input type="radio" class="if5" <?php echo (!$hc->getData('spare_hassixyears')) ? 'checked' : '' ?>/><span class="unit">Less than 5 years old</span></dd>
+        </dl>
+    </div>
+    <div class="col right" style="margin-right:30px;">
+        <dl class="fc">
+            <dt class="tyres"><span>RF</span></dt>
+            <dd><span class="fld">Tread Depth:&nbsp;</span><span class="value"><?php echo $hc->getData('rf_tread_depth') ?></span>&nbsp;<span class="unit">mm</span></dd>
+            <dd><span class="fld">Tyre Pressure:&nbsp;</span><span class="value"><?php echo $hc->getData('rf_tyre_pressure') ?></span>&nbsp;<span class="unit">psi</span></dd>
+            <dd><span class="fld">Tread Wear: </span><span class="value"><?php echo $hc->getData('rf_treadwear') ?></span></dd>
+            <dd><input type="radio" class="if5" <?php echo ($hc->getData('rf_hassixyears')) ? 'checked' : '' ?>/><span class="unit">More than 5 years old</span></dd>
+            <dd><input type="radio" class="if5" <?php echo (!$hc->getData('rf_hassixyears')) ? 'checked' : '' ?>/><span class="unit">Less than 5 years old</span></dd>
+        </dl>
+        <dl>
+            <dt class="tyres"><span>RR</span></dt>
+            <dd><span class="fld">Tread Depth:&nbsp;</span><span class="value"><?php echo $hc->getData('rr_tread_depth') ?></span>&nbsp;<span class="unit">mm</span></dd>
+            <dd><span class="fld">Tyre Pressure:&nbsp;</span><span class="value"><?php echo $hc->getData('rr_tyre_pressure') ?></span>&nbsp;<span class="unit">psi</span></dd>
+            <dd><span class="fld">Tread Wear: </span><span class="value"><?php echo $hc->getData('rr_treadwear') ?></span></dd>
+            <dd><input type="radio" class="if5" <?php echo ($hc->getData('rr_hassixyears')) ? 'checked' : '' ?>/><span class="unit">More than 5 years old</span></dd>
+            <dd><input type="radio" class="if5" <?php echo (!$hc->getData('rr_hassixyears')) ? 'checked' : '' ?>/><span class="unit">Less than 5 years old</span></dd>
+        </dl>
+    </div>
+</div>
+<div class="row parts">
+    <div class="row inner">
+        <dl>
+            <dt class="heading">Battery</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('battery')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('battery')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="heading">Wiper Blades</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('wiper_blades')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('wiper_blades')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="heading">Steering</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('steering')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('steering')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+    </div>
+</div>
+<div class="row parts">
+    <h3>Lights</h3>
+    <div class="row inner">
+        <dl>
+            <dt class="sub">Brake Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('break_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('break_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Indicator Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('indicator_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('indicator_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Head Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('head_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('head_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Interior Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('interior_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('interior_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+    </div>
+    <div class="row inner">
+        <dl>
+            <dt class="sub">Boot Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('boot_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('boot_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Tail Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('tail_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('tail_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Hazard Lights</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('hazard_lights')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('hazard_lights')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+    </div>
+</div>
+<div class="row parts">
+    <h3>Brakes</h3>
+    <div class="row inner">
+        <dl>
+            <dt class="sub">Front Calipers/Wheel Cylinders</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('front_callipers')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('front_callipers')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Front Brakes</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('front_brakes')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('front_brakes')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Front Discs/Drums</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('front_discs')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('front_discs')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Rear Calipers/Wheel Cylinders</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('rear_callipers')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('rear_callipers')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+    </div>
+    <div class="row inner">
+        <dl>
+            <dt class="sub">Rear Brakes</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('rear_brakes')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('rear_brakes')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Rear Discs/Drums</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('rear_discs')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('rear_discs')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+        <dl>
+            <dt class="sub">Flexible Hydraulic Brakes Hoses</dt>
+            <dd><input type="radio" class="youOK" <?php echo ($hc->getData('flexible_hydraulic_brakes_hoses')) ? 'checked' : '' ?>/><span class="unit">OK</span></dd>
+            <dd><input type="radio" class="youOK" <?php echo (!$hc->getData('flexible_hydraulic_brakes_hoses')) ? 'checked' : '' ?>/><span class="unit">Replace</span></dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <h3>Comments</h3>
+    <div style="word-wrap:break-word;"><?php echo $hc->getData('comments') ?></div>
+</div>

@@ -1,0 +1,369 @@
+<?php
+$make = Mage::helper('searchtyre')->getMakes();
+$showTyreWidget = Mage::helper('addblock')->displayTyreSearchWidget();
+$showWheelWidget = Mage::helper('addblock')->displayWheelSearchWidget();
+$tyre_widget = Mage::helper('addblock')->getAllTyreWidgetCat();
+$helper = Mage::helper('searchtyre');
+
+if(Mage::registry('current_category'))
+{
+$category = Mage::registry('current_category');
+$cat = $category->getId();
+
+}else {
+$cat = 0;
+}
+
+$accordionActive = " active";
+if ( isset($_POST['tyre-vehicle-btn']) || isset($_POST['tyre-size-btn']) || isset($_POST['wheels-vehicle-btn'])  ) {
+	// do this on monday
+	$accordionActive = " trigger-on-open";
+}
+
+// if($cat->getId()!=43)
+if($cat != 43 || isset($_POST['tyre-vehicle-btn']) || isset($_POST['tyre-size-btn']) || isset($_POST['wheels-vehicle-btn']) || $showTyreWidget == true || $showWheelWidget == true)
+{
+
+?>
+<div class="row hide-for-large-up">
+	<div class="large-12 columns">
+		<ul class="accordion" data-accordion="">
+			<li class="accordion-navigation<?php echo $accordionActive ?>">
+			<?php if(in_array($cat, $tyre_widget) || (isset($_POST['category']) && in_array($_POST['category'], $tyre_widget))  || isset($_POST['tyre-size-btn']) || $showTyreWidget == true):?>
+			<a href="#left-nav-mobile" aria-expanded="true">Tyre Finder</a>
+			<?php endif;?>
+			<?php if($cat == 42 || (isset($_POST['category']) && $_POST['category']==42) || $showWheelWidget == true):?>
+			<a href="#left-nav-mobile" aria-expanded="true">Wheel Finder</a>
+			<?php endif;?>
+			<div id="left-nav-mobile" class="content<?php echo $accordionActive ?>">
+<!-- TIRE FINDER -->
+<?php
+// if($cat->getId()==41  || $_POST['category']==41)
+if(in_array($cat, $tyre_widget) || (isset($_POST['category']) && in_array($_POST['category'], $tyre_widget)) || isset($_POST['tyre-size-btn']) || $showTyreWidget == true)
+{
+	$quickFinderActiveTabs = array('vehicles'=>'','size'=>'');
+	if ( isset($_POST['section']) ) {
+		$quickFinderActiveTabs[$_POST['section']] = 'active';
+	}
+	else {
+		$quickFinderActiveTabs['vehicles'] = 'active';
+	}
+?>
+<div class="quick-finder relative <?php echo Mage::helper('addblock')->addQuickFinderClass(); ?>" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+      <div class="row">
+        <div class="large-12 columns">
+           <ul class="tabs" data-tab="">
+              <li class="tab-title <?php echo $quickFinderActiveTabs['vehicles']; ?>">
+                <a class="fond-tyres" href="#fond-tyres-mob">
+                  <span><i class="fa fa-car"></i> By Vehicle</span>
+                </a>
+              </li>
+              <?php if($helper->checkIfApplicable()):?>
+              <li class="tab-title">
+                <a class="find-saved" href="#find-saved-mob">
+                  <div>Saved<br class="show-for-small-only"> Vehicles</div>
+                </a>
+              </li>
+              <?php endif;?>
+              <li class="tab-title <?php echo $quickFinderActiveTabs['size']; ?>">
+                <a class="find-size" href="#find-size">
+                  <span><i class="fa fa-expand"></i> By Size</span>
+                </a>
+              </li>
+           </ul>
+           <div class="panel listing">
+              <div class="tabs-content">
+                 <div class="fond-tyres vehicle-type content <?php echo $quickFinderActiveTabs['vehicles']; ?>" id="fond-tyres-mob">
+                    <!-- Find Tyres -->
+                    <form method="post" class="ajax-call" action="" data-action-format="/tyresearch/[vehicle-name]/id/[vehicle-id]/y/[vehicle-year]">
+                       <input type="hidden" name="type_hidden" value="tyres">
+                       <input type="hidden" name="type" value="tyres">
+                       <input type="hidden" name="section" value="vehicles">
+                       <input type="hidden" name="category" value="41">
+                       <div class="row collapse">
+                          <div class="large-3 medium-3 columns form-wrapper">
+                             <select name="make-tyres" id="make-tyres1" class="make-tyres" title="Select Make" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTMakeF() !='') ? Mage::getSingleton('core/session')->getTMakeF() : isset($_COOKIE['make-tyres']) ? $_COOKIE['make-tyres'] : ''; ?>">
+                                <option value="">Select Make</option>
+                                <?php foreach($make as $m=>$v) {?>
+                                <option value="<?php echo $m?>"><?php echo $v?></option>
+                                <?php }?>
+                             </select>
+							               <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper">
+                             <select name="year-tyres" class="year-tyres" title="Select Year" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTYearF() !='') ? Mage::getSingleton('core/session')->getTYearF() : isset($_COOKIE['year-tyres']) ? $_COOKIE['year-tyres'] : ''; ?>">
+                                <option value="">Select Year</option>
+                                <?php for($i=date("Y");$i>=1990;$i--) {?>
+                                <option value="<?php echo $i?>"><?php echo $i?></option>
+                                <?php }?>
+                             </select>
+							               <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper">
+                             <select name="model-tyres" class="model-tyres" title="Select Model" data-pre-load="<?php echo  (Mage::getSingleton('core/session')->getTModelF() !='') ? Mage::getSingleton('core/session')->getTModelF() : isset($_COOKIE['model-tyres']) ? $_COOKIE['model-tyres'] : ''; ?>" disabled>
+                                <option value="">Select Model</option>
+                             </select>
+							               <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper">
+                             <select name="series-tyres" class="series-tyres final-select" title="Select Series" data-pre-load="<?php echo (Mage::getSingleton('core/session')->getSeriesF() !='') ? Mage::getSingleton('core/session')->getSeriesF() : isset($_COOKIE['series-tyres']) ? $_COOKIE['series-tyres'] : ''; ?>" disabled>
+                                <option value="">Select Series</option>
+                             </select>
+							               <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                       </div>
+                       <div class="row collapse">
+                          <!-- <div class="large-6 medium-6 columns">
+                             <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                          </div> -->
+                          <div class="small-12 columns">
+                             <input type="submit"  name="reset-btn" value="Clear Result" loc="/searchtyre/index/clear/type/tyres" class="radius button secondary expand reset-btn" disabled>
+                             <input type="submit" value="Search" class="radius button expand tyre-size-btn" disabled>
+                              <div class="request-error">
+                                Sorry, there was a problem retrieving your requested data.
+                              </div>
+                          </div>
+                            </div>
+                          </form>
+                      </div>
+                      <div class="tyre-size content <?php echo $quickFinderActiveTabs['size']; ?>" id="find-size">
+                          <!-- Tyre Size -->
+                          <form method="post" class="ajax-call" action="" data-action-format="/tyresize/[tyre-size]">
+                            <input type="hidden" name="type" value="tyres">
+                            <input type="hidden" name="section" value="size">
+                            <input type="hidden" name="category" value="41">
+                            <div class="row collapse tyre-size-graphic-container mobile">
+                                <div class="medium-3 small-12 columns form-wrapper">
+                                  <div class="type-size-graphic">
+                                    <img src="<?php echo $this->getSkinUrl('images/svg/tyre_size_graphic.svg'); ?>" class="svg" alt="">
+                                  </div>
+                                </div>
+                                <div class="medium-3 small-4 columns form-wrapper">
+                                  <select name="width-tyres" class="width-tyres" data-pre-load="<?php echo Mage::getSingleton('core/session')->getWidthF()?>" data-show-active="width" disabled>
+                                      <option value="">Width</option>
+                                  </select>
+                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                                <div class="medium-3 small-4 columns form-wrapper">
+                                  <select name="profile-tyres" class="profile-tyres" data-pre-load="<?php echo Mage::getSingleton('core/session')->getProfileF()?>" data-show-active="aspect" disabled>
+                                      <option value="">Aspect</option>
+                                  </select>
+                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                                <div class="medium-3 small-4 columns form-wrapper">
+                                  <select name="diameter-tyres"  class="diameter-tyres final-select" data-pre-load="<?php echo Mage::getSingleton('core/session')->getDiameterF()?>" data-show-active="rim" disabled>
+                                      <option value="">Rim</option>
+                                  </select>
+                                    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                </div>
+                            </div>
+                            <div class="row collapse">
+                                <!-- <div class="large-6 medium-6 columns">
+                                  <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                                </div> -->
+                                <div class="large-12 columns">
+                                  <input type="submit" value="Search" class="radius button expand tyre-size-btn" disabled>
+                      <div class="request-error">
+                        Sorry, there was a problem retrieving your requested data.
+                      </div>
+
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+
+                  <?php if($helper->checkIfApplicable()):
+                     $vehicles = $helper->getAllVehicleByUser();
+                  ?>
+                  <div class="tyre-saved content <?php echo isset($quickFinderActiveTabs['saved']) ? $quickFinderActiveTabs['saved'] : ''; ?>" id="find-saved-mob">
+                    <!-- Tyre Size -->
+                    <form method="post" id="frm-tyres" action="/searchresult/index/">
+                        <input type="hidden" name="type" value="tyres">
+                        <input type="hidden" name="section" value="vehicles">
+                        <input type="hidden" name="category" value="41">
+
+                       <div class="row collapse">
+                          <div class="small-12 columns form-wrapper">
+                             <select name="saved_vehicles" id="brand-tyres">
+                                <option value="">Series</option>
+                                <?php foreach($vehicles as $vehicle):?>
+                                   <?php $details = json_decode($vehicle->getDetails(),true);?>
+                                   <option value="<?php echo $details['make-tyres'].':'.$details['year-tyres'].':'.$details['model-tyres'].':'.$details['series-tyres'].':'.$vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option>
+                                <?php endforeach;?>
+                             </select>
+							            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+
+                       </div>
+                       <div class="row collapse">
+                          <!-- <div class="large-6 medium-6 columns">
+                             <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                          </div> -->
+                          <div class="large-12 columns">
+                             <input type="submit" value="Search" class="radius button expand tyre-size-btn" disabled>
+                              <div class="request-error">
+                                Sorry, there was a problem retrieving your requested data.
+                              </div>
+
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+
+                  <?php endif;?>
+
+              </div>
+           </div>
+        </div>
+</div>
+</div>
+<?php
+}
+?>
+<!-- TIRE FINDER --->
+
+
+
+
+
+<!-- WHEEL FINDER -->
+<?php
+
+// if($cat->getId()==42  || $_POST['category']==42) if($showWheelWidget == true)
+if($cat == 42 || (isset($_POST['category']) && $_POST['category']==42) || $showWheelWidget == true) // need to put back when wheel selector is activated
+{
+?>
+<div class="quick-finder relative <?php echo Mage::helper('addblock')->addQuickFinderClass(); ?>"  data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+      <div class="row">
+        <div class="large-12 columns">
+           <ul class="tabs" data-tab="">
+              <li class="tab-title active">
+                <a href="#fond-wheels-mob">
+                  <span><i class="fa fa-car"></i> By Vehicle</span>
+                </a>
+              </li>
+              <?php if($helper->checkIfApplicable()):?>
+              <li class="tab-title">
+                <a class="find-saved" href="#find-saved-mob">
+                  <div>Saved<br class="show-for-small-only"> Vehicles</div>
+                </a>
+              </li>
+              <?php endif;?>
+           </ul>
+           <div class="panel listing">
+              <div class="tabs-content">
+                 <div class="fond-tyres vehicle-type content active" id="fond-wheels-mob">
+                    <!-- Find Tyres -->
+                    <!-- no update on the Action URL since wheel finder is no longer used, a new wheel search was developed. -->
+                    <form class="ajax-call" method="post" action="" data-action-format="/wheelsearch/[vehicle-name]/id/[vehicle-id]/y/[vehicle-year]">
+                       <input type="hidden" name="type" value="wheels">
+                       <input type="hidden" name="section" value="vehicles">
+                       <input type="hidden" name="category" value="42">
+                       <div class="row collapse">
+                          <div class="large-3 medium-3 columns form-wrapper">
+                            <select name="make-tyres" class="make-wheels" title="Select Make" data-pre-load="<?php echo Mage::getSingleton('core/session')->getTMakeF()?>">
+                              <option value="">Select Make</option>
+                              <?php foreach($make as $m=>$v) {?>
+                              <option value="<?php echo $m?>"><?php echo $v?></option>
+                              <?php }?>
+                            </select>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper">
+                            <select name="year-tyres" class="year-wheels" title="Select Year" data-pre-load="<?php echo Mage::getSingleton('core/session')->getTYearF()?>">
+                              <option value="">Select Year</option>
+                              <?php for($i=date("Y");$i>=1990;$i--) {?>
+                              <option value="<?php echo $i?>"><?php echo $i?></option>
+                              <?php }?>
+                            </select>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper">
+                            <select name="model-tyres" class="model-wheels" title="Select Model" data-pre-load="<?php echo Mage::getSingleton('core/session')->getTModelF()?>" disabled>
+                              <option value="">Select Model</option>
+                            </select>
+                            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                          <div class="large-3 medium-3 columns form-wrapper" title="Select Series">
+                            <select name="series-tyres" class="series-wheels" data-pre-load="<?php echo Mage::getSingleton('core/session')->getSeriesF()?>" disabled>
+                              <option value="">Select Series</option>
+                            </select>
+                            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                        </div>
+                        <div class="row">
+                                    <!-- <div class="large-6 medium-6 columns">
+                                      <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                                    </div> -->
+                                    <div class="small-12 columns">
+                                      <input type="submit" value="Search" class="radius button expand wheels-vehicle-btn" disabled>
+                          <div class="request-error">
+                            Sorry, there was a problem retrieving your requested data.
+                          </div>
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+                 <?php if($helper->checkIfApplicable()):
+                     $vehicles = $helper->getAllVehicleByUser();
+                  ?>
+                  <div class="tyre-saved content <?php echo $quickFinderActiveTabs['saved']; ?>" id="find-saved-mob">
+                    <!-- Tyre Size -->
+                    <form method="post" id="frm-tyres" action="/searchresult/index/">
+                        <input type="hidden" name="type" value="tyres">
+                        <input type="hidden" name="section" value="vehicles">
+                        <input type="hidden" name="category" value="41">
+
+                       <div class="row collapse">
+                          <div class="small-12 columns form-wrapper">
+                             <select name="saved_vehicles" id="brand-tyres">
+                                <option value="">Series</option>
+                                <?php foreach($vehicles as $vehicle):?>
+                                   <?php $details = json_decode($vehicle->getDetails(),true);?>
+                                   <option value="<?php echo $details['make-tyres'].':'.$details['year-tyres'].':'.$details['model-tyres'].':'.$details['series-tyres'].':'.$vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option>
+                                <?php endforeach;?>
+                             </select>
+							            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+
+                       </div>
+                       <div class="row collapse">
+                          <!-- <div class="large-6 medium-6 columns">
+                             <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                          </div> -->
+                          <div class="large-12 columns">
+                             <input type="submit" value="Search" class="radius button expand tyre-size-btn" disabled>
+                              <div class="request-error">
+                                Sorry, there was a problem retrieving your requested data.
+                              </div>
+
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+
+                  <?php endif;?>
+           </div>
+        </div>
+
+   </div></div></div>
+<!-- WHEEL FINDER -->
+<?php
+}
+
+
+?>
+
+
+
+
+
+
+
+			</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<?php
+}
+?>

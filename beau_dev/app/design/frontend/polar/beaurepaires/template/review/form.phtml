@@ -1,0 +1,77 @@
+<div class="review-form">
+	<h3 class="section-title">
+		<a name="add-review"></a>
+		Do you own this product?
+		<span class="sub">Let us know what you think!</span>
+	</h3>
+
+<?php if ($this->getAllowWriteReviewFlag()): ?>
+	<div class="review-body">
+		<form data-abide action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+			
+			<?php // echo $this->getChildHtml('form_fields_before')?>
+			<?php echo $this->getBlockHtml('formkey') ?>
+			
+			<?php if ($this->getRatings() && $this->getRatings()->getSize()): ?>
+				<label><?php echo $this->__('How do you rate this product?') ?></label>
+	<!--            <span id="input-message-box"></span>-->
+
+				<?php foreach ($this->getRatings() as $_rating): ?>
+					<?php $stars = 0; ?>
+					<!-- Only need this for multiple rating attributes -->
+					<!-- <span><?php echo $this->escapeHtml($_rating->getRatingCode()) ?>:</span> -->
+
+					<div class="rating">
+						<input type="radio" name="ratings[0]" value="0" id="star-0" class="hide" title="Rate 0" /><label for="star-0" class="hide"></label>
+						<?php foreach ($_rating->getOptions() as $_option): ?>
+							<?php $stars++; ?>
+							<?php $checked = ($stars == 5 ? " checked" : ""); ?>
+							<input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" value="<?php echo $_option->getId() ?>" id="star-<?php echo $stars ?>" title="Rate <?php echo $stars ?>" <?php echo $checked ?> required><label for="star-<?php echo $stars ?>"><i class="fa fa-star"></i></label>
+						<?php endforeach; ?>
+					</div>
+
+				<?php endforeach; ?>
+			<?php endif; ?>
+			
+			<div class="row">
+			  <div class="columns large-12">
+				<label id="summary_field"><?php echo $this->__('What is the title of your review?'); ?></label>
+				<input type="text" placeholder="Review title" name="title" id="summary_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" required />
+				<small class="error">This is a required field</small>
+			  </div>
+			</div>
+			
+			<div class="row">
+			  <div class="columns large-12">
+				<label for="review_field"><?php echo $this->__('Write a short review:'); ?></label>
+				<textarea name="detail" rows="6" placeholder="Your review" id="review_field" class="required-entry" required ><?php echo $this->escapeHtml($data->getDetail()) ?></textarea>
+				<small class="error">This is a required field</small> 
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="columns large-12">
+				<label for="nickname_field"><?php echo $this->__('What\'s your name?'); ?></label>
+				<input type="text" placeholder="Your name" name="nickname" id="nickname_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getNickname()) ?>" required />
+				<small class="error">This is a required field</small> 
+			  </div>
+			</div>
+			<div class="row">
+				<div class="columns">
+					<?php echo $this->getChildHtml('studioforty9.recaptcha.explicit'); ?>
+					<div class="captcha-error"></div>
+					<em>This helps us know your review is not spam</em>
+				</div>
+			</div>
+			<button type="submit" title="<?php echo $this->__('Submit Review') ?>" class="button radius small" id="btn-submit"><?php echo $this->__('Submit Review') ?></button>
+		</form>
+	</div>
+
+<?php else: ?>
+    <p class="review-nologged" id="review-form">
+        <?php echo $this->__('Only registered users can write reviews. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+    </p>
+<?php endif; ?>
+
+</div>
+
+

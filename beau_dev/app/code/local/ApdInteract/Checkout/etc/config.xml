@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Checkout>
+            <version>0.0.1</version>
+        </ApdInteract_Checkout>
+    </modules>
+    <global>
+        <blocks>
+            <checkout>
+                <rewrite>
+                    <onepage>ApdInteract_Checkout_Block_Onepage</onepage><!-- rewrite the onepage chackout block -->
+                    <onepage_success>ApdInteract_Checkout_Block_Onepage_Success</onepage_success>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <apdinteract_checkout>
+                <class>ApdInteract_Checkout_Helper</class>
+            </apdinteract_checkout>
+        </helpers>
+        <models>
+        	<checkout>
+            	<rewrite>
+            		<type_onepage>ApdInteract_Checkout_Model_Type_Onepage</type_onepage>
+            	</rewrite>
+            </checkout>
+            <apdinteract_checkout>
+                <class>ApdInteract_Checkout_Model</class>
+            </apdinteract_checkout>
+        </models>
+    </global>
+    <default>
+        <checkout>
+            <options>
+                <hide_shipping>1</hide_shipping>
+                <default_shipping>flatrate_flatrate</default_shipping><!-- set the default shipping method code -->
+            </options>
+        </checkout>
+        <add_ons>
+            <cart_page>
+                <price_info>All prices include a fitting, balancing, valve replacement and environmental disposal of your used tyres.</price_info>
+                <safety_info>Shopping with Beaurepaires is safe and secure.  Our site uses SSL 128-bit encryption to secure transactions.</safety_info>
+            </cart_page>
+        </add_ons>
+    </default>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <apdinteract_checkout before="Mage_Checkout">ApdInteract_Checkout</apdinteract_checkout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+        <translate>
+            <modules>
+                <apdinteract_checkout>
+                    <files>
+                        <default>ApdInteract_Checkout.csv</default>
+                    </files>
+                </apdinteract_checkout>
+            </modules>
+        </translate>
+    </frontend>
+</config>

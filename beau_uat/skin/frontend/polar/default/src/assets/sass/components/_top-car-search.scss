@@ -1,0 +1,96 @@
+
+
+
+
+
+
+// Top Bar
+
+.top-bar-wrapper {
+
+  .top-bar{
+
+    .find-location{
+      display: none;
+
+      @media only screen and (max-width: 45.7857em) {
+        background: $iron2;
+        color: $primary-color;
+        display: block;
+        font-size: rem-calc(16px);
+        margin: 0;
+        padding: rem-calc(5px) 0 rem-calc(5px) 1.07143rem;
+
+        a{
+            color: $primary-color;
+            margin: 0;
+        }
+      }
+    }
+    .mobile-store-locator {
+
+      line-height: 2.8125rem;
+      a{
+        color: $white;
+      }
+    }
+    .name {
+      h1 {
+        a {
+          color: $primary-color;
+          font-family: $font-family-sans-serif-bold;
+		  font-size: 20px;
+		  letter-spacing: -1px;
+		  padding: 0 0 0 10px;
+		  margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 45.7857em) {
+  .top-bar-wrapper {
+    @include bg-gradient-color($nav-gradient-from, $nav-gradient-to);
+  }
+}
+
+
+@media only screen and (max-width: 45.7857em) {
+  .top-bar {
+    background: $primary-color;
+    &.expanded {
+      background: $primary-color;
+			height: auto !important;
+    }
+    .top-bar-section {
+      ul {
+        background: $primary-color;
+      }
+    }
+    .toggle-topbar {
+
+      &.menu-icon {
+        a {
+          padding: 0 0.9375rem;
+        }
+      }
+    }
+    .title-area{
+
+		  li {
+			&.mobile-store-locator {
+
+			  float: right;
+			  height: $topbar-height;
+			  line-height: $topbar-height;
+			  padding: 0 10px;
+		  a {
+			color: $primary-color;
+		  }
+
+        }
+      }
+    }
+  }
+}

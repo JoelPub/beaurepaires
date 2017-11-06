@@ -1,0 +1,48 @@
+// Customer Reviews Component
+
+.review-component{
+
+  h5{
+    color: #4C4C4C;
+    font-size: 14px;
+    font-family: "Swiss721BT-Bold",Helvetica,Arial,sans-serif;
+  }
+
+  .review-item{
+    .star-rating{
+      margin: 5px 0 0;
+    }
+
+    p.last-child{
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.voted-submit{
+  display: none;
+
+  &.submitted{
+    display: block;
+  }
+}
+
+.accounts-voted{
+  display: block;
+}
+
+.vote-review-panel{
+  margin-bottom: 20px;
+
+  button.hide{
+    display: none;
+  }
+
+  i{
+    display: none;
+
+    &.loading{
+      display: inline-block;
+    }
+  }
+}

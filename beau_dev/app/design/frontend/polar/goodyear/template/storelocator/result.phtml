@@ -1,0 +1,159 @@
+<?php $collection = $this->getCollection(); ?>
+<?php $page = $this->getPage(); ?>
+<?php $pagination = $this->getLoad(); ?>
+<?php $images = Mage::helper('storecategory')->getAllImageDetails(); ?>
+<?php
+$option = Mage::getStoreConfig(IWD_StoreLocator_Helper_Data::XML_PATH_METRIC);
+if ($option == 1) {
+    $methic = 'km';
+}
+
+if ($option == 2) {
+    $methic = 'mi';
+}
+?>
+<?php if ($collection->getSize() > 0): ?>
+    <?php if (!$pagination): ?>
+        <a name="filter"></a>
+        <div class="result-header">
+            <h3 class="page-title">Search Results</h3>
+            <p>
+                <?php $address = Mage::registry('storelocator_address'); ?>
+                <?php if (is_null($address) || $address == false || is_array($address)): ?>
+                    <?php //echo $this->__('We found <strong>') ?> <?php //echo $collection->getSize(); ?> <?php //echo $this->__('</strong> Locations') ?>
+                    <?php $saddress = Mage::app()->getRequest()->getParam('address'); ?>
+                <?php else: ?>
+                    <?php //echo $this->__("We've found that you are located at:") ?> <?php //echo $address; ?>
+                    <?php $saddress = $address; ?>
+                <?php endif; ?>
+            </p>
+        </div>
+    <?php endif; ?>
+
+    <?php $saddress = urlencode($saddress); ?>
+
+    <?php $_collectionSize = $collection->count() ?>
+    <?php $_columnCount = 3; ?>
+
+    <?php if (!$pagination): ?>
+
+
+        <ul class="no-bullet">
+        <?php endif; ?>
+        <?php $i = 0;
+        foreach ($collection as $store): ?>
+            <?php
+            $tz = array($store->getLatitude(), $store->getLongitude());
+            $trading_hours = array();
+            $trading_hours[0] = array('o' => $store->getSundayOpen(), 'c' => $store->getSundayClose(), 'label' => 'Sunday');
+            $trading_hours[1] = array('o' => $store->getMonFriOpen(), 'c' => $store->getMonFriClose(), 'label' => 'Monday');
+            $trading_hours[2] = array('o' => $store->getMonFriOpen(), 'c' => $store->getMonFriClose(), 'label' => '');
+            $trading_hours[3] = array('o' => $store->getMonFriOpen(), 'c' => $store->getMonFriClose(), 'label' => '');
+            $trading_hours[4] = array('o' => $store->getMonFriOpen(), 'c' => $store->getMonFriClose(), 'label' => '');
+            $trading_hours[5] = array('o' => $store->getMonFriOpen(), 'c' => $store->getMonFriClose(), 'label' => '');
+            $trading_hours[6] = array('o' => $store->getSatOpen(), 'c' => $store->getSatClose(), 'label' => 'Saturday');
+            $post_code = $store->getPostalCode();
+            $trading_hours = Mage::helper('storelocator')->tradingHours($trading_hours, $post_code, $tz);
+
+            $selectedStore = Mage::getSingleton("core/session")->getStorelocation();
+            $show = ($selectedStore == $store->getId()) ? 'show' : '';
+            $hide = ($selectedStore == $store->getId()) ? '' : 'show';
+
+            $site = Mage::getBaseUrl() .
+                    Mage::helper('storelocator')->getRoute() . '/' .
+                    $store->getUrl() .
+                    '?sa=' . $saddress .
+                    '&distance=' . $store->getDistance(); // friendly URL
+            ?>
+
+            <li class="store-details">
+                <div class="row">
+                    <div class="small-9 column">
+                        <div class="row-fluid">
+        <?php if ($store->getTypeId() > 0) { ?>
+                                <div class="small-3 column column-no-paddingL">
+                                    <img src="/media/<?php echo $images[$store->getTypeId()][0] ?>">
+                                </div>
+                                <div class="small-9 column column-no-paddingL">
+                                    <?php } else { ?>
+                                    <div class="small-12 column column-no-padding">
+        <?php } ?>
+                                    <a href="<?php echo $site ?>"><strong><?php echo $store->getTitle() ?></strong></a>
+                                    <address>
+                                        <?php echo $store->getStreet() ?><br>
+                                        <?php echo $store->getCity() ?>
+                                        <?php echo $this->prepareState($store->getCountryId(), $store->getRegion(), $store->getRegionId()) ?>
+        <?php echo $store->getPostalCode() ?>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-3 column text-right">
+        <?php if ($store->getDistance() != 0): ?><span class="distance"><?php echo round($store->getDistance(), 2); ?><?php echo $methic; ?></span><?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 column">
+
+                            <div class="button medium white your-store-btn <?php echo $show ?>" id="your-store-btn-<?php echo $store->getId() ?>"><i class="fa fa-check-square-o"></i> Your store</div>
+                            <a href="/slocator/index/setStore/" class="button medium white set-your-store-btn <?php echo $hide ?>" id="set-your-store-btn-<?php echo $store->getId() ?>" data-id="<?php echo $store->getId() ?>"><i class="fa fa-map-marker"></i> Set as your store <i class="fa fa-spinner fa-pulse"></i></a>
+
+                            <dl>
+
+                                <?php if ($trading_hours != ""): ?>
+                                    <dt><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i> <strong><?php echo $trading_hours ?></strong></dt>
+                                <?php endif; ?>
+
+        <?php if ($store->getPhone() != ""): ?>
+                                    <dt><i class="fa fa-fw fa-phone" aria-hidden="true"></i> <strong>Phone</strong></dt>
+                                    <dd><a href="tel://<?php echo $store->getPhone() ?>"><?php echo $store->getPhone() ?></a></dd>
+                                <?php endif; ?>
+
+        <?php if ($store->getEmail() != ""): ?>
+                                    <dt><i class="fa fa-fw fa-envelope" aria-hidden="true"></i> <strong>Email</strong></dt>
+                                    <dd><?php echo '<a target="_blank" href="mailto:' . strtolower($store->getEmail()) . '" title="' . strtolower($store->getEmail()) . '">' . strtolower($store->getEmail()) . '</a>' ?></dd>
+        <?php endif; ?>
+
+                                <dt><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <strong>Get Directions</strong></dt>
+                                <dd><a target="_blank" href="https://maps.google.com/maps?saddr=<?php echo $saddress; ?>&daddr=<?php echo $store->getStreet() ?>+<?php echo $store->getCity() ?>+<?php echo $this->prepareState($store->getCountryId(), $store->getRegion(), $store->getRegionId()) ?>+<?php echo $this->prepareCountry($store->getCountryId()) ?>" title="Google Maps">Google Maps</a></dd>
+
+                            </dl>
+
+                        </div>
+                    </div>
+
+                    <div class="row row-btns">
+                        <div class="columns large-6">
+                            <a href=<?php echo $site; ?> class="button full medium white">Opening Hours</a>
+                        </div>
+                        <div class="columns large-6">
+                            <a href=<?php echo $site; ?> class="button full medium white">Services Offered</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="columns small-12">
+                            <a href="<?php echo Mage::getBaseUrl() . '/contacts/index/'; ?>?storeid=<?php echo $store->getId(); ?>&storename=<?php echo str_replace(" ", "%20", $store->getTitle()); ?>" class="button full medium">Request a Call Back</a>
+                        </div>
+                    </div>
+            </li>
+    <?php endforeach; ?>
+    </ul>
+
+
+    <div class="item item-pagination">
+        <div class="pagination-loader"><div class="loader"></div></div>
+    </div>
+    <?php if (!$pagination): ?>
+        </ol>
+    <?php endif; ?>
+    <?php if (!$pagination): ?>
+        <div class="back-to-top"><a href="#filter" class="button small radius"><?php echo $this->__('Back to Top') ?></a></div>
+    <?php endif; ?>
+<?php else: ?>
+    <p class="no-result"><?php echo Mage::getStoreConfig('storelocator/global/nfoundmessage') ?></p>
+<?php endif; ?>
+<script>
+    IWD.StoreLocator.decorate();
+    IWD.StoreLocator.page = <?php echo $page ?>;
+</script>

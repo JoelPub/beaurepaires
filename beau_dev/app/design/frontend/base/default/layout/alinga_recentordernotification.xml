@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/alinga/jquery.growl.css</stylesheet></action>
+            <action method="addItem" ifconfig="recentordernotification/settings/jquery">
+				<type>skin_js</type>
+				<name>js/alinga/jquery.min.js</name>
+			</action>
+            <action method="addItem" ifconfig="recentordernotification/settings/noconflict">
+				<type>skin_js</type>
+				<name>js/alinga/jquery-noconflict.js</name>
+			</action>
+			<action method="addItem"><type>skin_js</type><name>js/alinga/jquery.growl.js</name><params><![CDATA[name="zzz_sales_notifiaction_lib"]]></params></action>
+        </reference>
+        <reference name="after_body_start">
+            <block type="recentordernotification/frontend_script" name="load_recent_order_notification" />
+        </reference>
+    </default>
+</layout>

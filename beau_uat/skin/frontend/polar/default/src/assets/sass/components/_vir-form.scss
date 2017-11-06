@@ -1,0 +1,439 @@
+
+// VIR form
+body {
+  &.vir-form{
+    $grey: #ccc;
+
+    background: $white;
+    .car-wrapper{
+      background: url($images_path+'/steering-wheel.gif') no-repeat 56% 30%;
+      border: 1px solid $grey;
+      margin-bottom: 15px;
+      padding: 15px;
+      .panel{
+        border-radius: 26%;
+        min-height: 240px;
+        overflow: hidden;
+        textarea {
+          resize: none;
+        }
+      }
+    }
+  }
+}
+
+
+// .vir-edit {
+//
+// 	// mixing for setting staus colour and visible icon
+// 	@mixin set-status($colour, $icon) {
+// 		background-color: $colour;
+// 		i.fa-#{$icon} {
+// 			display: inline;
+// 		}
+// 	}
+//
+// 	// status colours
+// 	$colour-not-started: 					#AAA;
+// 	$colour-in-progress: 				#666;
+// 	$colour-cancelled: 					#F00;
+// 	$colour-on-hold: 					$colour-not-started;
+// 	$colour-ready-for-customer-pickup: 	#006DD9;
+// 	$colour-completed: 					#85B200;
+//
+// 	.status-select {
+// 		overflow: hidden;
+//
+// 		select {
+// 			float: left;
+// 			width: 90%; /* fallback if needed */
+// 			width: calc(100% - 40px);
+// 		}
+//
+// 		.status-icon {
+// 			background-color: #CCC;
+// 			border-radius: 3px;
+// 			color: $white;
+// 			float: right;
+// 			font-size: 22px;
+// 			height: 34px;
+// 			line-height: 35px;
+// 			text-align: center;
+// 			width: 34px;
+//
+// 			-webkit-transition: background-color 100ms linear;
+// 			-moz-transition: background-color 100ms linear;
+// 			-o-transition: background-color 100ms linear;
+// 			-ms-transition: background-color 100ms linear;
+// 			transition: background-color 100ms linear;
+//
+// 			i {
+// 				display: none;
+// 			}
+//
+// 			// set colours/icons based on status class
+// 			&.not-started 				{ @include set-status($colour-not-started,minus) }
+// 			&.in-progress 				{ @include set-status($colour-in-progress,wrench) }
+// 			&.cancelled 					{ @include set-status($colour-cancelled,ban) }
+// 			&.on-hold 					{ @include set-status($colour-on-hold,pause) }
+// 			&.ready-for-customer-pickup 	{ @include set-status($colour-ready-for-customer-pickup,thumbs-up) }
+// 			&.completed 					{ @include set-status($colour-completed,check) }
+//
+//
+// 		}
+// 	}
+// }
+
+.vir-edit {
+  $colour-text1: #ED7624;
+  $colour-text2: #104C90;
+  $colour-field1: #FDEFE2;
+  $colour-field2: #E2E4F0;
+  $colour-hr: #F2F2F2;
+
+  $form-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  color: $colour-text2;
+  font-family: $form-font;
+  font-size: 12px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $colour-text1;
+    font-family: $form-font;
+
+    &.second-colour {
+      border-color: $colour-text2;
+      color: $colour-text2;
+    }
+  }
+
+  h2 {
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  h4 {
+    border-bottom: 2px solid $colour-text1;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  h5 {
+    border-bottom: 1px solid $colour-text1;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  p {
+    margin-top: 15px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  input[type="color"],
+  textarea {
+    background-color: $colour-field1;
+    border-width: 0;
+    font-size: 12px;
+    height: 23px;
+    line-height: 23px;
+    margin-bottom: 4px;
+    padding: 0 10px;
+
+    &.second-colour {
+      background-color: $colour-field2;
+    }
+  }
+
+  textarea {
+    height: auto;
+  }
+
+  select {
+    background-color: $colour-field1;
+    border-width: 0;
+    font-size: 12px;
+    height: 23px;
+    margin-bottom: 4px;
+    padding: 0 5px;
+
+    &.second-colour {
+      background-color: $colour-field2;
+    }
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin: 0 2px 3px 0;
+  }
+
+  label {
+    color: $colour-text2;
+    font-size: 12px;
+    line-height: 23px;
+    white-space: nowrap;
+
+    &.second-colour {
+      color: $colour-text1;
+    }
+  }
+
+  legend {
+    font-weight: normal;
+    height: auto;
+    line-height: 1.6;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+    visibility: visible;
+  }
+
+  hr {
+    border-color: $colour-hr;
+    margin: 0.5rem 0;
+  }
+
+  small {
+    font-size: 12px;
+  }
+
+  .quick-finder {
+    padding: 0;
+  }
+
+  .alert-msg {
+    background-color: $colour-text1;
+    color: $white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .wheel-grid {
+    $box-width: 40px;
+    $box-height: 30px;
+    $box-gap: 14px;
+
+    display: inline-block;
+    margin: 0 auto 8px auto;
+    overflow: hidden;
+
+    ul {
+      float: left;
+      margin: 0 10px 0 0;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        display: block;
+        height: ($box-height + $box-gap);
+        overflow: hidden;
+
+        &:last-of-type {
+          height: ($box-height);
+        }
+
+        input {
+          display: block;
+          height: 0;
+          overflow: hidden;
+          position: absolute;
+          visibility: hidden;
+          width: 0;
+
+          + label {
+            background-color: $colour-field1;
+            border: 2px solid $colour-field1;
+            display: block;
+            font-size: 14px;
+            height: $box-height;
+            line-height: ($box-height - 4);
+            margin: 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: $box-width;
+
+            position: relative;
+
+            &:before {
+              border-left: 2px solid $colour-text1;
+              content: "";
+              display: block;
+              height: $box-gap;
+              left: (($box-width / 2) - 1);
+              position: absolute;
+              top: ($box-height - 1);
+              width: $box-width;
+            }
+          }
+
+          &:checked {
+            + label {
+              border-color: $colour-text2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wheel-grid-customer {
+    $panel-width: 205px;
+    $panel-height: 100px;
+
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 28 20' style='enable-background:new 0 0 28 20;' xml:space='preserve'><style type='text/css'>.st0{fill:%230E4D8F;}</style><polygon class='st0' points='15.7,16.5 15.7,0.1 12.3,0.1 12.3,16.5 0,16.5 0,20 12.3,20 15.7,20 28,20 28,16.5 '/></svg>");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 28px 20px;
+    height: 337px;
+    margin-bottom: 20px;
+    position: relative;
+
+    .grid-panel {
+      height: $panel-height;
+      position: absolute;
+      width: $panel-width;
+
+      input[type="checkbox"] {
+        display: block;
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+        visibility: hidden;
+        width: 0;
+
+        + label {
+          background-color: $colour-field1;
+          border: 2px solid $colour-field1;
+          border-radius: 10px;
+          color: $colour-text2;
+          font-size: 32px;
+          height: $panel-height;
+          line-height: 70px;
+          margin: 0;
+          position: absolute;
+          text-align: center;
+          width: $panel-width;
+        }
+
+        &:checked {
+          + label {
+            border-color: $colour-text2;
+          }
+        }
+      }
+
+      input[type="text"] {
+        background-color: $colour-field2;
+        bottom: 5px;
+
+        left: 5px;
+        padding: 5px;
+        position: absolute;
+        width: 195px;
+      }
+    }
+
+    .panel-pos {
+      $offset: 10px;
+
+      &-lf {
+        top: $offset;
+        left: $offset;
+      }
+      &-rf {
+        top: $offset;
+        right: $offset;
+      }
+      &-lr {
+        bottom: ($offset + $panel-height);
+        left: $offset;
+      }
+      &-rr {
+        bottom: ($offset + $panel-height);
+        right: $offset;
+      }
+      &-spare {
+        bottom: 0;
+        left: $offset;
+      }
+      &-extra-spare {
+        bottom: 0;
+        right: $offset;
+      }
+    }
+  }
+
+  .insert-drawing,
+  .preview-image {
+    padding: 1px 15px !important;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .vir-table-quote {
+    border-spacing: 0;
+    border-collapse: separate;
+    border-width: 0;
+
+    td, th {
+      border-bottom: 1px solid $colour-text2;
+      color: $colour-text2;
+      padding-left: 0;
+    }
+
+    tr.even,
+    tr.alt,
+    tr:nth-of-type(2n) {
+      background-color: transparent;
+    }
+
+    .inline-list {
+      margin-bottom: 0;
+    }
+
+    .qty-cell {
+      width: 60px;
+    }
+  }
+
+  #previewImage > div {
+    background-image: url($images_path +'/svg/drawing-watermark.svg')
+  }
+}
+
+.vir-field-spin-container {
+  position: relative;
+
+  i.fa-spin {
+    position: absolute;
+    z-index: 2;
+    right: 4px;
+    top: 6px;
+    display: none;
+  }
+}
+
+#wPaint {
+  background-image: url($images_path +'/svg/drawing-watermark.svg')
+}

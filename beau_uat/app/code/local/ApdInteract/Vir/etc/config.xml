@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Vir>
+            <!--
+            This is the version number that our module is currently at.
+            In order for setup scripts to run, their version number must
+            be less than or equal to this value.
+
+            As we add upgrade scripts, we increment this value. The next time
+            your Magento instance is accessed, Magento will compare values in
+            the database table 'core_resource' against this value. If the
+            database is lower, it will attempt to run any setup scripts for
+            the module and then update the database table to match this value.
+            -->
+
+            <version>17.0.0</version>
+
+        </ApdInteract_Vir>
+    </modules>
+     <frontend>
+        <routers>
+            <apdinteract_vir>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Vir</module>
+                    <frontName>vir</frontName>
+                </args>
+            </apdinteract_vir>
+        </routers>
+        <layout>
+            <updates>
+                <apdinteract_vir>
+                    <file>vir.xml</file>
+                </apdinteract_vir>                
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <!-- add an adminhtml block definition  -->
+        <blocks>
+            <apdinteract_vir_adminhtml>
+                <class>ApdInteract_Vir_Block_Adminhtml</class>
+            </apdinteract_vir_adminhtml>
+            <apdinteract_vir>
+                <class>ApdInteract_Vir_Block</class>
+            </apdinteract_vir>
+        </blocks>
+        <!--Add a helper definition for use in adminhtml.xml menu translation.-->
+        <helpers>
+            <apdinteract_vir>
+                <class>ApdInteract_Vir_Helper</class>
+            </apdinteract_vir>
+        </helpers>
+        <models>
+            <!--This is the model alias referred to in install-0.0.1.php.-->
+            <apdinteract_vir>
+                <!--This tells Magento where to find models for this module.-->
+                <class>ApdInteract_Vir_Model</class>
+                <!--This tells Magento where to find resource materials for this module.-->
+                <resourceModel>apdinteract_vir_resource</resourceModel>
+            </apdinteract_vir>
+            <!--This alias must match the <resourceModel/> value above.-->
+            <apdinteract_vir_resource>
+                <!--This tells Magento where to find resource models for this module.-->
+                <class>ApdInteract_Vir_Model_Resource</class>
+                <entities>
+                    <!--This is the table alias referred to in install-0.0.1.php.-->
+                    <order>
+                        <!--This is the name of the database table itself.-->
+                        <table>apdinteract_vir_order</table>
+                    </order>
+                    <ordercommercial>
+                        <!--This is the name of the database table itself.-->
+                        <table>apdinteract_vir_ordercommercial</table>
+                    </ordercommercial>
+                    <orderstoremapping>
+                        <!--This is the name of the database table itself.-->
+                        <table>apdinteract_vir_orderstoremapping</table>
+                    </orderstoremapping>
+                </entities>
+            </apdinteract_vir_resource>
+        </models>
+        <resources>
+            <!--This must match our folder name in the module sql folder.-->
+            <apdinteract_vir_setup>
+                <setup>
+                    <!--This defines which module the setup scripts in this location belong to-->
+                    <module>ApdInteract_Vir</module>
+                    <!--In each setup script, this value determines the class of $this.-->
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+                <!--This is relevant only if you have multiple database connections.-->
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_vir_setup>
+        </resources>
+        <events>            
+            
+            <checkout_onepage_controller_success_action> <!-- used this event to generate VIR after orders are created -->
+                <observers>
+
+                    <apdinteract_checkout_onepage_controller_success_action> <!-- identifier of the event handler -->
+                        <type>singleton</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>ApdInteract_Vir_Model_Observer</class>
+                        <method>autoGenerateVir</method>  <!-- observer's method to be called -->
+                    </apdinteract_checkout_onepage_controller_success_action>
+                    
+                </observers>
+            </checkout_onepage_controller_success_action>
+            
+        </events>
+    </global>
+    <!-- Add a router for access to our admin panel controller. -->
+    <admin>
+        <routers>
+            <!-- This is the alias for this router. -->
+            <apdinteract_vir_admin>
+                <!--
+                This basically informs Magento to use the
+                admin scope for requests to this router.
+                -->
+                <use>admin</use>
+                <args>
+                    <!--
+                    This tells Magento where to find
+                    adminhtml controllers for this module.
+                    -->
+                    <module>ApdInteract_Vir_Adminhtml</module>
+                    <!-- This is the term used in the actual URL. -->
+                    <frontName>vir-admin</frontName>
+                </args>
+            </apdinteract_vir_admin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <apdinteract_vir>
+                    <file>vir.xml</file>
+                </apdinteract_vir>                
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <default>
+        <vir>
+            <order>
+                <send_to>1</send_to>
+            </order>
+            <notification>
+                <enabled>0</enabled>
+            </notification>
+            <price_request_booking>
+                <price_request_booking_template>3</price_request_booking_template>
+            </price_request_booking>
+            <price_request_booking>
+                <price_request_booking_guest_template>4</price_request_booking_guest_template>
+            </price_request_booking>
+        </vir>
+    </default>   
+</config>

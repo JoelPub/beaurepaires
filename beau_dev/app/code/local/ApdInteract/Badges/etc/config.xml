@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Badges>
+      <version>0.1.0</version>
+    </ApdInteract_Badges>
+  </modules> 
+  <global>  		
+        <helpers>
+            <badges>
+                <class>ApdInteract_Badges_Helper</class>
+            </badges>
+        </helpers>
+    </global>
+</config> 

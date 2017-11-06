@@ -1,0 +1,110 @@
+<h2>PDP page</h2>
+
+<hr>
+
+<!---------------------------------------------->
+
+
+<div class="row collapse">
+		<div class="columns small-3">
+			<div class="car-tyres-icon front" title="Front Wheel"></div>
+		</div>
+		<div class="columns small-6">
+			<span class="select-collapse">
+				<label for="wheel-front">Select front size:</label>
+				<select class="required-entry select-size super-attribute-select" data-target-price="front-price" id="wheel-front" name="front_id" title="Front Size">
+				<option data-attributes-json="{&quot;sku&quot;:&quot;450120&quot;,&quot;finish&quot;:&quot;GLOSS BLACK BLACK CLEAR&quot;,&quot;rim&quot;:null,&quot;rim_width&quot;:&quot;8.5&quot;,&quot;studs&quot;:null,&quot;pcd&quot;:null,&quot;offset&quot;:&quot;35&quot;,&quot;wheel_construction&quot;:&quot;1 Piece&quot;,&quot;style&quot;:&quot;ECLIPSE&quot;,&quot;&quot;:null}" data-free-product="" data-online-price="476.00" data-product-id="12400" data-rrp-price="476.00" data-sap-code="3718558" value="12400">
+					20x8.5 | pcd114.3 | offset35
+				</option>
+				<option data-attributes-json="{&quot;sku&quot;:&quot;450125&quot;,&quot;finish&quot;:&quot;GLOSS BLACK BLACK CLEAR&quot;,&quot;rim&quot;:null,&quot;rim_width&quot;:&quot;8.5&quot;,&quot;studs&quot;:null,&quot;pcd&quot;:null,&quot;offset&quot;:&quot;40&quot;,&quot;wheel_construction&quot;:&quot;1 Piece&quot;,&quot;style&quot;:&quot;ECLIPSE&quot;,&quot;&quot;:null}" data-free-product="" data-online-price="476.00" data-product-id="12401" data-rrp-price="476.00" data-sap-code="3718559" value="12401">
+					20x8.5 | pcd120 | offset40
+				</option>
+			</select></span>
+		</div>
+		<div class="columns small-3">
+			<label for="select-front-qty">Quantity:</label> <select class="select-qty" data-target-price="front-price" id="select-front-qty" name="front_qty" title="Front Quantity">
+				<option value="0">
+					0
+				</option>
+				<option selected value="1">
+					1
+				</option>
+				<option value="2">
+					2
+				</option>
+				<option value="3">
+					3
+				</option>
+				<option value="4">
+					4
+				</option>
+				<option value="5">
+					5
+				</option>
+				<option value="6">
+					6
+				</option>
+			</select>
+		</div>
+		<div class="error_msg validation-advice"></div>
+	</div><!-- end front wheel -->
+	<hr>
+	<!-- start rear wheel -->
+	<div class="row collapse">
+		<div class="columns small-3">
+			<div class="car-tyres-icon rear" title="Rear Wheel"></div>
+		</div>
+		<div class="columns small-6">
+			<span class="select-collapse">
+				<label for="wheel-rear">Select rear size:</label>
+				<select class="required-entry select-size super-attribute-select" data-target-price="rear-price" id="wheel-rear" name="rear_id" title="Rear Size">
+				<option data-attributes-json="{&quot;sku&quot;:&quot;450120&quot;,&quot;finish&quot;:&quot;GLOSS BLACK BLACK CLEAR&quot;,&quot;rim&quot;:null,&quot;rim_width&quot;:&quot;8.5&quot;,&quot;studs&quot;:null,&quot;pcd&quot;:null,&quot;offset&quot;:&quot;35&quot;,&quot;wheel_construction&quot;:&quot;1 Piece&quot;,&quot;style&quot;:&quot;ECLIPSE&quot;,&quot;&quot;:null}" data-free-product="" data-online-price="476.00" data-product-id="" data-rrp-price="476.00" data-sap-code="3718558" value="12400">
+					20x8.5 | pcd114.3 | offset35
+				</option>
+				<option data-attributes-json="{&quot;sku&quot;:&quot;450125&quot;,&quot;finish&quot;:&quot;GLOSS BLACK BLACK CLEAR&quot;,&quot;rim&quot;:null,&quot;rim_width&quot;:&quot;8.5&quot;,&quot;studs&quot;:null,&quot;pcd&quot;:null,&quot;offset&quot;:&quot;40&quot;,&quot;wheel_construction&quot;:&quot;1 Piece&quot;,&quot;style&quot;:&quot;ECLIPSE&quot;,&quot;&quot;:null}" data-free-product="" data-online-price="476.00" data-product-id="" data-rrp-price="476.00" data-sap-code="3718559" value="12401">
+					20x8.5 | pcd120 | offset40
+				</option>
+			</select></span>
+		</div>
+		<div class="columns small-3">
+			<label for="select-rear-qty">Quantity:</label> <select class="select-qty" data-target-price="rear-price" id="select-rear-qty" name="rear_qty" title="Rear Quantity">
+				<option value="0">
+					0
+				</option>
+				<option selected value="1">
+					1
+				</option>
+				<option value="2">
+					2
+				</option>
+				<option value="3">
+					3
+				</option>
+				<option value="4">
+					4
+				</option>
+				<option value="5">
+					5
+				</option>
+				<option value="6">
+					6
+				</option>
+			</select>
+		</div>
+
+<hr>
+
+    <!---------------------------------------------------------------->
+
+
+
+<section class="store-and-stock-availability">
+  <pdp-product-stock
+    current-store-id="7197"
+    get-stock-url="http://localhost:8082/proxy/costar/index/checkStock"
+    get-stores-url="http://localhost:8082/proxy/pickupinstore/index/storesbylatlng/"
+    set-store-url="http://localhost:8082/proxy/pickupinstore/index/save"
+		get-store-address-url="http://localhost:8082/proxy/pickupinstore/index/getStoreInformation"
+    google-place-api-key="AIzaSyCrRqZVusPL4m3zMTz7Jxuwmmp38tK4eTA"
+  />
+</section>

@@ -1,0 +1,421 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <div class="page">
+        <div class="page1"><?php echo $this->getChildHtml('10.point') ?></div>
+        <div class="page-break"></div>
+        <div class="page2 vir"><?php echo $this->getChildHtml('vir.1') ?></div>    
+        <div class="page-break"></div>
+        <div class="page3 vir"><?php echo $this->getChildHtml('vir.2') ?></div>
+    </div>
+    <style>
+        @page {
+            size: A4;
+            font-size: 12px;
+            margin: 0.5in 0.5in 0.1in 0.5in;
+            font-family: Helvetica;
+            color: #4c4c4c;
+            /*Base Width: 519px = (8.21in - 1in for L&R margin at 72dpi);*/ 
+        }
+        h1, h2, h3, h4 {
+            color: #ed7624;
+            margin: 0;
+        }
+        p {
+            margin: 0;
+        }
+        .page { 
+            width: 100%;
+        }
+        .row {
+            width: 100%;
+            margin-bottom: 0.2%; 
+        }
+        .row.inner {
+            padding: 0.2% 0;
+        }
+        .row:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .col {
+            float:left;
+            box-sizing: border-box;
+            margin: 0 1%;
+        }
+        .f-right {
+            float: right;
+        }
+        .row .col:first-child {
+            margin-left: 0;
+        }
+        .row .col:last-child {
+            margin-right: 0;
+        }
+        .col-10 {
+            width: 8%;
+        }
+        .col-25 {
+            width: 23%;
+        }
+        .col-40 {
+            width: 38%;
+        }
+        .col-50 {
+            width: 48%;
+        }
+        .col-60 {
+            width: 58%;
+        }
+        .col-75 {
+            width: 73%;
+        }
+        .col-90 {
+            width: 88%;
+        }
+        ul.inline {
+            margin: 2px 0;
+            padding: 0;
+        }
+        ul.inline li {
+            display: inline;
+        }
+        .tyre-specs {
+            position: relative;
+            background:#fef0df;
+            padding: 0.5% 2%;
+            width: 100%;
+        }
+        .tyre-specs .fld {
+            width: 60px;
+        }
+        .tyre-specs .value {
+            width: 60px;
+        }
+        .tyre-specs .col dl {
+            margin: 0;
+            padding: 0;
+        }
+        .tyre-specs .col dl dd {
+            margin: 0;
+            padding: 0;
+        }
+        .tyre-specs .col dl dt.tyres {
+            font-weight: bold;
+            background-color: #0666b6;
+            width: 40px;
+            height: 40px;
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+            position: relative;
+            left: 60px;
+            margin-bottom: 10px;
+        }
+        .tyre-specs .col dl dt.tyres span {
+            background-color: #fff;
+            width: 20px;
+            height: 20px;
+            border-color: #0666b6;
+            -moz-border-radius: 14px;
+            -webkit-border-radius: 14px;
+            border-radius: 14px;
+            color: #0666b6;
+            display: inline-block;
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            padding: 4px;
+            text-align: center;
+        }
+        .tyre-specs .fld, 
+        .tyre-specs .value, 
+        .tyre-specs .unit, 
+        .tyres .if5,
+        .parts .unit, {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .tyre-specs .value {
+            display: inline-block;
+            background: #fff;
+            padding: 4px 6px;
+            border: 1px solid #ccc;
+        }
+        .tyre-specs .col.left {
+            width: 30%;
+            float:left;
+        }
+        .tyre-specs .col.right {
+            float: right;
+        }
+        .vir .fld {
+            color: #0666b6;
+        }
+        .vir .fld-inline {
+            display:inline-block;
+            vertical-align:middle;
+            width:80px;
+        }
+        .vir .fld-value {
+            display:inline-block;
+            vertical-align:middle;
+            width:176px;
+            padding: 2px 4px;
+        }
+        .value {
+            color: #000000;
+            border: 1px solid #6f6f6f;
+            display: block;
+            padding: 4px 2px;
+            height: 14px;
+        }
+        .value.orange {
+            background-color: #fef0df;
+            border: none;
+        }
+        .value.purple {
+            background-color: #e2e4f0;
+            border: none;
+        }
+        .parts {
+            border-bottom: 3px solid #fef0df;
+        }
+        .parts dl {
+            float: left;
+            width: 25%;
+            margin: 0;
+        }
+        .parts dl dt.heading {
+            font-size: 14px;
+            font-weight: bold;
+            color:#ed7624;
+            margin: 0;
+            padding: 0;
+        }
+        .parts dl dt.sub {
+            padding: 0;
+            margin: 0;
+            color: #000; 
+            font-weight:bolder;
+        }
+        .parts dd {
+            margin: 0;
+            padding: 0;
+        }
+        .parts dd span.unit {
+            margin-left: 6px;
+        }
+        span.xbox {
+            display: inline-block;
+            vertical-align: middle;
+            width: 20px;
+            height: 20px;
+            background-color: #e2e4f0;
+            text-align: center;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        span.xbox + span {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+        .comment-box {
+            border: 1px solid #0666b6;
+            padding: 4px;
+            height: 140px;
+            word-wrap:break-word;
+        }
+        .signature-box {
+            margin-bottom: 5px;
+            padding: 4px;
+            background: #e2e4f0;
+        }
+        .tyre-diagram {
+            height:140px;
+            padding:4px;
+        }
+        .tyre-diagram .struct {
+            float:left;
+            width:80px;
+            height:140px;
+        } 
+        .tyre-diagram .struct.right {
+            float:right !important;
+        }
+        .tyre-diagram .tyre {
+            width:60px;
+            height:60px;
+            background:#fef0df;
+            margin-bottom:10px;
+            font-size:14px;color:#0666b6;
+            font-weight:bold;
+            /*text-align:center;
+            line-height:40px;*/
+            text-transform: uppercase;
+            display: block;
+            position: relative;
+        }
+        .tyre-diagram .tyre span.name {
+            width: 20px;
+            height: 20px;
+            display: block;
+            text-align: center;
+            position: relative;
+            top: 16px;
+            left: 16px;
+        }
+        .tyre-diagram .tyre span.name.selected {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            border: 4px solid grey;
+        }
+        .tyre-diagram .tyre small {
+            font-size: 8px;
+            font-weight: normal;
+            color: #000;
+            position: relative;
+        }
+        .tyre-diagram .tyre.spare {
+            width: 150px;
+            margin-top: 100px;
+            height: 40px;
+            line-height: 30px;
+        }
+        .symbol {
+            position:absolute;
+            top:40px;
+            left:70px;
+        }
+        .symbol:before {
+            display:block;
+            width:5px;
+            height:15px;
+            background:#0666b6;
+        }
+        .symbol:after {
+            margin-left:-12px;
+            display:block;
+            height:5px;
+            width:30px;
+            background:#0666b6
+        }
+        caption {
+            color: #0666b6; 
+            text-align: left;
+            font-size: 18px;
+            margin: 0 0 4px 0;
+        }
+        table.work-order {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.work-order .hd {
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #0666b6;
+            border-bottom: 2px solid #0666b6;
+        }
+        table.work-order tr td {
+            border-bottom: 2px solid #0666b6;
+            padding: 2px 4px;
+            color: #0666b6;
+            vertical-align: middle;
+        }
+        table.work-order tr td span.type {
+        }
+        table.work-order tr td.colorized {
+            background-color: #fef0df;
+            color: #4c4c4c;
+        }
+        table.work-order .xbox.orange {
+            margin-top: 2px;
+            background-color: #fef0df; 
+            text-align: center;
+            color: 000;
+            font-weight: bold;
+            line-height: 20px;
+            margin-left: 10px;
+        }
+        table.report {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        table.report td {
+            padding: 4px 6px;
+            border-bottom: 2px solid #e2e4f0;
+            color: #0666b6;
+        }
+        table.report td.colorize {
+            background-color: #e2e4f0;
+        }
+        table.report.technician td {
+            border-bottom-color: #fef0df;
+            color: #ed7624;
+        }
+        table.report.technician td.colorize {
+            background-color: #fef0df;
+        }
+        table.report.technician td.hd {
+            border-bottom-color: #ed7624;
+        }
+        table.report td.hd {
+            text-transform: uppercase;
+            font-weight: bold;
+            border-bottom: 2px solid #0666b6;
+        }
+        .payment {
+            margin-bottom: 5px;
+        }
+        .payment p {
+            margin-bottom: 8px;
+        }
+        .payment ul li {
+            display: inline-block;
+            width: 80px;
+        } 
+        .note, .agreement {
+            color: #0666b6;
+        }
+        .small {
+            font-size: 10px;
+        }
+        .agreement {
+            padding: 0;
+            margin-top: 6px;
+        }
+        .agreement li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .up {
+            text-transform: uppercase;
+        }
+        .inspected-by {
+            width: 370px;
+            height:40px;
+            background:#fef0df;
+            text-align: center;
+        }
+        .reminder {
+            background: #ed7624;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            color: #ffffff;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</body>
+</html>

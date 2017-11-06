@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <sections>    
+        <apdinteract_switcher translate="label" module="apdinteract_social">
+            <label>Goodyear International</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<apdinteract_switcher_main translate="label">
+                    <label>Goodyear International Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <apdinteract_switcher_label translate="label">
+                            <label>Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_switcher_label>
+                        <apdinteract_switcher_url translate="label">
+                            <label>URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_switcher_url>                                             
+                    </fields>
+                </apdinteract_switcher_main>
+            </groups>
+             
+        </apdinteract_switcher>
+    </sections>
+</config>

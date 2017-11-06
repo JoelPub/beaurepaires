@@ -1,0 +1,17 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+    <apdinteract_vir_view_index> 
+        <reference name="header">
+            <remove name="custom_toplink"></remove>
+        </reference>   
+        <reference name="root">   
+            <action method="setTemplate">
+                <template>page/vir.phtml</template>
+            </action>   
+        </reference>
+        <reference name="content">
+            <block type="apdinteract_vir/index" name="vir_index" output="toHtml" template="vir/view.phtml" />                
+        </reference>       
+    </apdinteract_vir_view_index>   
+</layout>   
+	

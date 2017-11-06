@@ -1,0 +1,76 @@
+<?php
+   /**
+    * Magento
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE_AFL.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@magentocommerce.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade Magento to newer
+    * versions in the future. If you wish to customize Magento for your
+    * needs please refer to http://www.magentocommerce.com for more information.
+    *
+    * @category    design
+    * @package     base_default
+    * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+    * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+    */
+   ?>
+<!-- Main -->
+   <div class="columns small-12">
+      <div class="checkout">
+         <div class="row">
+            <div class="columns small-12">
+               <!-- Checkout Success -->
+               <div class="checkout-success">
+                  <div class="notice-confirmation text-center">
+                     <h1 class="page-title"><?php echo $this->__('Your request for pricing has been received.') ?></h1>
+
+                     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+                     <?php if ($this->getOrderId()):?>
+					 
+                     <?php if ($this->getCanViewOrder()) :?>
+                     <p><?php echo $this->__('Your request for pricing # is: %s', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+                     <?php  else :?>
+                    <p><?php echo $this->__('Your request for pricing # is: %s', sprintf('<strong class="text-orange">%s</strong>', $this->escapeHtml($this->getOrderId()))) ?></p>
+                     <?php endif;?>
+					 
+                     <p><?php echo $this->__('You will receive a confirmation email with details of your request. A Beaurepaires expert will be in contact with you within 24 hours with a response to your request.') ?></p>
+                     <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder() || $this->helper('guestprintorder')->moduleEnabled()) :?>
+                     <p class="hide-for-small-only">
+						<?php echo $this->__('<a href="%s" class="button radius"><i class="fa fa-print"></i> Print a copy of this request</a>', $this->getPrintUrl()) ?>
+                     </p>
+                     <?php endif;?>
+                     <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+                     <p>
+                        <?php echo $this->getChildHtml() ?>
+                     </p>
+                     <?php endif;?>
+                     <?php endif;?>
+                    
+                     <a class="button radius" href=<?php echo Mage::getBaseUrl(). 'tyres';?>><?php echo $this->__('Continue Shopping') ?></a>
+					  <hr />
+                  </div>
+                  <div class="checkout-content">
+                    <div class="row">
+                    	<div class="columns small-12 medium-4">
+                      		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout_success_block')->toHtml();?>
+                      	</div>
+                      	<div class="columns small-12 medium-8">
+                      		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('checkout_success_phrase')->toHtml();?>
+                      	</div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>

@@ -1,0 +1,88 @@
+<?php
+$enquiries = Mage::Helper('apdinteract_contacts')->getAllEnquiries();
+?>
+
+<h1 class="page-title"><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+
+<p><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact-us-feature')->toHtml(); ?></p>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<p><em>* Required Fields</em></p>
+
+<form data-abide action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+    
+    <div class="row">
+        <div class="columns">
+            <label for="enquiry">Enquiry Type</label>
+            <select name="enquiry" required>
+                <option value="">-- Select --</option>
+                <?php foreach($enquiries as $type=>$email) {?>
+                <option value="<?php echo $type?>"><?php echo $type?></option>
+                <?php }?>
+            </select>
+            <small class="error">This is a required field</small>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="medium-6 columns">
+            <label for="name"><?php echo Mage::helper('contacts')->__('Name') ?> *</label>
+            <input autocomplete="off" id="name" name="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" type="text" required />
+            <small class="error">This is a required field</small>
+        </div>
+
+        <div class="medium-6 columns">
+            <label for="email"><?php echo Mage::helper('contacts')->__('Email') ?> *</label>
+            <input autocomplete="off" id="email" name="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" type="email" required />
+            <small class="error">This is a required field - It must be a valid email address</small>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="columns">
+            <label for="comment">Message *</label>
+            <textarea name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" rows="5" required></textarea>
+            <small class="error">This is a required field</small>
+        </div>
+    </div>
+    <div class="columns">
+       <input type="checkbox" id="is_subscribed" value="1" title="Sign Up for Newsletter" name="is_subscribed"> Subscribe me to Beaurepaires Newsletter
+        
+    </div>        
+    <div class="row">
+        <div class="columns">
+            <?php echo $this->getChildHtml('studioforty9.recaptcha.explicit'); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="columns">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button radius"><?php echo Mage::helper('contacts')->__('Submit') ?></button>
+        </div>
+    </div>
+
+
+    <?php
+    if ($_GET['storeid'] != '') {
+        $collection = Mage::getModel('storelocator/stores')->load($_GET['storeid']);
+        if ($collection) {
+            ?>
+            <input type='hidden' name='storename'  value='<?php echo htmlentities($collection->getTitle()); ?>'/>
+            <input type='hidden' name='storeemail'  value='<?php echo htmlentities($collection->getEmail()); ?>'/>
+        <?php
+    }
+}
+
+?>
+
+</form>
+
+<script>
+//<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>

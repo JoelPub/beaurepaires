@@ -1,0 +1,94 @@
+<!--@subject {{var store.getFrontendName()}}: New Order # {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="singleColumn">
+    <tr>
+        <td style="font-family: Arial, Verdana, sans-serif;" >
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td valign="top" style="font-family: Arial, Verdana, sans-serif; padding: 2%; background: #e1f0f8; border-right: 1px dashed #c3ced4; text-align: center; width: 58%;"  class="email-heading">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 17px; line-height:24px; font-weight:bold; color: #0167b1; padding-top: 15px; padding-bottom:5px; text-align: left;">Thank you for your order from {{var store.getFrontendName()}}.</span>
+                        <br /><br />Once your package ships we will send an email with a link to track your order. Your order summary is below. Thank you again for your business.
+                    </td>
+                    <td style="font-family: Arial, Verdana, sans-serif; padding: 2%; background: #e1f0f8; width: 40%;" class="store-info">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 13px; line-height:20px; font-weight:bold; color: #0167b1; text-align: left;">Order Questions?</span>
+<br /><br />
+                            {{depend store_phone}}
+                            <b>Call Us:</b>
+                            <a style="color:#0167b1; text-decoration:none;"  href="tel:{{var phone}}"><span style="color:#0167b1!important; text-decoration:none!important;">{{var store_phone}}</span></a><br>
+                            {{/depend}}
+                            {{depend store_hours}}
+                            <span class="no-link">{{var store_hours}}</span><br>
+                            {{/depend}}
+                            {{depend store_email}} 
+                            <b>Email:</b> <a style="color:#0167b1; text-decoration:none;"  href="mailto:{{var store_email}}"><span style="color:#0167b1!important; text-decoration:none!important;">{{var store_email}}</span></a>
+                            {{/depend}}
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-family: Arial, Verdana, sans-serif; padding-top:25px; padding-bottom:5px;  text-align: center;"  class="order-details"><span style="font-family: Arial, Verdana, sans-serif; font-size: 15px; line-height:22px; font-weight:bold; color: #666666; text-align: left;" class="no-link">Your order #{{var order.increment_id}}</span> <br /><br />Placed on {{var order.getCreatedAtFormated('long')}} <br /><br />
+        </td>
+    </tr>
+    <tr class="order-information">
+        <td style="font-family: Arial, Verdana, sans-serif;" >
+            {{if order.getEmailCustomerNote()}}
+            <table cellspacing="0" cellpadding="0" class="message-container">
+                <tr>
+                    <td style="font-family: Arial, Verdana, sans-serif;" >{{var order.getEmailCustomerNote()}}</td>
+                </tr>
+            </table><br /><br />
+            {{/if}}
+            {{layout handle="sales_email_order_items" order=$order}}<br /><br /> <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="font-family: Arial, Verdana, sans-serif;"  class="address-details">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 13px; line-height:20px; font-weight:bold; color: #0167b1; text-align: left;">Bill to:</span>
+                       <br /><span class="no-link">{{var order.getBillingAddress().format('html')}}</span>
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td style="font-family: Arial, Verdana, sans-serif;"  class="address-details">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 13px; line-height:20px; font-weight:bold; color: #0167b1; text-align: left;">Ship to:</span>
+                        <br /><span class="no-link">{{var order.getShippingAddress().format('html')}}</span>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    {{depend order.getIsNotVirtual()}}
+                    <td style="font-family: Arial, Verdana, sans-serif;"  class="method-info">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 13px; line-height:20px; font-weight:bold; color: #0167b1; text-align: left;">Shipping method:</span>
+                        <br />{{var order.shipping_description}}
+                    </td>
+                    {{/depend}}
+                    <td style="font-family: Arial, Verdana, sans-serif;"  class="method-info">
+                        <span style="font-family: Arial, Verdana, sans-serif; font-size: 13px; line-height:20px; font-weight:bold; color: #0167b1; text-align: left;">Payment method:</span><br />
+                        {{var payment_html}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

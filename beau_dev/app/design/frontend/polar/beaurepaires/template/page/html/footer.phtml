@@ -1,0 +1,155 @@
+<!-- Footer -->
+<?php
+$footer_block1 = $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links1')->toHtml();
+$footer_block2 = $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links2')->toHtml();
+$footer_block3 = $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links3')->toHtml();
+$footer_block4 = $this->getLayout()->createBlock('cms/block')->setBlockId('footer-contact')->toHtml();
+$footer_block5 = trim($this->getLayout()->createBlock('cms/block')->setBlockId('footer-copyright')->toHtml());
+$footer_block6 = $this->getLayout()->createBlock('cms/block')->setBlockId('footer-links4')->toHtml();
+?>
+
+<div class="footer-wrapper">
+    <div class="row full-width">
+        <div class="small-12 columns">
+            <ul class="small-block-grid-1 medium-block-grid-5 large-block-grid-5">
+                <li class="show-for-medium-up print-hide"><?php echo $footer_block1; ?></li>
+                <li class="show-for-medium-up print-hide"><?php echo $footer_block2; ?></li>
+                <li class="print-hide"><?php echo $footer_block3; ?></li>
+                <li class="show-for-medium-up print-hide"><?php echo $footer_block6; ?></li>
+                <li class="print-no-padding">
+                    <?php echo $footer_block4; ?>
+                    <form action="/subscribe/index/newsletter/" method="post" class="newsletter" novalidate>
+                        <span class="aligned-title">Offers and News</span> 
+
+                        <div class="row newsletter-field">
+                            <div class="small-12 columns">
+                                <div class="row collapse">
+                                    <div class="small-10 columns">
+                                        <input type="email" placeholder="Email address" class="field" name="email" id="email" title="Email Address" required>
+
+                                    </div>
+                                    <div class="small-2 columns">
+                                        <!-- <a href="#" class="button postfix">Go</a> -->
+                                        <button type="submit" class="button secondary"><i class="fa fa-envelope"></i></button>
+                                    </div>
+
+                                    <div class="small-12 columns">
+                                        <p class="result"></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>    
+    </div>
+</div>
+<!-- Sub Footer -->
+<div class="social-footer-wrapper">
+    <div class="row full-width">
+        <div class="small-12 medium-6 columns">
+            <div class="copyright">
+                <?php
+                if (!empty($footer_block5)):
+                    echo $footer_block5;
+                else:
+                    ?>
+                    <!-- Create a static block called footer-copyright to replace this static content -->
+    <?php echo $this->getCopyright() ?>
+        <?php endif; ?>
+            </div>
+        </div>
+                <?php if (Mage::helper('apdinteract_socialmedia')->getModuleStatus() != 0): ?>
+            <div class="small-12 medium-6 columns">
+                <div class="social medium-text-right">
+    <?php if (Mage::helper('apdinteract_socialmedia')->getFacebookUrl() != '') : ?>
+                        <a title="Facebook (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getFacebookUrl() ?>" target="_blank" class="icon-facebook">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getTwitterUrl() != '') : ?>
+                        <a title="Twitter (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getTwitterUrl() ?>" target="_blank" class="icon-twitter">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getVimeoUrl() != '') : ?>
+                        <a title="Vimeo (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getVimeoUrl() ?>" target="_blank" class="icon-vimeo">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-vimeo fa-stack-1x fa-inverse"></i>
+
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getLinkedinUrl() != '') : ?>
+                        <a title="LinkedIn (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getLinkedinUrl() ?>" target="_blank" class="icon-linkedin">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getInstagramUrl() != '') : ?>
+                        <a title="Instagram (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getInstagramUrl() ?>" target="_blank" class="icon-instagram">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getGoogleUrl() != '') : ?>
+                        <a title="Google+ (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getGoogleUrl() ?>" target="_blank" class="icon-google-plus">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getYoutubeUrl() != '') : ?>
+                        <a title="YouTube (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getYoutubeUrl() ?>" target="_blank" class="icon-youtube">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    <?php endif; ?>
+
+
+    <?php if (Mage::helper('apdinteract_socialmedia')->getPinterestUrl() != '') : ?>  
+                        <a title="Pinterest (opens new window)" href="<?php echo Mage::helper('apdinteract_socialmedia')->getPinterestUrl() ?>" target="_blank" class="icon-pinterest">
+                            <span class="fa-stack fa-lg fa-fw">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-pinterest-p fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+    <?php endif; ?>
+
+                </div>
+            </div>
+<?php endif; ?>
+    </div>
+</div>
+
+
+<?php
+/*
+ * This prints the "Miscellaneous HTML" that is set in admin > system config > general > design > footer > Miscellaneous HTML
+ */
+echo Mage::getStoreConfig('design/footer/absolute_footer');
+?>
+

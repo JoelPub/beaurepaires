@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Swiss721BT-Roman';
+    src: url('../../fonts/Swiss721BT-Roman.eot?#iefix') format('embedded-opentype'),
+url('../../fonts/Swiss721BT-Roman.woff') format('woff'),
+url('../../fonts/Swiss721BT-Roman.ttf')  format('truetype'),
+url('../../fonts/Swiss721BT-Roman.svg#Swiss721BT-Roman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Swiss721BT-Bold';
+    src: url('../../fonts/Swiss721BT-Bold.eot?#iefix') format('embedded-opentype'),
+url('../../fonts/Swiss721BT-Bold.woff') format('woff'),
+url('../../fonts/Swiss721BT-Bold.ttf')  format('truetype'),
+url('../../fonts/Swiss721BT-Bold.svg#Swiss721BT-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: 'Swiss721BT-Bold';
+}
+
+html,body{
+    font-family: Swiss721BT-Roman;
+    font-size:12px;
+    color:#555555
+}
+.bold{
+    font-family: 'Swiss721BT-Bold';
+}
+.header{
+    margin: 20px 0px 20px;
+}
+.s16{
+    font-size:16px;
+    height: 17px;
+}
+.s14{
+    font-size:14px;
+    height: 15px;
+}
+div{
+    margin: 0px;
+    height: 15px;
+}
+img.tel{
+    width: 10px;
+    margin-top: 1px;
+}
+.payment-cell{
+    width: 180px;
+    color: #ffffff;
+    background-color: #f7901a;
+    padding: 10px;
+}
+.total-cell{
+    width: 180px;
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+.total-table{
+    margin-top: 15px;
+    width: 100%;
+}
+.spacing-cell{
+    width: 10px;
+}
+.table-items{
+    width: 100%;
+    border-collapse: collapse;
+    border-width: .1px;
+}
+div.style1{
+    width: 100%;
+    margin:10px 0px;
+    border-top:1px solid #d1d1d1;
+    border-width: 2px;
+}
+.table-items tr td{
+    border: 1px solid #D1D1D1;
+}
+.table-items tr:nth-child(even){
+    background-color:  #f5f5f5;
+}

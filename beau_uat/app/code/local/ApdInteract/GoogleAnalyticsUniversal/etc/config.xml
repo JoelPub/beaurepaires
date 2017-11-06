@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ApdInteract_GoogleAnalyticsUniversal>
+            <version>0.1.0</version>
+        </ApdInteract_GoogleAnalyticsUniversal>
+    </modules>
+    <global>        
+        <helpers>
+            <apdinteract_gau>
+                <class>ApdInteract_GoogleAnalyticsUniversal_Helper</class>
+            </apdinteract_gau>
+        </helpers>
+        <blocks>
+            <apdinteract_gau>
+                <class>ApdInteract_GoogleAnalyticsUniversalBlock</class>
+            </apdinteract_gau>
+            <enterprise_googleanalyticsuniversal>
+                <rewrite>
+                    <list_json>ApdInteract_GoogleAnalyticsUniversal_Block_List_Json</list_json>                    
+                </rewrite>
+            </enterprise_googleanalyticsuniversal>
+           
+        </blocks>
+    </global>
+
+</config>

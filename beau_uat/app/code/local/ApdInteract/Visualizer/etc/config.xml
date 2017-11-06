@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Visualizer>
+            <version>0.1.0</version>
+        </ApdInteract_Visualizer>
+    </modules>
+    <frontend>
+        <routers>
+            <apdvisualizer>
+                <use>standard</use>
+                <args>
+                    <module>ApdInteract_Visualizer</module>
+                    <frontName>wheel-visualiser</frontName>
+                </args>
+            </apdvisualizer>
+        </routers>
+        <layout>
+            <updates>
+                <apdvisualizer>
+                    <file>visualizer.xml</file>
+                </apdvisualizer>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <helpers>
+            <apdvisualizer>
+                <class>ApdInteract_Visualizer_Helper</class>
+            </apdvisualizer>
+        </helpers>
+        <blocks>
+            <apdvisualizer>
+                <class>ApdInteract_Visualizer_Block</class>
+            </apdvisualizer>
+        </blocks>       
+    </global>
+
+</config>

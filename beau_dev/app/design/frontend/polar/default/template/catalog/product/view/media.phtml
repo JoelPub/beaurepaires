@@ -1,0 +1,28 @@
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+
+
+<ul class="clearing-thumbs product-images" data-clearing>
+<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+
+<li class="product-image-main">
+    <a href="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>">
+        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(650) ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel()) ?>"
+            title="Click to enlarge" />
+    </a>
+</li>
+
+<?php endif; ?>
+
+<?php if (count($this->getGalleryImages()) > 1): ?>
+    <?php foreach ($this->getGalleryImages() as $_image): ?>
+        <li class="product-image-thumb">
+            <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>">
+               <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(350); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()); ?>" />
+	    </a>
+       </li>
+    <?php endforeach; ?>
+<?php endif; ?>
+</ul>

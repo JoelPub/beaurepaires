@@ -1,0 +1,363 @@
+<?php
+   $make = Mage::helper('searchtyre')->getMakes();
+   $helper = Mage::helper('searchtyre');
+   $isEnabledCart = Mage::getStoreConfig('catalog/frontend/enable_quick_button');
+?>
+
+<div class="quick-finder relative <?php echo Mage::helper('addblock')->addQuickFinderClass(); ?>" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+      <div class="row">
+        <div class="large-12 columns">
+           <ul class="tabs" data-tab="">
+                <li class="tab-title active">
+					<a href="#fond-tyres"><i class="fa fa-car"></i> Vehicle Type</a>
+				</li>
+               <?php if($helper->checkIfApplicable()):?>
+                    <li class="tab-title"><a class="#find-saved" href="#find-saved"><i class="fa fa-car"></i> Saved Vehicles</a></li>
+               <?php endif;?>
+           </ul>
+           <div class="panel listing">
+              <div class="tabs-content">
+                 <div class="fond-tyres vehicle-type content active" id="fond-tyres">
+                    <!-- Find Tyres -->
+                    <form class="ajax-call" method="post" action="" data-action-format="/wheelsearch/[vehicle-name]/id/[vehicle-id]/y/[vehicle-year]">
+						<input type="hidden" name="type" value="wheels">
+						<input type="hidden" name="section" value="vehicles">
+						<input type="hidden" name="category" value="42">
+						<div class="row collapse">
+							<div class="large-2 medium-2 columns form-wrapper">
+								<select name="make-wheels" class="make-wheels" title="Select Make" data-pre-load="<?php echo $_COOKIE['make-wheels'] ? $_COOKIE['make-wheels'] : Mage::getSingleton('core/session')->getTMakeF()?>">
+									<option value="">Select Make</option>
+									<?php foreach($make as $m=>$v) {?>
+									<option value="<?php echo $m?>"><?php echo $v?></option>
+									<?php }?>
+								</select>
+							</div>
+							<div class="large-2 medium-2 columns form-wrapper">
+								<select name="year-wheels" class="year-wheels" title="Select Year" data-pre-load="<?php echo $_COOKIE['year-wheels'] ? $_COOKIE['year-wheels'] : Mage::getSingleton('core/session')->getTYearF()?>">
+									<option value="">Select Year</option>
+									<?php for($i=date("Y");$i>=1990;$i--) {?>
+									<option value="<?php echo $i?>"><?php echo $i?></option>
+									<?php }?>
+								</select>
+							</div>
+							<div class="large-2 medium-2 columns form-wrapper">
+								<select name="model-wheels" class="model-wheels" title="Select Model" data-pre-load="<?php echo $_COOKIE['model-wheels'] ? $_COOKIE['model-wheels'] : Mage::getSingleton('core/session')->getTModelF()?>" disabled>
+									<option value="">Select Model</option>
+								</select>
+								<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+							</div>
+							<div class="large-2 medium-2 columns form-wrapper" title="Select Series">
+								<select name="series-wheels" class="series-wheels" data-pre-load="<?php echo $_COOKIE['series-wheels'] ? $_COOKIE['series-wheels'] : Mage::getSingleton('core/session')->getSeriesF()?>" disabled>
+									<option value="">Select Series</option>
+								</select>
+								<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+							</div>
+							<div class="large-2 medium-2 columns form-wrapper" title="Select Brands">
+								<select name="brands-wheels" class="brands-wheels" disabled>
+									<option value="">Select Brands</option>
+								</select>
+								<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+							</div>
+							<div class="large-2 medium-2 columns form-wrapper" title="Select Size">
+								<select name="size-wheels" class="size-wheels" disabled>
+									<option value="">Select Size</option>
+								</select>
+								<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+							</div>
+						</div>
+                                                </form>
+                                                
+
+                        <div class="row">
+                            <form method="post" action="/tyresearch">
+							<div class="small-12 columns">
+                                                                <input type="hidden" name="type_hidden" value="wheels">
+
+								<input type="submit"  name="reset-btn" value="Clear Result" loc="/searchtyre/index/clear/type/wheel-visualiser" class="reset-btn radius button expand" disabled>
+								<div class="request-error">
+									Sorry, there was a problem retrieving your requested data.
+								</div>
+							</div>
+                            </form>
+                       </div>
+
+					   <input type="submit" class="hide" disabled>
+                    </form>
+
+
+
+                 </div>
+                  <?php if($helper->checkIfApplicable()):
+                                $vehicles = $helper->getAllVehicleByUser();
+                  ?>
+                  <div class="tyre-saved content" id="find-saved">
+                    <!-- Tyre Size -->
+                     <form method="post" id="frm-tyres" action="/searchresult/index/">
+                        <input type="hidden" name="type" value="tyres">
+                        <input type="hidden" name="section" value="vehicles">
+                        <input type="hidden" name="category" value="41">
+                       <div class="row collapse">
+                          <div class="small-12 columns form-wrapper">
+                             <select name="saved_vehicles" id="brand-tyres">
+                                <option value="">Series</option>
+                                <?php foreach($vehicles as $vehicle):?>
+                                   <?php $details = json_decode($vehicle->getDetails(),true);?>
+                                   <option value="<?php echo $details['make-tyres'].':'.$details['year-tyres'].':'.$details['model-tyres'].':'.$details['series-tyres'].':'.$vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option>
+                                <?php endforeach;?>
+                             </select>
+							 <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                          </div>
+                       </div>
+                       <div class="row collapse">
+                          <!-- <div class="large-6 medium-6 columns">
+                             <p><?php if(isset($_POST['type'])) { echo Mage::getSingleton('core/session')->getTitleF();}?></p>
+                          </div> -->
+                          <div class="large-12 columns">
+                             <input type="submit" value="Search" class="radius button expand tyre-saved-btn" disabled>
+							 <div class="request-error">
+								Sorry, there was a problem retrieving your requested data.
+							 </div>
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+                  <?php endif;?>
+
+           </div>
+        </div>
+
+	</div>
+
+
+	</div>
+	</div>
+
+	<div class="wheel-content">
+		<?php echo Mage::helper('apdinteract_catalog')->showPromoBlock('promo-wheels-cdp'); ?>
+	</div>
+
+	
+	<div class="wheel-content">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promo-wheels-cdp')->toHtml(); ?>
+	</div>
+	<div class="no-result-message hide">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('wheels-search-not-found')->toHtml() ?>
+	</div>
+
+	<div class="wheel-list-header hide">
+		<div class="row">
+			<div class="columns medium-4">
+				<h2>Select Your Wheels</h2>
+			</div>
+			<div class="columns medium-8">
+				<ul class="inline-list right">
+					<li>
+						<label for="wheels-colour-filter">Filter by colour</label>
+					</li>
+					<li>
+						<select id="wheels-colour-filter" class="wheels-colour-filter" disabled>
+							<option value="All">All</option>
+						</select>
+					</li>
+					<li><span class="wheel-list-count"><span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="wheel-list"></div>
+
+	<div class="row">
+		<div class="columns large-9 medium-12 hide-for-small-only">
+
+			<div class="wheel-vehicle-demo hide">
+
+				<div class="vehicle-holder"></div>
+
+				<div class="vehicle-tools">
+					<span>Colours:</span>
+					<ul class="colour-switch"></ul>
+
+					<div class="vehicle-susension-wrapper">
+						<span>Suspension:</span>
+					   <button class="set-vehicle-susension button radius small secondary" data-susension-state="standard">
+							<i class="fa fa-arrows-v"></i> Standard
+						</button>
+					   <button class="set-vehicle-susension button radius small secondary" data-susension-state="lower">
+							<i class="fa fa-level-down"></i> Lower
+						</button>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="columns large-3 medium-12">
+
+			<div class="wheel-active hide">
+
+				<div class="product-item">
+
+					<div class="info">
+
+            <div class="product-detail">
+  						<div class="row">
+  							<div class="small-3 columns">
+  							  <div class="product-image">
+  								<a title="" href="" class="view-detials">
+  									<img src="" class="expand">
+  								</a>
+  							  </div>
+  							</div>
+  							<div class="small-9 columns product-slider-detail">
+  								<div class="product-details">
+  									<div class="product-badge-container"><div class="product-badge product-badge-block"></div></div>
+  									<img src="images/gy-temp-logo.png" class="product-brand dealer-logo">
+  									<h3 class="product-title"></h3>
+  								</div>
+  							</div>
+  						</div>
+              <a href="" class="view-detials"></a>
+            </div>
+
+            <div class="product-features">
+              <div class="attr-count-0">
+                <ul class="no-bullet">
+                  <li class="attr-icon-0">
+                    <i class="" aria-hidden="true" data-tooltip aria-haspopup="true" title="1"></i>
+                    <p>None</p>
+                  </li>
+                  <li class="attr-icon-1">
+                    <i class="" aria-hidden="true" data-tooltip="" aria-haspopup="true" title="2"></i>
+                    <p>None</p>
+                  </li>
+                  <li class="attr-icon-2">
+                    <i class="" aria-hidden="true" data-tooltip="" aria-haspopup="true" title="3"></i>
+                    <p>None</p>
+                  </li>
+                <ul>
+              </div>
+            </div>
+
+            <div class="product-description">
+              <div class="desc-container">
+                Description here
+              </div>
+            </div>
+
+            <div class="product-size">
+              <ul class="select-wheel-size" style="display:none"></ul>
+              <label>Select Size:</label>
+              <select>
+                <option>test</option>
+                <option>test</option>
+                <option>test</option>
+              </select>
+            </div>
+
+            <div class="product-view">
+              <a href="" class="view-detials">View details</a>
+            </div>
+			<?php if($isEnabledCart): ?>
+            <div class="product-add">
+              <a class="button radius w-buy-now" href="" data-product-id="">Buy Now</a>
+            </div>
+			<?php endif ?>
+
+					</div>
+
+
+
+					<div class="loader">
+						<i class="fa fa-refresh fa-spin fa-2x"></i>
+					</div>
+
+					<div class="placeholder">
+						<em>This product is currently unavailable</em>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="wheels-notice hide" data-store-url="<?php echo Mage::getBaseUrl() . 'store-locator'?>"></div>
+
+	<div id="add-product-modal" class="reveal-modal add-product-modal" data-rquest-url="/searchtyre/index/getConfigurable/product_id/" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+	    <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+	    <div class="popup-loading">
+	        <i class="fa fa-refresh fa-spin fa-2x"></i>
+	        <p>Loading product details...</p>
+	    </div>
+
+	    <div class="popup-form">
+	    <div class="row modal-product-details">
+	        <div class="column small-4">
+	            <img src="#" class="cart-modal-image"/>
+	        </div>
+	         <div class="column small-8">
+	            <img src="#" class="cart-modal-logo"/>
+	            <h4 class="cart-modal-product-name"></h4>
+	        </div>
+	    </div>
+	        <form id="quickForm"  action="/searchtyre/index/addcart" method="post">
+				<input type="hidden" name="supperattr" value="311">
+	            <div class="row field-size">
+	                <div class="small-4 columns">
+	                    Select Size:
+	                </div>
+	                <div class="small-8 columns">
+	                    <select name="super_attribute" id="test" class="select-size"></select>
+	                </div>
+	            </div>
+	            <div class="row field-quantity">
+	                <div class="small-4 columns">
+	                    Quantity:
+	                </div>
+	                <div class="small-8 columns">
+	                    <select name="qty" class="select-quantity">
+	                        <option>1</option>
+	                        <option>2</option>
+	                        <option>3</option>
+	                        <option>4</option>
+	                        <option>5</option>
+	                        <option>6</option>
+	                    </select>
+
+	                </div>
+	            </div>
+                     <div class="row field-price">
+                        <div class="small-4 columns">
+                           Total:
+                        </div>
+                        <div class="small-8 columns">
+                            <span class="total-price"></span>
+                        </div>
+                      </div>
+	            <div class="row field-button">
+                        <div class="medium-5 columns">
+                            <input type="submit" value="Continue shopping" class="quick-cart-button button radius secondary">
+                        </div>
+                        <div class="medium-6 columns">
+                            <button  class="button radius proceed-to-cart">Proceed to Cart</button>
+                        </div>
+                    </div>
+
+	            <input type="hidden" class="model-field-product-id" name="productId" value="">
+
+	        </form>
+
+	    </div>
+
+	    <div class="popup-error">
+	        <h2>Failed to load product details</h2>
+	        <p>
+	            Message: <span class="error-msg"></span>
+	        </p>
+	    </div>
+
+	</div>

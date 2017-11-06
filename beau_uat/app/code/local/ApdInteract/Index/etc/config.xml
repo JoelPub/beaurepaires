@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ApdInteract_Index>
+            <version>0.1.0</version>
+        </ApdInteract_Index>
+    </modules>
+    <global>        
+        <models>
+            <apdinteract_index>
+                <class>ApdInteract_Index_Model</class>
+            </apdinteract_index>
+            <enterprise_index>
+                <rewrite>
+                    <observer>ApdInteract_Index_Model_Observer</observer>
+                </rewrite>
+            </enterprise_index>
+        </models>
+        
+        <helpers>
+            <apdinteract_index>
+                <class>ApdInteract_Index_Helper</class>
+            </apdinteract_index>
+        </helpers>               
+        <!--<events>           
+            <after_reindex_process_catalogsearch_fulltext>
+                <observers>
+                    <apdinteract_index_after_reindex_process_catalogsearch_fulltext>
+                        <type>singleton</type>
+                        <class>apdinteract_index/observer</class>
+                        <method>reindexSearch</method>
+                    </apdinteract_index_after_reindex_process_catalogsearch_fulltext>
+                </observers>
+            </after_reindex_process_catalogsearch_fulltext>
+            <after_reindex_process_tag_summary>
+                <observers>
+                    <apdinteract_index_after_reindex_process_catalogsearch_fulltext>
+                        <type>singleton</type>
+                        <class>apdinteract_index/observer</class>
+                        <method>reindexSearch</method>
+                    </apdinteract_index_after_reindex_process_catalogsearch_fulltext>
+                </observers>
+            </after_reindex_process_tag_summary>
+        </events>-->
+    </global>
+</config>

@@ -1,0 +1,60 @@
+<!-- Promo Bar -->
+<?php
+// Old way of doing this
+// System Configuration > Promo > Promo Messages
+// $messages = array();
+// $messages[1] = Mage::getStoreConfig('badges/promo_message/message_1');
+// $link[1]    = Mage::getStoreConfig('badges/promo_message/link_1');
+// $messages[2] = Mage::getStoreConfig('badges/promo_message/message_2');
+// $link[2]    = Mage::getStoreConfig('badges/promo_message/link_2');
+//
+// $arr_message = array_filter($messages);
+
+function createMessageData($message, $link) {
+    $messageData = new stdClass();
+    $messageData->link = $link;
+    $messageData->message = htmlentities($message, ENT_QUOTES);
+    return $messageData;
+}
+
+$messagesArray = array();
+$messagesArray[] = createMessageData(
+    Mage::getStoreConfig('badges/promo_message/message_1'),
+    Mage::getStoreConfig('badges/promo_message/link_1')
+);
+$messagesArray[] = createMessageData(
+    Mage::getStoreConfig('badges/promo_message/message_2'),
+    Mage::getStoreConfig('badges/promo_message/link_2')
+);
+
+$storelocatorUrl = Mage::getBaseUrl() . Mage::helper('storelocator')->getRoute() . '/';
+
+
+?>
+<div class="promo-bar hide-for-small">
+    <div class="row full-width">
+        <div class="small-8 columns">
+            <promo-message :messages='<?php print(json_encode($messagesArray)); ?>' />
+            <ul class="location-options inline-list">
+
+                <li class="location find-location">
+                    <i class="fa fa-location-arrow"></i> <span class="store" data-default_store_id="<?php echo Mage::getSingleton("core/session")->getdefaultStoreId(); ?>" data-store_id="<?php echo Mage::getModel('core/cookie')->get('store_id'); ?>"></span>
+                    <a class="link" href="/store-locator/"><?php echo $this->__("Find the Nearest Store");?></a>
+                </li>
+
+                <li class="store-locator-link">
+                    <a href="<?php echo $storelocatorUrl; ?>" title="Store Locator"><i class="fa fa-map-marker fa-lg fa-fw" aria-hidden="true"><span class="show-for-sr"><?php echo $this->__("Store Locator");?></span></i><?php echo $this->__("Store Locator");?></a>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="small-4 columns text-right">
+
+            <div class="promo-number">
+                <strong><?php echo $this->__("Need Help?");?></strong> <a href="tel:1800185099"><i class="fa fa-phone" aria-hidden="true"></i> 1800 185 099</a>
+            </div>
+
+        </div>
+    </div>
+</div>

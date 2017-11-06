@@ -1,0 +1,47 @@
+<?php //var_dump(Mage::getSingleton('core/session')->getRecentViewedItems());?>
+<?php $recentArr = Mage::getSingleton('core/session')->getRecentItems();?>
+<?php $ratings = Mage::getModel('review/review_summary')?>
+<?php $count = count($recentArr)-1?>
+<?php $_product = $this->getProduct(); ?>
+	<?php if ($count > 0):?>
+		<h3><?php  echo $this->__('Recently Viewed Products') ?></h3>
+		<div class="row">
+          <div class="related-product-slider" data-equalizer>
+          	<?php for($i=0;$i<=$count;$i++) {
+			          	$product = Mage::getModel('catalog/product')->load($recentArr[$i]);
+			          	if($recentArr[$i] >0) {							
+          	?>
+            <div class="item medium-3 columns">
+              <div class="row product-item">
+                <div class="small-4 columns">
+                  <div class="product-image">
+                    <a href="<?php echo $product->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(100) ?>" class="expand" alt="<?php echo $this->escapeHtml($product->getName()) ?>" class="expand" /></a>
+                  </div>
+                </div>
+
+                <div data-equalizer-watch class="small-9 columns product-slider-detail">
+
+                  <div class="product-details">
+
+              		<?php  $overlay = $product->getAttributeText('overlay');?>
+                    <h5 class="product-tag"><?php echo $overlay;?></h5>
+                    <?php $brand = $this->getSkinUrl('images/brands/' . $product->getAttributeText('brand') . '-logo.png');?>
+                    <img src="<?php echo $brand;?>" alt="<?php echo $product->getAttributeText('brand'); ?>" />
+                    <h5 class="product-title"><a href="<?php echo $product->getProductUrl() ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></h5>
+                    
+                    <div class="star-rating">
+            <?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); ?>
+                 </div>
+                 <h6 class="product-price"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></h6>
+                    <?php $ratings = $ratings->setStoreId($storeId)->load($product->getId());?>
+		            
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php }}?>
+          </div>
+        </div>
+	<?php endif;?>
+
+

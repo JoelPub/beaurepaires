@@ -1,0 +1,284 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+
+</div><!-- end upper cart row -->
+
+<?php
+/** COMMENTED OUT THE REST OF THE CODE BELOW HERE SINCE CLIENT WANTS BACK THE PDC|OFFSET IN WHEELS PDP AND NOT THE 2 FRONT AND REAR SIZE SELECTION - SEE BFT-1408
+
+ */
+$product = $this->getProduct();
+$configurableBlockClass = $this->getConfigurableBlock();
+if ($configurableBlockClass->isWheel() || $configurableBlockClass->isTyre()):
+    if($configurableBlockClass->isTyre()):
+        $wheel_size_options = $configurableBlockClass->getTyreSizeOptions();    
+        $two_different_sizes_text = "Your vehicle might need different tyre sizes on the front and rear.";
+    else:    
+        $wheel_size_options = $configurableBlockClass->getWheelSizeOptions(); // tyres just uses the front options.
+        $two_different_sizes_text = "Your vehicle might need different tyre sizes on the front and rear.";
+    endif;
+
+    $diameter = Mage::app()->getRequest()->getParam('diameter');
+    $width = Mage::app()->getRequest()->getParam('width');
+    $d = (explode(",", $diameter));
+    $w = (explode(",", $width));
+    $select_by_size = false;
+    ?>
+    <?php $wheel_size_options->front = Mage::helper('apdinteract_catalog')->sortdata($wheel_size_options->front, 'size'); ?>
+    <!-- start front wheel size -->
+    <div class="row collapse">
+        <div class="columns small-3">
+
+            <div class="car-tyres-icon front" title="Front Wheel"></div>
+
+        </div>
+        <div class="columns small-6">
+            <span class="select-collapse">
+                <label for="wheel-front">Select front size:</label>
+                <select name="front_id" id="wheel-front" class="required-entry select-size super-attribute-select" data-target-price="front-price" title="Front Size">
+                    <?php foreach ($wheel_size_options->front as $wheel): ?>
+                        <?php
+                        $_wheel = $wheel['size'];
+                        $filtered = explode("|", $_wheel);
+                        $filtered = trim($filtered[0]);
+                        ?>
+                        <?php if ($diameter && $width && ($filtered === $d[0] . 'x' . $w[0]) && !isset($_GET['size'])) : ?>
+                            <option <?php echo $wheel['entity_id'] == $configurableBlockClass->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                value="<?php echo $wheel['entity_id']; ?>"
+                                data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                ><?php echo $wheel['size']; ?></option>
+                            <?php elseif ($wheel['size'] == Mage::getSingleton('core/session')->getSizeF()): ?>
+                            <option selected
+                                    value="<?php echo $wheel['entity_id']; ?>"
+                                    data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                    data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                    data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                    data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                    data-stock-qty='<?php echo $configurableBlockClass->getAvailableStockQty($wheel['stock_item']['manage_stock'], $wheel['stock_item']['qty']); ?>'
+                                    ><?php echo $wheel['size']; ?></option>                                    
+                                <?php elseif (!$diameter && !$width && !isset($_GET['size'])): ?>
+                            <option <?php echo $wheel['entity_id'] == $configurableBlockClass->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                value="<?php echo $wheel['entity_id']; ?>"
+                                data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                ><?php echo $wheel['size']; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+
+                </select>
+            </span>
+        </div>
+
+        <div class="columns small-3 end">
+            <label for="select-front-qty">Quantity:</label>
+            <select name="front_qty" id="select-front-qty" class="select-qty" title="Front Quantity" data-target-price="front-price">
+                <?php for ($i = 0; $i <= 6; $i++): ?>
+                    <option <?php
+                    if ($i == 1) {
+                        echo "selected";
+                    }
+                    ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php endfor; ?>
+            </select>
+        </div>
+
+
+    </div>
+    <!-- end front wheel -->
+
+    <hr>
+    <?php 
+    
+    $wheel_size_options->rear = Mage::helper('apdinteract_catalog')->sortdata($wheel_size_options->rear, 'size'); ?>
+    <!-- start rear wheel -->
+    <div class="row collapse">
+        <div class="columns small-3">
+
+            <div class="car-tyres-icon rear" title="Rear Wheel"></div>
+
+        </div>
+        <div class="columns small-6">
+            <span class="select-collapse">
+                <label for="wheel-rear">Select rear size:</label>
+                <select name="rear_id" id="wheel-rear" class="required-entry select-size super-attribute-select" data-target-price="rear-price" title="Rear Size">
+                    <?php foreach ($wheel_size_options->rear as $wheel): ?>
+                        <?php
+                        $_wheel = $wheel['size'];
+                        $filtered = explode("|", $_wheel);
+                        $filtered = trim($filtered[0]);
+                        ?>
+                        <?php if ($diameter && $width && ($filtered === $d[1] . 'x' . $w[1]) && !isset($_GET['size'])) : ?>
+                            <option <?php echo $wheel['entity_id'] == $configurableBlockClass->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                value="<?php echo $wheel['entity_id']; ?>"
+                                data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                ><?php echo $wheel['size']; ?></option>
+                            <?php elseif ($wheel['size'] == Mage::getSingleton('core/session')->getSize1F()): ?>
+                            <option selected
+                                    value="<?php echo $wheel['entity_id']; ?>"
+                                    data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                    data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                    data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                    data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                    data-stock-qty='<?php echo $configurableBlockClass->getAvailableStockQty($wheel['stock_item']['manage_stock'], $wheel['stock_item']['qty']); ?>'
+                                    ><?php echo $wheel['size']; ?></option>
+                        <?php elseif (!$diameter && !$width && !isset($_GET['size'])): ?>
+                            <option <?php echo $wheel['entity_id'] == $configurableBlockClass->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                value="<?php echo $wheel['entity_id']; ?>"
+                                data-free-product="<?php //echo (bool) $wheel['free_product']; ?>"
+                                data-rrp-price="0.00<?php //echo $wheel['price']; ?>"
+                                data-online-price="0.00<?php //echo $wheel['final_price']; ?>"
+                                data-attributes-json='<?php echo $configurableBlockClass->getUsedAttributesAsJson($wheel); ?>'
+                                ><?php echo $wheel['size']; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                </select>
+            </span>
+        </div>
+
+        <div class="columns small-3 end">
+            <label for="select-rear-qty">Quantity:</label>
+            <select name="rear_qty" id="select-rear-qty" class="select-qty" title="Rear Quantity" data-target-price="rear-price">
+                <?php for ($i = 0; $i <= 6; $i++): ?>
+                    <option <?php
+                    if ($i == 1) {
+                        echo "selected";
+                    }
+                    ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                    <?php endfor; ?>
+            </select>
+        </div>
+
+    </div>
+    <!-- end hard coded rear wheel -->
+    <input type='hidden' name='configurable_id' value='<?php echo $product->getId(); ?>'>
+
+    <div class="upper-cart-note">
+        <a href="#" class="secondary" data-tooltip aria-haspopup="true" title="<?php echo $two_different_sizes_text ?>">Why two different sizes?</a>
+    </div>
+
+<?php endif;
+?>
+
+</div><!-- end upper row -->
+
+
+
+
+
+
+<!--<div class="mid-cart">
+    <?php ?>
+    <?php //if ($configurableBlockClass->isWheel() || $configurableBlockClass->isTyre()): ?>
+        <!-- start front price -->
+        <!--<div class="row">
+            <div class="small-12 columns">
+                <div class="row">
+                    <div class="columns small-6">
+                        <div class="price-label">Front RRP:
+                            <div class="show-price front-price rrp-price line-through">-</div>
+                        </div>
+                    </div>
+                    <div class="columns small-6">
+                        <div class="price-label">Online Price:
+                            <div class="show-price front-price online-price format-price">-</div>
+                            <p class="hide"><strong>Call for pricing</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end front price -->
+
+        <!-- start rear price -->
+        <!--<div class="row">
+            <div class="small-12 columns">
+                <div class="row">
+                    <div class="columns small-6">
+                        <div class="price-label">Rear RRP:
+                            <div class="show-price rear-price rrp-price line-through">-</div>
+                        </div>
+                    </div>
+                    <div class="columns small-6">
+                        <div class="price-label">Online Price:
+                            <div class="show-price rear-price online-price format-price">-</div>
+                            <p class="hide"><strong>Call for pricing</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end hard coded rear price -->
+
+    <?php //else: ?>
+
+        <?php
+        // TODO: Move to block class
+        //$regular_price = '-';
+        //$online_price = '-';
+
+        // TODO: Put this in the block class
+       // if ($product->getFinalPrice() > 0) {
+            //    $display = "block";
+            // $product->getFinalPrice();
+         //   $regular_price = $this->getRrp() . 'ea';
+           // $price_bits = explode(".", $this->getOnlinePrice());
+            //$online_price = $price_bits[0] . '<sup>' . $price_bits[1] . '</sup><sub>/ea</sub>';
+        //}
+        ?>
+
+        <!-- Non wheels -->
+        <!--<div class="row">
+            <div class="small-12 columns">
+                <div class="row">
+
+                    <div class="columns small-6">
+                        <div class="price-label">RRP:
+                            <div class="show-price main-price rrp-price line-through">-</div>
+                        </div>
+                    </div>
+                    <div class="columns small-6">
+                        <div class="price-label">Online Price:
+                            <div class="show-price main-price online-price format-price">-</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Non wheels -->
+
+    <?php //endif; ?>
+
+<!--</div>-->

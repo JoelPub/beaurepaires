@@ -1,0 +1,103 @@
+// Buttons
+
+// Variables
+$orange-color-from: #f78f1d;
+$orange-color-to: #dc801c;
+$orange-color-hover: #e56d00;
+
+$blue-color-from: #00b7ff;
+$blue-color-to: #009fd6;
+$blue-color-hover: #0096d6;
+
+$dark-blue-color-from: #0067b1;
+$dark-blue-color-to: #045a9b;
+$dark-blue-color-hover: #034b77; 
+
+$base-font: 14px;
+
+$disabled-button: #CCCCCC;
+
+// Mixins
+@mixin bg-gradient-color($colorTop, $colorBottom) {
+  background: $pure-white-color; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  /* <!--[if gte IE 9]>
+      <style type="text/css">
+        .gradient {
+           filter: none;
+        }
+      </style>
+    <![endif]--> */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNGY0ZjQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, $colorTop 0%, $colorBottom 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$colorTop), color-stop(100%,$colorBottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $colorTop 0%,$colorBottom 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$colorTop', endColorstr='$colorBottom',GradientType=0 ); /* IE6-8 */
+}
+
+@mixin button-properties($font-size, $height, $side-padding){
+  height:$height;
+  line-height: $height;
+  padding: 0 $side-padding; 
+  font-size: $font-size;
+}
+
+@mixin button-post-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+ -webkit-border-bottom-right-radius: $radius;
+        -moz-border-radius-topright: $radius;
+     -moz-border-radius-bottomright: $radius;
+            border-top-right-radius: $radius;
+         border-bottom-right-radius: $radius;
+}
+
+.button {
+	@include bg-gradient-color($orange-color-from, $orange-color-to);
+  @include button-properties($base-font + 2, 34px, 12px);
+	&:hover, &:focus {
+		background:$orange-color-hover;
+    -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+    transition: 0s;
+	}
+	&.secondary {
+		@include bg-gradient-color($blue-color-from, $blue-color-to);
+		&:hover, &:focus {
+			background: $blue-color-hover;
+      -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+      transition: 0s;
+		}
+	}
+  &.small {
+    font-weight: normal;
+    @include button-properties($base-font, 28px, 10px);
+  }
+  &.postfix {
+    border: none;
+    display: inline-block;
+    text-transform: uppercase;
+    width: auto;
+    @include bg-gradient-color($dark-blue-color-from, $dark-blue-color-to);
+    @include button-properties($base-font, 34px, 5px);
+    @include button-post-radius(2px);
+    &:hover, &:focus {
+      background:$dark-blue-color-hover;
+      -webkit-transition: 0s; /* Safari 3.1 to 6.0 */
+      transition: 0s;
+    }
+  }
+}
+
+.button.disabled, 
+button[disabled], 
+.button.disabled, 
+.button[disabled]{
+  background: $disabled-button;
+  color: #FFF;
+
+  &:hover{
+    background: $disabled-button;
+  }
+}

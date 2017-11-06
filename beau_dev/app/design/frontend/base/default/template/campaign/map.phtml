@@ -1,0 +1,81 @@
+<?php $area = Mage::registry('url-key'); ?>
+<?php if ($area):?>
+	<?php $data = Mage::helper('storelocator')->getAreaDetails($area);?>
+	<?php $search_address = $data['search_address']?>
+<?php else:?>
+	<?php $search_address = Mage::app()->getRequest()->getParam('address'); ?>
+<?php endif;?>
+
+<?php $filters = Mage::getStoreConfig('storelocator/attribute_filter/filter');?>
+<?php $filtersArray = explode(',',$filters);?>
+<?php $count = count($filtersArray)-1;?>
+<?php $request = Mage::app()->getRequest()->getParams()?>
+
+<?php /* Already loaded in header. TODO: Move API key there ?>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $this->getApiKey() ?>&sensor=true&v=3"></script>-->
+<?php */ ?>
+
+
+<form id="storelocator-search" method="post" action="/store-locator">
+<input name="address" id="address" title="<?php echo Mage::helper('storelocator')->__('Address') ?>" value="<?php echo $search_address; ?>" class="input-text get-google-places" type="hidden" placeholder="<?php echo Mage::helper('storelocator')->__('Enter your Postcode, Suburb or Town') ?>"/>
+</form>
+
+ <div class="hide-for-small-only store-map th">
+            <div id='map-canvas'></div>
+        </div>
+
+<?php /* PKL 2015/07/10: Evil coding!  Get ye script out of thee file! */ ?>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var form = new VarienForm('storelocator-search', false);
+    var IWDStoreLocatorConfig = '<?php echo $this->getJsonConfig(true) ?>';
+
+//Hide map if geolocation unavailable or blocked
+    console.log("RAINT");
+    function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showMap, hideMap);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+        
+        jQuery('.map').hide();
+        jQuery('.store-locator-btn').hide();
+    }
+    }
+
+    function showMap(position) {
+        console.log("Geolocation success, displaying map");
+    }
+
+    function hideMap(error) {
+        jQuery('.map').hide();
+        jQuery('.store-locator-btn').hide();
+
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                console.log("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.log("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                console.log("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                console.log("An unknown geolocation error occurred.");
+                break;
+        }
+    }
+    getLocation();
+// ***END*** Hide map if geolocation unavailable or blocked
+
+    <?php if (!empty($search_address)): ?>
+    jQuery(document).ready(function() {
+        jQuery('#autotriggersearch').on('click');
+        });
+
+    <?php endif; ?>
+//]]>
+</script>

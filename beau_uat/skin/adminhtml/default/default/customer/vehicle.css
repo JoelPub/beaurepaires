@@ -1,0 +1,9 @@
+
+a.form-button{
+	text-decoration: none;
+}
+
+a.form-button:hover{
+	color: #FFF;
+	background: #f77c16 url(../../enterprise/images/btn_over_bg.gif) repeat-x 0 0;
+}

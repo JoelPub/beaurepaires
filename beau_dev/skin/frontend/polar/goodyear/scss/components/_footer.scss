@@ -1,0 +1,147 @@
+$footerGutterPadding: 15px;
+
+//Footer
+.footer-wrapper{
+  $colour-link: rgba($colour-white,0.6);
+	$colour-link-hover: $colour-white;
+  $main-gradient-from: $colour-Lochmara;
+	$main-gradient-to: $colour-congressblue-light;
+
+  @include bg-gradient-color-hoz($main-gradient-from, $main-gradient-to);
+
+  color: $colour-white;
+  padding: 30px $footerGutterPadding;
+
+  span {
+    &.aligned-title {
+      display: block;
+      width: 130px;
+    }
+  }
+
+  ul {
+    &.no-bullet {
+      margin-bottom: 0;
+    }
+    li {
+      padding: 0;
+
+      li {
+        font-size: rem-calc(14);
+        margin: 0 0 10px 0;
+
+        a {
+          color: $colour-link;
+          transition: color 0.2s ease;
+
+          &:hover{
+            color: $colour-link-hover;
+          }
+        }
+        input {
+          &::-webkit-input-placeholder {
+					   color: $colour-congressblue-light;
+					}
+					&:-moz-placeholder {
+					   color: $colour-congressblue-light;
+					}
+					&::-moz-placeholder {
+					   color: $colour-congressblue-light;
+					}
+					&:-ms-input-placeholder {
+					   color: $colour-congressblue-light;
+					}
+        }
+        .button {
+          font-family: $font-family-normal;
+    			line-height: 30px;
+          white-space:  nowrap;
+    		}
+      }
+    }
+  }
+  .hotline {
+    margin: 3px 0 -26px 0;
+  }
+
+
+  .newsletter-field {
+    margin-top: 5px;
+
+    .field,
+    .button{
+      height: 29px;
+    }
+
+    .field{
+      margin-bottom: 8px;
+      padding: 0 10px;
+    }
+
+    .button{
+      line-height: normal;
+      padding: 0 8px;
+    }
+
+    p.result{
+      line-height: 1.2;
+      margin: 0;
+    }
+  }
+}
+
+
+//Social footer
+.social-footer-wrapper {
+	background-color: $colour-congressblue;
+	color: $white;
+	padding: 0 $footerGutterPadding;
+
+	.columns {
+		display: table;
+		height: 55px;
+
+		div {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+	}
+
+  .fa-lg {
+    font-size: 18px;
+  }
+  .copyright {
+
+    a {
+      margin: 0 0 0 2px;
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  .social {
+  	//white-space: nowrap;
+  	text-align: right;
+  }
+}
+
+
+@media only screen and (max-width: 45.7857em) {
+	.social-footer-wrapper {
+		padding: 7px 0 7px 0;
+
+    .social a{
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+		.columns {
+			height: 35px;
+
+			div {
+				text-align: center;
+			}
+		}
+	}
+}

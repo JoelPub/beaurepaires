@@ -1,0 +1,154 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php // Polar: Replaced table with list for easier responsiveness  ?>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_orders = Mage::helper('apdinteract_order')->getMyOrders(); ?>
+<h1 class="db-page-title"><?php echo $this->__('Orders') ?></h1>
+<?php #echo $this->getPagerHtml(); ?>
+<?php if ($_orders->getSize()): ?>
+    <ul class="order-list history-list no-bullet">
+        <?php
+        foreach ($_orders as $_order):
+
+            $realOrderId = $_order->getRealOrderId();
+            $costarOrderId = $_order->getCostarSalesOrderNumber();
+            $orderId = $realOrderId;
+            if ($costarOrderId != $realOrderId && !empty($costarOrderId)){
+                $orderId = $costarOrderId;
+            }
+            $consumer = Mage::helper('apdinteract_vir')->getConsumerDetail($realOrderId);
+            $vehicleRawStatus = 'N/A';
+            $vehicleMake = '';
+            $vehicleModel = '';
+            $vehicleYear = '';
+            $vehicleRego = '';
+            $orderDate = strtotime($_order->getCreatedAtStoreDate());
+            $date = date("j F Y g:i A", $orderDate);
+            $costarInvoiceDate = $_order->getCostarInvoiceDate();
+
+            if (!empty($costarInvoiceDate)){
+                    $date = date("j F Y g:i A", strtotime($costarInvoiceDate));
+            }
+
+            if ($consumer->count() <= 0) :
+                $commercial = Mage::helper('apdinteract_vir')->getCommercialDetail($realOrderId);
+                if ($commercial->count() > 0) :
+                    $commercialData = $commercial->getFirstItem();
+                    $vehicleMake = $_order->getData('vmake');
+                    $vehicleModel = $_order->getData('vmodel');
+                    $vehicleYear = $_order->getData('year');
+                    $vehicleRego = $commercialData->getData('regonumber');
+                    $vehicleRawStatus = $commercialData->getData('status');
+                    $lastupdated = $commercialData->getData('updated_at');
+                endif;
+            else:
+                $consumerData = $consumer->getFirstItem();
+                $vehicleMake = $consumerData->getData('vehiclemake');
+                $vehicleModel = $consumerData->getData('vehiclemodel');
+                $vehicleYear = $consumerData->getData('vehicleyear');
+                $vehicleRego = $consumerData->getData('vehiclerego');
+                $vehicleRawStatus = $consumerData->getData('status');
+                $lastupdated = $consumerData->getData('updated_at');
+
+            endif;
+            $status = strtolower($vehicleRawStatus);
+            $status = str_replace(" ", "-", $status);
+            $updated = strtotime($lastupdated);
+            
+            $orderItems = $_order->getAllVisibleItems();  
+            ?>
+            <li>
+                <h4><?php echo $this->__('Order '); ?><?php echo $orderId ?></h4>
+
+                <div class="vir-status">
+        <?php if ($vehicleRawStatus != 'N/A') { ?>
+                        <div class="status-select">
+                            <div class="status-icon <?php echo $status ?>">
+                                <i class="fa fa-minus"></i>
+                                <i class="fa fa-wrench"></i>
+                                <i class="fa fa-ban"></i>
+                                <i class="fa fa-pause"></i>
+                                <i class="fa fa-thumbs-up"></i>
+                                <i class="fa fa-check-square"></i>
+                                <?php echo $vehicleRawStatus ?> (Last Updated: <?php echo  date("j F Y g:i A", $updated)?>)
+                            </div> 
+                        </div>
+        <?php } ?>
+                </div>
+                
+
+                <dl class="row">                   
+                    <dt class="columns medium-2"><?php echo $this->__('Vehicle: '); ?></dt>
+                    <dd class="columns medium-10">
+                        <ul class="no-bullet">
+                            <?php if (!empty($vehicleRego)):?>
+                            <li><?php echo $vehicleRego ?></li>
+                            <?php endif; ?>
+                            <?php if (!empty($vehicleModel) || !empty($vehicleYear) || !empty($vehicleMake)):?>
+                                <li><?php echo $vehicleModel . " " . $vehicleYear . ", " . $vehicleMake ?></li>
+                            <?php else:?>
+                                <li>&nbsp;</li>
+                            <?php endif; ?>
+                        </ul>
+                    </dd>
+                    <dt class="columns medium-2"><?php echo $this->__('Date: '); ?></dt>
+                    <dd class="columns medium-10"><?php echo $date ?></dd>
+              
+                    <dt class="columns medium-2"><?php echo $this->__('Description: '); ?></dt>
+                    <dd class="columns medium-10">
+                        <ul class="no-bullet description-list">
+
+                        <?php
+                        $count = 0;
+                        foreach($orderItems as $_item) {
+                            $count++;
+                            ?>
+                            <li class='item-<?php echo $count  ?> <?php if($count >=6){ echo 'hide'; }?>'><?php echo (int)$_item->getQtyOrdered()?>x <?php echo $_item->getName()?></li>
+                        <?php }?>
+                        </ul>
+                        <?php
+                        if(count($orderItems)>5):?>
+                            <button class="showOther button small"><?php echo count($orderItems) - 5 ?> more items</button>
+                        <?php endif ?>
+
+                    </dd>                
+                </dl>
+              
+                <div class="order-actions">
+                    <a class="button radius" href="<?php echo $this->getUrl('account/orders/view/order_id/'.$_order->getId()) ?>"><?php echo $this->__('View Details') ?></a>
+                    <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
+                          <!--<a class="button radius" href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>-->
+        <?php endif ?>
+                </div>
+            </li>
+    <?php endforeach; ?>
+    </ul>
+    <?php #echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have placed no orders.'); ?></p>
+<?php endif ?>

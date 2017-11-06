@@ -1,0 +1,24 @@
+// Variables
+$grey: #ccc;
+$white: #fff;
+
+// VIR form
+body {
+  &.vir-form{
+    background: $white;
+    .car-wrapper{
+      background: url(../images/steering-wheel.gif) no-repeat 56% 30%;
+      border: 1px solid $grey;
+      margin-bottom: 15px;
+      padding: 15px;
+      .panel{
+        border-radius: 26%;
+        min-height: 240px;
+        overflow: hidden;
+        textarea {
+          resize: none;
+        }
+      }
+    }
+  }
+}

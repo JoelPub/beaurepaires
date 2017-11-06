@@ -1,0 +1,21 @@
+<?php
+/**
+ * APD Review Summary Template
+ */
+?>
+
+<div class="star-rating">
+ 
+    <?php 
+    $stars = $this->getRatingSummary();
+	if ( !empty($stars) ) {
+		echo Mage::helper('apdwidgets')->getStarHtmlFromRating($this->getRatingSummary()); 
+	}
+	?>
+    
+    <span class="review-links">
+        <a class="customer-reviews"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a> | 
+        <a class="add-review"><?php echo $this->__('Add Your Review') ?></a>
+    </span>
+    
+</div>

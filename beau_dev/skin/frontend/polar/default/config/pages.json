@@ -1,0 +1,58 @@
+[
+  {
+    "outputName": "index.html",
+    "template": "index.html",
+    "page": "test",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "home.html",
+    "template": "index.html",
+    "page": "home",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "faq.html",
+    "template": "index.html",
+    "page": "faq",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "campaign.html",
+    "template": "campaign.html",
+    "page": "",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "styleguide.html",
+    "template": "styleguide.html",
+    "page": "",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "pdp.html",
+    "template": "index.html",
+    "page": "pdp",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  },
+  {
+    "outputName": "cdp.html",
+    "template": "index.html",
+    "page": "cdp",
+    "inject": true,
+    "createInDev": true,
+    "createInBuild": true
+  }
+]

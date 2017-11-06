@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>    
+    <sections>
+    
+        <sync translate="label" module="sync">
+            <label>Calendar API Details</label>
+            <tab>apdinteract</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>91314</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <sync translate="label">
+                    <label>API Details</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+                    <fields>                    	
+                        <apdinteract_syncurl translate="label">
+                            <label>Magento(Store) to DBC API URL</label>
+                            <comment>Must contain "/" at the end</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_syncurl> 
+                        <apdinteract_order_ordersaveapi translate="label">
+                            <label>Magento(Customer,Date and Time) to DBC API Url</label>
+                            <comment>Magento Data(Customer,Date and Time) to Digital Calendar</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_order_ordersaveapi> 
+                            
+                         <apdinteract_order_customerapi translate="label">
+                            <label>DBC(Customer) to Magento API URL</label>
+                            <comment>Digital Calendar Customer to Magento Customer(put only the domain eg. domain.com)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_order_customerapi>                                         
+                        <apdinteract_dbc_minutes translate="label">
+                            <label>Duration of DBC Appointment</label>
+                            <comment>Duration of DBC Appointment in Minutes</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_dbc_minutes>                                         
+                    </fields>
+                 </sync>
+            </groups>
+                        
+          </sync>    
+              
+    </sections>
+</config>

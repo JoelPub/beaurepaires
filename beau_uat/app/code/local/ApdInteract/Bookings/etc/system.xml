@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <booking  translate="label" module="bookings">
+            <label>Booking</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>3501</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <buttons translate="label">
+                    <label>Button Links</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <dashboard translate="label">
+                            <label>Dashboard Home</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </dashboard>
+                        <webmail translate="label">
+                            <label>Webmail</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </webmail>
+                        <costar translate="label">
+                            <label>Dashboard Reports</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </costar>
+                        <website translate="label">
+                            <label>Website</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </website>
+                        <booking_calendar translate="label">
+                            <label>Booking Calendar</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </booking_calendar>
+                    </fields>
+                </buttons>
+                <api translate="label">
+                    <label>DBC API Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <get_booking translate="label">
+                            <label>Get Booking API</label>
+                            <comment>API URL to fetch booking details for Store Manager Console</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </get_booking>
+                    </fields>
+                </api>
+
+            </groups>
+        </booking>
+    </sections>
+</config>

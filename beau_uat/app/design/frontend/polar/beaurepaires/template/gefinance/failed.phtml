@@ -1,0 +1,3 @@
+<h1><?php echo $this->__('Unfortunately, payment via Interest Free has not been approved for this transaction.')?></h1>
+<p><?php echo Mage::getSingleton('core/session')->getPaymentErrorDesc();?> (<?php echo Mage::getSingleton('core/session')->getPaymentErrorCode();?>)</p>
+<p><a class="button" href="/checkout/onepage/index/step/payment">Choose another payment method</a></p>

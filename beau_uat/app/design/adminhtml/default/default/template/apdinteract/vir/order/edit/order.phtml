@@ -1,0 +1,1623 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Widget_Form_Container
+ */
+?>
+<?php echo $this->getFormInitScripts() ?>
+<?php $vir = Mage::registry('current_order'); ?>
+<?php
+$storeMapper = Mage::helper('apdinteract_vir')->loadVirMapper($vir->getData('parent_id'),0);
+$storeLocationId = 0;
+$storelocationName = "";
+if(isset($storeMapper['store_id'])){
+    $storeLocation = Mage::getModel('storelocator/stores')->load($storeMapper['store_id']);
+    $storeLocationId = $storeMapper['store_id'];
+    $storelocationName = $storeLocation->getTitle();
+}
+?>
+<?php $base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>
+<?php $make = Mage::helper('searchtyre')->getMakes(); ?>
+<?php
+
+$vehicleId = json_decode($vir->getData('vehicledetails'),true);
+$make_tyres   = isset($vehicleId['make-tyres'])  ? $vehicleId['make-tyres'] : '';
+$year_tyres   = isset($vehicleId['year-tyres'])  ? $vehicleId['year-tyres'] : '';
+$model_tyres  = isset($vehicleId['model-tyres']) ? $vehicleId['model-tyres']: '';
+$series_tyres = isset($vehicleId['series-tyres'])? $vehicleId['series-tyres']:'';
+
+
+$vehicleToJson = json_encode(array(
+        "make-tyres" =>$vir->getData('vehiclemake'),
+        "year-tyres"=>$vir->getData('vehicleyear'),
+        "model-tyres"=>$vir->getData('vehiclemodel'),
+        "series-tyres"=>$vir->getData('vehicleseries'))
+);
+?>
+<style>
+    <?php
+    // Fixes the Magento admin styling / Foundation mashup we are doing here
+    // Frontenders, I know you hate inline style and I understand why they are bad.
+    // This is so we don't have to retheme / style the ENTIRE magento admin section
+    // Prevent ugly blue flash on page load. That's why it's defined twice
+    ?>
+    .label {background-color: initial;}
+
+</style>
+
+<script>
+    jQuery = $ji;
+    var ajaxUrl = "<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/order/ajaxsave/'); ?>";
+    var autocompleteUrl = "<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/order/autocomplete/'); ?>";
+    var dataname = "order";
+    var parentid = <?php echo $vir->getParentId(); ?>;
+</script>
+
+<script type="text/javascript" src="<?php echo $base_url; ?>js/adpinteract/vir.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>js/adpinteract/jSignature.min.noconflict.js"></script>
+
+<!--<link rel="stylesheet" type="text/css" href="/skin/adminhtml/default/default/css/apdinteract/vir.css" media="screen, projection">-->
+<link rel="stylesheet" href="<?php echo $base_url; ?>skin/frontend/polar/default/dist/static/app.css" />
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/modernizr/modernizr.js"></script>
+
+<?php // Putting magento styles after foundation will help some things ?>
+<link rel="stylesheet" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/boxes.css" />
+
+<style>
+    <?php
+    // Fixes the Magento admin styling / Foundation mashup we are doing here
+    // Frontenders, I know you hate inline styles and I understand why they are bad.
+    // This is so we don't have to retheme / style the ENTIRE magento admin section
+    ?>
+    .middle, .columns {background-image: none;}
+    .label {background-color: initial;}
+    .content-header h3 {font-family: unset;}
+    .header, .header ul, .header p, .header input{
+        margin: 0;
+        height: auto;
+        padding: 0;
+        font-size: 12px !important;
+    }
+    .header input{padding: 2px;}
+    .wrapper {min-width: 0;}
+
+
+    // Styles for autocomplete
+       .pt_autocomplete span.data {
+           display:none !important;
+       }
+
+    .pt_autocomplete {
+        position:absolute;
+        width:250px;
+        background-color:white !important;
+        border:1px solid #888;
+        margin:0;
+        padding:0;
+        z-index: 10;
+    }
+    .pt_autocomplete ul {
+        list-style-type:none;
+        margin:0;
+        padding:0;
+    }
+
+    .pt_autocomplete ul li.selected { background-color: #ffb;}
+    .pt_autocomplete ul li {
+        list-style-type:none;
+        display:block;
+        margin:0;
+        padding:2px;
+        height:32px;
+        cursor:pointer;
+    }
+
+</style>
+
+
+
+<div class="content-header">
+    <?php echo $this->getHeaderHtml() ?>
+    <p class="form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
+</div>
+
+<?php
+
+    $time_24 =  date('H:i',strtotime($vir->getData('booking_time')));
+    $time_12 =  date('h:i a',strtotime($vir->getData('booking_time')));
+    $date = date('d/m/Y',strtotime($vir->getData('booking_date')));
+?>
+
+
+
+<!-- Clean form start -->
+
+<div id="makeresponsive" class="vir-edit">
+
+    <!-- Thomas form start -->
+
+    <div class="row">
+        <div class="large-12 columns">
+
+            <form id="editForm" action="<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/order/edit/continue/0', array('continue' => 0, 'id' => $vir->getParentId())); ?>" method="post">
+                <input name="form_key" type="hidden" value="<?php echo $this->getFormKey(); //eg LB2PIEwXz9EAWiag  ?>" />
+                <input type="hidden" name="appointmentid" value="<?php echo $vir->getData('appointmentid')?>">
+                <input type="hidden" name="customerid" value="<?php echo $vir->getData('customerid')?>">
+                <input type="hidden" name="ordernumber" value="<?php echo $vir->getData('ordernumber')?>">
+                <div class="row">
+
+                    <div class="small-12 medium-7 columns">
+                        <h2>Vehicle Inspection Report!</h2>
+                    </div>
+
+                    <!-- Intro -->
+                    <div class="small-12 medium-5 columns">
+
+                        <div class="row">
+                            <div class="medium-4 columns text-right">
+                                <label for="orderdate">Created</label>
+                            </div>
+                            <div class="medium-8 columns">
+                                <input id="orderdate" class="input-text" title="Date" name="orderData[orderdate]" type="date" data-date-format="dd-mm-yyyy" value="<?php echo $vir->getOrderdate() ?>" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 columns text-right">
+                                <label for="timereq">Time req</label>
+                            </div>
+                            <div class="medium-8 columns">
+                                <input id="timereq" class="input-text" title="Time req" name="orderData[timereq]" type="time" value="<?php echo $vir->getTimereq() ?>" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 columns text-right">
+                                <label for="invoiceno">Invoice No</label>
+                            </div>
+                            <div class="medium-8 columns">
+                                <input id="invoiceno" class="input-text" title="Invoice No" name="orderData[invoiceno]" type="text" value="<?php echo $vir->getInvoiceno() ?>" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-4 columns text-right">
+                                <label for="status">Status</label>
+                            </div>
+                            <div class="medium-8 columns">
+                                <div class="status-select">
+                                    <select id="status" name="status" class="input-text" <?php if($vir->getData('status') == 'Completed') {echo "disabled";} ?>>
+                                        <?php
+                                        $status = array('Not Started', 'In Progress', 'Cancelled', 'On Hold','Ready For Customer Pickup','Completed');
+                                        foreach ($status as $stat):
+                                            $sel = ''; if ($stat == $vir->getData('status')) $sel = ' selected="selected"';
+                                            ?>
+                                            <option<?php echo $sel; ?>><?php echo $stat;?></option>
+                                        <?php   endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h3>Booking Details</h3>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="booking-id">Booking ID:</label>
+                    </div>
+                    <div class="small-3 columns">
+                        <input id="booking-id" class="input-text second-colour" title="Booking Id" name="orderData[appointmentid]" type="text" value="<?php echo $vir->getData('appointmentid') ?>" readonly  />
+                    </div>
+                    <div class="small-2 columns">
+                        <label for="store">Store:</label>
+                    </div>
+
+                    <div class="small-4 columns cms-mygiftcard">
+                        <div class="vir-field-spin-container">
+                            <input type="text"  class="input-text second-colour" id="vir-postcode" value="<?php echo $storelocationName ?>" name="store_name" placeholder="Enter suburb or postcode" />
+                            <i id="vir-postcode-loading" class="fa fa-refresh fa-spin"></i>
+                        </div>
+                        <input type="hidden" id="vir-postcode-id" name="storelocation_id" value="<?php echo $storeLocationId ?>"class="hidden-input" />
+                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="booking-date">Booking Date:</label>
+                    </div>
+                    <div class="small-3 columns">
+                        <input type="text" value="<?php echo $date ?>" name="orderData[booking_date]" id="vir-bookingdate" class="input-text second-colour vir-datepicker"  placeholder="Choose a date" data-min-date="<?php echo 0; ?>d" required readonly />
+                    </div>
+                    <div class="small-2 columns">
+                        <label for="booking-time">Booking Time:</label>
+                    </div>
+                    <div class="small-4 columns">      
+                        <div class="vir-field-spin-container">
+                            <?php $urallowed = Mage::getStoreConfig('sync/sync/apdinteract_syncurl', 0);?>
+                            <select id="vir-available-times" name="orderData[booking_time]" class="vir-available-times input-text second-colour" data-select="<?php echo $time?>" data-get-times-url="<?php echo $urallowed?>ajax_get_busy_times" required pattern="[0-9]+">
+                                <?php if(!empty($vir->getData('booking_time'))): ?>
+                                    <option value="<?php echo $time_24 ?>" selected><?php echo $time_12 ?></option>
+                                <?php endif; ?>
+                            </select>
+                            <i id="vir-available-times-loading" class="fa fa-refresh fa-spin"></i>
+                        </div>
+                        <input type="hidden" id="fit-duration" name="duration" value="120">
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3>Customer Details</h3>
+
+                <div class="row">
+                    <div class="small-1 columns">
+                        <label for="custname">Name</label>
+                    </div>
+                    <div class="small-11 columns">
+                        <input id="custname" class="input-text second-colour" title="Name" name="orderData[custname]" type="text" value="<?php echo $vir->getCustname() ?>" autocomplete="off" />
+                        <div id="custname_autocomplete_choices" class="pt_autocomplete small-12 columns"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-1 columns">
+                        <label for="custcompany">Company Name</label>
+                    </div>
+                    <div class="small-11 columns">
+                        <input id="custcompany" class="input-text second-colour" title="Company Name" name="orderData[custcompany]" type="text" value="<?php echo $vir->getCustcompany() ?>"/>
+                    </div>
+                </div>
+
+                <div class="address-validtion" data-address-url="/geo/index/address"><!-- for address validation -->
+
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="custaddress">Building/Street Number</label>
+                        </div>
+                        <div class="small-3 columns">
+                            <input id="custaddress" class="input-text second-colour" title="Address" name="orderData[custaddress]" type="text" value="<?php echo $vir->getCustaddress() ?>" />
+                        </div>
+                        <div class="small-2 columns">
+                            <label for="custsuburb2">Street</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <div class="input-box">
+                                <input id="custaddress2" class="input-text second-colour validate-street" title="Address" name="orderData[custaddress2]" type="text" value="<?php echo $vir->getCustaddress2() ?>" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <label for="custsuburb">Suburb</label>
+                        </div>
+                        <div class="small-5 columns">
+                            <div class="input-box">
+                                <input id="custsuburb" class="input-text second-colour validate-city" title="Suburb" name="orderData[custsuburb]" type="text" value="<?php echo $vir->getCustsuburb() ?>" />
+                            </div>
+                        </div>
+                        <div class="small-2 columns">
+                            <label for="custsuburb">Postcode</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <div class="input-box">
+                                <input id="custpostcode" class="input-text second-colour validate-postcode" title="Postcode" name="orderData[custpostcode]" type="text" value="<?php echo $vir->getCustpostcode() ?>" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="custphoneno">Phone Number (Day)</label>
+                    </div>
+                    <div class="small-3 columns">
+                        <input id="custphoneno" class="input-text second-colour" title="Phone Number" name="orderData[custphoneno]" type="tel" value="<?php echo $vir->getCustphoneno() ?>" />
+                    </div>
+                    <div class="small-2 columns">
+                        <label for="custphonemobile">Mobile Number</label>
+                    </div>
+                    <div class="small-4 columns">
+                        <input id="custphonemobile" class="input-text second-colour" title="Mobile Number" name="orderData[custphonemobile]" type="tel" value="<?php echo $vir->getCustphonemobile() ?>" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-1 columns">
+                        <label for="custemail">Email</label>
+                    </div>
+                    <div class="small-11 columns">
+                        <input id="custemail" class="input-text second-colour" title="Email" name="orderData[custemail]" type="email" value="<?php echo $vir->getCustemail() ?>" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-6 columns">
+                        <?php
+                        $radioOption = intval($vir->getLastbalance());
+                        $cb = array_fill(0, 3, '');
+                        $cb[$radioOption] = ' checked="checked"';
+                        ?>
+                        <fieldset>
+                            <legend>How long since the wheels were last balanced?</legend>
+                            <ul class="row">
+                                <li class="columns small-4">
+                                    <label><input id="lastbalance0"<?php echo $cb[0]; ?> class="input-radio" name="orderData[lastbalance]" type="radio" value="0">0-6 months</label>
+                                </li>
+                                <li class="columns small-4">
+                                    <label><input id="lastbalance1"<?php echo $cb[1]; ?> class="input-radio" name="orderData[lastbalance]" type="radio" value="1">6-12 months</label>
+                                </li>
+                                <li class="columns small-4">
+                                    <label><input id="lastbalance2"<?php echo $cb[2]; ?> class="input-radio" name="orderData[lastbalance]" type="radio" value="2">Over 12 months</label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="small-6 columns">
+                        <?php
+                        $radioOption = intval($vir->getLastwheelalignment());
+                        $cb = array_fill(0, 3, '');
+                        $cb[$radioOption] = ' checked="checked"';
+                        ?>
+                        <fieldset>
+                            <legend>How long since your last wheel alignment?</legend>
+                            <ul class="row">
+                                <li class="columns small-4">
+                                    <label><input id="lastwheelalignment0"<?php echo $cb[0]; ?> class="input-radio" name="orderData[lastwheelalignment]" type="radio" value="0">0-6 months</label>
+                                </li>
+                                <li class="columns small-4">
+                                    <label><input id="lastwheelalignment1"<?php echo $cb[1]; ?> class="input-radio" name="orderData[lastwheelalignment]" type="radio" value="1">6-12 months</label>
+                                </li>
+                                <li class="columns small-4">
+                                    <label><input id="lastwheelalignment2"<?php echo $cb[2]; ?> class="input-radio" name="orderData[lastwheelalignment]" type="radio" value="2">Over 12 months</label>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h3>Vehicle Details</h3>
+
+                <div class="quick-finder static" data-api-domain="https://api.vehiclelogic.com.au" data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+
+                    <div class="row">
+                        <div class="small-2 columns">
+                            <label for="vehiclemake">Vehicle Make</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <select name="make-tyres" class="required-field make-tyres"  data-selected-value="<?php echo $make_tyres ?>"  placeholder="">
+                                <option value="">Select Make</option>
+                                <?php
+                                $count_selected =0;
+                                foreach ($make as $m => $v): ?>
+                                    <option <?php if($v == $vir->getVehiclemake()){ echo "selected"; $count_selected++;} ?> value="<?php echo $m ?>"><?php echo $v ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="small-2 columns">
+                            <label for="vehicleyear">Vehicle Year</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <select name="year-tyres" class="required-field year-tyres"  data-selected-value="<?php echo $year_tyres ?>">
+                                <option value="">Select Year</option>
+                                <?php
+                                $count_selected =0;
+                                for ($i = date("Y"); $i >= 1990; $i--): ?>
+                                    <option  <?php if($i == $vir->getVehicleyear()){ echo "selected";$count_selected++;} ?> value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-2 columns">
+                            <label for="vehiclemodel">Vehicle Model</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <select name="model-tyres" class="required-field model-tyres"  title="Select Model"  data-selected-value="<?php echo $model_tyres ?>">
+                                <option value="">Select Model</option>
+                                <?php if(trim($vir->getVehiclemodel())!='') {?><option selected="selected" value=""><?php echo $vir->getVehiclemodel()?></option><?php }?>
+                            </select>
+                            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                        </div>
+                        <div class="small-2 columns">
+                            <label for="vehicleSeries">Vehicle Series</label>
+                        </div>
+                        <div class="small-4 columns">
+                            <select name="series-tyres" class="required-field series-tyres final-select" title="Select Series"  data-selected-value="<?php echo $series_tyres ?>">
+                                <option value="">Select Series</option>
+                                <?php if(trim($vir->getVehicleseries())!='') {?><option selected="selected" value=""><?php echo $vir->getVehicleseries()?></option><?php }?>
+                            </select>
+                            <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="details-tyres" value="<?php echo htmlentities($vehicleToJson) ?>" class="details-tyres"/>
+                </div>
+
+                <div class="row">
+                    <div class="small-2 columns">
+                        <label for="vehiclerego">Vehicle Registration</label>
+                    </div>
+                    <div class="small-4 columns">
+                        <input id="vehiclerego" class="input-text" title="vehiclerego" name="orderData[vehiclerego]" type="text" value="<?php echo $vir->getVehiclerego(); ?>" />
+                    </div>
+                    <div class="small-2 columns">
+                        <label for="vehicleodometer">Odometer</label>
+                    </div>
+                    <div class="small-4 columns">
+                        <input id="vehicleodometer" class="input-text" title="vehicleodometer" name="orderData[vehicleodometer]" type="text" value="<?php echo $vir->getVehicleodometer(); ?>" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-12 large-6 columns">
+                        <label for="vehiclecomments">Comments</label>
+                        <textarea id="vehiclecomments" class="input-text" title="vehiclecomments" rows="5" name="orderData[vehiclecomments]"><?php echo $vir->getVehiclecomments(); ?></textarea>
+                    </div>
+                    <div class="small-12 large-6 columns">
+
+                        <div class="wheel-grid-customer">
+                            <div class="grid-panel panel-pos-lf">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehiclewheelLF') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehiclewheelLF" title="LF"<?php echo $cb ?> name="orderData[vehiclewheelLF]" type="checkbox" value="1" />
+                                <label for="vehiclewheelLF">LF</label>
+                                <input id="vehiclewheelLFtorque" class="input-text" title="vehiclewheelLFtorque" name="orderData[vehiclewheelLFtorque]" type="text" value="<?php echo $vir->getData('vehiclewheelLFtorque'); ?>" />
+                            </div>
+                            <div class="grid-panel panel-pos-rf">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehiclewheelRF') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehiclewheelRF" class="input-cb" title="RF"<?php echo $cb ?> name="orderData[vehiclewheelRF]" type="checkbox" value="1" />
+                                <label for="vehiclewheelRF">RF</label>
+                                <input id="vehiclewheelRFtorque" class="input-text" title="vehiclewheelRFtorque" name="orderData[vehiclewheelRFtorque]" type="text" value="<?php echo $vir->getData('vehiclewheelRFtorque'); ?>" />
+                            </div>
+                            <div class="grid-panel panel-pos-lr">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehiclewheelLR') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehiclewheelLR" class="input-cb" title="LR"<?php echo $cb ?> name="orderData[vehiclewheelLR]" type="checkbox" value="1" />
+                                <label for="vehiclewheelLR">LR</label>
+                                <input id="vehiclewheelLRtorque" class="input-text" title="vehiclewheelLRtorque" name="orderData[vehiclewheelLRtorque]" type="text" value="<?php echo $vir->getData('vehiclewheelLRtorque'); ?>" />
+                                <!--<textarea title="vehiclecomments" rows="6" name="orderData[vehiclewheelLRtorque]" rows="2">Comment...</textarea>-->
+                            </div>
+                            <div class="grid-panel panel-pos-rr">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehiclewheelRR') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehiclewheelRR" class="input-cb" title="RR"<?php echo $cb ?> name="orderData[vehiclewheelRR]" type="checkbox" value="1" />
+                                <label for="vehiclewheelRR">RR</label>
+                                <input id="vehiclewheelRRtorque" class="input-text" title="vehiclewheelRRtorque" name="orderData[vehicleRRtorque]" type="text" value="<?php echo $vir->getData('vehiclewheelRRtorque'); ?>" />
+                                <!--<textarea title="vehiclecomments" rows="6" name="orderData[vehiclewheelRRtorque]" rows="2">Comment...</textarea>-->
+                            </div>
+                            <div class="grid-panel panel-pos-spare">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehiclewheelSPARE') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehiclewheelSPARE" class="input-cb" title="Spare"<?php echo $cb ?> name="orderData[vehiclewheelSPARE]" type="checkbox" value="1" />
+                                <label for="vehicleSPARE">Spare</label>
+                                <input id="vehiclewheelSPAREtorque" class="input-text" title="vehiclewheelSPAREtorque" name="orderData[vehiclewheelSPAREtorque]" type="text" value="<?php echo $vir->getData('vehiclewheelSPAREtorque'); ?>" />
+                                <!--<textarea title="vehiclecomments" rows="6" name="orderData[vehiclewheelRRtorque]" rows="2">Comment...</textarea>-->
+                            </div>
+                            <div class="grid-panel panel-pos-extra-spare">
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('vehicle_wheel_extra_spare') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <input id="vehicle_wheel_extra_spare" class="input-cb" title="Spare"<?php echo $cb ?> name="orderData[vehicle_wheel_extra_spare]" type="checkbox" value="1" />
+                                <label for="vehicleSPARE">Spare-Extra</label>
+                                <input id="vehicle_wheel_extra_spare_torque" class="input-text" title="vehicle_wheel_extra_spare_torque" name="orderData[vehicle_wheel_extra_spare_torque]" type="text" value="<?php echo $vir->getData('vehicle_wheel_extra_spare_torque'); ?>" />
+                                <!--<textarea title="vehiclecomments" rows="6" name="orderData[vehiclewheelRRtorque]" rows="2">Comment...</textarea>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="small-12 columns text-center">
+                    <textarea name="orderData[sketch_container]" data-form-key="<?php echo $this->getFormKey();?>" data-vir-url="<?php echo Mage::helper('adminhtml')->getUrl('vir-admin/order/savedrawing/'); ?>" data-vir-id="<?php echo  $this->getRequest()->getParam('id')?>" class="hide" id="sketchContainer"><?php echo $vir->getData('sketch_container'); ?></textarea>
+                    <a href="#" data-reveal-id="DrawPad" class="button insert-drawing">Add drawing</a>
+                    <a href="#" class="preview-image hide button">Preview image</a>
+                    <div id="previewImage" class="hide">
+                        <div>
+                            <a href="" class="delete_image hide"><i class="fa fa-trash fa-3x"></i></a>
+                            <img class="preview th" src="<?php echo $vir->getData('sketch_container'); ?>"/>
+                        </div>
+                        <p></p>
+                    </div>
+                    <div id="DrawPad" class="reveal-modal full" data-reveal aria-labelledby="Draw" aria-hidden="true" role="dialog">
+                        <a href="#" class="button grey close-link right">Cancel</a>
+                        <a href="javascript:void(0)" aria-label="Close" class="button save-link right">Save</a>
+                        <div class="load-indicator hide right"><i class="fa fa-refresh fa-2x fa-spin"></i></div>
+                        <div id="wPaint" style="position:relative; width:100%; border: 1px solid #c8c8c8 ;height:300px; margin:70px auto 20px auto;"></div>
+                    </div>
+                </div>
+
+                <hr>
+                <!-- Intro -->
+                <div class="small-12 columns">
+                    <h3>Quote/Work Order </h3>
+
+                    <table class="vir-table vir-table-quote">
+                        <tr>
+                            <th colspan="2">Details of work to be performed</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Sub Total</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workordertyresdescription">Tyres</label>
+                            </td>
+                            <td>
+                                <input id="workordertyresdescription" class="input-text" name="orderData[workordertyresdescription]" type="text" value="<?php echo $vir->getWorkordertyresdescription(); ?>" />
+                            </td>
+                            <td>
+                                <input id="workordertyresqty" class="input-text qty-cell" name="orderData[workordertyresqty]" type="number" value="<?php echo $vir->getWorkordertyresqty()>0 ? $vir->getWorkordertyresqty():''; ?>" />
+                            </td>
+                            <td>
+                                <input id="workordertyresprice" class="input-text uprice" name="orderData[workordertyresprice]" type="text" value="<?php echo $vir->getWorkordertyresprice()>0 ? $vir->getWorkordertyresprice() : ''; ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkordertyresprice" class="input-text sprice" readonly="readonly" name="orderData[subworkordertyresprice]" type="text" value="<?php echo $vir->getWorkordertyresprice() * $vir->getWorkordertyresqty(); ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Balances</label>
+                            </td>
+                            <td>
+                                <ul class="inline-list">
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderbalancesoptionsteel') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderbalancesoptionsteel">
+                                            <input id="workorderbalancesoptionsteel" class="input-cb" title="Steel"<?php echo $cb ?> name="orderData[workorderbalancesoptionsteel]" type="checkbox" value="1" />
+                                            Steel
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderbalancesoptionalloy') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderbalancesoptionalloy">
+                                            <input id="workorderbalancesoptionalloy" class="input-cb" title="Alloy"<?php echo $cb ?> name="orderData[workorderbalancesoptionalloy]" type="checkbox" value="1" />
+                                            Alloy
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderbalancesoptionpremium') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderbalancesoptionpremium">
+                                            <input id="workorderbalancesoptionpremium" class="input-cb" title="Premium"<?php echo $cb ?> name="orderData[workorderbalancesoptionpremium]" type="checkbox" value="1" />
+                                            Premium
+                                        </label>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <input id="workorderbalancesqty" class="input-text qty-cell" name="orderData[workorderbalancesqty]" type="number" value="<?php echo $vir->getWorkorderbalancesqty()>0 ? $vir->getWorkorderbalancesqty(): '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderbalancesprice" class="input-text uprice" name="orderData[workorderbalancesprice]" type="text" value="<?php echo $vir->getWorkorderbalancesprice()>0 ? $vir->getWorkorderbalancesprice() :'' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderbalancesprice" class="input-text sprice" readonly="readonly" name="orderData[subworkorderbalancesprice]" type="text" value="<?php echo $vir->getWorkorderbalancesqty() * $vir->getWorkorderbalancesprice() ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Align</label>
+                            </td>
+                            <td>
+                                <ul class="inline-list">
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderalignoptionstandard') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderalignoptionstandard">
+                                            <input id="workorderalignoptionstandard" class="input-cb" title="Standard"<?php echo $cb ?> name="orderData[workorderalignoptionstandard]" type="checkbox" value="1" />
+                                            Std
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderalignoptionthrust') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderalignoptionthrust">
+                                            <input id="workorderalignoptionthrust" class="input-cb" title="Thrust"<?php echo $cb ?> name="orderData[workorderalignoptionthrust]" type="checkbox" value="1" />
+                                            Thrust
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderalignoption4wheel') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderalignoption4wheel">
+                                            <input id="workorderalignoption4wheel" class="input-cb" title="4 Wheel"<?php echo $cb ?> name="orderData[workorderalignoption4wheel]" type="checkbox" value="1" />
+                                            4Wheel
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <?php
+                                        $cb = '';
+                                        if ($vir->getData('workorderalignoption4wd') == 1) {
+                                            $cb = ' checked="checked"';
+                                        }
+                                        ?>
+                                        <label for="workorderalignoption4wd">
+                                            <input id="workorderalignoption4wd" class="input-cb" title="4WD"<?php echo $cb ?> name="orderData[workorderalignoption4wd]" type="checkbox" value="1" />
+                                            4WD
+                                        </label>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <input id="workorderalignqty" class="input-text qty-cell" name="orderData[workorderalignqty]" type="number" value="<?php echo $vir->getWorkorderalignqty()>0 ? $vir->getWorkorderalignqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderalignprice" class="input-text uprice" name="orderData[workorderalignprice]" type="text" value="<?php echo $vir->getWorkorderalignprice()>0 ? $vir->getWorkorderalignprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderalignprice" class="input-text sprice" readonly="readonly" name="orderData[subworkorderalignprice]" type="text" value="<?php echo $vir->getWorkorderalignqty()*$vir->getWorkorderalignprice()?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workorderwheelsdescription">Wheels</label>
+                            </td>
+                            <td>
+                                <input id="workorderwheelsdescription" class="input-text" title="Wheels" name="orderData[workorderwheelsdescription]" type="text" value="<?php echo $vir->getWorkorderwheelsdescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderwheelsqty" class="input-text qty-cell" title="Wheels Qty" name="orderData[workorderwheelsqty]" type="number" value="<?php echo $vir->getWorkorderwheelsqty()>0 ? $vir->getWorkorderwheelsqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderwheelsprice" class="input-text uprice" title="Wheels Price" name="orderData[workorderwheelsprice]" type="text" value="<?php echo $vir->getWorkorderwheelsprice()>0 ? $vir->getWorkorderwheelsprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderwheelsprice" class="input-text sprice" title="Wheels Price" readonly="readonly" name="orderData[subworkorderwheelsprice]" type="text" value="<?php echo $vir->getWorkorderwheelsqty()*$vir->getWorkorderwheelsprice()?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workorderbatreportdescription">Battery Report</label>
+                            </td>
+                            <td>
+                                <input id="workorderbatreportdescription" class="input-text" title="Battery" name="orderData[workorderbatreportdescription]" type="text" value="<?php echo $vir->getWorkorderbatreportdescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderbatreportqty" class="input-text qty-cell" title="Battery Qty" name="orderData[workorderbatreportqty]" type="number" value="<?php echo $vir->getWorkorderbatreportqty()>0 ? $vir->getWorkorderbatreportqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderbatreportprice" class="input-text uprice" title="Battery Price" name="orderData[workorderbatreportprice]" type="text" value="<?php echo $vir->getWorkorderbatreportprice()>0 ? $vir->getWorkorderbatreportprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderbatreportprice" class="input-text sprice" title="Battery Price" readonly="readonly" name="orderData[subworkorderbatreportprice]" type="text" value="<?php echo $vir->getWorkorderbatreportqty() * $vir->getWorkorderbatreportprice()?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workorderbrakesdescription">Brakes</label>
+                            </td>
+                            <td>
+                                <input id="workorderbrakesdescription" class="input-text" title="Brakes Description" name="orderData[workorderbrakesdescription]" type="text" value="<?php echo $vir->getWorkorderbrakesdescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderbrakesqty" class="input-text qty-cell" title="Brakes Qty" name="orderData[workorderbrakesqty]" type="number" value="<?php echo $vir->getWorkorderbrakesqty()>0 ? $vir->getWorkorderbrakesqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderbrakesprice" class="input-text uprice" title="Brakes Price" name="orderData[workorderbrakesprice]" type="text" value="<?php echo $vir->getWorkorderbrakesprice()>0 ? $vir->getWorkorderbrakesprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderbrakesprice" class="input-text sprice" title="Brakes Price" readonly="readonly" name="orderData[subworkorderbrakesprice]" type="text" value="<?php echo $vir->getWorkorderbrakesqty() * $vir->getWorkorderbrakesprice()?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workorderotherdescription">Other</label>
+                            </td>
+                            <td>
+                                <input id="workorderotherdescription" class="input-text" title="Other Description" name="orderData[workorderotherdescription]" type="text" value="<?php echo $vir->getWorkorderotherdescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderotherqty" class="input-text qty-cell" title="Other Qty" name="orderData[workorderotherqty]" type="number" value="<?php echo $vir->getWorkorderotherqty()>0 ? $vir->getWorkorderotherqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderotherprice" class="input-text uprice" title="Other Price" name="orderData[workorderotherprice]" type="text" value="<?php echo $vir->getWorkorderotherprice()>0 ? $vir->getWorkorderotherprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderotherprice" class="input-text sprice" title="Other Price" readonly="readonly" name="orderData[subworkorderotherprice]" type="text" value="<?php echo $vir->getWorkorderotherqty() *  $vir->getWorkorderotherprice?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="workorderpuncturedescription">Puncture Repair</label>
+                            </td>
+                            <td>
+                                <input id="workorderpuncturedescription" class="input-text" title="Puncture Description" name="orderData[workorderpuncturedescription]" type="text" value="<?php echo $vir->getWorkorderpuncturedescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderpunctureqty" class="input-text qty-cell" title="Puncture Qty" name="orderData[workorderpunctureqty]" type="number" value="<?php echo $vir->getWorkorderpunctureqty()>0 ? $vir->getWorkorderpunctureqty() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="workorderpunctureprice" class="input-text uprice" title="Puncture Price" name="orderData[workorderpunctureprice]" type="text" value="<?php echo $vir->getWorkorderpunctureprice()>0 ? $vir->getWorkorderpunctureprice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subworkorderpunctureprice" class="input-text sprice" title="Puncture Price" readonly="readonly" name="orderData[subworkorderpunctureprice]" type="text" value="<?php echo $vir->getWorkorderpunctureqty() * $vir->getWorkorderpunctureprice()?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="road_hazard_warranty_description">Road Hazard Warranty</label>
+                            </td>
+                            <td>
+                                <input id="road_hazard_warranty_description" class="input-text" title="Road Hazard Warranty" name="orderData[road_hazard_warranty_description]" type="text" value="<?php echo $vir->getRoadHazardWarrantyDescription() ?>" />
+                            </td>
+                            <td>
+                                <input id="road_hazard_warranty_qty" class="input-text qty-cell" title="Puncture Qty" name="orderData[road_hazard_warranty_qty]" type="number" value="<?php echo  $vir->getRoadHazardWarrantyQty()>0 ? $vir->getRoadHazardWarrantyQty():'' ?>" />
+                            </td>
+                            <td>
+                                <input id="road_hazard_warranty_price" class="input-text uprice" title="Puncture Price" name="orderData[road_hazard_warranty_price]" type="text" value="<?php echo $vir->getRoadHazardWarrantyPrice() >0 ? $vir->getRoadHazardWarrantyPrice() : '' ?>" />
+                            </td>
+                            <td>
+                                <input id="subroad_hazard_warranty_price" class="input-text sprice" title="Puncture Price" readonly="readonly" name="orderData[subroad_hazard_warranty_price]" type="text" value="<?php echo $vir->getRoadHazardWarrantyQty() * $vir->getRoadHazardWarrantyPrice() ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <strong>Total</strong>
+                            </td>
+                            <td>
+                                <input id="price-total" type="text" readonly="true" />
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div class="row">
+                        <div class="small-12 columns">
+                            Please tick the preferred payment method:
+                        </div>
+                    </div>
+                    <div clas="row">
+                        <div class="small-3  columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpaycash') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpaycash" class="input-cb" title="Cash"<?php echo $cb ?> name="orderData[custapprpaycash]" type="checkbox" value="1" />
+                                Cash
+                            </label>
+                        </div>
+                        <div class="small-3  columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayeftpos') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayeftpos" class="input-cb" title="Eftpos"<?php echo $cb ?> name="orderData[custapprpayeftpos]" type="checkbox" value="1" />
+                                Eftpos
+                            </label>
+                        </div>
+                        <div class="small-3 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayvisamaster') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayvisamaster" class="input-cb" title="Visa/Mastercard"<?php echo $cb ?> name="orderData[custapprpayvisamaster]" type="checkbox" value="1" />
+                                Visa/M'card
+                            </label>
+                        </div>
+                        <div class="small-3 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayamexdiners') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayamexdiners" class="input-cb" title="Amex/Diners"<?php echo $cb ?> name="orderData[custapprpayamexdiners]" type="checkbox" value="1" />
+                                Amex/Diners&nbsp;&nbsp;
+                            </label>
+                        </div>
+                        <div class="small-3 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayaccount') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayaccount" class="input-cb" title="Account"<?php echo $cb ?> name="orderData[custapprpayaccount]" type="checkbox" value="1" />
+                                Account
+                            </label>
+                        </div>
+                        <div class="small-3 columns ">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayfinance') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayfinance" class="input-cb" title="Finance"<?php echo $cb ?> name="orderData[custapprpayfinance]" type="checkbox" value="1" />
+                                Finance
+                            </label>
+                        </div>
+                        <div class="small-3 columns end">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('custapprpayother') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="custapprpayother" class="input-cb" title="Other"<?php echo $cb ?> name="orderData[custapprpayother]" type="checkbox" value="1" />
+                                Other
+                            </label>
+                        </div>
+                    </div>
+
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="small-12 columns">
+
+                            <!-- sigs -->
+                            <h3>Customer Approval</h3>
+                            <small>Please proceed with the services indicated, but contact me if additional service is recommended.
+                                I authorise Goodyear & Dunlop Tyres (Aust) Pty Ltd, licencees, agents and employees (Goodyear) to drive this vehicle. (sign below).
+                            </small>
+                            <div id="custapprsignature_canvas" style="width: 700px"></div>
+                            <input id="custapprsignatureimage" name="orderData[custapprsignatureimage]" type="hidden" value="<?php echo $vir->getCustapprsignatureimage(); ?>" />
+                            <button id="custapprsignature_reset">Clear signature</button>
+                            <script>
+                                var customerSignature = new signatureHelper();
+                                customerSignature.$sigdiv = jQuery("#custapprsignature_canvas");
+                                customerSignature.$data = jQuery("#custapprsignatureimage");
+                                customerSignature.$clear = jQuery('#custapprsignature_reset');
+                                customerSignature.init();
+                            </script>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <small>
+                                Goodyear collects my contact details so it can remind me when it is time to service my tyres, about special offers, promotions,
+                                products or services that may be of interest to me, for complying with legislative and regulatory requirements and emailing me
+                                to provide information for any of these purposes.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <p>
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('custapprsubscribe') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <label>
+                                    <input id="custapprsubscribe" class="input-cb" title="Tick to opt-out"<?php echo $cb ?> name="orderData[custapprsubscribe]" type="checkbox" value="1" />
+                                    I do not wish to receive any service reminders or information about products or services
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <small>
+                                I agree that if I fail to collect my vehicle at the time nominated by Goodyear, I do so at my own risk and not Goodyear's
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <p>
+                                <?php
+                                $cb = '';
+                                if ($vir->getData('custapprcall') == 1) {
+                                    $cb = ' checked="checked"';
+                                }
+                                ?>
+                                <label>
+                                    <input id="custapprcall" class="input-cb" title="Call when vehicle is ready"<?php echo $cb ?> name="orderData[custapprcall]" type="checkbox" value="1" />
+                                    Call when vehicle is ready
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 columns">
+
+                            <h3>Workshop Signoff</h3>
+                            <p><strong>Inspection Completed By</strong></p>
+                            <div id="workshopsignature_canvas" style="width: 700px"></div>
+                            <input class="text" id="workshopsignatureimage" name="orderData[workshopsignatureimage]" type="hidden" value="<?php echo $vir->getWorkshopsignatureimage(); ?>" />
+                            <button id="workshopsignature_reset">Clear signature</button>
+                            <script>
+                                var workshopSignature = new signatureHelper();
+                                workshopSignature.$sigdiv = jQuery("#workshopsignature_canvas");
+                                workshopSignature.$data = jQuery("#workshopsignatureimage"),
+                                    workshopSignature.$clear = jQuery('#workshopsignature_reset'),
+                                    workshopSignature.init();
+                            </script>
+                            <!-- end sigs -->
+
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h2>Tyre Services Checklist</h2>
+
+                    <h3 class="second-colour">Wheel Alignment report</h3>
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <h4 class="second-colour">Before Adjustment</h4>
+                        </div>
+                        <div class="small-6 columns">
+                            <h4 class="second-colour">After Adjustment</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Front</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Left</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Right</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Front</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Left</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Right</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Camber</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforeleftcamber" class="input-text second-colour" title="Front Before Left Camber" name="orderData[wheelalignfrontbeforeleftcamber]" type="text" value="<?php echo $vir->getWheelalignfrontbeforeleftcamber() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforerightcamber" class="input-text second-colour" title="Front Before Right Camber" name="orderData[wheelalignfrontbeforerightcamber]" type="text" value="<?php echo $vir->getWheelalignfrontbeforerightcamber() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Camber</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterleftcamber" class="input-text second-colour" title="Front After Left Camber" name="orderData[wheelalignfrontafterleftcamber]" type="text" value="<?php echo $vir->getWheelalignfrontafterleftcamber() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterrightcamber" class="input-text second-colour" title="Front After Right Camber" name="orderData[wheelalignfrontafterrightcamber]" type="text" value="<?php echo $vir->getWheelalignfrontafterrightcamber() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Caster</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforeleftcaster" class="input-text second-colour" title="Front Before Left Caster" name="orderData[wheelalignfrontbeforeleftcaster]" type="text" value="<?php echo $vir->getWheelalignfrontbeforeleftcaster() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforerightcaster" class="input-text second-colour" title="Front Before Right Caster" name="orderData[wheelalignfrontbeforerightcaster]" type="text" value="<?php echo $vir->getWheelalignfrontbeforerightcaster() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Caster</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterleftcaster" class="input-text second-colour" title="Front After Left Caster" name="orderData[wheelalignfrontafterleftcaster]" type="text" value="<?php echo $vir->getWheelalignfrontafterleftcaster() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterrightcaster" class="input-text second-colour" title="Front After Right Caster" name="orderData[wheelalignfrontafterrightcaster]" type="text" value="<?php echo $vir->getWheelalignfrontafterrightcaster() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Toe</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforelefttoein" class="input-text second-colour" title="Front Before Left Toe-In" name="orderData[wheelalignfrontbeforelefttoein]" type="text" value="<?php echo $vir->getWheelalignfrontbeforelefttoein() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforerighttoein" class="input-text second-colour" title="Front Before Right Toe-In" name="orderData[wheelalignfrontbeforerighttoein]" type="text" value="<?php echo $vir->getWheelalignfrontbeforerighttoein() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Toe</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterlefttoein" class="input-text second-colour" title="Front After Left Toe-In" name="orderData[wheelalignfrontafterlefttoein]" type="text" value="<?php echo $vir->getWheelalignfrontafterlefttoein() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterrighttoein" class="input-text second-colour" title="Front After Right Toe-In" name="orderData[wheelalignfrontafterrighttoein]" type="text" value="<?php echo $vir->getWheelalignfrontafterrighttoein() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Rear</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Left</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Right</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Rear</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Left</h5>
+                                </div>
+                                <div class="small-4 columns">
+                                    <h5 class="second-colour">Right</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Caster</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforeleftcaster2" class="input-text second-colour" title="Front Before Left Caster" name="orderData[wheelalignfrontbeforeleftcaster2]" type="text" value="<?php echo $vir->getWheelalignfrontbeforeleftcaster2() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforerightcaster2" class="input-text second-colour" title="Front Before Right Caster" name="orderData[wheelalignfrontbeforerightcaster2]" type="text" value="<?php echo $vir->getWheelalignfrontbeforerightcaster2() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Caster</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterleftcaster2" class="input-text second-colour" title="Front After Left Caster" name="orderData[wheelalignfrontafterleftcaster2]" type="text" value="<?php echo $vir->getWheelalignfrontafterleftcaster2() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterrightcaster2" class="input-text second-colour" title="Front After Right Caster" name="orderData[wheelalignfrontafterrightcaster2]" type="text" value="<?php echo $vir->getWheelalignfrontafterrightcaster2() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Toe</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforelefttoein2" class="input-text second-colour" title="Front Before Left Toe-In" name="orderData[wheelalignfrontbeforelefttoein2]" type="text" value="<?php echo $vir->getWheelalignfrontbeforelefttoein2() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontbeforerighttoein2" class="input-text second-colour" title="Front Before Right Toe-In" name="orderData[wheelalignfrontbeforerighttoein2]" type="text" value="<?php echo $vir->getWheelalignfrontbeforerighttoein2() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 columns">
+                            <div class="row">
+                                <div class="small-4 columns">
+                                    <label>Toe</label>
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterlefttoein2" class="input-text second-colour" title="Front After Left Toe-In" name="orderData[wheelalignfrontafterlefttoein2]" type="text" value="<?php echo $vir->getWheelalignfrontafterlefttoein2() ?>" />
+                                </div>
+                                <div class="small-4 columns">
+                                    <input id="wheelalignfrontafterrighttoein2" class="input-text second-colour" title="Front After Right Toe-In" name="orderData[wheelalignfrontafterrighttoein2]" type="text" value="<?php echo $vir->getWheelalignfrontafterrighttoein2() ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3 class="second-colour">Wheel Aligner's Checklist</h3>
+                    <h4 class="second-colour">Please tick as completed</h4>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('wheelalignchecksteerwheelstraight') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="wheelalignchecksteerwheelstraight" class="input-cb" title="Steering Wheel Straight"<?php echo $cb ?> name="orderData[wheelalignchecksteerwheelstraight]" type="checkbox" value="1" />
+                                Steering Wheel Straight
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="wheelalignchecksteerwheelstraightvalue" placeholder="Steering Wheel Straight Comments" class="input-text second-colour" title="Steering Wheel Straight Comments" name="orderData[wheelalignchecksteerwheelstraightvalue]" type="text" value="<?php echo $vir->getData('wheelalignchecksteerwheelstraightvalue'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('wheelaligncheckwehicleroadtested') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="wheelaligncheckwehicleroadtested" class="input-cb" title="Vehicle Road Tested"<?php echo $cb ?> name="orderData[wheelaligncheckwehicleroadtested]" type="checkbox" value="1" />
+                                Vehicle Road Tested
+                                <label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="wheelaligncheckwehicleroadtestedvalue" placeholder="Vehicle Road Tested Comments" class="input-text second-colour" title="Vehicle Road Tested Comments" name="orderData[wheelaligncheckwehicleroadtestedvalue]" type="text" value="<?php echo $vir->getData('wheelaligncheckwehicleroadtestedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('wheelaligncheckcovermatremoved') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="wheelaligncheckcovermatremoved" class="input-cb" title="Seat Cover/Floor Mat Removed"<?php echo $cb ?> name="orderData[wheelaligncheckcovermatremoved]" type="checkbox" value="1" />
+                                Seat Cover/Floor Mat Removed
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="wheelaligncheckcovermatremovedvalue" placeholder="Seat Cover/Floor Mat Removed Comments" class="input-text second-colour" title="Seat Cover/Floor Mat Removed Comments" name="orderData[wheelaligncheckcovermatremovedvalue]" type="text" value="<?php echo $vir->getData('wheelaligncheckcovermatremovedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('wheelaligncheckstickerinstalled') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label>
+                                <input id="wheelaligncheckstickerinstalled" class="input-cb" title="Windscreen Sticker Installed"<?php echo $cb ?> name="orderData[wheelaligncheckstickerinstalled]" type="checkbox" value="1" />
+                                Windscreen Sticker Installed
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="wheelaligncheckstickerinstalledvalue" placeholder="Windscreen Sticker Installed Comments" class="input-text second-colour" title="Windscreen Sticker Installed Comments" name="orderData[wheelaligncheckstickerinstalledvalue]" type="text" value="<?php echo $vir->getData('wheelaligncheckstickerinstalledvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="wheelaligncheckcompletedby">Inspection Completed By</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="wheelaligncheckcompletedby" placeholder="Inspection Completed By:" class="input-text second-colour" title="Inspection Completed By:" name="orderData[wheelaligncheckcompletedby]" type="text" value="<?php echo $vir->getData('wheelaligncheckcompletedby'); ?>" />
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3>Tyre Technician's Checklist</h3>
+                    <h4>Please tick as completed</h4>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('tyrecheckwheelnutstorqued') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label class="second-colour">
+                                <input id="tyrecheckwheelnutstorqued" class="input-cb" title="Wheel Nuts Torqued"<?php echo $cb ?> name="orderData[tyrecheckwheelnutstorqued]" type="checkbox" value="1" />
+                                Wheel Nuts Torqued
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrecheckwheelnutstorquedvalue" placeholder="Enter The Torque Value" class="input-text" title="Wheel Nuts Torqued Comments" name="orderData[tyrecheckwheelnutstorquedvalue]" type="text" value="<?php echo $vir->getData('tyrecheckwheelnutstorquedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('tyrecheckmetalvalvecapsfitted') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label class="second-colour">
+                                <input id="tyrecheckmetalvalvecapsfitted" class="input-cb" title="Metal Valve Caps Fitted"<?php echo $cb ?> name="orderData[tyrecheckmetalvalvecapsfitted]" type="checkbox" value="1" />
+                                Metal Valve Caps Fitted
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrecheckmetalvalvecapsfittedvalue" placeholder="Metal Valve Caps Fitted" class="input-text" title="Metal Valve Caps Fitted" name="orderData[tyrecheckmetalvalvecapsfittedvalue]" type="text" value="<?php echo $vir->getData('tyrecheckmetalvalvecapsfittedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('tyrechecktyresglosssed') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label class="second-colour">
+                                <input id="tyrechecktyresglosssed" class="input-cb" title="Tyres Glossed"<?php echo $cb ?> name="orderData[tyrechecktyresglosssed]" type="checkbox" value="1" />
+                                Tyres Glossed
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrechecktyresglosssedvalue" placeholder="Tyres Glossed Comments" class="input-text" title="Tyres Glossed Comments" name="orderData[tyrechecktyresglosssedvalue]" type="text" value="<?php echo $vir->getData('tyrechecktyresglosssedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('tyrecheckbatterystickerfitted') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label class="second-colour">
+                                <input id="tyrecheckbatterystickerfitted" class="input-cb" title="Battery Sticker Fitted"<?php echo $cb ?> name="orderData[tyrecheckbatterystickerfitted]" type="checkbox" value="1" />
+                                Battery Sticker Fitted
+                                <label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrecheckbatterystickerfittedvalue" placeholder="Battery Sticker Fitted Comments" class="input-text" title="Battery Sticker Fitted Comments" name="orderData[tyrecheckbatterystickerfittedvalue]" type="text" value="<?php echo $vir->getData('tyrecheckbatterystickerfittedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <?php
+                            $cb = '';
+                            if ($vir->getData('tyrechecksparetyrestickerfitted') == 1) {
+                                $cb = ' checked="checked"';
+                            }
+                            ?>
+                            <label class="second-colour">
+                                <input id="tyrechecksparetyrestickerfitted" class="input-cb" title="Spare Tyre Sticker Fitted"<?php echo $cb ?> name="orderData[tyrechecksparetyrestickerfitted]" type="checkbox" value="1" />
+                                Spare Tyre Sticker Fitted
+                            </label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrechecksparetyrestickerfittedvalue" placeholder="Spare Tyre Sticker Fitted Comments" class="input-text" title="Spare Tyre Sticker Fitted Comments" name="orderData[tyrechecksparetyrestickerfittedvalue]" type="text" value="<?php echo $vir->getData('tyrechecksparetyrestickerfittedvalue'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="tyrecheckcompletedby" class="second-colour">Inspection Completed By</label>
+                        </div>
+                        <div class="small-8 columns">
+                            <input id="tyrecheckcompletedby" placeholder="Inspection Completed By:" class="input-text" title="Inspection Completed By:" name="orderData[tyrecheckcompletedby]" type="text" value="<?php echo $vir->getData('tyrecheckcompletedby'); ?>" />
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3 class="second-colour">Battery Check</h3>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="batterychecktestresult">Test Result</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="batterychecktestresult" placeholder="Test Result" class="input-text second-colour" title="Test Result" name="orderData[batterychecktestresult]" type="text" value="<?php echo $vir->getData('batterychecktestresult'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="batterycheckterminals">Terminals</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="batterycheckterminals" placeholder="Terminals" class="input-text second-colour" title="Terminals" name="orderData[batterycheckterminals]" type="text" value="<?php echo $vir->getData('batterycheckterminals'); ?>" />
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h3 class="second-colour">Visual Brake Inspection</h3>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakefrontcallipers">Front Calipers/Wheel Cylinders</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakefrontcallipers" placeholder="Front Calipers/Wheel Cylinders Comments" class="input-text second-colour" title="Front Calipers/Wheel Cylinders Comments" name="orderData[visualbrakefrontcallipers]" type="text" value="<?php echo $vir->getData('visualbrakefrontcallipers'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakefrontbrakes">Front Brakes % Worn</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakefrontbrakes" placeholder="Front Brakes % Worn" class="input-text second-colour" title="Front Brakes % Worn" name="orderData[visualbrakefrontbrakes]" type="text" value="<?php echo $vir->getData('visualbrakefrontbrakes'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakefrontdiscs">Front Discs/Drums</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakefrontdiscs" placeholder="Front Discs/Drums" class="input-text second-colour" title="Front Discs/Drums" name="orderData[visualbrakefrontdiscs]" type="text" value="<?php echo $vir->getData('visualbrakefrontdiscs'); ?>" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakerearcallipers">Rear Calipers/Wheel Cylinders</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakerearcallipers" placeholder="Rear Calipers/Wheel Cylinders Comments" class="input-text second-colour" title="Rear Calipers/Wheel Cylinders Comments" name="orderData[visualbrakerearcallipers]" type="text" value="<?php echo $vir->getData('visualbrakerearcallipers'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakerearbrakes">Rear Brakes % Worn</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakerearbrakes" placeholder="Rear Brakes % Worn" class="input-text second-colour" title="Rear Brakes % Worn" name="orderData[visualbrakerearbrakes]" type="text" value="<?php echo $vir->getData('visualbrakerearbrakes'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakereardiscs">Rear Discs/Drums</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakereardiscs" placeholder="Rear Discs/Drums" class="input-text second-colour" title="Rear Discs/Drums" name="orderData[visualbrakereardiscs]" type="text" value="<?php echo $vir->getData('visualbrakereardiscs'); ?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <label for="visualbrakerearflexiblehoses">Flexible Hydraulic Brakes Hoses</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input id="visualbrakerearflexiblehoses" placeholder="Flexible Hydraulic Brakes Hoses" class="input-text second-colour" title="Flexible Hydraulic Brakes Hoses" name="orderData[visualbrakerearflexiblehoses]" type="text" value="<?php echo $vir->getData('visualbrakerearflexiblehoses'); ?>" />
+                        </div>
+                    </div>
+
+
+                    <h2 class="alert-msg">Report any inspection failures to the manager immediately.</h2>
+
+
+
+
+                    <!-- end main container -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Thomas form end -->
+
+
+<!-- Clean form end -->
+
+<?php if ($this->hasFooterButtons()): ?>
+    <div class="content-footer">
+        <p class="form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    // editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
+
+    jQuery(document).ready(function () {
+        function makeResponsive() {
+            jQuery("body").width(jQuery(window).width());
+        }
+
+        makeResponsive();
+        jQuery(window).resize(function () {
+            makeResponsive();
+        });
+    });
+
+
+
+    ajaxAutocomplete = new Ajax.Autocompleter("custname", "custname_autocomplete_choices", autocompleteUrl, {
+        minChars: 3,
+        afterUpdateElement: populateFormFields
+    });
+
+    Event.observe($("custname"), 'keyup', function () {
+        window.stop(); // Kill all existing Ajax requests.
+        //setTimeout(hideSpinner, 500);
+    });
+</script>
+
+<!-- FE form scripts -->
+<!-- jQuery already included for other things -->
+<!--    <script src="/skin/bower_components/jquery/dist/jquery.min.js"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/jqueryui/jquery-ui.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js"></script>
+<!-- <script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/datepicker/foundation-datepicker.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/jquery.ui/ui/datepicker.min.js"></script> -->
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/app.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/address.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/js/pages/vir-form.js"></script>
+<!-- END FE form scripts -->
+
+<?php echo $this->getFormScripts() ?>
+
+
+
+
+<?php //paint  ?>
+<!-- jQuery UI -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.core.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.widget.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.mouse.1.10.3.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/jquery.ui.draggable.1.10.3.min.js"></script>
+
+<!-- wColorPicker -->
+<link rel="Stylesheet" type="text/css" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/wColorPicker.min.css" />
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/lib/wColorPicker.min.js"></script>
+
+<!-- wPaint -->
+<link rel="Stylesheet" type="text/css" href="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.css" />
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.utils.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/src/wPaint.js"></script>
+
+<!-- wPaint main -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/main/src/fillArea.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/main/src/wPaint.menu.main.js"></script>
+
+<!-- wPaint text -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/text/src/wPaint.menu.text.js"></script>
+
+<!-- wPaint shapes -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/shapes/src/shapes.min.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/shapes/src/wPaint.menu.main.shapes.js"></script>
+
+<!-- wPaint file -->
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/plugins/file/src/wPaint.menu.main.file.js"></script>
+<script type="text/javascript" src="<?php echo $base_url; ?>skin/adminhtml/default/enterprise/wPaint-2.5.0/custom.init.js"></script>

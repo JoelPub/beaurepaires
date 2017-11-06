@@ -1,0 +1,113 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<section class="upper-cart sizes"><!-- star upper cart (ends in price_clone) -->
+    <!-- <div class="row"> -->
+
+        <!-- <div class="columns small-8">
+            <?php
+        //$_product = $this->getProduct();
+        //if ($this->isTyre()) {
+        //$tyre_size_options = $this->getTyreSizeOptions();
+        //$_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
+        // }
+        //$diameter = Mage::app()->getRequest()->getParam('diameter');
+        //$width = Mage::app()->getRequest()->getParam('width');
+        //$d = (explode(",", $diameter));
+        //$w = (explode(",", $width));
+        //$select_by_size = false;
+        //if (isset($_GET['size'])) {
+        //  $sizes_array = array(Mage::getSingleton('core/session')->getSizeF(), Mage::getSingleton('core/session')->getSize1F());
+        //}
+
+        ?>
+            <?php //$tyre_size_options->front = Mage::helper('apdinteract_catalog')->sortdata($tyre_size_options->front,'size'); ?>
+            <?php //if ($_product->isSaleable() && count($tyre_size_options)): ?>
+                <?php //foreach ($_attributes as $_attribute): ?>
+                    <?php //$tooltip = Mage::helper('apdinteract_tooltip')->getTooltip($_attribute->getLabel()); ?>
+                    <span class="select-collapse">
+                        <label for="attribute<?php //echo $_attribute->getAttributeId() ?>"><?php //echo 'Select ' . $_attribute->getLabel() . ':' ?></label>
+                        <select name="super_attribute[<?php //echo $_attribute->getAttributeId() ?>]" id="attribute<?php //echo $_attribute->getAttributeId() ?>" class="required-entry select-size super-attribute-select" title="Tyre" data-target-price="main-price">
+        <?php //foreach ($tyre_size_options->front as $tyre): ?>
+                                <?php
+        // See BFT-2104 and BFT-2035
+        //                $sizes = $tyre['size'];
+        //              $filtered = explode("|", $sizes);
+        //            $filtered = trim($filtered[0]);
+        //          if (isset($sizes_array)):
+        //            if (in_array($tyre['size'], $sizes_array)):
+        ?>
+                                        <option selected
+                                            value="<?php //echo $tyre['entity_id']; ?>"
+                                            data-free-product="<?php //echo (bool) $tyre['free_product']; ?>"
+                                            data-rrp-price="<?php //echo $tyre['price']; ?>"
+                                            data-online-price="<?php //echo $tyre['final_price']; ?>"
+                                            data-attributes-json='<?php //echo $this->getUsedAttributesAsJson($tyre); ?>'
+                                            data-stock-qty='<?php //echo $this->getAvailableStockQty($tyre['stock_item']['manage_stock'], $tyre['stock_item']['qty']); ?>'
+                                            ><?php //echo $tyre['size']; ?></option>
+                                        <?php //endif; ?>
+                                    <?php //else: ?>
+                                        <?php //if ($sizes && !empty($sizes)): ?>
+                                            <?php //if ($diameter && $width && ($filtered === $d[0] . 'x' . $w[0]) || $filtered === $d[1] . 'x' . $w[1]) : ?>
+                                            <option <?php //echo $tyre['entity_id'] == $this->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                                value="<?php //echo $tyre['entity_id']; ?>"
+                                                data-free-product="<?php //echo (bool) $tyre['free_product']; ?>"
+                                                data-rrp-price="<?php //echo $tyre['price']; ?>"
+                                                data-online-price="<?php //echo $tyre['final_price']; ?>"
+                                                data-attributes-json='<?php //echo $this->getUsedAttributesAsJson($tyre); ?>'
+                                                data-stock-qty='<?php //echo $this->getAvailableStockQty($tyre['stock_item']['manage_stock'], $tyre['stock_item']['qty']); ?>'
+                                                ><?php //echo $tyre['size']; ?></option>
+                                            <?php //elseif (!$diameter && !$width): ?>
+                                            <option <?php //echo $tyre['entity_id'] == $this->getLowestOnSaleSize() ? "selected" : ""; ?>
+                                                value="<?php //echo $tyre['entity_id']; ?>"
+                                                data-free-product="<?php //echo (bool) $tyre['free_product']; ?>"
+                                                data-rrp-price="<?php //echo $tyre['price']; ?>"
+                                                data-online-price="<?php //echo $tyre['final_price']; ?>"
+                                                data-attributes-json='<?php //echo $this->getUsedAttributesAsJson($tyre); ?>'
+                                                data-stock-qty='<?php //echo $this->getAvailableStockQty($tyre['stock_item']['manage_stock'], $tyre['stock_item']['qty']); ?>'
+                                                ><?php //echo $tyre['size']; ?></option>
+                                            <?php //endif; ?>
+                                        <?php //endif; ?>
+                                    <?php //endif; ?>
+                                <?php //endforeach; ?>
+                        </select>
+                    </span>
+
+
+
+                    <span data-tooltip="<?php //echo $tooltip ?>" aria-haspopup="true" class="has-tip" data-selector="tooltip-ibhhaquc0" aria-describedby="tooltip-ibhhaquc0" title="<?php //echo $tooltip ?>">
+                        <i class="fa fa-lg fa-info-circle"></i></span>
+
+
+                    <?php //endforeach; ?>
+
+                <?php //endif; ?>
+<!--<input type="hidden" id="fprice" name="fprice">
+<input type="hidden" id="ftype" name="ftype" value="configurable">
+<input type="hidden" id="configurable_product" name="configurable_product" data-product-type-id="<?php //echo $_product->getTypeId() ?>">-->
+        <!--</div>-->
+
+

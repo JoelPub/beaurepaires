@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Sync>
+      <version>0.1.0</version>
+    </ApdInteract_Sync>
+  </modules>
+  <global>
+    <helpers>
+      <sync>
+        <class>ApdInteract_Sync_Helper</class>
+      </sync>
+    </helpers>
+    <models>
+      <sync>
+        <class>ApdInteract_Sync_Model</class>
+      </sync>
+    </models>
+  </global>
+  <crontab>
+    <jobs>
+      <sync>
+        <schedule>
+          <cron_expr>0 * * * *</cron_expr>
+        </schedule>
+        <run>
+          <model>sync/observer::updateStore</model>
+        </run>
+      </sync>
+    </jobs>
+  </crontab>
+</config> 

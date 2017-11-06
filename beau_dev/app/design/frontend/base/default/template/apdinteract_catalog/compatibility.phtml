@@ -1,0 +1,14 @@
+<div class="compatibility" data-selected-sizes="<?php echo $this->getAllCompatibleSizes()?>">
+    <?php if($this->ifApplicable()) :?>
+    <div class="compatible hide">
+        <p class="compatibility-text"><i class="fa fa-check" aria-hidden="true"></i>This product fits your vehicle.</p>
+        <p><strong>Your Vehicle: </strong><?php echo Mage::getSingleton('core/session')->getTSeriesNameF();?></p>
+        <p><?php echo $this->getLabel()?>: <span class="matched-size"></span></p>
+    </div>
+    <div class="not-compatible hide">
+        <p class="compatibility-text"><i class="fa fa-times" aria-hidden="true"></i>This product is incompatible with your vehicle.</p>
+        <p><strong>Your Vehicle:</strong> <?php echo Mage::getSingleton('core/session')->getTSeriesNameF();?></p>
+        <p><a href="<?php echo $this->getUrl()?>">View Compatible products</a></p>
+    </div>
+    <?php endif;?>
+</div>

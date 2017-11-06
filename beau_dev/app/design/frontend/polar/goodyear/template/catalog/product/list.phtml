@@ -1,0 +1,387 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+    <div class='hide'>
+        <?php echo $this->getLayout()->createBlock('page/html_pager', 'pagination')->setCollection($this->getLoadedProductCollection())->toHtml(); ?>
+    </div>
+    <div class="category-products">
+
+        <?php $this->setMode('list'); ?>
+        <?php echo $this->getToolbarHtml() ?>
+
+        <?php // List mode ?>
+        <?php if ($this->getMode() != 'grid'): ?>
+            <?php $_iterator = 0; ?>
+            <?php $mobile_product_list_html = ''; ?>
+
+            <!--<ol class="products-list" id="products-list">-->
+
+            <!-- Product List -->
+
+            <div class="comp-product-list products-list">
+                <div class="products-list-holder">
+
+
+                    <?php
+                    $attributes = array();
+                    if (isset($_productCollection)) :
+                        foreach ($_productCollection as $_product):
+                            if($_product!== null) {
+                            
+                            $fields = new stdClass();
+                            $fields->product = new stdClass();
+                            $fields->product->img = new stdClass();  
+                            
+                            $fields->product->url = $_product->getProductUrl();
+                            $fields->product->title = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
+                            $fields->product->img->src = $this->helper('catalog/image')->init($_product, 'small_image')->resize(400);
+                            $fields->product->img->label = $fields->product->title;
+                            $fields->product->brand = $_product->getAttributeText('brand');
+                            if (empty($fields->product->brand))
+                                $fields->product->brand = $_product->getData('brand_value');
+                            $fields->product->brandlogo = Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand,$fields->product->url);
+
+                            $fields->product->show_onp = "none";   
+                            $fields->product->name = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                            // leaving short_description here for in case we need to switch it on later
+                            $fields->product->short_description = $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description');
+                            $fields->product->name_stripped = $this->stripTags($fields->product->name);
+                            $fields->product->categorization = $_product->getCategorizationValue();
+                            $fields->product->badge = "";
+                            $productx = Mage::getModel('catalog/product')->load($_product->getId());
+                            $fields->product->finish = "<p><strong>Finish:</strong> " . $productx->getFinish() . "</p>";
+
+//                Do this in the helper. Not here. Please. Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand);
+//		$title = ucwords(strtolower($_product->getAttributeText('brand')));
+//        $identifier = str_replace(' ','-',strtolower($title));
+//
+//		$brand_path = $this->getSkinUrl('images/brands/' . strtolower($fields->product->brand) . '-logo.png');
+//		$url = getimagesize($brand_path);
+//		if(is_array($url))
+//			$fields->product->brandlogo = '<a href="'.$identifier.'">'.Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand).'</a>';
+//		else
+//			$fields->product->brandlogo = "";
+                            // TODO move brand badge logic to helper:
+
+                            $badge_big = "";
+                            $badge = "";
+                            $badge_class = "";
+                            $fields->product->badge_big = "";
+
+                            $overlay_text = $_product->getAttributeText('overlay');
+
+                            $fields->product->show_rrp = "none";
+
+                            if ($overlay_text == 'Best Seller') {
+                                $badge = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/bestsellerth');
+                                $badge_class = "bestseller";
+                              }
+                            elseif ($overlay_text == 'New Arrival'){
+                                $badge = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/newth');
+                                $badge_class = "new";
+                              }
+                            elseif ($overlay_text == 'On Sale') {
+                                $badge = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/onsaleth');
+                                $badge_class = "onsale";
+                            }
+
+                            if ($overlay_text == 'On Sale' && $_product->getFinalPrice() > 0) {
+                                $fields->product->show_rrp = "block";
+                            }
+                            if (isset($badge) && trim($badge) != "")
+                                // FROM PAUL: I'm re-doing this elements to non-image version
+                                // needs to use class: new, bestseller or onsale
+                                //$fields->product->badge = "<img class=\"product-badge\" src=\"{$badge}\" alt=\"{$overlay_text}\">";
+                                $fields->product->badge = "<div class=\"product-badge-block small {$badge_class}\">{$overlay_text}</div>";
+
+                            if ($overlay_text == 'Best Seller')
+                                $badge_big = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/bestseller');
+                            elseif ($overlay_text == 'New Arrival')
+                                $badge_big = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/new');
+                            elseif ($overlay_text == 'On Sale')
+                                $badge_big = Mage::getBaseUrl('media') . 'theme/' . Mage::getStoreConfig('badges/badges/onsale');
+                            $no_badge = "no-badge";
+
+                            if (isset($badge_big) && trim($badge_big) != "") {
+                                $no_badge = "";
+                                // FROM PAUL: I'm re-doing this elements to non-image version
+                                // needs to use class: new, bestseller or onsale
+                                //$fields->product->badge_big = "<img class=\"product-badge\" src=\"{$badge_big}\" alt=\"{$overlay_text}\">";
+                                $fields->product->badge_big = "<div class=\"product-badge-block large {$badge_class}\">{$overlay_text}</div>";
+                            }
+
+                            $fields->product->no_badge = $no_badge;
+
+                            $catId = 0;
+                            $catName = "";
+                            $categoryIds = $_product->getCategoryIds();
+                            if (count($categoryIds)) {
+                                $catId = $categoryIds[0];
+                                $_category = Mage::getModel('catalog/category')->load($catId);
+                                $catName = strtolower($_category->getName());
+                            }
+                            if ($catName == "" && Mage::registry('current_category')) {
+                                // get the id, or by category name
+                                $catId = Mage::registry('current_category')->getId();
+                                $catName = strtolower(Mage::registry('current_category')->getName());
+                            }
+
+                            $fields->product->subcategory = "";
+
+                            if ($catName == "tyres") {
+
+                                $attributes_array = array('consumer_categorization', 'commercial_categorization', 'battery_categorization',
+                                    'application', 'sports_performance_handling', 'durability', 'mileage', 'even_ware', 'handling', 'superior_braking_grip',
+                                    'quiet_comfort', 'fuel_saver', 'performance', 'cycling', 'grip', 'off_road', 'value',
+                                	'fuel_economy','grip_performance','handling_performance','off_road_performance','wet_performance','low_noise',
+                                	'comfort_performance','sports_performance','braking_performance','even_wear','dry_performance','wet_dry_performance',
+                                	'all_terrain','winter','original_equipment','run_on_flat','traction','cornering_performance','road_hazard_resistant','slow_wear'
+                                );
+                                $attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                                $attributes = Mage::helper('apdinteract_hierarchy')->getSortedAttributes($attribute_values, $_product);
+
+                            }elseif ($catName == "batteries"){
+
+                            	$attributes_array = array('durability_battery', 'performance_battery','value_battery','cycling_battery','application');
+                            	$attribute_values = Mage::helper('apdinteract_catalog')->getProductAttributeTextFromAttributesArray($_product, $attributes_array);
+                            	$attributes = $attributes_array;
+                            }
+
+                            if(isset($attribute_values['application'])) {
+                               $fields->product->subcategory = $attribute_values['application'];
+                            } else {
+                               $fields->product->subcategory =array();
+                            }
+
+                            $fields->product->bar_rating = array();
+                            $fields->product->bar_ratingtext = array();
+                            $fields->product->bar_ratingclass = array();
+                            $fields->product->attribute_code = array();
+                            $counter = 0;
+
+                                if (isset($attributes)) {
+                                    foreach ($attributes as $attribute) {
+                                        if ($counter == 3) {
+                                            break;
+                                        }
+                                                                                 
+                                        if ($attribute_values[$attribute] > 0) {
+                                            $fields->product->bar_rating[] = '';
+                                            //        	$fields->product->bar_rating[] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml(Mage::helper('apdinteract_catalog')->getRatingScore($attribute,$attribute_values) * 33.3);
+                                            $fields->product->bar_ratingtext[] = Mage::helper('apdinteract_hierarchy')->getAttributeText($attribute);
+                                            $fields->product->bar_ratingclass[] = Mage::helper('apdinteract_hierarchy')->getAttributeIcon($attribute);
+                                            $fields->product->attribute_code[] = Mage::helper('apdinteract_hierarchy')->getAttributeCode($attribute);
+
+                                            $counter++;
+                                        }
+                                    }
+                                }
+
+                            $fields->product->ratingSummary = Mage::helper('apdwidgets')->getProductRatingSummaryHtml($_product->getEntityId(), $_product->getProductUrl());
+                            $fields->product->rrpText = $this->__('RRP:');
+                            $fields->product->onlineText = $this->__('Online price:');
+                            $fields->product->priceHtml = Mage::helper('core')->currency($_product->getPrice(), true, false);
+                            $fields->product->finalPriceHtml = Mage::helper('core')->currency($_product->getFinalPrice(), true, false);
+
+                            $fields->product->addButtons = '
+          <p class="button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>';
+
+                            $fields->product->addButtonsMobile = '
+          <p class="small button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>';
+
+                            if ($_product->isSaleable()) {
+                                $fields->product->addtocartUrl = $fields->product->url;
+
+                                $fields->product->addButtons = '
+          <a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('View Details') . '" class="button radius">' . $this->__('View Details') . '</a>';
+
+                                $fields->product->addButtonsMobile = '
+          <a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('Add to Cart') . '" class="small button radius">' . $this->__('Add to Cart') . '</a>';
+                            }
+
+                            $fields->product->compareLink = '';
+                            if ($_compareUrl = $this->getAddToCompareUrl($_product)) {
+                                $fields->product->compareLink = '<p><a href="' . $_compareUrl . '" class="link-compare">' . $this->__('View Compare') . '</a></p>';
+                            }
+
+                            $fields->product->addStoreButton = '
+          <a href="/store-locator" title="' . $this->__('Buy In-Store') . '" class="button radius">' . $this->__('Buy In-Store') . '</a>';
+                            $fields->product->addStoreButtonMobile = '
+          <a href="/store-locator" title="' . $this->__('Buy In-Store') . '" class="small button radius">' . $this->__('Buy In-Store') . '</a>';
+                            ?>
+
+                            <!-- <div class="row hide-for-small-only"> -->
+                            <?php
+                            // get the id, or by category name
+                            //$catId = 0;
+                            //$catName = "";
+                            if ($catName == "") {
+                                $categoryIds = $_product->getCategoryIds();
+                                if (count($categoryIds)) {
+                                    $catId = $categoryIds[0];
+                                    $_category = Mage::getModel('catalog/category')->load($catId);
+                                    $catName = strtolower($_category->getName());
+                                }
+                            }
+
+                            if ($catName == "" && Mage::registry('current_category')) {
+                                // get the id, or by category name
+                                $catId = Mage::registry('current_category')->getId();
+                                $catName = strtolower(Mage::registry('current_category')->getName());
+                            }
+
+                            if ($catName != "") {
+                                // get the id, or by category name
+                                if ($catId == 0) {
+                                    $catId = Mage::registry('current_category')->getId();
+                                    $catName = strtolower(Mage::registry('current_category')->getName());
+                                }
+
+                                if ($catName == "tyres" || $catId == 41) {
+                                    echo Mage::helper('apdwidgets')->getProductListViewHtml($fields);
+                                }
+                                if ($catName == "wheels" || $catId == 42) {
+                                    echo Mage::helper('apdwidgets')->getProductListViewHtmlWheels($fields);
+                                }
+                                if ($catName == "batteries" || $catId == 43) {
+                                    echo Mage::helper('apdwidgets')->getProductListViewHtmlBattery($fields);
+                                }
+                            } else {
+                                echo Mage::helper('apdwidgets')->getProductListViewHtml($fields);
+                            }
+                            ?>
+                            <?php /* <!-- </div>  -->
+                            <?php #$mobile_product_list_html .= Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>
+                            <!-- REMOVED CALL TO MOBILE VIEW FUNCTION 7/8/2015
+                            <div class="row show-for-small-only">
+                              <div class="comp-product-list-mobile">
+                                <div class="small-12 columns">
+
+                            <?php #echo Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>
+
+                                </div>
+                              </div>
+                            </div>  --> */ ?>
+                            <?php }?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+
+            <!-- Product List for mobile -->
+
+
+
+                <!--    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>-->
+
+        <?php else: ?>
+            <div class="small-12 columns">
+                <div class="comp-product-details products-grid">
+                    <ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-3">
+                        <?php // Grid Mode  ?>
+                        <?php $_collectionSize = $_productCollection->count() ?>
+                        <?php $_columnCount = $this->getColumnCount(); ?>
+                        <?php
+                        $i = 0;
+                        if (isset($_productCollection)) :
+                            foreach ($_productCollection as $_product):
+                                $overlay_text = $_product->getAttributeText('overlay');
+                                $origPrice = Mage::helper('core')->currency($_product->getPrice(), true, false);
+                                $rrpPrice = Mage::helper('core')->currency($_product->getFinalPrice(), true, false);
+                                list($onlinePriceDollar, $onlinePriceCents) = explode(".", $rrpPrice);
+                                ?>
+                                <?php if ($i++ % $_columnCount == 0): ?>
+
+                                <?php endif ?>
+                                <li class="item" itemscope itemtype="http://schema.org/Product">
+                                    <div class="row collapse product-item">
+                                        <div class="small-4 columns">
+                                            <div class="product-image">
+                                                <a href="<?php echo $_product->getProductUrl() ?>">
+                                                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(400); ?>" class="expand"></a>
+                                            </div>
+                                        </div>
+                                        <div class="small-8 columns">
+                                            <div class="product-details">
+                                                <h5 class="product-tag"><?php echo $_product->getAttributeText('overlay'); ?></h5>
+                                                <?php
+                                                $brand = $this->getSkinUrl('images/brands/' . $_product->getAttributeText('brand') . '-logo.png');
+                                                $title = ucwords(strtolower($_product->getAttributeText('brand')));
+                                                $identifier = str_replace(' ', '-', strtolower($title));
+                                                ?>
+                                                <a href="/<?php echo $identifier ?>"><img src="<?php echo $brand; ?>"></a>
+                                                <h3 class="product-title"><a href="<?php echo $_product->getProductUrl() ?>">
+                                                        <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
+
+                                                <div class="star-rating">
+                                                    <?php if(isset($ratings)) { echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); }?>
+                                                </div>
+                                                <?php if ($overlay_text == 'On Sale' && $_product->getFinalPrice() > 0) { ?>
+                                                    <div class="rrp" style="display:block">
+                                                        <span class="rrp-label">RRP:</span>
+                                                        <span class="rrp-amount"><?php echo $origPrice ?></span>
+                                                    </div>
+                                                    <div class="online-price" style="display:block">
+                                                        <span class="online-price-label">Online price:</span>
+                                                        <span class="online-price"><?php echo $onlinePriceDollar ?><sup>.<?php echo $onlinePriceCents ?></sup><sub>/ea</sub></span>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <?php if ($_product->getRatingSummary()): ?>
+                                                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                                                <?php endif; ?>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--
+                                <?php if ($_product->getFinalPrice() < $_product->getPrice()): ?>
+                                    <?php echo $this->getChildHtml('polar.sale.item') ?>
+                                <?php endif; ?>
+                                      <div class="item-wrapper">
+                                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+                                          <span class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(400); ?>" class="expand" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></span>
+                                          <h2 class="product-name" itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
+                                <?php if ($_product->getRatingSummary()): ?>
+                                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                                <?php endif; ?>
+                                <?php echo $this->getPriceHtml($_product, true) ?>
+                                        </a>
+                                        <div class="actions">
+                                <?php if ($_product->isSaleable()): ?>
+                                                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                <?php else: ?>
+                                                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                <?php endif; ?>
+                                        </div>
+                                      </div><!-- /item-wrapper -->
+
+                                <?php if ($i % $_columnCount == 0 || $i == $_collectionSize): ?>
+
+                                <?php endif ?>
+                            <?php endforeach ?>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        <?php endif; ?>
+        <!-- <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+        </div> -->
+
+    </div>
+<?php endif; ?>

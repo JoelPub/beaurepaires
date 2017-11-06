@@ -1,0 +1,247 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php $orderId = $var = Mage::registry('registry-order-id');
+?>
+<?php $_order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+?>
+<?php if ($_order): ?>
+
+<!-- This custom email is patterned from email/order/items/order/default.phtml and email/order/items.phtml -->
+<br />
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Item') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Included') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Price') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Qty') ?></th>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+
+    <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
+    <?php if($_item->getParentItem()) continue; else $i++; ?>
+    <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>
+		<!-- load the sku to get the product price of the purchased item, we need to do this to get the price of the selected configurable item -->
+		<?php $id = Mage::getModel('catalog/product')->getIdBySku($_item->getSku());?>
+		<?php $product = Mage::getModel('catalog/product')->load($id);?>
+		<?php $_priceIncludingTax = $product->getFinalPrice(); ?>
+		
+		<!-- check whether the current product is simple/configurable before loading the product options collection -->
+		<?php $currentProduct = Mage::getModel('catalog/product')->load($_item->getProductId());?>
+		<?php $options = $_item->getProductOptions(); ?>
+		<?php $included = $currentProduct->getProductOptionsCollection(); ?>
+		<?php $customOptions = $options['options']; ?>
+		<?php $selectedSize = $options['attributes_info']?>
+		
+		<?php if ($currentProduct->getTypeId() == 'simple'):?>
+				<?php $_priceIncludingTax = $currentProduct->getFinalPrice(); ?>
+				<?php $subtotal = $currentProduct->getFinalPrice() * $_item->getQtyOrdered() ?>
+		<?php else:?>
+				<?php $_priceIncludingTax = $product->getFinalPrice(); ?>
+				<?php $subtotal = $product->getFinalPrice() * $_item->getQtyOrdered() ?>
+		<?php endif;?>
+		
+		<tr>
+		    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+		        <strong style="font-size:11px;"><?php echo $this->escapeHtml($_item->getName()) ?></strong>
+		        <?php if ($selectedSize): ?>
+		        <dl style="margin:0; padding:0;">
+		            <?php foreach ($selectedSize as $option): ?>
+		            <?php if ($option['label'] == 'Size' || $option['label'] == 'Rim Diameter'):?>
+		            <dt><strong><em><?php echo $option['label'] ?></em></strong></dt>
+		            <dd style="margin:0; padding:0 0 0 9px;">
+		                <?php echo nl2br($option['value']) ?>
+		            </dd>
+		            <?php endif; ?>
+		            <?php endforeach; ?>
+		        </dl>
+		        <?php endif; ?>
+		        <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
+		        <?php if ($addInfoBlock) :?>
+		            <?php echo $addInfoBlock->setItem($_item)->toHtml(); ?>
+		        <?php endif; ?>
+		        <?php echo $this->escapeHtml($_item->getDescription()) ?>
+		    </td>
+		    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+		    	<?php foreach ($included as $_option): ?>
+					<?php $title = $_option->getTitle(); ?>
+					<?php $optionType = $_option->getType();?>
+					<?php if ($optionType == 'field'):?>
+					<?php 	echo $title;?><br />
+					<?php endif;?>
+				<?php endforeach ?>
+		    </td>
+		    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_order->formatPrice($_priceIncludingTax); ?></td>
+		    <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_item->getQtyOrdered()*1 ?></td>
+		    <td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+		        <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+		            <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+		                <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax'); ?>:</span>
+		            <?php endif; ?>
+		            <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'email', $_order->getStore())): ?>
+		                <?php echo $_order->formatPrice($_item->getRowTotal()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
+		            <?php else: ?>
+		                <?php echo $_order->formatPrice($_item->getRowTotal()) ?>
+		            <?php endif; ?>
+		
+		
+		            <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+		                <br />
+		                <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'email', $_order->getStore())): ?>
+		                    <small>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount'],true,true); ?></span><br />
+		                    <?php endforeach; ?>
+		                    </small>
+		                <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount'],true,true); ?></small></span><br />
+		                    <?php endforeach; ?>
+		                <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'email', $_order->getStore())): ?>
+		                    <small>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount'],true,true); ?></span><br />
+		                    <?php endforeach; ?>
+		                    </small>
+		                <?php endif; ?>
+		
+		                <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
+		                    <br />
+		                    <span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br /> <?php echo $_order->formatPrice($_item->getCalculationPrice()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?></span>
+		                <?php endif; ?>
+		            <?php endif; ?>
+		        <?php endif; ?>
+		
+		
+		        <?php if ($this->helper('tax')->displaySalesPriceInclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+		            <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+		                <br /><span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax'); ?>:</span>
+		            <?php endif; ?>
+		            <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>
+		                <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'email', $_order->getStore())): ?>
+		                    <?php echo $_order->formatPrice($_incl + Mage::helper('weee')->getRowWeeeTaxInclTax($_item)); ?>
+		                <?php else: ?>
+		                    <?php echo $_order->formatPrice($subtotal) ?>
+		                <?php endif; ?>
+		            <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+		                <br />
+		                <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'email', $_order->getStore())): ?>
+		                    <small>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount_incl_tax'],true,true); ?></span><br />
+		                    <?php endforeach; ?>
+		                    </small>
+		                <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount_incl_tax'],true,true); ?></small></span><br />
+		                    <?php endforeach; ?>
+		                <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'email', $_order->getStore())): ?>
+		                    <small>
+		                    <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+		                        <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $_order->formatPrice($tax['row_amount_incl_tax'],true,true); ?></span><br />
+		                    <?php endforeach; ?>
+		                    </small>
+		                <?php endif; ?>
+		
+		                <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
+		                    <span class="nobr"><?php echo Mage::helper('weee')->__('Total incl. tax'); ?>:<br /> <?php echo $_order->formatPrice($_incl + Mage::helper('weee')->getRowWeeeTaxInclTax($_item)); ?></span>
+		                <?php endif; ?>
+		            <?php endif; ?>
+		        <?php endif; ?>
+		    </td>
+		</tr>
+		<tbody>
+			
+			<?php if ($customOptions): ?>
+				<?php foreach ($customOptions as $option): ?>
+				<tr>
+					<?php if ($option['label'] != 'Size' && $option['label'] != 'Rim Diameter Configurable'):?>
+						<td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+							<?php echo $option['value']?>
+						</td>
+						<td style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+						<td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+						<?php $option_value = $option['option_value'];?>
+						<?php if (Mage::helper('apdinteract_order')->hasPrice($option_value)):  ?>
+							<?php $upsellPrice = intval(Mage::helper('apdinteract_order')->getCustomOptionPrice($option_value))?>
+							<?php $upsellTotal = $upsellPrice * intval($_item->getQtyOrdered())?>
+							<?php echo $_order->formatPrice($upsellPrice) ?>
+						<?php endif; ?>
+						</td>
+						<td style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+						<td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_order->formatPrice($upsellTotal) ?></td>
+					<?php endif;?>
+				</tr>	
+				<?php endforeach; ?>
+			<?php endif; ?>
+			
+		</tbody>
+		<?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+		<tr>
+		    <td colspan="4" style=" border-bottom:2px solid #CCCCCC; padding:3px 9px;">
+		        <strong style="color:#444444; font-size:11px;"><?php echo $this->__('Gift Message') ?></strong>
+		        <?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?><br />
+		        <?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?><br />
+		        <strong><?php echo $this->__('Message:'); ?></strong><br /><?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+		    </td>
+		</tr>
+		<?php endif; ?>
+    </tbody>
+    <?php endforeach; ?>
+</table>
+
+<br />
+<?php echo $this->getChildHtml('order_totals') ?>
+
+<?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
+    <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId()); ?>
+    <?php if ($_giftMessage): ?>
+<br />
+<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+            <td colspan="4" align="left" style="padding:3px 9px">
+            <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
+            <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
+            <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    <?php endif; ?>
+<?php endif; ?>
+<?php endif; ?>
+

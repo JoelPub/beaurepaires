@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Pricefilter>
+      <version>0.1.0</version>
+    </ApdInteract_Pricefilter>
+  </modules>
+  <global>
+    <helpers>
+      <pricefilter>
+        <class>ApdInteract_Pricefilter_Helper</class>
+      </pricefilter>
+    </helpers>
+  <models>
+	  <pricefilter>
+		  <class>ApdInteract_Pricefilter_Model</class>
+		  <resourceModel>pricefilter_mysql4</resourceModel>
+	  </pricefilter>
+	  <catalog>
+		  <rewrite>
+			  <layer_filter_price>ApdInteract_Pricefilter_Model_Catalog_Layer_Filter_Price</layer_filter_price>
+		  </rewrite>
+	  </catalog>
+  </models>
+	<resources>
+	  <pricefilter_setup>
+		<setup>
+		  <module>ApdInteract_Pricefilter</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </pricefilter_setup>
+	  <pricefilter_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </pricefilter_write>
+	  <pricefilter_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </pricefilter_read>
+	</resources>
+  </global>
+<crontab>
+	<jobs>
+		<pricefilter_updateconfigurableprice>
+			<schedule><cron_expr>0 1 * * *</cron_expr></schedule>
+			<run><model>pricefilter/cron::UpdateConfigurablePrice</model></run>
+		</pricefilter_updateconfigurableprice>
+	</jobs>
+</crontab>
+</config> 

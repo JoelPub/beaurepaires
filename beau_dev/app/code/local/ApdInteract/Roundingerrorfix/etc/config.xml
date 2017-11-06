@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Roundingerrorfix>
+            <version>1.0.0</version>
+        </ApdInteract_Roundingerrorfix>
+    </modules>
+    <global>
+
+        <models>
+            
+            <tax>
+                <rewrite>
+                    <calculation>ApdInteract_Roundingerrorfix_Model_Calculation</calculation>
+                </rewrite>
+            </tax>
+            
+        </models>
+
+    </global>
+</config>

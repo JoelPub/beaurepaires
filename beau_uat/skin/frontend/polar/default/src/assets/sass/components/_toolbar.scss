@@ -1,0 +1,138 @@
+// Toolbar
+
+//Variables
+$grid: "\f009";
+$list: "\f00b";
+$base-font:14px;
+
+$toolbar-border: 1px solid #ccc;
+
+// Mixins
+@mixin heights($height){
+	height: $height;
+	line-height: $height;
+}
+
+@mixin icon-views($content, $color) {
+	content: $content;
+	color: $color;
+	display:inline-block;
+}
+
+// Styles
+
+.toolbar {
+    $toolbar-height: 53px;
+
+	//@include heights( $toolbar-height);
+	//border-top: $toolbar-border;
+	//border-bottom: $toolbar-border;
+	.sort-by,
+	.view-mode,
+	.pager {
+		//@include heights(53px);
+	}
+	label {
+        cursor: default;
+		display: inline-block;
+        font-size: 14px;
+	}
+	select {
+		width: auto;
+		margin: 0 0 0 5px;
+		padding: 10px 20px 10px 8px;
+
+		&.cdp-select{
+			font-size: inherit !important;
+		}
+	}
+	.current-direction {
+		margin:0 0 0 5px;
+		color: $tuatara;
+	}
+	.grid,
+	.list {
+		&:before {
+			font-family: fontAwesome;
+		}
+	}
+	.list {
+		margin: 0 0 0 5px;
+	}
+    strong {
+        &.grid, &.list {
+            i {
+                color: $tuatara;
+                cursor: default;
+            }
+        }
+    }
+    a {
+        &.grid, &.list {
+            i {
+                color: $silver;
+                
+                &:hover {
+                    color: $orange-count-color;
+                    
+                }
+            }
+        }
+    }
+	.fa-th-list,
+	.fa-th-large {
+		font-size: $base-font + 9;
+	}
+	
+	.sort-by {		
+		.counts {
+			font-weight: bold;
+			margin-right: 10px;
+		}
+		a {
+			padding: 0 3px;
+			
+			&:hover {
+				i {
+					color: $orange-count-color;
+				}
+			}
+		}
+	}
+    
+    .view-mode {
+        overflow: hidden;
+        
+        > label, > a, > strong {
+            @include heights($toolbar-height);
+            
+            display: block;
+            float: left;
+            margin: 0 6px;
+            i {
+                @include heights(53px);
+            }
+        }
+	}
+	
+	.toolbar-messages {
+		.col:first-child {
+			padding-right: 10px;
+		}
+
+		h5 {
+			margin: 2px 0 5px;
+			font-size: rem-calc(14px);
+		}
+
+		p {
+			line-height: 1.3;
+			margin: 0;
+		}
+
+		i.fa { 
+			color: $colour-sea-buckthorn; 
+			font-size: rem-calc(40px);
+		}
+	}
+}

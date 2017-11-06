@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+    <sections>    
+        <social translate="label" module="apdinteract_social">
+            <label>AddThis Social Icons</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<socialsetting translate="label">
+                    <label>AddThis Social Icons</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <social_analytics translate="label">
+                            <label>Public ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </social_analytics>                                             
+                    </fields>
+                </socialsetting>
+            </groups>
+             
+        </social>
+    </sections>
+</config>

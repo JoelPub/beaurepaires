@@ -1,0 +1,32 @@
+<ul class="no-bullet">
+  <?php foreach ($this->getItems() as $_item): ?>
+     <?php if ($_item->getCount() > 0): ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
+          <li>
+              <?php
+                $labelValue = $_item->getLabel();
+                $attr = str_replace(' ','_',trim(strtolower($labelValue)));
+                $classArray = Mage::helper('apdinteract_hierarchy')->checkClass(strtolower($attr));
+                $className = "";
+                if(count($classArray))
+                    $className = $classArray[1];
+              ?>
+              <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php if ($className != "" && $_item->getFilter()->getRequestVar()=='driving_style'): ?><i class="sprite <?php echo $className?>"></i><?php endif; ?><span><?php echo $_item->getLabel() ?> (<?php echo $_item->getCount() ?>)</span></a> 
+           </li>
+      <?php endif; ?>
+    <?php /*
+    // We don't want to show the filter highliting zero article. Please don't uncomment the section below.
+    <?php else: ?>
+      <?php if ($this->shouldDisplayProductCount()): ?>
+          <li>
+              <?php
+                $labelValue = $_item->getLabel();
+                $arr = explode(' ',trim($labelValue));
+              ?>
+              <span class="<?php echo $arr[0] ?> disable"><?php echo $_item->getLabel() ?> (<?php echo $_item->getCount() ?>)</span>
+        </li>
+      <?php endif; ?>
+      */ ?>
+    <?php endif; ?>
+  <?php endforeach ?>
+</ul>

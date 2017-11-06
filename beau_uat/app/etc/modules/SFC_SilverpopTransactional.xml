@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<SFC_SilverpopTransactional>
+			<active>true</active>
+			<codePool>local</codePool>
+		</SFC_SilverpopTransactional>
+	</modules>
+</config>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<layout>
+
+    <!-- Ajax autocompleters for the VIR forms-->
+    <apdinteract_vir_admin_order_autocomplete>
+        <block type="apdinteract_vir/autocomplete" name="root" output="toHtml" template="apdinteract/vir/ajax/autocomplete.phtml" />
+    </apdinteract_vir_admin_order_autocomplete>
+    
+    <apdinteract_vir_admin_ordercommercial_autocomplete>
+        <block type="apdinteract_vir/autocompletecommercial" name="root" output="toHtml" template="apdinteract/vir/ajax/autocompletecommercial.phtml" />
+    </apdinteract_vir_admin_ordercommercial_autocomplete>
+    
+    <!-- Print VIR PDF pages -->
+    <apdinteract_vir_admin_order_print>        
+        <block type="apdinteract_vir/printconsumer" name="root" output="generatePdf" />        
+    </apdinteract_vir_admin_order_print>
+    
+    <apdinteract_vir_admin_ordercommercial_print>        
+        <block type="apdinteract_vir/printcommercial" name="root" output="getPdf" />        
+    </apdinteract_vir_admin_ordercommercial_print>
+
+    <apdinteract_vir_admin_reportcommercial_index>
+        <reference name="content">
+            <block type="apdinteract_vir/adminhtml_report_commercial" template="report/grid/container.phtml" name="report.commercial">
+                <block type="apdinteract_vir/adminhtml_report_commercial_form" name="grid.filter.form">
+                </block>
+            </block>
+        </reference>
+    </apdinteract_vir_admin_reportcommercial_index>
+    <apdinteract_vir_admin_reportconsumer_index>
+        <reference name="content">
+            <block type="apdinteract_vir/adminhtml_report_consumer" template="report/grid/container.phtml" name="report.consumer">
+                <block type="apdinteract_vir/adminhtml_report_consumer_form" name="grid.filter.form">
+                </block>
+            </block>
+        </reference>
+    </apdinteract_vir_admin_reportconsumer_index>
+</layout>

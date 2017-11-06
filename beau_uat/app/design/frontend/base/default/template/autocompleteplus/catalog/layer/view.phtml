@@ -1,0 +1,14 @@
+<?php
+$store_id = Mage::app()->getStore()->getStoreId();
+$auto_config = Mage::getModel('autocompleteplus_autosuggest/config')->getCollection()->getData();
+$uuid = $auto_config[0]['licensekey'];
+$query = Mage::app()->getRequest()->getParam('q');
+?>
+<div id="isp_search_result_layered_navigation"></div>
+<script>
+    var __isp_fulltext_search_obj = {
+        uuid: <?php echo '"' . $uuid . '"'; ?>,
+        store_id: <?php echo $store_id; ?>,
+        query: <?php echo '"' . $query . '"'; ?>
+    };
+</script>

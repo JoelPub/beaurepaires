@@ -1,0 +1,187 @@
+// Form Elements
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="color"],
+textarea{
+  background-color: $ghost;
+  border: 1px solid $colour-alto;
+  height: 34px;
+  padding: .7rem .9rem .6rem .7rem;
+}
+input{
+  &#search{
+    padding: .7rem 1.5rem .6rem .7rem;
+  }
+}
+
+::-webkit-input-placeholder {
+ color: $colour-mineshaft;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $colour-mineshaft;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $colour-mineshaft;
+}
+
+:-ms-input-placeholder {
+   color: $colour-mineshaft;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+select{
+   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNGY0ZjQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), -moz-linear-gradient(top, $white 0%, $smoke 100%); /* FF3.6+ */
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), -webkit-linear-gradient(top, $white 0%,$smoke 100%); /* Chrome10+,Safari5.1+ */
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), -o-linear-gradient(top, $white 0%,$smoke 100%); /* Opera 11.10+ */
+  background: url("data:image/svg+xml;geT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), -webkit-gradient(linear, left top, left bottom, color-stop(0%,$white), color-stop(100%,$smoke)); /* Chrome,Safari4+ */
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTbase64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), -ms-linear-gradient(top, $white 0%,$smoke 100%); /* IE10+ */
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+"), linear-gradient(to bottom, $white 0%,$smoke 100%); /* W3C */
+
+  background-position: 100% center;
+  background-repeat: no-repeat;
+  border-radius: 2px;
+  padding: .7rem .9rem .5rem .7rem;
+   option {
+    padding: 0;
+   }
+
+   &:disabled {
+		color: $iron;
+	}
+}
+
+//Search Icon
+.fa-search{
+  &:hover{
+    color: $anchor-font-color;
+  }
+}
+a > .fa-search{
+  color: $input-font-color;
+  &:hover{
+    color: $anchor-font-color;
+  }
+}
+
+//Search Form
+.form-search{
+  position: relative;
+  width: 316px;
+  > .close-btn{
+    color: $input-font-color;
+    margin: -12px 7px 0 0;
+    right: 0;
+    position: absolute;
+    top: 50%;
+    i{
+      color: $iron;
+      height: 20px;
+      margin: 5px -6px 0 0;
+      width: 25px;
+      &:hover{
+        //color: $primary-color;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 40em) {
+  .form-search{
+    width: 100%;
+  }
+}
+
+// Collapse Field - Store locator search component
+.collapse-field{
+  display: inline-block;
+
+  input.button[type="submit"]{
+    border-radius: 0 3px 3px 0;
+    font-size: 14px;
+    height: 34px;
+    line-height: normal;
+    margin-left: -2px;
+    text-transform: uppercase;
+
+    &:hover{
+
+    }
+  }
+}
+
+//Label
+label{
+  color: $colour-mineshaft;
+  font-size: $base-font-size - 3;
+  margin-bottom: 5px;
+}
+
+// Google recaptcha
+.g-recaptcha, .recaptcha {
+	padding: 10px 0 20px 0;
+
+	border-radius: 4px;
+border-right: 1px solid #d8d8d8;
+overflow: hidden;
+	background-color: #00F;
+}
+#g-recaptcha {
+    transform: scale(1.42);
+    transform-origin: 0 0 0;
+}
+
+
+// autocomplete
+
+.ui-autocomplete .ui-menu-item {
+	line-height: 25px;
+	padding: 1px 8px;
+	cursor: pointer;
+}
+.ui-widget-content .ui-state-focus {
+	border-width: 1px 0;
+	padding: 0 8px;
+}
+
+// alert-boxes
+
+.alert-box{
+  &.success{
+    background: $colour-schoolbusyellow;
+    border: 0;
+    color: $colour-congressblue;
+  }
+}
+
+.form-alert{
+  .messages{
+    color: $colour-carnation;
+    font-weight: bold;
+  }
+}
+
+// form links
+form {
+  a:not(.button) {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/***************************************
+ *** Multistore Newsletter Subscription ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_MulistoreNewsletter
+ * @author 		NetGo
+ * @dev			netattingomails@gmail.com
+ *
+ */
+-->
+	<config>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<multinews translate="title" module="mulistorenewsletter">
+											<title>Multistore Newsletter Section</title>
+											<sort_order>0</sort_order>
+										</multinews>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</config>

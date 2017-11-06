@@ -1,0 +1,71 @@
+<?php $recentViewedProductIds = Mage::getSingleton('core/session')->getRecentViewedItems(); 
+      if(is_array($recentViewedProductIds))
+              $recentViewedProductIds = array_unique($recentViewedProductIds);?>
+<?php if (count($recentViewedProductIds) > 0): ?>
+    <div class="row show-for-large-up">
+        <div class="small-12 columns">
+
+            <div class="widget widget-viewed recently-viewed">
+                <div class="widget-title">
+                    <h2>Recently Viewed</h2>
+                </div>
+                <div class="widget-products">
+                    <ul class="products-list no-bullet">
+    <?php foreach ($recentViewedProductIds as $product_id): ?>
+        <?php $_product = Mage::getModel('catalog/product')->load($product_id);
+              $url = Mage::helper("apdwidgets")->getFullProductUrl($_product);
+        ?>
+                            <li class="item">
+                                <div class="row">
+                                    <div class="small-4 columns">
+                                        <a href="<?php echo $url ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(85) ?>" width="85" height="85" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" /></a>
+                                    </div>
+                                    <div class="small-8 columns">
+                                        <div class="product-shop">
+                                            <div class="f-fix">
+                                                <h3 class="product-name"><a href="<?php echo $url ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+    <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row hide-for-large-up">
+        <div class="large-12 columns">
+            <ul class="accordion" data-accordion="">
+                <li class="accordion-navigation">
+                    <a href="#left-nav-mobile-reviewed" aria-expanded="false">Recently Viewed</a>
+                    <div id="left-nav-mobile-reviewed" class="content">
+                        <div class="widget-products  recently-viewed">
+                            <ul class="products-list no-bullet small-block-grid-1 medium-block-grid-3">
+    <?php foreach ($recentViewedProductIds as $product_id): ?>
+        <?php $_product = Mage::getModel('catalog/product')->load($product_id); ?>
+                                <li class="item">
+                                    <div class="row">
+                                        <div class="small-3 medium-4 columns">
+                                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(85) ?>" width="85" height="85" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" /></a>                                                    
+                                        </div>
+                                        <div class="small-9 medium-8 columns">
+                                            <div class="product-shop">
+                                                <div class="f-fix">
+                                                    <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+    <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

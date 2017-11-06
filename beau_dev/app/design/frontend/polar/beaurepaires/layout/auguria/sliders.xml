@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   Auguria
+ * @package    Auguria_Sliders
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+-->
+<layout version="0.1.0">
+    <cms_index_index>
+        <!--<reference name="content">
+            <block type="auguria_sliders/cms_page_slider" name="auguria_sliders" template="auguria/sliders/slider.phtml" before="-">
+                <block type="searchtyre/index" name="searchtyre_index" as="searchtyre_index" template="searchtyre/index.phtml" />         
+            </block>
+        </reference>-->
+    </cms_index_index>
+    <catalog_category_default>
+        <reference name="content">
+            <block type="auguria_sliders/catalog_category_slider" name="auguria_sliders" template="auguria/sliders/slider.phtml" before="-"/>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="content">
+            <block type="auguria_sliders/catalog_category_slider" name="auguria_sliders" template="auguria/sliders/slider.phtml" before="-"/>
+        </reference>
+    </catalog_category_layered>
+</layout>

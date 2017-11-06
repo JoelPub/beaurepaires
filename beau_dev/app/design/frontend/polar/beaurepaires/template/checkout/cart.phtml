@@ -1,0 +1,367 @@
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+date_default_timezone_set('Australia/Melbourne');
+$session = Mage::getSingleton('checkout/session');
+$quote = $session->getQuote(); // Mage::getModel('checkout/cart')->getQuote();
+
+$hastyres = 0;
+$haswheels = 0;
+$urallowed = Mage::getStoreConfig('sync/sync/apdinteract_syncurl', Mage::app()->getStore());
+foreach ($quote->getAllItems() as $item) {
+    $productID = $item->_data["product_id"];
+    $product = Mage::getModel('catalog/product')->load($productID);
+    $categoryIds = $product->getCategoryIds();
+    if (count($categoryIds)) {
+        $firstCategoryId = $categoryIds[0];
+        $_category = Mage::getModel('catalog/category')->load($firstCategoryId);
+        $catname = $_category->getName();
+        if ($firstCategoryId == 41) {
+            $hastyres = 1;
+        }
+        if ($firstCategoryId == 42) {
+            $haswheels = 1;
+        }
+    }
+}
+$realdaystoAdd = 6;
+if ($hastyres == 1) {
+    $realdaystoAdd = 4;
+}
+
+if ($haswheels == 1) {
+
+    $realdaystoAdd = 6;
+}
+
+$counter = 0;
+$realCounter = 1;
+
+/* Iterate from $start up to $end+1 day, one day in each iteration.
+  We add one day to the $end date, because the DatePeriod only iterates up to,
+  not including, the end date.
+
+  foreach(new DatePeriod($start, $oneday, $end->add($oneday)) as $day) {
+  $day_num = $day->format("N");
+  $realCounter += 1;
+  if($day_num < 6) {
+  if ($counter < $daystoAdd)
+  {
+  $counter += 1;
+  }
+  if ($counter == $daystoAdd)
+  {
+  $realdaystoAdd = $realCounter;
+  break;
+  }
+  }
+  }
+ */
+ $store= "";
+ $store_id = Mage::getSingleton('core/session')->getStorelocation();
+ $cart=0;
+ if ($store_id!=''):
+    $storeDetails = Mage::helper('pickupinstore')->getStorebyId($store_id);
+    if($storeDetails->getExcludeFromCart()== 1) :
+        $store = '';
+        $cart=1;
+    else:
+        $store = $storeDetails->getTitle();
+    endif;
+ endif;
+
+
+ $time = Mage::getSingleton('core/session')->getDtime();
+ $date = Mage::getSingleton('core/session')->getDeliveryDate();
+
+
+
+?>
+
+<div class="all-items-in-cart main-cart" data-stock-levels-url="/costar/index/checkStock">
+  <div class="row">
+      <?php
+      // Location: Configuration > System > Sales > Checkout > Checkout Option
+      $shoppingCartStepper = Mage::getStoreConfig('checkout/options/hide_stepper',Mage::app()->getStore());
+      $isDisplay = !(bool)$shoppingCartStepper ? true : false; ?>
+      <div class="columns medium-8 small-12 end">
+        <div class="cart-progress-bar">
+          <script id="progress-bar-config" type="application/json">
+              {
+                  "show": "<?php echo $isDisplay ?>",
+                  "current": 1,
+                  "steps": [
+                      "Orders",
+                      "Extras",
+                      "Fitting",
+                      "Checkout"
+                  ]
+              }
+          </script>
+          <progress-bar config-id="progress-bar-config"></progress-bar>
+        </div>
+      </div>
+      <div class="columns small-12 page-title title-buttons">
+            <h1 class="page-title"><?php echo $this->__('Select store and preferred date') ?> <?php //echo $this->getChildHtml('right_link');   ?></h1>
+        </div>
+        <div class="cart medium-8 small-12 columns">
+                        <div id="stock-error-message" <?php if($cart==0) { ?>class="hide" <?php }?>>
+				<p>Order cannot be completed with out of stock products. Please select another store to find available stock or call us on 13 23 81 for assistance.</p>
+			</div>
+            <div><?php echo $this->getMessagesBlock()->getGroupedHtml();?></div>
+            <?php if(Mage::app()->getRequest()->getParam('msg')=='success') { echo "<ul class=\"messages\"><li class=\"success-msg\"><ul><li><span>".Mage::getSingleton('core/session')->getMsg()."</span></li></ul></li></ul>";}?>
+            <?php echo $this->getChildHtml('form_before') ?>
+
+            <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+                <?php echo $this->getBlockHtml('formkey'); ?>
+                <table class="cart-items">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <!-- Hide Price and Subtotal header 7/23/15 -->
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th class="hide-for-small-only">Subtotal</th>
+							              <th class="hide-for-small-only" colspan="2">Stock Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--<ul class="cart-list" id="shopping-cart-table">-->
+
+                        <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                        <?php foreach ($this->getItems() as $_item): ?>
+                            <!--<li class="checkout_ul">-->
+                            <?php echo $this->getItemHtml($_item) ?>
+                            <?php $helper = Mage::helper('apdinteract_catalog'); ?>
+                            <?php $options = $helper->getCustomOptions($_item); ?>
+                            <?php foreach ($options as $_option): ?>
+                                <?php $unformattedPrice = $_option['price']; ?>
+                                <?php $formattedPrice = Mage::helper('checkout')->formatPrice($_option['price']); ?>
+
+                                <tr class="add-ons">
+                                    <td class="label-padding">
+										<div class="row">
+											<div class="small-12 medium-3 columns">&nbsp;</div>
+											<div class="small-12 medium-9 columns"><h5 class="product-name"><?php echo $_option['label'] ?></h5></div>
+										</div>
+									</td>
+                                    <td><span class="cart-price"><span class="price"><?php echo $formattedPrice ?></span></span>
+                                    <span class="cart-category"><?php echo $helper->categoryTitle($_option['parent_category']) ?></span>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td class="hide-for-small-only" colspan="2"><?php echo $this->helper('checkout')->formatPrice($unformattedPrice * $_item->getQty());?></td>
+									<td class="hide-for-small-only">Out of Stock</td>
+                                </tr>
+
+                                <?php
+                                /*
+                                $sub = $quote->getSubtotal();
+                                $tot = $quote->getGrandTotal();
+                                $quote->setSubtotal($sub + $unformattedPrice); // Mage::getModel('checkout/cart')->getQuote()->getGrandTotal()
+                                $quote->setGrandTotal($tot + $unformattedPrice);
+                                */
+                                ?>
+                            <?php endforeach ?>
+                            <!--                            </li>-->
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+                <!--                <li class="cart-footer checkout_ul">-->
+                <div class ="row cart-links">
+                    <div class="columns small-12 medium-3">
+                        <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Shopping Cart'); ?>" class="button btn-empty link-btn" id="empty_cart_button"><?php echo $this->__('Remove all items'); ?></button>
+
+
+                    </div>
+                    <div class="columns small-12 medium-9">
+                        <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update your cart'); ?>" class="button btn-update link-btn"><?php echo $this->__('Update your cart'); ?></button> <?php if ($this->getContinueShoppingUrl()): ?>
+                            or <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>" title="<?php echo $this->__('Continue Shopping') ?>" class="btn-continue"><?php echo $this->__('Continue Shopping') ?></a>
+                        <?php endif; ?>
+                    </div>
+                    <div class="columns">
+                        <small class="error text-left hide qty-error" data-cdp="tyres">
+                            *Number of tyres in your cart reached, please update your cart with a maximum of 5 tyres to proceed to checkout.
+                        </small>
+                        <small class="error text-left hide qty-error" data-cdp="wheels">
+                            *Number of wheels in your cart reached, please update your cart with a maximum of 5 wheels to proceed to checkout.
+                        </small>
+                    </div>
+                </div>
+                <!--[if lt IE 8]>
+                <input type="hidden" id="update_cart_action_container" />
+                <script type="text/javascript">
+                //<![CDATA[
+                    Event.observe(window, 'load', function()
+                    {
+                        // Internet Explorer (lt 8) does not support value attribute in button elements
+                        $emptyCartButton = $('empty_cart_button');
+                        $cartActionContainer = $('update_cart_action_container');
+                        if ($emptyCartButton && $cartActionContainer) {
+                            Event.observe($emptyCartButton, 'click', function()
+                            {
+                                $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                $cartActionContainer.setValue('empty_cart');
+                            });
+                        }
+
+                    });
+                //]]>
+                </script>
+                <![endif]-->
+                <!--
+                                </li>
+
+                                </ul>
+                -->
+
+                <div class="row">
+                    <div class="columns small-12">
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart_promotional_block')->toHtml(); ?>
+                    </div>
+                </div>
+            </form>
+            <?php /*
+            commented out since it is re-modified, see below
+            <div class="cart-collaterals">
+                <div class="totals">
+            <?php // echo $this->getChildHtml('totals');  ?>
+            <?php //if(!$this->hasError()):  ?>
+                    <ul class="checkout-types">
+            <?php //echo $this->getChildHtml('coupon');  ?>
+            <?php //foreach ($this->getMethods('methods') as $method):  ?>
+            <?php //if ($methodHtml = $this->getMethodHtml($method)):  ?>
+                        <li><?php // echo $methodHtml;  ?></li>
+            <?php //endif; ?>
+            <?php //endforeach;  ?>
+                    </ul>
+            <?php // endif; ?>
+
+                </div>
+            <?php // if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+            </div>
+            <?php //echo $this->getChildHtml('crosssell')  ?>
+            */ ?>
+        </div>
+
+
+        <!-- Content -->
+        <div class="medium-4 small-12 columns">
+            <!-- Cart Options -->
+            <div class="shopping-cart-options" data-checkout-url="<?php echo $this->getUrl('checkout/onepage/') ?>">
+
+
+
+
+				<form class="cart-fields-form" data-ajax-submit data-abide>
+
+					<div class="form-field set-store">
+						<div class="row collapse">
+							<div class="columns small-12">
+								<label for="cartaddress-id">Select store to fit your items</label>
+							</div>
+							<div class="small-12 columns">
+								<input type="text" id="cartaddress" name="cartaddress" value="<?php echo $store?>" placeholder="Enter suburb or postcode" />
+
+								<i id="storesLoading" class="fa fa-refresh fa-spin"></i>
+								<input type="text" id="cartaddress-id" name="cartaddress-id" value="<?php echo $store_id?>" class="cartaddress-id hidden-input" required />
+								<small class="error">Please specify the store location</small>
+							</div>
+
+						</div>
+						<div id="savesession" class="hide"><i class="fa fa-refresh fa-spin"></i>,Saving...</div>
+					</div>
+
+					<div class="form-field">
+
+							<div class="row collapse">
+
+								<div class="small-12 columns">
+									<label for="sessiondate">Choose a date to fit your items</label>
+								</div>
+								<div class="small-10 columns">
+									<input type="text" value="<?php if(trim($date)!="") echo $date;?>" name="date" id="sessiondate" class="fit_date" placeholder="Choose a date" data-min-date="<?php echo $realdaystoAdd; ?>d" required readonly />
+									<small class="error">This is a required field - It must be a valid date</small>
+									<div id="savesessiondate" class="hide"><i class="fa fa-refresh fa-spin"></i> Saving date..</div>
+								</div>
+								<div class="small-2 columns">
+									<a class="button postfix select_date"><i class="fa fa-lg fa-fw fa-calendar"></i></a>
+								</div>
+                                <div class="small-12 columns">
+                                    <div class="note">If you require a same day booking please call <strong>13 23 81</strong>.</div>
+                                </div>
+							</div>
+
+					</div>
+
+					<div class="form-field">
+						<div class="row collapse">
+							<div class="columns small-12">
+								<label for="available-times">Select time</label>
+							</div>
+							<div class="small-12 columns">
+								<select id="available-times" class="available-times" data-select="<?php echo $time?>" data-get-times-url="<?php echo $urallowed?>ajax_get_busy_times" required pattern="[0-9]+">
+									<option value="">None</option>
+								</select>
+								<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+								<small class="error">This is a required field - It must be a valid time</small>
+								<input type="hidden" name="duration" class="fit-duration" value="<?php echo Mage::Helper('sync')->getMinutes();?>">
+							</div>
+						</div>
+					</div>
+				</form>
+
+        <!-- hide coupon panel for phase 1 7/22/15 -->
+        <?php echo $this->getChildHtml('coupon'); ?>
+
+				<div class="form-field">
+					<?php echo $this->getChildHtml('totals'); ?>
+				</div>
+
+				<div class="secure-includes-panel">
+					<i class="fa fa-check-circle"></i>
+					<?php echo Mage::helper('apdinteract_checkout')->getPriceInfo(); ?>
+				</div>
+
+				<div class="row">
+					<div class="columns small-12 text-right">
+						<?php echo $this->getLayout()->createBlock("checkout/onepage_link")->setTemplate("checkout/onepage/link.phtml")->toHtml(); ?>
+                    </div>
+                    <div class="columns small-12 text-right">
+                        <small class="error text-left hide qty-error" data-cdp="tyres">
+                            *Number of tyres in your cart reached, please update your cart with a maximum of 5 tyres to proceed to checkout.
+                        </small>
+                        <small class="error text-left hide qty-error" data-cdp="wheels">
+                            *Number of wheels in your cart reached, please update your cart with a maximum of 5 wheels to proceed to checkout.
+                        </small>
+                    </div>
+				</div>
+
+				<div class="secure-payment-panel">
+					<?php for ($i = 1; $i < 9; $i++): ?>
+						<?php
+							$image = Mage::helper('apdinteract_checkout')->getPaymentLogos($i);
+							$title = Mage::helper('apdinteract_checkout')->getPaymentLogoTitles($i);
+						?>
+						<?php if ($image): ?>
+							<img data-tooltip title="<?php echo $title?>" aria-haspopup="true" class="has-tip open" src=<?php echo $image ?> alt=<?php echo 'payment-logo-' . $i ?>>
+						<?php endif; ?>
+					<?php endfor; ?>
+				</div>
+
+				<div class="secure-lock-panel">
+					<i class="fa fa-lock"></i>
+					<?php echo Mage::helper('apdinteract_checkout')->getSafetyInfo(); ?>
+				</div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="<?php echo $brand = $this->getSkinUrl('js/pages/cart.js'); ?>"></script>
+<script src="/skin/frontend/jqueryui/jquery-ui.js"></script>

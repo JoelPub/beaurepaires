@@ -1,0 +1,46 @@
+<?php
+/**
+ * Based on 1column-fullwidth.phtml
+ *
+ */
+?>
+
+
+
+<?php echo $this->getChildHtml('head') ?>
+
+<!-- p/b/beaurwd1col -->
+
+<body<?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+    <?php echo $this->getChildHtml('after_body_start') ?>
+    <?php echo $this->getChildHtml('footer_misc_html') ?>
+    <?php echo $this->getChildHtml('global_notices') ?>
+    <?php echo $this->getChildHtml('header') ?>
+    <?php echo $this->getChildHtml('breadcrumbs') ?>
+    <?php echo $this->getChildHtml('sliders') ?>
+    <div class="main-wrapper">
+        <div class="main-container-full-width">
+            <div class="row">
+                <div class="column">
+                    <?php echo $this->getChildHtml('global_messages') ?>
+                </div>
+            </div>
+            <?php echo $this->getChildHtml('content') ?>
+
+        </div>
+    </div>
+    <?php echo $this->getChildHtml('footer') ?>
+    <?php echo $this->getChildHtml('before_body_end') ?>
+    <?php echo $this->getChildHtml('bottom') ?>
+
+    <!-- before /body sub-footer scripts -->
+    <?php $hash = $this->helper('apdinteract_smartcache')->getSkinLastChangedHash(); ?>
+    <script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/dist/static/js/default.js?t=<?php echo $hash; ?>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js?t=<?php echo $hash; ?>"></script>
+    <script src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js?t=<?php echo $hash; ?>"></script>
+    <script src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js?t=<?php echo $hash; ?>"></script>
+    <script src="<?php echo Mage::getBaseUrl(); ?>skin/frontend/polar/default/js/app.js?t=<?php echo $hash; ?>"></script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <placeholders>
+        <apdinteract_addblock>
+            <block>addblock/addblock</block>
+            <name>listing.finder.all</name>
+            <placeholder>APDINTERACT_ADDBLOCK_ADDBLOCK_CACHE</placeholder><!-- Can be any unique name -->
+            <container>ApdInteract_Addblock_Model_Container_Addblock</container>
+            <cache_life>0</cache_life>
+        </apdinteract_addblock>
+    </placeholders>
+</config>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_Paybyphone>
+            <version>0.1.0</version>
+        </ApdInteract_Paybyphone>
+    </modules>
+    <global>
+        <models>
+            <paybyphone>
+                <class>ApdInteract_Paybyphone_Model</class>
+            </paybyphone>
+        </models>
+        <blocks>
+            <paybyphone>
+                <class>ApdInteract_Paybyphone_Block</class>
+            </paybyphone>
+        </blocks>
+    </global>
+    <default>
+        <payment>
+            <paybyphone>
+                <active>1</active>
+                <model>paybyphone/paymentMethod</model>
+                <order_status>processing</order_status>
+                <title>Pay over the phone</title>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </paybyphone>
+        </payment>
+    </default>
+</config>

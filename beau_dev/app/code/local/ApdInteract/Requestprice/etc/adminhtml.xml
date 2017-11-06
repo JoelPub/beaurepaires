@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <booking_date translate="title" module="apdinteract_requestprice">
+                                        <title>Booking Date</title>
+                                    </booking_date>
+                                    <request translate="title" module="apdinteract_requestprice">
+                                        <title>Request</title>
+                                    </request>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,43 @@
+//Variable
+$smoke: #ccc;
+$sky: #9EDCEF;
+
+//Accordion
+table, .specification-table {
+	border: 1px solid $colour-silver;
+  tbody{
+    tr{
+      th, td {
+        border-bottom: 1px solid $colour-silver;
+      }
+      td{
+        font-size: $base-font;
+        &:first-child{
+          //background: rgba($sky,0.2);
+          @media #{$small-only} {
+            width: auto;
+          }
+        }
+      }
+
+      &:last-child{
+        td, th {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.specification-table{
+	border-spacing: 0;
+}
+
+.data-table {
+	border-radius: 4px;
+	border-spacing: 0;
+	
+	td {
+		 border-top: $inset-dark-shadow;
+	}
+}

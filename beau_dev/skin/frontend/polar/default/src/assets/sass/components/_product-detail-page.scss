@@ -1,0 +1,52 @@
+.product-detail-page {
+    padding: 20px 0 0;
+
+    .back-to-results-button {
+        margin-bottom: 20px;
+    }
+
+    h1.product-title {
+        margin: 20px 0 2px 0;
+        line-height: 1.2;
+    }
+
+    .product-features {
+        margin: 20px 0;
+        li {
+            margin: 0;
+            i { font-size: rem-calc(35px); }
+            p {
+                margin-top: 12px;
+                font-size: rem-calc(14px);
+                height: auto;
+                line-height: 1.2;
+            }
+        }
+
+        @media #{$small-only} {
+            li {
+                i { font-size: rem-calc(25px); }
+                p { font-size: rem-calc(10px); }
+            }
+        }
+    }
+    .product-text-description {
+        margin: 10px 0 0 0;
+        p {
+            margin: 0;
+        }
+    }
+
+    .product-details .extra-info .star-rating {
+        .review-links {            
+            margin: 0;
+            @media #{$small-only} {
+                display: block;
+            }
+        }
+
+        i.fa-star:last-child {
+            margin-right: 10px;
+        }
+    }
+}

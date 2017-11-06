@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <ApdInteract_ImportExport>
+            <version>0.1.3</version>
+        </ApdInteract_ImportExport>
+    </modules>
+    <global>
+        <models>
+            <apdinteract_importexport>
+                <class>ApdInteract_ImportExport_Model</class>
+            </apdinteract_importexport>
+            <importexport>
+                <rewrite>
+                    <import_entity_customer>ApdInteract_ImportExport_Model_Import_Entity_Customer</import_entity_customer>
+                    <export_entity_customer>ApdInteract_ImportExport_Model_Export_Entity_Customer</export_entity_customer>
+                </rewrite>
+            </importexport>
+            <enterprise_importexport>
+                <rewrite>
+                    <scheduled_operation>ApdInteract_ImportExport_Model_Scheduled_Operation</scheduled_operation>
+                    <import_entity_product>ApdInteract_ImportExport_Model_Import_Entity_Product</import_entity_product>
+                </rewrite>
+            </enterprise_importexport>
+        </models>
+        <importexport module="importexport">
+        <import_entities>
+            <order translate="label">
+                <model_token>apdinteract_importexport/import_entity_Order</model_token>
+                <label>Order</label>
+            </order>
+        </import_entities>
+        <export_entities>
+            <virconsumer translate="label">
+                <model_token>apdinteract_importexport/export_entity_virconsumer</model_token>
+                <label>VIR Consumer</label>
+            </virconsumer>
+            <vircommercial translate="label">
+                <model_token>apdinteract_importexport/export_entity_vircommercial</model_token>
+                <label>VIR Commercial</label>
+            </vircommercial>
+            <product_review translate="label">
+                <model_token>apdinteract_importexport/export_entity_productreview</model_token>
+                <label>Product Reviews</label>
+            </product_review>
+            <product_inventory translate="label">
+                <model_token>apdinteract_importexport/export_entity_productinventory</model_token>
+                <label>Product Inventory</label>
+            </product_inventory>
+            <order translate="label">
+                <model_token>apdinteract_importexport/export_entity_order</model_token>
+                <label>Order</label>
+            </order>
+        </export_entities>
+        </importexport>
+        <resources>
+            <apdinteract_importexport_setup>
+                <setup>
+                    <module>ApdInteract_ImportExport</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_importexport_setup>
+            <apdinteract_entity_setup>
+                <setup>
+                    <module>ApdInteract_ImportExport</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_entity_setup>
+        </resources>
+    </global>
+     <!--<crontab> //temporarily disabled 
+        <jobs>            
+            <apdinteract_importexport_product_daily>
+                <schedule>
+                    <cron_expr>0 4 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>apdinteract_importexport/observer::processImport</model>
+                    <type>catalog_product</type>
+                </run>
+            </apdinteract_importexport_product_daily>
+            <apdinteract_importexport_customer_daily>
+                <schedule>
+                    <cron_expr>0 5 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>apdinteract_importexport/observer::processImport</model>
+                    <type>customer</type>
+                </run>
+            </apdinteract_importexport_customer_daily>
+            <apdinteract_importexport_order_daily>
+                <schedule>
+                    <cron_expr>0 6 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>apdinteract_importexport/observer::processImport</model>
+                    <type>order</type>
+                </run>
+            </apdinteract_importexport_order_daily>
+        </jobs>        
+    </crontab>-->
+</config>
+
+

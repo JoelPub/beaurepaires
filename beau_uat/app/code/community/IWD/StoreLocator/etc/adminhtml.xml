@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<config>
+
+
+    <menu>
+        <system>
+            <children>			
+                <iwdall>
+                    <title>IWD Extensions</title>
+                    <sort_order>0</sort_order>
+                    <children>
+                        <storelocator translate="title" module="storelocator">
+                            <title>Store Locator</title>
+                            <sort_order>40</sort_order>
+                            <action>slocator/adminhtml_list</action>
+                        </storelocator>
+                        <storecategory translate="title" module="storecategory">
+                            <title>Store Category</title>
+                            <sort_order>41</sort_order>
+                            <action>admin_storecategory/adminhtml_storecategory</action>
+                        </storecategory>
+                    </children>
+                </iwdall>
+            </children>
+        </system>
+    </menu>
+
+
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                
+
+                    
+                    <system>
+                        <children>
+						
+                            <iwdall translate="title">
+                                <children>
+                                    <storelocator translate="title" module="storelocator">
+                                        <title>Store Locator</title>
+                                        <sort_order>60</sort_order>
+                                    </storelocator>
+                                    <storecategory translate="title" module="storecategory">
+                                        <title>Store Category</title>
+                                        <sort_order>60</sort_order>
+                                    </storecategory>
+                                </children>
+                            </iwdall>
+						
+						
+                            <config>
+                                <children>
+                                    <storelocator translate="title" module="storelocator">
+                                        <title>Store Locator</title>
+                                        <sort_order>70</sort_order>
+                                    </storelocator>
+                                </children>
+                            </config>
+							
+							
+							
+							
+                        </children>
+                    </system>
+                    
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+
+
+
+
+
+
+</config>

@@ -1,0 +1,12 @@
+<?php
+if (!$output = $this->getCacheSimple()) {
+
+    $json = $this->getChildCollection(
+                $this->getWheelCollection()
+            )
+            ->getColumnValues('sku');
+    $output = json_encode($json);
+    $this->setCacheSimple($output); 
+}
+
+echo $output;

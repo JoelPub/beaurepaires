@@ -1,0 +1,27 @@
+<?php $item = $this->getItem();?>
+<?php if (count($item)>0):?>
+
+	<div class="item gm-info-window store-details">
+
+		<a class="close-btn close-map-info" href="#"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>
+		
+		<address>
+
+			<h4><?php echo htmlentities($item['title'])?></h4>
+			<p>
+				<?php echo $item['street']?>,<br>
+				<?php echo $item['city']?>
+				<?php echo $this->prepareState($item['country_id'], $item['region'], $item['region_id'])?> 
+				<?php echo $item['postal_code']?>
+			</p>
+			
+			<?php if ($item['phone'] != ""):?> 
+			<h5><i class="fa fa-fw fa-phone"></i>Phone:</h5>
+			<?php echo $item['phone']?>
+			<?php endif;?>
+
+		</address>
+
+	</div>
+
+<?php endif;?>

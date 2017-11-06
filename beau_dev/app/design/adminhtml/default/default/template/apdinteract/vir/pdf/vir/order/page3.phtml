@@ -1,0 +1,184 @@
+<?php 
+function _hideOverflow($string, $maxlength = 35) {
+        if (strlen($string) > $maxlength) {
+            $string = substr($string, 0, $maxlength) . '...';
+        }
+        return $string;
+    }
+?>
+<div class="row">
+    <h2>Tyre Services Checklist</h2>
+    <br/>
+    <table class="report">
+        <caption>Wheel Alignment Report</caption>
+        <thead>
+            <tr>
+                <td class="hd" colspan="3">Beforeadjustment</td>
+                <td class="colorize hd" colspan="3">Afteradjustment</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="hd">Front</td>
+                <td class="hd">Left</td>
+                <td class="hd">Right</td>
+                <td class="colorize hd">Front</td>
+                <td class="colorize hd">Left</td>
+                <td class="colorize hd">Right</td>
+            </tr>
+            <tr>
+                <td>Camber</td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforeleftcamber') ?></td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforerightcamber') ?></td>
+                <td class="up colorize">Camber</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterleftcamber') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrightcamber') ?></td>
+            </tr>
+            <tr>
+                <td>Caster</td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforeleftcaster') ?></td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforerightcaster') ?></td>
+                <td class="up colorize">Caster</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterleftcaster') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrightcaster') ?></td>
+            </tr>
+            <tr>
+                <td class="up">Toe-In</td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforelefttoein') ?></td>
+                <td><?php echo $vir->getData('wheelalignfrontbeforerighttoein') ?></td>
+                <td class="up colorize">Toe-In</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterlefttoein') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrighttoein') ?></td>
+            </tr>
+            <tr>
+                <td class="hd">Front</td>
+                <td class="hd">Left</td>
+                <td class="hd">Right</td>
+                <td class="colorize hd">Front</td>
+                <td class="colorize hd">Left</td>
+                <td class="colorize hd">Right</td>
+            </tr>
+            <tr>
+                <td class="up">Camber</td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforeleftcamber2') ?></td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforerightcamber2') ?></td>
+                <td class="up colorize">Camber</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterleftcamber2') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrightcamber2') ?></td>
+            </tr>
+            <tr>
+                <td class="up">Caster</td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforeleftcaster2') ?></td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforerightcaster2') ?></td>
+                <td class="up colorize">Caster</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterleftcaster2') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrightcaster2') ?></td>
+            </tr>
+            <tr>
+                <td class="up">Toe-In</td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforelefttoein2') ?></td>
+                <td class=""><?php echo $vir->getData('wheelalignfrontbeforerighttoein2') ?></td>
+                <td class="up colorize">Toe-In</td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterlefttoein2') ?></td>
+                <td class="colorize"><?php echo $vir->getData('wheelalignfrontafterrighttoein2') ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <table class="report">
+        <caption>Wheel Aligner's Checklist</caption>
+        <tbody>
+            <tr>
+                <td class="hd" colspan="3">Please tick or initial as completed</td>
+            </tr>
+            <?php $alignmentTasks = array(
+                'Steering Wheel Straight' => 'wheelalignchecksteerwheelstraight', 
+                'Vehicle Road Tested' => 'wheelaligncheckwehicleroadtested', 
+                'Seatcover/Floormatremoved' => 'wheelaligncheckcovermatremoved', 
+                'Windscreen sticker installed' => 'wheelaligncheckstickerinstalled'
+            ); ?>
+            <?php foreach($alignmentTasks as $name => $task): ?>
+                <tr>
+                    <td class="up" style="width:35%"><?php echo $name ?></td>
+                    <td style="width:60%"><span style="color:#000"><?php echo _hideOverflow($vir->getData($task.'value'), 60) ?></span></td>
+                    <td class="colorize" align="center" style="color:#000"><?php echo ($vir->getData($task) == 1) ? 'X' : '&nbsp;' ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td class="up colorize" colspan="3">Inspection Completed By: <?php echo $vir->getData('wheelaligncheckcompletedby') ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <table class="report technician">
+        <caption style="color:#ed7624;">Tyre Technician's Checklist</caption>
+        <tbody>
+            <tr>
+                <td class="hd" colspan="3">Please tick or initial as completed</td>
+            </tr>
+            <?php $checklist1 = array(
+                'Wheelnutstorqued' => 'tyrecheckwheelnutstorqued', 
+                'Metalvalvecapsfitted' => 'tyrecheckmetalvalvecapsfitted', 
+                'Tyre gloosed' => 'tyrechecktyresglosssed',
+                'Batterystickerfitted' => 'tyrecheckbatterystickerfitted', 
+                'Sparetyrestickerfitted' => 'tyrechecksparetyrestickerfitted'); ?>
+            <?php foreach($checklist1 as $name => $item): ?>
+                <tr>
+                    <td class="up" style="width:35%"><?php echo $name ?></td>
+                    <td style="width:55%"><span style="color:#000"><?php echo _hideOverflow($vir->getData($item.'value'), 60) ?></span></td>
+                    <td class="colorize" align="center" style="color:#000"><?php echo ($vir->getData($item) == 1) ? 'X' : '&nbsp;' ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td class="up colorize" colspan="3">Inspection Completed By: <?php echo $vir->getData('tyrecheckcompletedby') ?></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="row">
+    <table class="report">
+        <caption>Battery Check</caption>
+        <tbody>
+            <?php $checklist2 = array(
+                'Test Result' => 'batterychecktestresult', 
+                'Terminals' => 'batterycheckterminals'); ?>
+            <?php foreach($checklist2 as $name => $item): ?>
+                <tr>
+                    <td class="up colorize" style="width:25%"><?php echo $name ?></td>
+                    <td class="colorize" style="color:#000;width:75%"><?php echo _hideOverflow($vir->getData($item), 80) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <table class="report">
+        <caption>Visual Brake Inspection</caption>
+        <tbody>
+            <?php $checklist3 = array(
+                'Front Callipers/Wheel Cylinders' => 'visualbrakefrontcallipers', 
+                'Front Brakes %Worn' => 'visualbrakefrontbrakes', 
+                'Front Discs/Drums' => 'visualbrakefrontdiscs', 
+                'Rear Callipers/Wheel Cylinders' => 'visualbrakerearcallipers',
+                'Rear Brakes %Worn' => 'visualbrakerearbrakes',
+                'Rear Discs/Drumbs' => 'visualbrakereardiscs',
+                'Flexible Hydraulic Brake Hoses' => 'visualbrakerearflexiblehoses'
+            ); ?>
+            <tr>
+                <td class="hd">&nbsp;</td>
+                <td class="hd">Comments</td>
+            </tr>
+            <?php foreach($checklist3 as $name => $item): ?>
+                <tr>
+                    <td class="up" style="width:40%"><?php echo $name ?></td>
+                    <td class="colorize" style="width:60%;color:#000"><?php echo _hideOverflow($vir->getData($item), 60) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <p class="up reminder">Report any inspection failures to the manager directly</p>
+</div>

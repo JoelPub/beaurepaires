@@ -1,0 +1,109 @@
+<?php $base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>
+
+<link rel="stylesheet" href="<?php echo $base_url; ?>skin/frontend/polar/default/dist/static/app.css" />
+<style type="text/css">
+  .booking-dashboard .flex-layout.booking-states .booking-list {
+    -ms-flex: auto;
+    flex: auto;
+  }
+</style>
+
+<div class="content-header">
+  <div  class="icon-head">
+    <h3><?php echo $this->getHeader() ?></h3>
+  </div>
+</div>
+
+<div class="booking-dashboard"
+     data-get-url="<?php echo Mage::helper('adminhtml')->getUrl('admin_bookings/adminhtml_bookingsbackend/getBooking', array('_secure' => true)); ?>"
+     data-update-url="<?php echo Mage::helper('adminhtml')->getUrl('admin_bookings/adminhtml_bookingsbackend/updateBooking', array('_secure' => true)); ?>" >
+
+  <div class="booking-filter">
+    <form>
+      <ul>
+        <li><h3>Filter</h3></li>
+        <li>
+          <ul class="inline-list">
+            <li><label><input type="radio" name="booking-filter" data-date-type="select">Select Date</label></li>
+            <li><input type="text" class="datepicker" placeholder="Select Date"></li>
+          </ul>
+        </li>
+        <li><label><input type="radio" name="booking-filter" checked="true" data-date-type="today">Today</label></li>
+        <li><label><input type="radio" name="booking-filter" data-date-type="thisweek">This Week</label></li>
+        <li><label><input type="radio" name="booking-filter" data-date-type="lastweek">Last Week</label></li>
+        <li><label><input type="radio" name="booking-filter" data-date-type="tomorrow">Tomorrow</label></li>
+      </ul>
+    </form>
+
+    <nav class="booking-links">
+      <ul>
+        <li><a href="<?php  echo $this->getButtonWebmail() ?>" class="radius button" target="_blank">Webmail</a></li>
+        <li><a href="<?php  echo $this->getButtonCalendar() ?>" class="radius button" target="_blank">Booking Calendar</a></li>
+        <li><a href="<?php  echo $this->getButtonWebsite() ?>" class="radius button" target="_blank">Website</a></li>
+        <li><a href="<?php  echo $this->getButtonCostar() ?>" class="radius button" target="_blank">Dashboard Reports</a></li>
+      </ul>
+    </nav>
+
+    <hr>
+  </div>
+
+  <div class="booking-states flex-layout">
+    <div class="booking-col">
+      <h4>
+        Not Started
+        <i class="fa fa-minus"></i>
+      </h4>
+      <ul class="booking-list" data-state="1"></ul>
+    </div>
+    <div class="booking-col">
+      <h4>
+        In Progress
+        <i class="fa fa-wrench"></i>
+      </h4>
+      <ul class="booking-list" data-state="2"></ul>
+    </div>
+    <div class="booking-col">
+      <h4>
+        Ready For Pickup
+        <i class="fa fa-thumbs-up"></i>
+      </h4>
+      <ul class="booking-list" data-state="5"></ul>
+    </div>
+    <div class="booking-col">
+      <h4>
+        On Hold
+        <i class="fa fa-pause"></i>
+      </h4>
+      <ul class="booking-list" data-state="4"></ul>
+    </div>
+    <div class="booking-col">
+      <h4>
+        Completed
+        <i class="fa fa-check"></i>
+      </h4>
+      <ul class="booking-list" data-state="6"></ul>
+    </div>
+  </div>
+
+  <div class="booking-iframe">
+    <iframe src=""></iframe>
+  </div>
+
+  <nav class="booking-links">
+    <ul>
+      <li><a href="<?php  echo $this->getButtonWebmail() ?>" class="radius button" target="_blank">Webmail</a></li>
+      <li><a href="<?php  echo $this->getButtonCostar() ?>" class="radius button" target="_blank">Dashboard Reports</a></li>
+      <li><a href="<?php  echo $this->getButtonWebsite() ?>" class="radius button" target="_blank">Website</a></li>
+      <li><a href="<?php  echo $this->getButtonCalendar() ?>" class="radius button" target="_blank">Booking Calendar</a></li>
+    </ul>
+  </nav>
+</div>
+
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/jquery/dist/jquery.min.js"></script>
+<script>jQuery.noConflict();</script>
+<script src="<?php echo $base_url; ?>skin/frontend/jqueryui/jquery-ui.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/frontend/polar/default/bower_components/lodash/dist/lodash.min.js"></script>
+<script src="<?php echo $base_url; ?>skin/adminhtml/default/default/js/bookingDashboard.js"></script>
+<script src="<?php echo $base_url; ?>skin/adminhtml/default/default/js/DragDropTouch.js"></script>

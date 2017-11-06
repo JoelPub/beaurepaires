@@ -1,0 +1,58 @@
+<div class="cdp-selector">
+<script id="selector-options-config" type="application/json">
+    { 
+        "forms": [
+            {
+                "id": "search-tyres-vehicle",
+                "label": <?php echo json_encode($this->getTabLabel()->_byVehicles) ?>,
+                "labelMobile": "By Vehicle",
+                "icon": "fa-car",
+                "actionFormat": <?php echo json_encode($this->getForms()->search_vehicle_form_action) ?>,
+                "hiddenFields": <?php echo json_encode($this->getForms()->search_tyres_vehicle) ?>
+            }
+            <?php if($this->isTyres()): ?>
+            ,{
+                "id": "search-tyres-size",
+                "label": <?php echo json_encode($this->getTabLabel()->_bySize) ?>,
+                "labelMobile": "By Size",
+                "icon": "fa-expand",
+                "actionFormat": "/tyresize/[width-tyres:value]_[profile-tyres:value]_[diameter-tyres:value]",
+                "hiddenFields": <?php echo json_encode($this->getForms()->search_tyres_size) ?>
+            }
+            <?php endif; ?>
+            <?php if($this->isLoggedIn()): ?>
+            ,{
+                "id": "saved-vehicles",
+                "label": <?php echo json_encode($this->getTabLabel()->_saveVehicles) ?>,
+                "labelMobile": "Select Vehicles",
+                "icon": "",
+                "actionFormat": "/searchresult/index/",
+                "hiddenFields": <?php echo json_encode($this->getForms()->saved_vehicles) ?>
+            }
+            <?php endif; ?>
+        ],
+        "options": {
+            "make-tyres": <?php echo json_encode($this->getMakeData()) ?>,
+            "year-tyres": <?php echo json_encode($this->getYearData()) ?>,
+            "model-tyres": [],
+            "series-tyres": [],
+            "width-tyres": [],
+            "profile-tyres": [],
+            "diameter-tyres": [],
+            "saved_vehicles": <?php echo json_encode($this->getSaveVehicle()) ?>
+        },
+        "values": <?php echo json_encode($this->getValues()) ?>
+    }
+</script>
+<selector
+    selector-title="Search <?php echo $this->getTitle()?>"
+    options-config-id="selector-options-config"
+    api-domain="<?php echo $this->getVehicleSearchUrl() ?>"
+    api-key="<?php echo $this->getVehicleSearchToken() ?>"
+    default-active-tab="<?php echo $this->getActiveTab() ?>"
+    browse-all-url="<?php echo $this->getBrowseLinkUrl() ?>"
+    clear-search-url="<?php echo $this->getClearLinkUrl() ?>"
+    browse-all-label="Browse all <?php echo $this->getTitle()?>"
+    clear-search-show="<?php echo $this->showClearLink() ?>">
+</selector>
+</div>

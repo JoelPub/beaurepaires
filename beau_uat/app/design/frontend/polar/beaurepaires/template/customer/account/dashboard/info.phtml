@@ -1,0 +1,84 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+
+
+<div class="row info-box">
+    <div class="columns medium-6">        
+        <div class="title">
+            <h5><?php echo $this->__('Account Details') ?></h5>
+            <a href="<?php echo $this->getUrl('account/details') ?>"><?php echo $this->__('Edit') ?></a>
+        </div>
+
+        <hr>
+
+        <ul class="no-bullet">
+            <li><?php echo $this->escapeHtml($this->getCustomer()->getName()) ?></li>
+            <li><?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?></li>
+            <li><a href="<?php echo $this->getChangePasswordUrl() ?>"><?php echo $this->__('Change Password') ?></a></li>
+        </ul>
+    </div>
+    <div class="columns medium-6">
+        <?php if( $this->isNewsletterEnabled() ): ?>
+        <div class="col-2">
+            
+            <div class="title">
+                <h5><?php echo $this->__('Newsletters') ?></h5>
+                <a href="<?php echo $this->getUrl('account/communications') ?>"><?php echo $this->__('Edit') ?></a>                    
+            </div>
+
+            <hr>
+
+            
+            <p>
+                <?php if( $this->getIsSubscribed() ): ?>
+                <?php
+                    $_subscribersGroupIds = $this->getSubscriptionObject()->getNewsletterGroupId();
+                    $_groupIds = explode( ',', $_subscribersGroupIds );
+                    $_groups       = $this->getSubscriptionObject()->getGroups();
+                ?>
+
+                <?php echo $this->__("You are currently subscribed to:") ?>
+                <ul>
+                <?php foreach ($_groups as $_group): ?>
+                    <?php if (in_array($_group->getId(), $_groupIds)):?>
+                    <li><?php echo Mage::helper('newslettergroup')->hidePrefixFromNewsletterName($_group->getGroupName()); ?></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                    <?php echo $this->__('You are currently not subscribed to any newsletter.') ?>
+                <?php endif; ?>
+            </p>
+            
+            <?php /* Extensions placeholder */ ?>
+            <?php echo $this->getChildHtml('customer.account.dashboard.info.extra')?>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+

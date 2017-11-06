@@ -1,0 +1,26 @@
+<div class="mini-cart-item">
+        <div class="row">
+           <?php $_items = $this->getRecentItems() ?>
+           <?php foreach($_items as $_item): ?>
+                <?php echo $this->getItemHtml($_item) ?>
+            <?php endforeach; ?>
+        </div>
+      </div>
+      <div class="row small-collapse">
+        <div class="columns small-12">
+          <div class="mini-cart-subtotal">
+            Cart Subtotal: <?php  echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="columns small-12">
+          <div class="mini-cart-checkout">
+              <a href="<?php echo $this->getUrl('checkout/cart'); ?>" class="button radius secondary">View Cart</a>
+              <!--
+			  <input type="button" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')" value="Checkout" class="button radius">
+			  -->
+          </div>
+        </div>
+      </div>
+   

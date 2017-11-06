@@ -1,0 +1,177 @@
+// Product Listing
+
+$price-label-color: #7F7F7F;
+$product-desc-color: #656565;
+
+
+.products-list {
+  @media #{$medium-up} {
+    margin-left: 57px;
+  }
+  .product-title {
+    margin-bottom: 0;
+    margin-top: 0;
+    @media #{$medium-up} {
+      margin-top: 10px;
+    }
+    a {
+      color: $slider-dot-color;
+      font-family: 'Swiss721BT-Bold';
+      font-size: $base-font-size + 10;
+      @media #{$small-only} {
+        font-size: $base-font-size + 2;
+      }
+    }
+  }
+  .product-image {
+    @media #{$medium-up} {
+      position: absolute;
+      left: -57px;
+      top:40px;
+    }
+  }
+}
+
+.comp-product-details {
+	margin: 0 0 0 22px;
+}
+
+.products-list{
+  .rrp{
+    color: $price-label-color;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .rrp-label{
+    display:block;
+    margin-bottom: 5px;
+  }
+
+  .rrp-amount{
+    color: $price-label-color;
+    display: block;
+    font-size: 16px;
+    text-decoration: line-through;
+    margin-bottom: 10px;
+  }
+
+  .online-price-label{
+    color: $price-label-color;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    @media #{$small-only} {
+      font-family: $font-family-sans-serif;
+    }
+  }
+
+  .online-price{
+    color: $slider-dot-color;
+    display: block;
+    font-size: 28px;
+    margin-bottom: 20px;
+    @media #{$small-only} {
+      font-size: 16px;
+      font-family: $font-family-sans-serif-bold;
+    }
+  }
+
+  .button{
+    margin-bottom: 10px;
+  }
+
+  .view-compare{
+    @media #{$small-only} {
+      display: none;
+    }
+    display: block;
+    text-decoration: underline;
+  }
+
+  .pricing-section{
+    padding-right: 20px;
+    text-align: right;
+    @media #{$small-only} {
+      text-align: left;
+      padding-left: 0;
+    }
+  }
+
+  .product-type{
+    color: $product-desc-color;
+  }
+
+  .star-rating{
+    margin: 10px 0 0;
+  }
+
+  .review-links{
+    @media #{$small-only} {
+      display: none;
+    }
+    a{
+      color: $tuatara;
+      &:last-child{
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .product-features {
+    @media #{$small-only} {
+      margin-bottom: 10px;
+    }
+
+    li{
+      margin: 20px 0 0;
+      @media #{$small-only} {
+        padding: 0;
+        margin: 10px 0 0;
+      }
+    }
+  }
+
+  sup,
+  sub{
+    font-size: 14px;
+  }
+}
+
+.product-media-section{
+  @media #{$small-only} {
+    padding-left: 0;
+    padding-right: 10px;
+  }
+  .product-badge{
+    @media #{$small-only} {
+      display: none;
+    }
+  }
+}
+
+.product-info-section{
+  padding-left:0;
+  .product-badge{
+    display: none;
+    @media #{$small-only} {
+      display: block;
+      margin-left: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.comp-product-list{
+  > div{
+    > .row{
+      @media #{$medium-up} {
+        background: $white-smoke; 
+        min-height: 278px;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,540 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php
+$_product = $this->getProduct();
+
+$overlay_text = $_product->getAttributeText('overlay');
+
+$gaClientId = Mage::getStoreConfig('tatvic_uaee/general/account_id');
+
+
+
+$badge_img = "";
+$badge_th_img = "";
+if (isset($overlay_text) && trim($overlay_text) != "") {
+  if ($overlay_text == 'Best Seller') {
+      $badge_class = "bestseller";
+    }
+  elseif ($overlay_text == 'New Arrival'){
+      $badge_class = "new";
+    }
+  elseif ($overlay_text == 'On Sale') {
+      $badge_class = "onsale";
+  }
+  $badge_img = "<div class=\"hide-for-small-only\"><div class=\"product-badge-block large {$badge_class}\">{$overlay_text}</div></div>";
+  $badge_th_img = "<div class=\"show-for-small-only\"><div class=\"product-badge-block large {$badge_class}\">{$overlay_text}</div></div>";
+}
+$cat_checker = $_product->getCategoryIds();
+?>
+
+<?php
+$prodsession = Mage::helper('apdinteract_catalog')->getProductSession();
+$selectedsize = Mage::helper('apdinteract_catalog')->getSizeOfSearchedProduct($prodsession['front'], $prodsession['rear']); // TODO: Make this faster
+?>
+
+<?php //echo $_GET['size'] ?>
+<div id="messages_product_view" data-product-metric-size="1" data-product-category="<?php echo $cat_checker[0]; ?>" data-product-size="<?php echo Mage::getSingleton('core/session')->getSizeF(); ?>"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+
+<?php echo $this->getBlockHtml('formkey') ?>
+<div class="no-display">
+    <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+    <input type="hidden" name="related_product" id="related-products-field" value="" />
+</div>
+<!-- Main -->
+<div class="row product-detail-page" data-selected-size="<?php echo $selectedsize; ?>" data-front-val="<?php echo Mage::getSingleton('core/session')->getSizeF(); ?>" data-rear-val="<?php echo Mage::getSingleton('core/session')->getSize1F(); ?>">
+    <!-- Left hand side column -->
+    <div class="large-4 medium-5 small-12 columns">
+        <?php if(isset($badge_img)) echo $badge_img; ?>
+        <?php if(isset($badge_th_img)) echo $badge_th_img; ?>
+        <!-- Image Gallery -->
+        <div class="main-photo-wrapper">
+            <!-- placeholder -->
+            <?php
+            $_img = '<img class="magnify-source expand" src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(620) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
+            echo $_helper->productAttribute($_product, $_img, 'image');
+            ?>
+        </div>
+
+        <!-- Product slider -->
+        <div class="row">
+            <div class="detail-product-slider">
+                <?php $media = new Mage_Catalog_Block_Product_View_Media; ?>
+                <?php if (count($media->getGalleryImages()) > 0): ?>
+                    <?php foreach ($media->getGalleryImages() as $_image): ?>
+                        <?php if ($media->isGalleryImageVisible($_image)): ?>
+                            <div class="medium-4 columns">
+                                <img class="item-to-append expand" src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize(620); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()); ?>" title="<?php echo $this->htmlEscape($_image->getLabel()); ?>" />
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php $video_id = '45229491'; // TODO replace with video_id from product ?>
+                <?php $video_id = $_product->getVimeoVideoId(); ?>
+                <?php if (!empty($video_id)): ?>
+                    <!-- Video thumbnail -->
+                    <?php
+                    $video_info = unserialize(file_get_contents("https://vimeo.com/api/v2/video/{$video_id}.php"));
+                    $video_thumb_url = $video_info[0]['thumbnail_small']; // thumbnail_small / thumbnail_medium / thumbnail_large
+                    $video_thumb_url = str_replace('http:', '', $video_thumb_url); // Convert to protocol agnostic URL. (ie if page is https, link will be https).
+                    ?>
+                    <div class="medium-4 columns">
+                        <div class="vimeo-thumb" data-reveal-id="videoModal">
+                            <img src="<?php echo $video_thumb_url; ?>" alt="Watch Video" />
+                        </div>
+                    </div>
+                <?php endif;?>
+
+            </div>
+        </div>
+        <!-- End product slider -->
+
+        <?php if (!empty($video_id)): ?>
+            <!-- video modal -->
+            <div id="videoModal" class="reveal-modal video large" data-reveal aria-labelledby="videoModalTitle" aria-hidden="true" role="dialog">
+                <div class="flex-video widescreen vimeo">
+                    <iframe src="//player.vimeo.com/video/<?php echo $video_id ?>" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+                <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+            </div>
+        <?php endif; ?>
+
+
+    </div>
+    <!-- Content -->
+    <div class="large-4 medium-7 small-12 columns">
+
+        <!-- Product Details -->
+        <div class="product-details">
+
+            <?php /* echo $badge_th_img */ ?>
+
+            <?php
+            $brand = $this->getSkinUrl('images/brands/' . strtolower($_product->getAttributeText('brand')) . '-logo.png');
+            // $url = getimagesize($brand);
+            // This stopped working with https, so...
+            if (true || is_array($url)) {
+                ?><!--
+                 <img src="<?php echo $brand; ?>" class="dealer-logo" alt="<?php echo $_product->getAttributeText('brand'); ?>"  />-->
+            <?php } ?>
+
+            <h1 class="product-title"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+
+            <?php /* <img src="<?php echo $this->getCategoryImageUrl() ?>" class="dealer-logo" >
+              <span class="product-title"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span>
+             */ ?>
+
+            <span class="product-type">
+                <?php echo $_product->getAttributeText('application'); ?>
+            </span>
+
+            <!-- ratings block -->
+            <div class="extra-info">
+                <?php echo Mage::helper('apdwidgets')->getProductRatingSummaryHtml($_product->getId(),$this->helper('core/url')->getCurrentUrl())?>
+                <?php echo $this->getChildHtml('product_type_availability'); ?>
+            </div>
+
+            <!-- <div class="addthis_sharing_toolbox product-social-share"></div> -->
+            <div class="addthis_native_toolbox product-social-share"></div>
+
+
+            <?php
+            if (!Mage::registry('current_category')) {
+                // Get the category from the product
+                $cats = $_product->getCategoryIds();
+                $current_category = Mage::getModel('catalog/category')->load($cats[0]);
+                $listingPage = '/' . $current_category->getName();
+                Mage::unregister('current_category');
+                Mage::register('current_category', $current_category);
+            }
+
+
+            if (Mage::registry('current_category')) {
+                // get the id, or by category name
+                $catId = Mage::registry('current_category')->getId();
+                $catName = strtolower(Mage::registry('current_category')->getName());
+                $listingPage = '/' . $catName;
+                $displayAttributes = true;
+                $wheelsFinish = "";
+                if ($catName == "wheels" || $catId == 42) {
+                    $displayAttributes = false;
+                    $wheelsFinish = "<p><strong>Finish:</strong> " . $_product->getFinish() . "</p>";
+                }
+            }
+            ?>
+            <?php if ($displayAttributes) : ?>
+                <div class="row">
+                    <div class="columns">
+                        <?php echo $this->getChildHtml('tyresAttributes') ?>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div class="row">
+                    <div class="columns">
+                        <?php echo $wheelsFinish; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="product-text-description">
+                <?php echo $this->getChildHtml('shortDescription') ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="large-4 medium-7 small-12 columns">
+        <!-- Cart Component -->
+
+
+            <div class="cart-component ga-source cart-type-<?php echo $_product->getTypeId(); ?>" data-ga-client-id="<?php echo $gaClientId;?>" data-sp-url="<?php echo $this->getBaseUrl() ?>productdetails/index/optiondetails/">
+                <div>
+
+                    <div>
+
+                        <div class="cart-wrapper">
+
+                            <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+
+                            <!-- upper cart -->
+                          
+
+                            <?php if ($_product->getTypeId() == 'configurable'): ?>
+                                <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                                <?php endif; ?>
+                            <?php elseif ($_product->getTypeId() == 'simple') : ?>
+
+                                <div class="upper-cart"><!-- star upper cart (ends in price_clone) -->
+                                    <div class="row">
+                                        <?php echo $this->getChildChildHtml('container3') ?>
+
+
+                                    <?php endif; ?>
+
+                                    <?php echo $this->getChildHtml('custom_options') ?>
+
+
+                                    <div class="cart-total" style='display:none;'>
+                                        <div class="row">
+                                            <div class="columns small-6 text-right">
+                                                <span class="price-total-label">Total:</span>
+                                            </div>
+                                            <div class="columns small-6">
+                                                <span class="price-total-value format-price">$0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="columns small-6">
+
+                                            </div>
+                                            <div class="columns small-6">
+                                                <span class="gst-note">Prices inc GST</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="cart-footer">
+                                    <?php echo $this->getChildHtml('apd.compatibility') ?>
+                                    <div>
+                                        <div>
+                                            <ul class="inline-list">
+                                                <li>
+                                                    <input type="button" class="button radius product-modal-open" data-reveal-id="bookFittingModal" value="Book A Fitting" disabled>
+                                                </li>
+                                                <?php if ($overlay_text != 'On Sale' || $_product->getFinalPrice() <= 0) : ?>
+                                                    <li>
+                                                        <input type="button" class="button quaternary radius product-modal-open" data-reveal-id="requestPriceModal" value="Request Price" disabled>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <!--
+                                                <li><input type="submit" title="<?php echo $this->__('Add to Cart') ?>" id="product-addtocart-button" class="button btn-cart" value="<?php echo $this->__('Add to Cart') ?>" disabled></li>
+                                                -->
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                                <?php echo $this->getChildHtml('addthis_sharetool') ?>
+
+
+							</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- start : Book a fitting modal -->
+                <div id="bookFittingModal" class="reveal-modal request-price-modal product-form-modal" data-page-view-open="/product/book-fitting/open" data-page-view-submitted="/product/book-fitting/submitted" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                    <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+                    <div class="popup-form">
+
+                        <h2 id="modalTitle" class="modalTitle"><?php echo $this->__('Save Time. Book Online.') ?></h2>
+
+                        <p>
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('book-an-appoinment-modal')->toHtml(); ?>
+                        </p>
+
+                        <form action="/requestprice/index/" method="post" data-abide="ajax">
+
+                            <div class="field">
+                                <label for="booking-store">Select store to fit your items</label>
+                                <input type="text" placeholder="Enter suburb or postcode" name="store" id="booking-store" title="Enter suburb or postcode" class="store-finder render-finder" value="" />
+                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required pattern="number">
+                                <small class="error">You must select a store.</small>
+                            </div>
+                            <div class="field">
+                                <label for="booking-data">Choose a date to fit your items</label>
+                                <input type="text" placeholder="Choose a date" name="data" id="booking-data" title="Choose a date" class="fit-date" data-min-date="<?php echo Mage::helper('apdinteract_requestprice')->getMinimumDate($listingPage); ?>" value="" required pattern="^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$" />
+                                <small class="error">You must select a date.</small>
+                            </div>
+
+                            <hr>
+
+                            <div class="field">
+                                <input type="text" placeholder="First Name" name="fname" title="First Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('fname'); ?>" required pattern="[a-zA-Z]+" />
+                                <small class="error">First name is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="text" placeholder="Last Name" name="lname" title="Last Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('lname'); ?>" required pattern="[a-zA-Z]+" />
+                                <small class="error">Last name is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="email" placeholder="Email" name="email" title="Email" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('email'); ?>" required />
+                                <small class="error">Email is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="tel" placeholder="Phone number" name="phone" title="Phone number" class="input-text required-entry" value="" required pattern="^[0-9]+$" />
+                                <small class="error">Please use numbers only in this field.  Please avoid spaces or other characters such as dots or commas.</small>
+                            </div>
+                            <div class="field checkbox-field">
+                                <input type="checkbox" name="subcribe" id="subcribe-book" value="true"><label for="subcribe-book">Please subscribe me to the Beaurepaires newsletter. <a href="/terms-of-use-disclaimer" target="_blank">Terms &amp; Conditions</a></label>
+                            </div>
+                            <div class="field">
+                                <input type="hidden" id="selectedProductId-book" name="requestedProductId" value="<?php echo $_product->getId() ?>">
+                                <input type="hidden" id="selectedSizeValue-book" name="requestedSize"  value="">
+                                <input type="hidden" id="selectedQuantity-book" name="requestedQuantity"  value="1">
+                                <input type="hidden" id="configurableAttributeId-book" name="configurableAttributeId" value="">
+                                <input type="hidden" id="configurableAttributeValueId-book" name="configurableAttributeValueId" value="">
+                                <input type="hidden" id="configurableAttributeIdRear" name="configurableAttributeIdRear" value="<?php echo $this->getAttributeId()?>">
+                        <input type="hidden" id="configurableAttributeValueId-book-rear" name="configurableAttributeValueIdRear" value="">
+                                <input type="hidden" name="productId" value="<?php echo $_product->getId() ?>">
+                                <input type="submit" class="button radius submit-form" value="Request booking">
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="popup-loading">
+                        <i class="fa fa-refresh fa-spin fa-2x"></i>
+                        <p>Processing request...</p>
+                    </div>
+                    <div class="popup-result">
+                        <span class="logo" title="Beaurepaires Logo"></span>
+
+                        <h2>Thank you for booking with us</h2>
+                        <p>
+                            One of our customer service representatives will be in touch with you shortly to confirm your booking.
+                        </p>
+                        <p>
+                            Regards,<br>
+                            The Beaurepaires Team
+                        </p>
+                        <ul class="inline-list">
+                            <li><a href="<?php echo $listingPage ?>" class="button radius">Continue Browsing</a></li>
+                            <li><a href="#" class="button radius close-modal-button">Close</a></li>
+                        </ul>
+                        <span class="analytics"></span>
+                    </div>
+                    <div class="popup-error">
+                        <h2>There was a error proccessing your request</h2>
+                        <p>
+                            Message: <span class="error-msg"></span>
+                        </p>
+                    </div>
+                </div>
+                <!-- end : Book a fitting modal -->
+
+                <!-- start : Request Price modal -->
+                <div id="requestPriceModal" class="reveal-modal request-price-modal product-form-modal" data-page-view-open="/product/request-price/open" data-page-view-submitted="/product/request-price/submitted" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                    <a class="close-reveal-modal" aria-label="Close"><i class="fa fa-times"></i></a>
+
+                    <div class="popup-form">
+
+                        <h2 id="modalTitle" class="modalTitle"><?php echo $this->__('Get a Tailored Quote.') ?></h2>
+
+                        <p>
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('request-price-modal')->toHtml(); ?>
+                        </p>
+
+                        <form action="/requestprice/index/" method="post" data-abide="ajax">
+                            <div class="field">
+                                <input type="text" placeholder="First Name" name="fname" title="First Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('fname'); ?>" required pattern="[a-zA-Z]+" />
+                                <small class="error">First name is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="text" placeholder="Last Name" name="lname" title="Last Name" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('lname'); ?>" required pattern="[a-zA-Z]+" />
+                                <small class="error">Last name is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="email" placeholder="Email" name="email" title="Email" class="input-text required-entry" value="<?php echo Mage::helper('apdinteract_requestprice')->getCustomerDetails('email'); ?>" required />
+                                <small class="error">Email is required.</small>
+                            </div>
+                            <div class="field">
+                                <input type="tel" placeholder="Phone number" name="phone" title="Phone number" class="input-text required-entry" value="" required pattern="^[0-9]+$" />
+                                <small class="error">Please use numbers only in this field.  Please avoid spaces or other characters such as dots or commas.</small>
+                            </div>
+                            <?php /* state no longer in use
+                              <div class="field">
+                              <select name="state" required>
+                              <option value="">Please select a state</option>
+                              <option value="ACT">Australian Capital Territory</option>
+                              <option value="NSW">New South Wales</option>
+                              <option value="NT">Northern Territory</option>
+                              <option value="Qld">Queensland</option>
+                              <option value="SA">South Australia</option>
+                              <option value="Tas">Tasmania</option>
+                              <option value="Vic">Victoria</option>
+                              <option value="WA">Western Australia</option>
+                              </select>
+                              <small class="error">Please select a state.</small>
+                              </div>
+                             */ ?>
+                            <?php /* state no longer in use
+                              <div class="field">
+                              <select name="state" required>
+                              <option value="">Please select a state</option>
+                              <option value="ACT">Australian Capital Territory</option>
+                              <option value="NSW">New South Wales</option>
+                              <option value="NT">Northern Territory</option>
+                              <option value="Qld">Queensland</option>
+                              <option value="SA">South Australia</option>
+                              <option value="Tas">Tasmania</option>
+                              <option value="Vic">Victoria</option>
+                              <option value="WA">Western Australia</option>
+                              </select>
+                              <small class="error">Please select a state.</small>
+                              </div>
+                             */ ?>
+                            <div class="field">
+                                <label for="price-store">Enter suburb/postcode for your nearest store</label>
+                                <input type="text" placeholder="Enter suburb or postcode" name="store" id="price-store" title="Enter suburb or postcode" class="store-finder render-finder" value="" />
+                                <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+                                <input type="text" name="cartaddress-id" class="store-finder-id hidden-input" required pattern="number">
+                                <small class="error">You must select a store.</small>
+                            </div>
+                            <div class="field checkbox-field">
+                                <input type="checkbox" name="subcribe" id="subcribe-price" value="true"><label for="subcribe-price">Please subscribe me to the Beaurepaires newsletter. <a href="/terms-of-use-disclaimer" target="_blank">Terms &amp; Conditions</a></label>
+                            </div>
+                            <div class="field end-field">
+                                <input type="hidden" id="selectedProductId" name="requestedProductId" value="<?php echo $_product->getId() ?>">
+                                <input type="hidden" id="selectedSizeValue" name="requestedSize"  value="">
+                                <input type="hidden" id="selectedQuantity" name="requestedQuantity"  value="1">
+                                <input type="hidden" id="configurableAttributeId" name="configurableAttributeId" value="">
+                                <input type="hidden" id="configurableAttributeValueId" name="configurableAttributeValueId" value="">
+                                <input type="hidden" id="configurableAttributeIdRear" name="configurableAttributeIdRear" value="<?php echo $this->getAttributeId()?>">
+                                <input type="hidden" id="configurableAttributeValueIdRear" name="configurableAttributeValueIdRear" value="">
+                                <input type="hidden" name="productId" value="<?php echo $_product->getId() ?>">
+                                <input type="submit" class="button radius submit-form" value="Request Price">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="popup-loading">
+                        <i class="fa fa-refresh fa-spin fa-2x"></i>
+                        <p>Processing request...</p>
+                    </div>
+                    <div class="popup-result">
+                        <span class="logo" title="Beaurepaires Logo"></span>
+
+                        <h2>Thank you for your request</h2>
+                        <p>
+                            One of our customer service representatives will be in touch with you shortly.
+                        </p>
+                        <p>
+                            Regards,<br>
+                            The Beaurepaires Team
+                        </p>
+                        <ul class="inline-list">
+                            <li><a href="<?php echo $listingPage ?>" class="button radius">Continue Browsing</a></li>
+                            <li><a href="#" class="button radius close-modal-button">Close</a></li>
+                        </ul>
+                        <span class="analytics"></span>
+                    </div>
+                    <div class="popup-error">
+                        <h2>There was a error processing your request</h2>
+                        <p>
+                            <strong>Message:</strong> <span class="error-msg"></span>
+                        </p>
+                    </div>
+                </div>
+                <!-- end : Request Price modal -->
+
+
+
+                <!-- Related Products -->
+                <?php echo $this->getChildHtml('related_products') ?>
+                <?php //echo $this->getChildHtml('recent.items')?>
+        </form>
+
+    </div>
+
+    <div class="row">
+        <!-- Specifications -->
+        <div class="medium-7 large-8 small-12 medium-push-5 large-push-4 columns">
+            <?php echo $this->getChildHtml('specifications') ?>
+            <?php echo $this->getChildHtml('description') ?>
+        </div>
+        <!-- Customer Reviews -->
+        <div class="medium-5 large-4 small-12 medium-pull-7 large-pull-8 columns">
+            <?php echo $this->getChildHtml('product_review') ?>
+        </div>
+    </div>
+
+    <!-- Customer also viewed -->
+    <?php echo $this->getChildHtml('customer_also_view') ?>
+
+
+	<script>
+        //var optionsPrice = new Product.OptionsPrice(<?php //echo $this->getPriceJsonConfigLite(); // $this->getJsonConfig() // TODO: Make this faster   ?>);
+	</script>
+    <script src="<?php echo $brand = $this->getSkinUrl('js/pages/product-view.js'); ?>"></script>

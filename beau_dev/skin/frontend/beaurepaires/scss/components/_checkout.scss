@@ -1,0 +1,248 @@
+// Checkout
+
+// Variables
+$stratos-grey-color: #7f7f7f;
+
+// Mixins
+
+@mixin heights($height){
+	height: $height;
+	line-height: $height;
+}
+
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin tabbed-radius($radius){
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-left-radius: $radius;
+	border-top-right-radius: $radius;
+}
+
+@mixin inverted-tabbed-radius($radius){
+	-webkit-border-bottom-left-radius: $radius;
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+	-moz-border-radius-bottomright: $radius;
+	border-bottom-left-radius: $radius;
+	border-bottom-right-radius: $radius;
+}
+
+
+// Styles
+
+// Checkout Method
+
+.checkout {
+	margin: 0 10px;
+	
+	.form-wrapper {
+		background: $smoke;
+		padding: 0;
+		margin: 0 0 15px;
+		  	.accordion {
+			margin: 0 0 14px;
+			line-height: 14px;
+		    .content {
+		      clear: both;
+		      padding: 15px 0;
+		      select,
+		      input[type="text"] {
+		      	display: inline-block;
+		      	width: 87%;
+		      }
+		      .form-field {
+		      	&:last-child {
+		      		input[type="text"] {
+		      			margin-bottom: 0;
+		      		}
+		      	}
+		      }
+		    }
+		  }
+		.create-account {
+			margin: 0 0 14px;
+	  	}
+		&.invert {
+	      background-color: $white;
+	    }
+		.step {
+			background: $white;
+			color: $tuatara;
+			border: 1px solid $iron;
+			padding: 20px 0 35px;
+			@include inverted-tabbed-radius(4px);
+			h4 {
+				color: $tuatara;
+				font-family: "Swiss721BT-Bold", Helvetica, Arial, sans-serif;
+				font-size: $base-font-size + 2;
+				margin: 0;
+			}
+			p {
+				margin: 0;
+			}
+		}
+
+		form {
+			.extra-info-field {
+				padding: 0 0.57143rem 0 0;
+				.has-tip {
+					margin: 0 0 0 7px;
+				}
+			}
+		}
+	}
+	.messages {
+		margin: 0;
+		.error-msg {
+			color: $alert-color;
+			ul {
+				margin: 0;
+				span {
+					font-size: $base-font-size - 2;
+					font-style: italic;
+				}
+			}
+		}
+		 ul {
+		 	
+		 }
+	}
+	
+	.section {
+		.step-title {
+			background: $white-smoke;
+			border: 1px solid $iron;
+			padding: 0 16px;
+			@include border-radius(4px);
+			h2 {
+				@include heights(59px);
+				color: $tuatara;
+				font-family: "Swiss721BT-Bold", Helvetica, Arial, sans-serif;
+				font-size: 18px;
+				margin: 0;
+			}
+		}
+		&.active {
+			.step-title {
+				background: $aqua-blue-color;
+				border: 0;
+				padding: 0 16px;
+				@include border-radius(0px);
+				@include tabbed-radius(4px);
+				h2 {
+					@include heights(55px);
+					color: $white;
+					font-size: 18px;
+					margin: 0;
+				}
+			}
+		}
+	}
+	.checkout-guest {
+		margin: 10px 0 0;
+	}
+
+	.returning-customer {
+		border-left: 0;
+		padding: 15px 0 0;
+		label[for="email-address"] {
+			margin: 7px 0 0;
+		}
+		 
+	}
+	.guest {
+		border-bottom: 1px solid $silver;
+	}
+	
+	button {
+		padding: 0;
+	}
+
+	.form-field {
+		label {
+			font-size: $base-font-size - 2;
+			color: $tuatara;
+		}
+		label[for="checkoutGuest"] {
+			font-size: $base-font-size;
+			margin: 0;
+		}
+		input, 
+		select {
+			margin: 5px 0 14px;
+		}
+	}
+}
+
+// Payment Method
+
+.sp-methods {
+	margin: 0;
+}
+
+.payment-method {
+	.form-wrapper {
+		background:none;
+		margin: 0;
+	}
+}
+
+// Responsive Mobile
+
+@media only screen and (min-width: 64.063em) { 
+	.checkout {
+		margin: 0;
+		.returning-customer {
+			border-left: 1px solid $silver;
+			padding: 0 1.07143rem;
+		}
+		.form-wrapper {
+			.accordion {
+				.content {
+					select,
+		      		input[type="text"] {
+		      			width: 96.5%;
+		      		}
+				}
+			}
+		}
+		.guest {
+			border: none;
+		}
+	}
+	button {
+	 	margin: 0;
+	 }
+}
+
+.required {
+	&.right {
+		color: $stratos-grey-color;
+		font-size: $base-font-size - 2;
+	}
+}
+
+// Register
+
+.register {
+	margin: 0 10px;
+	.page-title {
+		font-size: 28px;
+	}
+}
+
+@media only screen and (min-width: 64.063em) { 
+	.register {
+		margin: 0;
+		.page-title {
+			font-size: 34px;
+		}
+	}
+}

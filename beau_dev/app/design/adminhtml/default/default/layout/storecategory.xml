@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">  
+  <storecategory_adminhtml_storecategory_index>
+	<reference name="content">
+	  <block type="storecategory/adminhtml_storecategory" name="storecategory" />
+	</reference>
+  </storecategory_adminhtml_storecategory_index>
+</layout>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Customreindex>
+      <version>0.1.0</version>
+    </ApdInteract_Customreindex>
+  </modules>
+  <global>
+    <helpers>
+      <customreindex>
+	  
+        <class>ApdInteract_Customreindex_Helper</class>
+      </customreindex>
+    </helpers>
+	<models>
+	  <customreindex>
+		<class>ApdInteract_Customreindex_Model</class>
+		<resourceModel>customreindex_mysql4</resourceModel>
+	  </customreindex>
+	</models>
+
+        <events>
+          <end_process_event_catalog_product_import_save>
+              <observers>
+                  <catalog_product_import_after_handler>
+                      <type>model</type> 
+                      <class>customreindex/observer</class>
+                      <method>runindexer</method>
+                  </catalog_product_import_after_handler>
+              </observers>
+          </end_process_event_catalog_product_import_save>
+          <catalog_product_import_finish_before>
+              <observers>
+                  <apdinteract_catalog_product_import_finish_before>
+                      <type>model</type> 
+                      <class>customreindex/observer</class>
+                      <method>executeIndexer</method>
+                  </apdinteract_catalog_product_import_finish_before>
+              </observers>
+          </catalog_product_import_finish_before>
+       </events>
+    
+  </global>
+</config> 

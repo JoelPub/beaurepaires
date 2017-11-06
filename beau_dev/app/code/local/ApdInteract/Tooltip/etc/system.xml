@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <tooltip translate="label" module="apdinteract_tooltip">
+            <label>Tooltips</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <tooltipsetting translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <wheel_alignment translate="label">
+                            <label>Wheel Alignment</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wheel_alignment>
+                        <suspension translate="label">
+                            <label>Road Hazard</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </suspension>
+                        <size translate="label">
+                            <label>Size</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </size>
+                        <fitting translate="label">
+                            <label>Battery Fitting</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fitting>
+                    </fields>
+                </tooltipsetting>
+            </groups>
+            <groups>
+                <tyrewheel translate="label">
+                    <label>Tyre/ Wheel Driving Style</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <apdinteract_durability_tw translate="label">
+                            <label>Durability</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_durability_tw>
+                        <apdinteract_even_wear_tw translate="label">
+                            <label>Even Wear</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_even_wear_tw>
+                        <apdinteract_even_ware_tw translate="label">
+                            <label>Even Ware</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_even_ware_tw>
+                        <apdinteract_fuel_saver_tw translate="label">
+                            <label>Fuel Saver</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_fuel_saver_tw>
+                        <apdinteract_superior_braking_grip_tw translate="label">
+                            <label>Superior Braking Grip</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_superior_braking_grip_tw>
+                        <apdinteract_handling_tw translate="label">
+                            <label>Handling</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_handling_tw>
+                        <apdinteract_mileage_tw translate="label">
+                            <label>Mileage</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_mileage_tw>
+                        <apdinteract_quiet_comfort_tw translate="label">
+                            <label>Quiet Comfort</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_quiet_comfort_tw>
+                        <apdinteract_fuel_economy_tw translate="label">
+                            <label>Fuel Economy</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_fuel_economy_tw>
+                        <apdinteract_grip_performance_tw translate="label">
+                            <label>Grip Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_grip_performance_tw>
+                        <apdinteract_handling_performance_tw translate="label">
+                            <label>Handling Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_handling_performance_tw>
+                        <apdinteract_sports_performance_handling_tw translate="label">
+                            <label>Sports Performance &amp; Handling</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_sports_performance_handling_tw>
+                        <apdinteract_off_road_performance_tw translate="label">
+                            <label>Off Road Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_off_road_performance_tw>
+                        <apdinteract_wet_performance_tw translate="label">
+                            <label>Wet Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_wet_performance_tw>
+                        <apdinteract_low_noise_tw translate="label">
+                            <label>Low Noise</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_low_noise_tw>
+                        <apdinteract_comfort_performance_tw translate="label">
+                            <label>Comfort Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_comfort_performance_tw>
+                        <apdinteract_sports_performance_tw translate="label">
+                            <label>Sports Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_sports_performance_tw>
+                        <apdinteract_braking_performance_tw translate="label">
+                            <label>Braking Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_braking_performance_tw>
+                        <apdinteract_value_tw translate="label">
+                            <label>Value</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_value_tw>
+                        <apdinteract_dry_performance_tw translate="label">
+                            <label>Dry Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_dry_performance_tw>
+                        <apdinteract_wet_dry_performance_tw translate="label">
+                            <label>Wet Dry Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_wet_dry_performance_tw>
+                        <apdinteract_all_terrain_tw translate="label">
+                            <label>All Terrain</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_all_terrain_tw>
+                        <apdinteract_winter_tw translate="label">
+                            <label>Winter</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_winter_tw>
+                        <apdinteract_superior_comfort_tw translate="label">
+                            <label>Superior Comfort</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+
+
+                        </apdinteract_superior_comfort_tw>
+                        <apdinteract_grip_tw translate="label">
+                            <label>Grip</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_grip_tw>
+                        <apdinteract_outstanding_braking_tw translate="label">
+                            <label>Outstanding Braking</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_outstanding_braking_tw>
+                        <apdinteract_original_equipment_tw translate="label">
+                            <label>Original Equipment</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_original_equipment_tw>
+                        <apdinteract_superior_grip_tw translate="label">
+                            <label>Superior Grip</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_superior_grip_tw>
+                        <apdinteract_excellent_handling_tw translate="label">
+                            <label>Excellent Handling</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_excellent_handling_tw>
+                        <apdinteract_run_on_flat_tw translate="label">
+                            <label>Run On Flat</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_run_on_flat_tw>
+                        <apdinteract_traction_tw translate="label">
+                            <label>Traction</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_traction_tw>
+                        <apdinteract_cornering_performance_tw translate="label">
+                            <label>Cornering Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_cornering_performance_tw>
+                        <apdinteract_road_hazard_resistant_tw translate="label">
+                            <label>Road Hazard Resistant</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_road_hazard_resistant_tw>
+                        <apdinteract_off_road_tw translate="label">
+                            <label>Off Road</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_off_road_tw>
+                        <apdinteract_slow_wear_tw translate="label">
+                            <label>Slow Wear</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_slow_wear_tw>
+                    </fields>
+                </tyrewheel>
+            </groups>
+            <groups>
+                <batteries translate="label">
+                    <label>Battery Features</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <apdinteract_cycling_battery_b translate="label">
+                            <label>Cycling</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_cycling_battery_b>
+                        <apdinteract_durability_battery_b translate="label">
+                            <label>Durability</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_durability_battery_b>
+                        <apdinteract_value_battery_b translate="label">
+                            <label>Value</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_value_battery_b>
+                        <apdinteract_mileage_battery_b translate="label">
+                            <label>Mileage</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_mileage_battery_b>
+                        <apdinteract_performance_battery_b translate="label">
+                            <label>Performance</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </apdinteract_performance_battery_b>
+                    </fields>
+                </batteries>
+            </groups>
+            <groups>
+                <stock_levels translate="label">
+                    <label>Stock Levels</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+
+                        <out_of_stock translate="label">
+                            <label>Out of Stock</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </out_of_stock>
+                        <x_days_to_arrive translate="label">
+                            <label>1-3 and 3-5 days to arrive</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </x_days_to_arrive>
+                        <not_available translate="label">
+                            <label>Exclude from Shopping Cart Error</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </not_available>
+                    </fields>
+                </stock_levels>
+            </groups>
+            <groups>
+                <pdp_modal_text translate="label">
+                    <label>Product Details Page -  Modal Text</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <tyres translate="label">
+                            <label>Tyres</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tyres>
+                        <wheels translate="label">
+                            <label>Wheels</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wheels>
+                    </fields>
+                </pdp_modal_text>
+            </groups>
+        </tooltip>
+    </sections>
+</config>

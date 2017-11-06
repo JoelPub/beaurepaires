@@ -1,0 +1,42 @@
+// Recently Viewed Component
+
+.recently-viewed{
+	
+	&.widget-viewed {
+		border-top: 1px solid $primary-gray-border;
+		margin-top: 10px;
+		padding-top: 20px;
+	}
+	
+  .products-list{
+    border-bottom: 0;
+    margin: 20px 0;
+    padding: 0;
+
+    li{
+      margin: 7px 0;
+	  padding: 0;
+
+      .row{
+		max-width: 350px;
+		
+        .columns{
+          &:last-child{
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .product-name{
+    font-size: $base-font;
+
+    a{
+      color: $tuatara;
+      &:hover{
+        color: $handchor-color;
+      }
+    }
+  }
+}

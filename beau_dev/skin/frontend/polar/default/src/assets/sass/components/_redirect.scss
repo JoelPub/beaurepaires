@@ -1,0 +1,51 @@
+
+.redirect-panel {
+  $width: 420px;
+  $height: 100px;
+
+  font-size: 18px;
+  height: $height;
+  left: 50%;
+  margin-left: -($width / 2);
+  margin-top: -($height / 2);
+  position: absolute;
+  top: 50%;
+  width: $width;
+
+  .loading-icon {
+    color: $secondary-color;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .main {
+    $padding-left: 50px;
+
+    position: relative;
+
+    .lock-icon {
+      font-size: 36px;
+      position: absolute;
+      top: 2px;
+    }
+
+    .message {
+      padding-left: $padding-left;
+    }
+
+    .form {
+      padding-left: $padding-left;
+      padding-top: 4px;
+
+      input {
+        display: none;
+      }
+
+      label {
+          color: $primary-color;
+          font-size: 14px;
+      }
+    }
+
+  }
+}

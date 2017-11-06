@@ -1,0 +1,22 @@
+//Variable
+$smoke: #ccc;
+$sky: #9EDCEF;
+
+//Accordion
+table, .specification-table{
+  border-collapse: collapse;
+  tbody{
+    tr{
+      border-bottom: 1px solid $smoke;
+      td{
+        font-size: $base-font;
+        &:first-child{
+          //background: rgba($sky,0.2);
+          @media #{$small-only} {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}

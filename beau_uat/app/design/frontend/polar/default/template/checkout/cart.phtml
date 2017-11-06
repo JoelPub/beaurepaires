@@ -1,0 +1,457 @@
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+date_default_timezone_set('Australia/Melbourne');
+$session = Mage::getSingleton('checkout/session');
+$quote = $session->getQuote(); // Mage::getModel('checkout/cart')->getQuote();
+
+$hastyres = 0;
+$haswheels = 0;
+
+foreach ($quote->getAllItems() as $item) {
+    $productID = $item->_data["product_id"];
+    $product = Mage::getModel('catalog/product')->load($productID);
+    $categoryIds = $product->getCategoryIds();
+    if (count($categoryIds)) {
+        $firstCategoryId = $categoryIds[0];
+        $_category = Mage::getModel('catalog/category')->load($firstCategoryId);
+        $catname = $_category->getName();
+        if ($firstCategoryId == 41) {
+            $hastyres = 1;
+        }
+        if ($firstCategoryId == 42) {
+            $haswheels = 1;
+        }
+    }
+}
+$realdaystoAdd = 6;
+if ($hastyres == 1) {
+    $realdaystoAdd = 4;
+}
+
+if ($haswheels == 1) {
+
+    $realdaystoAdd = 6;
+}
+
+$counter = 0;
+$realCounter = 1;
+
+/* Iterate from $start up to $end+1 day, one day in each iteration.
+  We add one day to the $end date, because the DatePeriod only iterates up to,
+  not including, the end date.
+
+  foreach(new DatePeriod($start, $oneday, $end->add($oneday)) as $day) {
+  $day_num = $day->format("N");
+  $realCounter += 1;
+  if($day_num < 6) {
+  if ($counter < $daystoAdd)
+  {
+  $counter += 1;
+  }
+  if ($counter == $daystoAdd)
+  {
+  $realdaystoAdd = $realCounter;
+  break;
+  }
+  }
+  }
+ */
+?>
+<div class="row">
+    <div class="all-items-in-cart">
+        <div class="columns small-12 page-title title-buttons" >
+            <h1 class="page-title"><?php echo $this->__('Select store and preferred date') ?> <?php //echo $this->getChildHtml('right_link');  ?></h1>
+        </div>
+        <div class="cart medium-8 small-12 columns">
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getChildHtml('form_before') ?>
+
+            <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+<?php echo $this->getBlockHtml('formkey'); ?>
+                <table class="cart-items">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <!-- Hide Price and Subtotal header 7/23/15 -->
+                            <!-- <th>Price</th>  -->
+                            <th>Qty</th>
+                            <!-- <th class="hide-for-small-only">Subtotal</th> -->
+                            <th class="hide-for-small-only">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!--<ul class="cart-list" id="shopping-cart-table">-->
+
+<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+<?php foreach ($this->getItems() as $_item): ?>
+<!--                            <li class="checkout_ul">-->
+    <?php echo $this->getItemHtml($_item) ?>
+    <?php $helper = Mage::helper('apdinteract_catalog'); ?>
+                            <?php $options = $helper->getCustomOptions($_item); ?>
+                            <?php foreach ($options as $_option): ?>
+                                <?php $unformattedPrice = $_option['price']; ?>
+                                    <?php $formattedPrice = Mage::helper('checkout')->formatPrice($_option['price']); ?>
+
+                                <tr class="add-ons">
+                                    <td class="label-padding"><?php echo $_option['label'] ?></td>
+                                    <!-- Hide Pricing for custom options 7/23/15 -->
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <!-- Hide Pricing for custom options 7/23/15 -->
+                                    <!-- <td><span class="cart-price"><span class="price"><?php echo $formattedPrice ?></span></span></td>  -->
+                                    <!-- <td>
+        <!--                                <input type="text" name="cart[3028][qty]" value="6" title="Qty" class="input-text qty" maxlength="12">
+                                        <a href="http://beaurepaires.local/checkout/cart/configure/id/3028/" title="Edit item parameters" class="link-edit">Update</a>
+                                    </td> -->
+                                    <!-- <td class="hide-for-small-only">
+                                        <span class="cart-price">
+
+                                            <span class="price"><?php echo $formattedPrice ?></span>
+                                        </span>
+                                    </td>  -->
+                                    <!-- ><td class="hide-for-small-only">
+                                        <!--<a href="http://beaurepaires.local/checkout/cart/delete/id/3028/uenc/aHR0cDovL2JlYXVyZXBhaXJlcy5sb2NhbC9jaGVja291dC9jYXJ0Lw,,/" title="Remove item" class="btn-remove btn-remove2"><i class="right fa fa-fw fa-lg fa-times-circle"></i></a>
+                                    </td>  -->
+                                </tr>
+
+        <?php
+        $sub = $quote->getSubtotal();
+        $tot = $quote->getGrandTotal();
+        $quote->setSubtotal($sub + $unformattedPrice); // Mage::getModel('checkout/cart')->getQuote()->getGrandTotal()
+        $quote->setGrandTotal($tot + $unformattedPrice);
+        ?>
+                            <?php endforeach ?>
+<!--                            </li>-->
+                        <?php endforeach ?>
+                      </tbody>
+                </table>
+<!--                <li class="cart-footer checkout_ul">-->
+                    <div class ="row cart-links">
+                        <div class="columns small-12 medium-3">
+                            <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Clear Shopping Cart'); ?>" class="button btn-empty link-btn" id="empty_cart_button"><?php echo $this->__('Remove all items'); ?></button>
+
+
+                        </div>
+                        <div class="columns small-12 medium-9">
+                            <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update your bookings'); ?>" class="button btn-update link-btn"><?php echo $this->__('Update your bookings'); ?></button> <?php if ($this->getContinueShoppingUrl()): ?>
+                                or <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>" title="<?php echo $this->__('Continue Shopping') ?>" class="btn-continue"><?php echo $this->__('Continue Shopping') ?></a>
+<?php endif; ?>
+                        </div>
+
+                    </div>
+                    <!--[if lt IE 8]>
+                    <input type="hidden" id="update_cart_action_container" />
+                    <script type="text/javascript">
+                    //<![CDATA[
+                        Event.observe(window, 'load', function()
+                        {
+                            // Internet Explorer (lt 8) does not support value attribute in button elements
+                            $emptyCartButton = $('empty_cart_button');
+                            $cartActionContainer = $('update_cart_action_container');
+                            if ($emptyCartButton && $cartActionContainer) {
+                                Event.observe($emptyCartButton, 'click', function()
+                                {
+                                    $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
+                                    $cartActionContainer.setAttribute('name', 'update_cart_action');
+                                    $cartActionContainer.setValue('empty_cart');
+                                });
+                            }
+
+                        });
+                    //]]>
+                    </script>
+                    <![endif]-->
+<!--
+                </li>
+
+                </ul>
+-->
+
+                <div class="row">
+                    <div class="columns small-12">
+<?php
+echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart_promotional_block')->toHtml();
+?>
+                    </div>
+                </div>
+            </form>
+            <!-- commented out since it is re-modified, see below
+            <div class="cart-collaterals">
+                <div class="totals">
+<?php // echo $this->getChildHtml('totals');  ?>
+<?php //if(!$this->hasError()):  ?>
+                    <ul class="checkout-types">
+<?php //echo $this->getChildHtml('coupon');  ?>
+<?php //foreach ($this->getMethods('methods') as $method):  ?>
+            <?php //if ($methodHtml = $this->getMethodHtml($method)):  ?>
+                        <li><?php // echo $methodHtml; ?></li>
+            <?php //endif; ?>
+            <?php //endforeach;  ?>
+                    </ul>
+            <?php // endif; ?>
+
+                </div>
+            <?php // if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+            </div>
+            <?php //echo $this->getChildHtml('crosssell')  ?>
+            -->
+        </div>
+
+
+        <!-- Content -->
+        <div class="medium-4 small-12 columns">
+            <!-- Cart Options -->
+            <div class="shopping-cart-options">
+                <form id="discount-coupon-form" action="<?php echo $this->getUrl('checkout/cart/couponPost') ?>" method="post">
+                <!-- hide coupon panel for phase 1 7/22/15 -->
+					<?php //echo $this->getChildHtml('coupon'); ?>
+                </form>
+                <div class="form-field set-store">
+                    <div class="row collapse">
+                        <div class="columns small-12">
+                            <label for="cartaddress">Select store to fit your items (optional)</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id='cartaddress' name='cartaddress' placeholder="Enter suburb or postcode" />
+                            <small class="hide cartaddress-error">Please specify the store location</small>
+                            <i id="storesLoading" class="fa fa-refresh fa-spin"></i>
+                            <input type="hidden" id='cartaddress-id' name='cartaddress-id' />
+                        </div>
+                        <div class="small-3 columns">
+                            <input id="setStoreButton" onclick='savesession()' type="submit" class="button postfix" value="Set store" disabled="disabled">
+                        </div>
+
+                    </div>
+                    <div id="savesession" class="hide"><i class="fa fa-refresh fa-spin"></i> Saving...</div>
+                </div>
+                <div class="form-field">
+					<form data-enable-shim="true" data-abide>
+						<div class="row collapse">
+
+							<div class="small-12 columns">
+								<label for="sessiondate">Choose a date to fit your items (optional)</label>
+							</div>
+							<div class="small-10 columns">
+
+
+								<input type="text" name="date" id="sessiondate" class="fit_date" onchange="savesessiondate()" placeholder="Choose a date" required readonly />
+								<small class="hide sessiondate-error">This is a required field - It must be a valid date</small>
+								<div id="savesessiondate" class="hide"><i class="fa fa-refresh fa-spin"></i> Saving date..</div>
+
+
+								<script>
+									jQuery(function () {
+
+										jQuery("#setStoreButton").attr("disabled", true);
+
+										jQuery(".fit_date").datepicker({
+											minDate: '<?php echo $realdaystoAdd; ?>d',
+											dateFormat:'dd/mm/yy'
+										});
+
+										jQuery(".btn-proceed-checkout").each(function () {
+
+											var checkout_link = jQuery(this).attr('onclick');
+											jQuery(this).attr('onclick', 'gocheckout()');
+										});
+
+										// Handling error message on focus
+										var focusCheck = function (input, msg) {
+										  jQuery(input).on('focus', function(){
+											jQuery(msg).hide(0);
+										  });
+										};
+										focusCheck('#cartaddress', '.cartaddress-error');
+										focusCheck('#sessiondate', '.sessiondate-error');
+                                        savesession();
+
+									});
+
+									function gocheckout(){
+										window.location = '<?php echo $this->getUrl('checkout/onepage/') ?>';
+										/*
+										var storeloc = jQuery('#cartaddress-id').val(),
+											ddate = jQuery('.fit_date').val(),
+											$cartaddressError = jQuery('.cartaddress-error'),
+											$sessiondateError = jQuery('.sessiondate-error');
+										if (storeloc == ''){
+											$cartaddressError.show(0);
+										}
+										if (ddate == ''){
+											$sessiondateError.show(0);
+										}
+										if (storeloc !== '' && ddate !== ''){
+											window.location = '<?php echo $this->getUrl('checkout/onepage/') ?>';
+										}
+										*/
+									}
+
+
+									function updateSpinnerDiv(id, spinner, message) {
+										var spinnerDiv = jQuery(id);
+										var spinnerHtml = '';
+
+										if (spinner) {
+											spinnerHtml = '<i class="fa fa-refresh fa-spin"></i> ';
+										}
+										spinnerHtml += message;
+										spinnerDiv.html(spinnerHtml).show();
+									}
+
+
+									function savesession()
+									{
+										var posturl = '/easypathhints/index/save';
+										<?php // TODO - move to PickupInStore controller  ?>
+										var storeloc = jQuery('#cartaddress-id').val();
+										var ddate = jQuery('.fit_date').val();
+
+										updateSpinnerDiv('#savesession', true, 'Saving...'); //jQuery('#savesession').show();
+
+										jQuery.post(posturl, {ddate: ddate, storeloc: storeloc}, function (result) {
+											updateSpinnerDiv('#savesession', false, 'Store selected'); // jQuery('#savesession').hide();
+										});
+									}
+
+
+									function savesessiondate()
+									{
+										var posturl = '/easypathhints/index/save';
+										var storeloc = jQuery('#cartaddress-id').val();
+										var ddate = jQuery('.fit_date').val();
+
+										if ( /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(ddate) ) {
+											updateSpinnerDiv('#savesessiondate', true, 'Saving...'); //jQuery('#savesessiondate').show();
+
+											jQuery.post(posturl, {ddate: ddate, storeloc: storeloc}, function (result) {
+												updateSpinnerDiv('#savesessiondate', false, 'Date selected'); // 	jQuery('#savesessiondate').hide();
+											});
+										}
+										else {
+											updateSpinnerDiv('#savesessiondate', false, '');
+											jQuery('.sessiondate-error').show();
+										}
+
+									}
+
+								</script>
+
+								<script>
+									jQuery(function () {
+
+										// Disable set store on store input focus
+										jQuery('#cartaddress').focus(function(){
+											jQuery("#setStoreButton").attr("disabled", true);
+											jQuery("#cartaddress-id,#cartaddress").val("");
+											jQuery("#savesession").hide();
+										});
+
+
+										// This sets up the autocomplete for select a store
+										// It uses google maps API to guess a lat and lng for whatever customer enters
+										// then Ajax calls something like /pickupinstore/index/storesbylatlng/?lat=123&lng=456 to get the 5 closest stores to that lat/lng
+
+										var placeIdCache;
+										var storesCache;
+										var geocoder = new google.maps.Geocoder();
+										var service = new google.maps.places.AutocompleteService();
+										var pacInput = document.getElementById('cartaddress');
+
+										jQuery("#cartaddress").autocomplete({
+											source: function (request, response) {
+												jQuery('#storesLoading').show();
+
+												service.getPlacePredictions({
+													input: request.term,
+													componentRestrictions: {country: 'au'}
+												}, function (predictions, status) {
+
+													//                        console.log(status);
+
+													// *Callback from async google places call
+													if (status != google.maps.places.PlacesServiceStatus.OK) {
+														// show that this address is an error
+														response(false);
+													}
+
+													// Show a successful return
+													// pacInput.className = 'success';
+													// pacInput.value = predictions[0].description - the first predicted address
+
+													// If it's different to current predicted address
+													// geocode to get the lat and long
+													if (placeIdCache != predictions[0].place_id) {
+														placeIdCache = predictions[0].place_id;
+														geocoder.geocode({
+															'placeId': predictions[0].place_id
+														}, function (results, status) {
+															// console.log(status);
+															var lat = results[0].geometry.location.lat();
+															var lng = results[0].geometry.location.lng();
+
+															jQuery.ajax({
+																url: "/pickupinstore/index/storesbylatlng/",
+																dataType: "json",
+																data: {
+																	lat: lat,
+																	lng: lng
+																},
+																success: function (data) {
+																	// console.log(data);
+																	storesCache = data;
+																	jQuery('#storesLoading').hide();
+																	response(data); // autocomplete callback?
+																}
+															});
+														});
+													}
+													else {
+														jQuery('#storesLoading').hide();
+														response(storesCache);
+													}
+												});
+											},
+											minLength: 4,
+											select: function (event, ui) {
+												if (ui.item) {
+													jQuery("#setStoreButton").removeAttr("disabled");
+													jQuery("#cartaddress-id").val(ui.item.id);
+													savesession();
+												}
+												else {
+													jQuery("#setStoreButton").attr("disabled", true);
+													jQuery("#cartaddress-id").val('');
+												}
+											},
+										});
+
+
+									});
+								</script>
+								<script src="/skin/frontend/jqueryui/jquery-ui.js"></script>
+
+							</div>
+							<div class="small-2 columns">
+								<a class="button postfix select_date"><i class="fa fa-lg fa-fw fa-calendar"></i></a>
+							</div>
+						</div>
+					</form>
+                </div>
+                <!-- hide pricing panel for phase 1 7/22/15
+                <div class="form-field">
+                    <?php //echo $this->getChildHtml('totals'); ?>
+                </div> -->
+                <div class="row">
+                    <div class="columns small-12 text-right">
+                    <?php echo$this->getLayout()->createBlock("checkout/onepage_link")->setTemplate("checkout/onepage/link.phtml")->toHtml(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

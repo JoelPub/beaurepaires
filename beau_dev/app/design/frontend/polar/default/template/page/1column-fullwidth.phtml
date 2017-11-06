@@ -1,0 +1,105 @@
+<?php
+/**
+ * Based on 1column-fullwidth.phtml
+ *
+*/
+?>
+
+
+
+<?php echo $this->getChildHtml('head') ?>
+
+<!-- p/d/1columnfw -->
+
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+
+<div class="page">
+
+  <!--<div class="wrapper off-canvas-wrap" data-offcanvas>-->
+    <!--<div class="inner-wrap">-->
+      <?php // echo $this->getChildHtml('off_canvas_left') ?>
+      <!--<a class="exit-off-canvas"></a>-->
+
+
+
+
+
+
+      <?php // echo $this->getChildHtml('global_notices') ?>
+      <?php echo $this->getChildHtml('header') ?>
+
+
+
+
+
+
+      <div class="main-container col1-layout fullwidth">
+      <?php echo $this->getChildHtml('breadcrumbs') ?>
+
+          <div class="main">
+              <div class="col-main">
+                  <?php echo $this->getChildHtml('global_messages') ?>
+                  <?php echo $this->getChildHtml('content') ?>
+              </div>
+          </div>
+      </div>
+
+    <!--</div>-->
+  <!--</div>-->
+</div>
+
+<?php echo $this->getChildHtml('footer') ?>
+
+<?php // echo $this->getChildHtml('off_canvas_right') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php // echo $this->getAbsoluteFooter() ?>
+<?php echo $this->getChildHtml('bottom') ?>
+
+
+    <!-- before /body sub-footer scripts -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+<script src="/skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js"></script>
+<script src="/skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js"></script>
+<script src="/skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js"></script>
+<script src="/skin/frontend/polar/default/js/app.js"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/dist/static/js/default.js?t=<?php echo $hash; ?>"></script>
+  </body>
+</html>
+
+
+
+<?php /*
+
+<?php echo $this->getChildHtml('head') ?>
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+
+<div class="page">
+  <div class="wrapper off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+      <?php echo $this->getChildHtml('off_canvas_left') ?>
+      <a class="exit-off-canvas"></a>
+      <?php echo $this->getChildHtml('global_notices') ?>
+      <?php echo $this->getChildHtml('header') ?>
+      <div class="main-container col1-layout fullwidth">
+      <?php echo $this->getChildHtml('breadcrumbs') ?>
+          <div class="main">
+              <div class="col-main">
+                  <?php echo $this->getChildHtml('global_messages') ?>
+                  <?php echo $this->getChildHtml('content') ?>
+              </div>
+          </div>
+      </div>
+      <?php echo $this->getChildHtml('footer') ?>
+    </div>
+  </div>
+</div>
+<?php // echo $this->getChildHtml('off_canvas_right') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php echo $this->getAbsoluteFooter() ?>
+<?php echo $this->getChildHtml('bottom') ?>
+</body>
+</html>
+
+*/ ?>

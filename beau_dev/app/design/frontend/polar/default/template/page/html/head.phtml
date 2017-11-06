@@ -1,0 +1,134 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     polar_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9 offcanvas" lang="en"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10 lt-ie9 offcanvas" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js offcanvas" lang="en"> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0" />
+
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+
+<meta name="google-site-verification" content="QB1SaHp26-ZmCBAJWtOA1O0vokZ2wBmRWzNp_QZPL0U" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" /> <!-- Disable compatibility mode in IE -->
+<!-- START Fix for BUG BFT-1116 Disable Browsing Caching -->
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<!-- END -->
+<title>
+<?php if($this->getForcedTitle()) {
+		 echo $this->getForcedTitle().' '.Mage::getStoreConfig('design/head/title_suffix');
+		} elseif($this->getProductTitle()){
+		 $_product = Mage::registry('current_product');	
+		 
+			$categoryIds = $_product->getCategoryIds();
+
+	        if(count($categoryIds) ){
+	            $firstCategoryId = $categoryIds[0];
+	            $_category = Mage::getModel('catalog/category')->load($firstCategoryId);	           
+	        }
+
+		 $cat_title_ar = array('Batteries'=>'Battery','Tyres'=>'Tyre','Wheels'=>'Wheel');
+		 $category_name = $_category->getName();
+		 if(isset($cat_title_ar[$category_name]))
+		 	$category_name = $cat_title_ar[$category_name];
+		 	
+		 $brand = $_product->getAttributeText('brand').' ';	
+		 $product_name = str_replace('-','',$_product->getName());
+		 if($category_name=='Battery' || $category_name=='Wheel')
+		 	$brand = "";
+		 if($_product->getMetaTitle()!='')
+		 	echo $_product->getMetaTitle();	
+		 else		 
+		 	echo $brand.$product_name.' '.$_product->getAttributeText('commercial_categorization').$_product->getAttributeText('consumer_categorization').' '.$category_name.' '.Mage::getStoreConfig('design/head/title_suffix');
+		} else {
+		 echo $this->getTitle();
+	    } ?>
+	
+	
+</title>
+
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+
+<?php if($this->getTagValue()) {
+$oid = Mage::getSingleton('checkout/type_onepage')->getCheckout()->getLastOrderId();
+$order = Mage::getModel('sales/order')->load($oid); 
+$address = $order->getBillingAddress();	
+
+$city = Mage::helper('apdinteract_searchresult')->getCityLocation($order->getIncrementId());
+$state = Mage::helper('apdinteract_searchresult')->getStateLocation($order->getIncrementId());
+
+?>
+<script language="javascript">
+   	var products = [
+   	
+   	 <?php
+        $items = $order->getAllVisibleItems();
+        foreach ($items as $itemId => $item) :
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+            $cat_ids = $product->getCategoryIds();            
+            $cat_name = Mage::getModel('catalog/category')->load($cat_ids[count($cat_ids) - 1])->getName();
+        ?>
+        
+        {
+		   'sku': '<?php echo $item->getSku(); ?>',
+		   'name': '<?php echo $item->getName(); ?>',
+		   'category': '<?php echo $cat_name; ?>',
+		   'price': '<?php echo printf('%01.2f', (float) $item->getPrice()); ?>',
+		   'quantity': <?php echo (int)$item->getQtyOrdered(); ?>
+		 },
+ 
+  <?php endforeach;?>
+];
+dataLayer.push({
+  'event': 'ecomEvent',
+  'transactionId': '<?php echo $order->getIncrementId();?>',
+  'transactionAffiliation': 'Beaurepaires',
+  'transactionTotal': '<?php echo str_replace(",","",number_format(round($order->getGrandTotal(),2),2)); ?>',
+  'transactionTax': '<?php echo str_replace(",","",number_format(round($order->getTaxAmount(),2),2)); ?>',
+  'ransactionShipping': '<?php echo str_replace(",","",number_format(round($order->getShippingAmount(),2),2)); ?>',
+  'transactionCity': '<?php echo $city; ?>',
+  'transactionState': '<?php echo $state; ?>',
+  'transactionCountry': 'Australia',
+  'transactionProducts': products
+});
+   </script>	
+<?php }?>
+
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<?php $store = Mage::app()->getStore(); ?>
+</head>

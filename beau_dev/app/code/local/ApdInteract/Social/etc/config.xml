@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>      
+  <modules>
+    <ApdInteract_Social>
+      <version>0.1.0</version>
+    </ApdInteract_Social>
+  </modules>
+  <global>
+    <helpers>
+      <apdinteract_social>
+        <class>ApdInteract_Social_Helper</class>
+      </apdinteract_social>
+    </helpers>
+  </global>
+</config>

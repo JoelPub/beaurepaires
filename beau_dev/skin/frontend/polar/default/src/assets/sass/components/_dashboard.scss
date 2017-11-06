@@ -1,0 +1,88 @@
+
+.my-account.block {
+    margin-bottom: 1.62857rem;
+}
+
+.db-page-title {
+	@extend strong;
+  color: $aqua-blue-color;
+  font-size: 34px;
+  margin-bottom: 25px;
+  line-height: 1;
+}
+
+.db-nav-title, .db-sub-page-title {
+  color: $aqua-blue-color;
+}
+
+.db-box-title, .db-box-content{
+    .db-box-title-header{
+		@extend strong;
+		color: $black;
+		font-size: 16px;
+		line-height: 1.4;
+		margin-bottom: 0.5rem;
+		margin-top: 0.2rem;
+    }
+}
+
+.db-my-recent-reviews{
+    margin-top: 0.4rem;
+}
+
+.db-toolbar {
+  height: 53px;
+  line-height: 53px;
+}
+
+.db-toolbar .db-sort-by {
+  height: 53px;
+  line-height: 53px;
+}
+
+.db-toolbar label {
+  display: inline-block;
+}
+
+.db-toolbar select {
+  width: auto;
+  margin: 0 0 0 5px;
+  padding: 10px 20px 10px 8px;
+}
+
+.db-products-list {
+  margin-bottom: 40px;
+  padding: 0 0 10px 15px;
+}
+
+.db-product-img-box {
+  border-radius: 5px;
+  padding: 20px 0;
+  border: 1px solid $silver;
+  background-color: $white-smoke;
+}
+
+.db-product-img-box .db-product-media-section a.db-product-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+ul.db-product-detail-list {
+	font-size: 16px;
+}
+
+ul.db-product-detail-list .db-model{
+  margin: 7px 0;
+}
+
+ul.db-product-detail-list .db-rrp {
+	@extend strong;
+	color: $silver;
+	text-decoration: line-through;
+}
+
+ul.db-product-detail-list .db-online-price {
+	@extend strong;
+}
+

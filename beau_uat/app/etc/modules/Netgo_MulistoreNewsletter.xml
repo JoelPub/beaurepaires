@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/***************************************
+ *** Multistore Newsletter Subscription ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_MulistoreNewsletter
+ * @author 		NetGo
+ * @dev			netattingomails@gmail.com
+ *
+ */
+-->
+<config>
+  <modules>
+    <Netgo_MulistoreNewsletter>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>1.0.0</version>
+    </Netgo_MulistoreNewsletter>
+  </modules>
+</config>

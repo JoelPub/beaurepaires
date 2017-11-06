@@ -1,0 +1,47 @@
+
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<?php echo $this->getChildHtml('head') ?>
+
+<!-- p/b/1column -->
+
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('footer_misc_html') ?>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<?php echo $this->getChildHtml('global_notices') ?>
+<?php echo $this->getChildHtml('header') ?>
+<?php echo $this->getChildHtml('breadcrumbs') ?>
+<div class="extra-padding main-wrapper">
+    <div class="main-container">
+        <div class="row">
+            <div class="large-12 columns">
+                <?php echo $this->getChildHtml('global_messages') ?>
+                <?php echo $this->getChildHtml('content') ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->getChildHtml('footer') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php echo $this->getChildHtml('bottom') ?>
+
+
+<!-- before /body sub-footer scripts -->
+<?php $hash = $this->helper('apdinteract_smartcache')->getSkinLastChangedHash(); $pubid=Mage::getStoreConfig('social/socialsetting/social_analytics')?>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/dist/static/js/default.js?t=<?php echo $hash; ?>"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo $pubid?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/infobox.js"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/foundation/js/foundation.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/slick-carousel/slick/slick.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/vendor/jquery.elevateZoom-3.0.8.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/jqueryui/jquery-ui.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/HTML5-Form-Shim/build/jquery.html5form.min.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/js/app.js?t=<?php echo $hash; ?>"></script>
+<script src="<?php echo Mage::getBaseUrl();?>skin/frontend/polar/default/bower_components/imagesloaded/imagesloaded.pkgd.min.js?t=<?php echo $hash; ?>"></script>
+
+</body>
+</html>

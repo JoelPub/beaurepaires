@@ -1,0 +1,50 @@
+<?php
+$customerId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+$data = Mage::getModel('dynamicblock/dynamicblock')->getBlockContent();
+
+for ($i = 1; $i <= 6; $i++):
+
+    if (isset($data['block' . $i])):
+        $blocks = $data['block' . $i];
+        $default_display = array_key_exists($customerId, $blocks) ? $customerId : 0;
+        $count = count($blocks[$default_display]);
+
+        if ($count > 0 && $count < 3): // 1 and 2 column content
+            ?>
+            <!-- start: <?php echo $count ?> column static block -->
+            <div class="row full-width collapse static-block-column">
+                <?php
+                foreach ($blocks[$default_display] as $block):
+                    $identifier = $block['identifier'];
+                    $ar_identifer = explode("_", $identifier);
+                    $col = $ar_identifer = $ar_identifer[2];
+                    ?>
+                    <div class="small-12 medium-<?php echo (12 / $count) ?> column full-columns">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+                    </div>
+            <?php endforeach; ?>
+            </div>
+            <!-- end: <?php echo $count ?> column static block -->
+            <?php
+        elseif ($count > 2): // 3 and 4 column content (has slider)
+            ?>
+            <!-- start: <?php echo $count ?> column static block -->
+            <div class="row">
+                <div class="static-block-column static-block-slider" data-column-count="<?php echo $count ?>" data-equalizer>
+                    <?php
+                    foreach ($blocks[$default_display] as $block):
+                        $identifier = $block['identifier'];
+                        $ar_identifer = explode("_", $identifier);
+                        $col = $ar_identifer = $ar_identifer[2];
+                        ?>
+                        <div class="small-<?php echo (12 / $count) ?> columns">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($identifier)->toHtml(); ?>
+                        </div>
+            <?php endforeach; ?>
+                </div>
+            </div>
+            <!-- end: <?php echo $count ?> column static block -->
+            <?php
+        endif;
+    endif;
+endfor;

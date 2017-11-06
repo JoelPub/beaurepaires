@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Badges>
+      <active>true</active>
+      <codePool>local</codePool>
+    </ApdInteract_Badges>
+  </modules>
+</config>

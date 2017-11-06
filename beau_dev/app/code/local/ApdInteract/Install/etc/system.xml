@@ -1,0 +1,96 @@
+<!--Create main apdinteract tabs & section-->
+<config>
+    <tabs>
+        <apdinteract_tab translate="label" module="apdinteract_install">
+            <label>ApdInteract Configuration</label>
+            <sort_order>999</sort_order>
+        </apdinteract_tab>
+    </tabs>
+    <sections>
+        <apdinteract_product translate="label" module="apdinteract_install">
+            <label>Products</label>
+            <tab>apdinteract_tab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <product_general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <case_rate>
+                            <label>Product case rate</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </case_rate>
+                    </fields>
+                </product_general>
+            </groups>
+        </apdinteract_product>
+        <apdinteract_category translate="label" module="apdinteract_install">
+            <label>Category</label>
+            <tab>apdinteract_tab</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <category_general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <premixedId>
+                            <label>Pre-mixed case category ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </premixedId>
+                        <giftId>
+                            <label>Gifts/Accessories category ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </giftId>
+                    </fields>
+                </category_general>
+            </groups>
+        </apdinteract_category>
+        <catalog>
+            <groups>
+                <recently_products>
+                    <fields>
+                        <is_disable translate="label">
+                            <label>Is disable?</label>
+                            <comment>
+                                <![CDATA[Disable/Enable recently products display]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_disable>
+                    </fields>
+                </recently_products>
+            </groups>
+        </catalog>
+    </sections>
+</config>

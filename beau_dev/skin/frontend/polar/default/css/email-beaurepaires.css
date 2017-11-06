@@ -1,0 +1,16 @@
+/*
+ These styles override the ones applied from the email-inline css. 
+*/
+ 
+/* ============================================ *
+ * Override inline
+ * ============================================ */
+
+td.store-info a {color: #0167b1!important;}
+.cell-name {text-transform:none!important;}
+.product-info a.product-name {text-transform:none!important; color: #0167b1!important;}
+.message-container {background-color: #ffe8d0!important; border: 1px solid #f28c1d!important;}
+.action-button td { background-color: #0167b1!important; text-transform:none!important;}
+table.button td {background: #0167b1!important;}
+.panel a {color: #0167b1!important;}
+.product-name {text-transform:none!important;}

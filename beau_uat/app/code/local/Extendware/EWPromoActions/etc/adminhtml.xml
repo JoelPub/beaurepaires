@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<config>
+	<extendware>
+		<quickaccess>
+			<ewpromoactions>
+                <resource>extendware/ewpromoactions</resource>
+				<children>
+					<promo_quote translate="title" module="ewpromoactions">
+						<title>Shopping Cart Price Rules</title>
+						<action>adminhtml/promo_quote/</action>
+						<resource>promo/quote</resource>
+						<sort_order>1</sort_order>
+					</promo_quote>
+				</children>
+				<title/>
+			</ewpromoactions>
+		</quickaccess>
+	</extendware>
+	<menu>
+	    <ewcore translate="title" module="ewpromoactions">
+			<title>Extendware</title>
+			<sort_order>89</sort_order>
+			<resource>extendware/ewcore</resource>
+			<class>ewcore-main</class>
+	        <children>
+	            <quickaccess translate="title" module="ewpromoactions">
+	                <title>Manage Extensions</title>
+	                <sort_order>1</sort_order>
+	                <resource>extendware/ewpromoactions</resource>
+	                <children>
+	                	<ewpromoactions translate="title" module="ewpromoactions">
+			                <title>Promotional Actions</title>
+			                <sort_order>53047</sort_order>
+			                <resource>extendware/ewpromoactions</resource>
+			                <children>
+			                	<promo_quote translate="title" module="ewpromoactions">
+								<title>Shopping Cart Price Rules</title>
+								<action>adminhtml/promo_quote/</action>
+								<resource>promo/quote</resource>
+								<sort_order>1</sort_order>
+							</promo_quote>
+								<configure translate="title" module="ewpromoactions">
+									<title>Configure</title>
+									<sort_order>9999999</sort_order>
+									<action>adminhtml/ewpromoactions_config/index</action>
+									<resource>extendware/ewpromoactions/configure</resource>
+								</configure>
+			                </children>
+			            </ewpromoactions>
+	                </children>
+	            </quickaccess>
+	            <userguides translate="title" module="ewpromoactions">
+	                <title>User Guides / Help</title>
+	                <sort_order>9</sort_order>
+	                <action>adminhtml/ewpromoactions_config/gotoExtendwareUserguides</action>
+	                <resource>extendware/ewcore/redirect/userguide</resource>
+	                <class>ewcore-extendware-userguide</class>
+	            </userguides>
+	            <storelink translate="title" module="ewpromoactions">
+		            <title>Improve Your Store</title>
+		            <sort_order>9999</sort_order>
+		            <action>adminhtml/ewpromoactions_config/gotoExtendware</action>
+		            <resource>extendware/ewcore/redirect/extendware</resource>
+		            <class>ewcore-extendware-link</class>
+		        </storelink>
+	        </children>
+	    </ewcore>
+	</menu>
+	<acl>
+		<resources>
+            <admin>
+                <children>
+                    <extendware translate="title" module="ewpromoactions">
+                    	<title>Extendware</title>
+                    	<sort_order>0</sort_order>
+                        <children>
+                        	<ewpromoactions translate="title" module="ewpromoactions">
+                        		<title>Promotional Actions</title>
+                        		<children>
+                        			<settings translate="title">
+                        				<title>Settings</title>
+                        				<children>
+				                            <main translate="title">
+				                                <title>Main</title>
+				                                <children>
+					                                <ewpromoactions translate="title">
+						                                <title>General</title>
+						                            </ewpromoactions>
+					                            </children>
+				                            </main>
+			                            </children>
+			            			</settings>
+			            		</children>
+			            	</ewpromoactions>
+                        </children>
+                    </extendware>
+                </children>
+            </admin>
+        </resources>
+	</acl>
+</config>

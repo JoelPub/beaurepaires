@@ -1,0 +1,54 @@
+
+.address-validtion {
+
+  .input-box {
+    position: relative;
+
+    &.loading {
+      &:after {
+        animation: fa-spin 1s infinite steps(8);
+        content: "\f110";
+        display: inline-block;
+        font-family: FontAwesome;
+        font-size: 18px;
+        opacity: 0.7;
+        position: absolute;
+        right: 12px;
+        text-align: center;
+        top: 4px;
+      }
+    }
+  }
+
+  .validate-street {
+
+  }
+
+  .address-suggest {
+    background-color: #EEE;
+    border: 1px solid $silver;
+    display: block;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 33px;
+    width: 100%;
+    z-index: 50;
+
+    li {
+      cursor: pointer;
+      padding: 4px;
+      transition: background-color 0.2s ease;
+
+      &:hover,:active,:focus {
+        background-color: #FFF;
+      }
+    }
+  }
+}
+
+.vir-edit .address-validtion {
+  .address-suggest {
+    top: 24px;
+  }
+}

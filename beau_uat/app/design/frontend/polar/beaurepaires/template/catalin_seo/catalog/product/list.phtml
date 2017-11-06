@@ -1,0 +1,438 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class='hide'>
+<?php echo $this->getLayout()->createBlock('page/html_pager', 'pagination')->setCollection($this->getLoadedProductCollection())->toHtml(); ?>
+</div>
+<div class="category-products">
+
+    <?php $this->setMode('list'); ?>
+    <?php echo $this->getToolbarHtml() ?>
+   
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <?php $mobile_product_list_html = ''; ?>
+        
+    <!--<ol class="products-list" id="products-list">-->
+        
+    <!-- Product List -->
+    
+      <div class="comp-product-list products-list">
+        <div class="products-list-holder">  
+        
+        
+    <?php foreach ($_productCollection as $_product): 
+                  
+        $fields->product->overlay = $_product->getOverlayValue();
+        $fields->product->url = $_product->getProductUrl();
+        $fields->product->title = $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true);
+        $fields->product->img->src = $this->helper('catalog/image')->init($_product, 'small_image')->resize(400);
+        $fields->product->img->label = $fields->product->title;
+        $fields->product->brand = $_product->getAttributeText('brand');
+        if (empty($fields->product->brand)) $fields->product->brand = $_product->getData('brand_value');        
+        $fields->product->brandlogo = Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand);
+        
+        
+        $fields->product->name = $_helper->productAttribute($_product, $_product->getName() , 'name');
+        // leaving short_description here for in case we need to switch it on later
+        $fields->product->short_description = $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description');
+        $fields->product->name_stripped = $this->stripTags($fields->product->name);
+        $fields->product->categorization = $_product->getCategorizationValue(); 
+        $fields->product->badge = "";		  
+		$productx= Mage::getModel('catalog/product')->load($_product->getId());
+		$fields->product->finish = "<p><strong>Finish:</strong> ".$productx->getFinish()."</p>";  
+		
+//                Do this in the helper. Not here. Please. Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand);
+//		$title = ucwords(strtolower($_product->getAttributeText('brand')));
+//        $identifier = str_replace(' ','-',strtolower($title));
+//		
+//		$brand_path = $this->getSkinUrl('images/brands/' . strtolower($fields->product->brand) . '-logo.png');
+//		$url = getimagesize($brand_path);
+//		if(is_array($url)) 
+//			$fields->product->brandlogo = '<a href="'.$identifier.'">'.Mage::helper('apdwidgets')->getBrandLogo($fields->product->brand).'</a>';	
+//		else
+//			$fields->product->brandlogo = "";
+		
+		$fields->product->badge_big = "";
+		$badge_big = "";
+		$badge="";		
+		
+        if($_product->getAttributeText('overlay')=='Best Seller')
+              $badge = Mage::getBaseUrl('media').'theme/' . Mage::getStoreConfig('badges/badges/bestsellerth');
+        elseif($_product->getAttributeText('overlay')=='New Arrival')
+              $badge = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/newth');
+        elseif($_product->getAttributeText('overlay')=='On Sale')
+              $badge = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/onsaleth');
+        if( isset($badge)  && trim($badge) != "" )
+        $fields->product->badge = "<img class=\"product-badge\" src=\"$badge\">";
+
+        if($_product->getAttributeText('overlay')=='Best Seller')
+              $badge_big = Mage::getBaseUrl('media').'theme/' . Mage::getStoreConfig('badges/badges/bestseller');
+        elseif($_product->getAttributeText('overlay')=='New Arrival')
+              $badge_big = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/new');
+        elseif($_product->getAttributeText('overlay')=='On Sale')
+              $badge_big = Mage::getBaseUrl('media') .'theme/'. Mage::getStoreConfig('badges/badges/onsale');
+        $no_badge = "no-badge";
+		
+        if(isset($badge_big) && trim($badge_big) != "") {
+        	$no_badge = "";
+			$fields->product->badge_big = "<img class=\"product-badge\" src=\"$badge_big\">";	
+		}
+		
+		$fields->product->no_badge = $no_badge;
+        
+        
+        $consumer = $_product->getConsumerCategorizationValue(); //consumer_categorization
+        if($consumer == "" && $_product->getConsumerCategorization()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $consumer = $_product->getAttributeText('consumer_categorization');
+        }
+        $consumer2 = $_product->getConsumerValue(); //Incease someone decides to use this one
+        if($consumer2 == "" && $_product->getConsumer()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $consumer2 = $_product->getAttributeText('consumer');
+        }
+        $commercial = $_product->getCommercialCategorizationValue(); 
+        if($commercial == "" && $_product->getCommercialCategorization()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $commercial = $_product->getAttributeText('commercial_categorization');
+        }
+        $commercial2 = $_product->getCommercialValue(); //Incease someone decides to use this one
+        if($commercial2 == "" && $_product->getCommercial()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $commercial2 = $_product->getAttributeText('commercial');
+        }
+        $battery = $_product->getBatteryCategorizationValue();   
+        if($battery == "" && $_product->getBatteryCategorization()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $battery = $_product->getAttributeText('battery_categorization');
+        }
+        $fields->product->subcategory = $consumer." ".$commercial." ".$battery;
+        
+       
+        $SportPerformance = $_product->getSportPerformanceHandlingValue();   
+        if($SportPerformance == "" && $_product->getData('sports_performance_handling')){ // if we do not use Flat Catalog Product, then the following code will work...
+            $SportPerformance = $_product->getAttributeText('sports_performance_handling');
+        }
+	$Durability = $_product->getDurabilityValue();   
+        if($Durability == "" && $_product->getDurability()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $Durability = $_product->getAttributeText('durability');
+        }	
+        $Mileage = $_product->getMileageValue();   
+        if($Mileage == "" && $_product->getMileage()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $Mileage = $_product->getAttributeText('mileage');
+        }
+        $WetWeather = $_product->getWetWeatherValue();   
+        if($WetWeather == "" && $_product->getWetWeather()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $WetWeather = $_product->getAttributeText('wet_weather');
+        }
+        $EvenWear = $_product->getEvenWareValue();   
+        if($EvenWear == "" && $_product->getEvenWare()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $EvenWear = $_product->getAttributeText('even_ware');
+        }
+        $Handling = $_product->getHandlingValue();   
+        if($Handling == "" && $_product->getHandling()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $Handling = $_product->getAttributeText('handling');
+        }
+        $SuperiorBrakingGrip = $_product->getSuperiorBrakingGripValue();   
+        if($SuperiorBrakingGrip== "" && $_product->getSuperiorBrakingGrip()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $SuperiorBrakingGrip= $_product->getAttributeText('superior_braking_grip');
+        }
+        $QuietComfort = $_product->getQuietComfortValue();   
+        if($QuietComfort== "" && $_product->getQuietComfort()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $QuietComfort= $_product->getAttributeText('quiet_comfort');
+        }
+        $FuelSaver= $_product->getFuelSaverValue();   
+        if($FuelSaver== "" && $_product->getFuelSaver()){ // if we do not use Flat Catalog Product, then the following code will work...
+            $FuelSaver= $_product->getAttributeText('fuel_saver');
+        }
+          
+        // To make these work, set the properties of the product attributes as follows:          
+        // Visible on Product View Page on Front-end: yes
+        // Used in Product Listing: yes
+        // then php /shell/indexer.php reindexall     
+        $fields->product->sports_performance_handling = 'icon-bfthandling';
+        $fields->product->durability = 'icon-bftdurability';
+        $fields->product->superior_braking_grip = 'icon-bftgrip';
+        
+        // FOR ATTRIBUTE ICONS!!
+        $durabilityIcon = 'icon-bftdurability';
+        $superiorIcon = 'icon-bftgrip';
+        $sportIcon = 'icon-bfthandling';
+        $quietIcon = 'icon-bftcomfort';
+        $fuelIcon = 'icon-bftfuelsaver';
+        $mileageIcon = 'icon-bftmileage';
+        $handlingIcon ='icon-bfthandling';
+        $gripIcon = 'icon-bftgrip';
+        $offIcon = 'icon-bftoffroad';
+        $valueIcon = 'icon-bftvalue';
+        $slowIcon = 'icon-bftslowwear';
+        $evenIcon = 'icon-bftevenwear';
+        $performanceIcon = 'icon-bftperformance';
+        $cyclingIcon = 'icon-bftcyclingability';
+        
+
+        $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SportPerformance * 33.3); // sport_performance // turn these on in catalog->attributes
+        $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Durability * 33.3); // durability // (toughness) 
+        $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SuperiorBrakingGrip * 33.3); // wet_weather // Wet Weather    
+        
+        $fields->product->bar_ratingtext[0] = "Sports Performance & Handling";
+        $fields->product->bar_ratingtext[1] = "Durability (toughness)";
+        $fields->product->bar_ratingtext[2] = "Superior Breaking & Grip";
+        
+        
+        // now change Attributes that will display if commercial has certain values assigned
+        if (strtolower($commercial) == "truck" || strtolower($commercial2) == "truck")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Handling * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Durability * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($EvenWear  * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Handling";
+            $fields->product->bar_ratingtext[1] = "Durability (toughness)";
+            $fields->product->bar_ratingtext[2] = "Even Wear";
+            
+            $fields->product->sports_performance_handling = $handlingIcon;
+            $fields->product->durability = $durabilityIcon;
+            $fields->product->superior_braking_grip = $superiorIcon;
+        }
+        if (strtolower($commercial) == "light truck" || strtolower($commercial2) == "light truck")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Handling * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Mileage * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($EvenWear  * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Handling";
+            $fields->product->bar_ratingtext[1] = "Mileage";
+            $fields->product->bar_ratingtext[2] = "Even Wear";
+            
+            $fields->product->sports_performance_handling = $handlingIcon;
+            $fields->product->durability = $mileageIcon;
+            $fields->product->superior_braking_grip = $evenIcon;
+        }
+        
+        //customize now for consumer products
+        if (strtolower($consumer) == "passenger" || strtolower($consumer2) == "passenger")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SuperiorBrakingGrip * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($QuietComfort * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Mileage * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Superior Braking + Grip";
+            $fields->product->bar_ratingtext[1] = "Quiet and Comfort";
+            $fields->product->bar_ratingtext[2] = "Mileage";
+            
+            $fields->product->sports_performance_handling = $superiorIcon;
+            $fields->product->durability = $quietIcon;
+            $fields->product->superior_braking_grip = $mileageIcon;
+        }
+        if (strtolower($consumer) == "4*4" || strtolower($consumer2) == "4*4" || strtolower($consumer) == "4x4" || strtolower($consumer2) == "4x4")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Durability * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SuperiorBrakingGrip * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Mileage * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Durability (toughness)";
+            $fields->product->bar_ratingtext[1] = "Superior Braking + Grip";
+            $fields->product->bar_ratingtext[2] = "Mileage";
+            
+            $fields->product->sports_performance_handling = $durabilityIcon ;
+            $fields->product->durability = $superiorIcon ;
+            $fields->product->superior_braking_grip = $mileageIcon;
+        }
+        if (strtolower($consumer) == "light truck" || strtolower($consumer2) == "light truck")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Durability * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($FuelSaver * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($Mileage * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Durability (toughness)";
+            $fields->product->bar_ratingtext[1] = "Fuel Saver";
+            $fields->product->bar_ratingtext[2] = "Mileage";
+            
+            $fields->product->sports_performance_handling = $durabilityIcon ;
+            $fields->product->durability = $fuelIcon  ;
+            $fields->product->superior_braking_grip = $mileageIcon;
+        }
+        if (strtolower($consumer) == "sports" || strtolower($consumer2) == "sports")
+        {
+            $fields->product->bar_rating[0] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SuperiorBrakingGrip * 33.3); // sport_performance // turn these on in catalog->attributes
+            $fields->product->bar_rating[1] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($SportPerformance * 33.3); // durability // (toughness) 
+            $fields->product->bar_rating[2] = Mage::helper('apdwidgets')->getProductFeatureRatingHtml($QuietComfort * 33.3); // wet_weather // Wet Weather   
+            
+            $fields->product->bar_ratingtext[0] = "Superior Braking + Grip";
+            $fields->product->bar_ratingtext[1] = "Sports Performance & Handling";
+            $fields->product->bar_ratingtext[2] = "Quiet and Comfort";
+            
+            $fields->product->sports_performance_handling = $superiorIcon  ;
+            $fields->product->durability = $performanceIcon  ;
+            $fields->product->superior_braking_grip = $quietIcon ;
+        }
+        
+
+        $fields->product->ratingSummary = Mage::helper('apdwidgets')->getProductRatingSummaryHtml($_product->getEntityId(),$_product->getProductUrl());
+        $fields->product->rrpText = $this->__('RRP:');
+        $fields->product->onlineText = $this->__('Online price:');
+        $fields->product->priceHtml = Mage::helper('core')->currency($_product->getPrice(), true, false); 
+        $fields->product->finalPriceHtml = Mage::helper('core')->currency($_product->getFinalPrice(), true, false);
+
+        $fields->product->addButtons = '
+          <p class="button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>'; 
+
+        $fields->product->addButtonsMobile = '
+          <p class="small button radius availability out-of-stock">' . $this->__('Out of stock') . '</p>';  
+
+        if ($_product->isSaleable()) { 
+              $fields->product->addtocartUrl =  $fields->product->url;            
+
+          $fields->product->addButtons = '
+          <a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('Add to Cart') . '" class="button radius">' . $this->__('View Details') . '</a>'; 
+
+          $fields->product->addButtonsMobile = '
+          <a href="' . $fields->product->addtocartUrl . '" title="' . $this->__('Add to Cart') . '" class="small button radius">' . $this->__('Add to Cart') . '</a>'; 
+        }
+
+        $fields->product->compareLink = '';
+        if($_compareUrl=$this->getAddToCompareUrl($_product)) {
+           $fields->product->compareLink = '<p><a href="' . $_compareUrl . '" class="link-compare">' . $this->__('View Compare') . '</a></p>';
+        }  
+          
+          
+          
+        ?>
+        
+        <!-- <div class="row hide-for-small-only"> -->
+    <?php 
+		if(Mage::registry('current_category'))
+		{
+			if(Mage::registry('current_category')->getId()==41)
+			{
+				echo Mage::helper('apdwidgets')->getProductListViewHtml($fields);
+			}
+			if(Mage::registry('current_category')->getId()==42)
+			{
+				echo Mage::helper('apdwidgets')->getProductListViewHtmlWheels($fields);
+			}	
+			if(Mage::registry('current_category')->getId()==43)
+			{
+				echo Mage::helper('apdwidgets')->getProductListViewHtmlBattery($fields);
+			}			
+		}
+		else{
+			echo Mage::helper('apdwidgets')->getProductListViewHtml($fields); 
+		}
+		
+		?>    
+	<!-- </div>  -->
+        <?php #$mobile_product_list_html .= Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>    
+        <!-- REMOVED CALL TO MOBILE VIEW FUNCTION 7/8/2015
+        <div class="row show-for-small-only">
+          <div class="comp-product-list-mobile">
+            <div class="small-12 columns">
+                
+              <?php #echo Mage::helper('apdwidgets')->getMobileProductListViewHtml($fields); ?>
+              
+            </div>
+          </div>            
+        </div>  -->
+    <?php endforeach; ?>
+
+        </div>
+      </div>
+    
+   
+ <!-- Product List for mobile -->
+
+
+
+<!--    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>-->
+
+    <?php else: ?>
+		<div class="small-12 columns">
+		<div class="comp-product-details">
+        <ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-3 products-grid">
+    <?php // Grid Mode ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?> 
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+
+        <?php endif ?>
+            <li class="item" itemscope itemtype="http://schema.org/Product">
+              <div class="row collapse product-item">
+                <div class="small-4 columns">
+                  <div class="product-image">
+                    <a href="<?php echo $_product->getProductUrl() ?>">
+                      <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(400); ?>" class="expand"></a>
+                    </div>
+                  </div>
+                  <div class="small-8 columns">
+                    <div class="product-details">
+                      <h5 class="product-tag"><?php echo $_product->getAttributeText('overlay');?></h5>
+                      <?php
+                        $brand = $this->getSkinUrl('images/brands/' . $_product->getAttributeText('brand') . '-logo.png');
+                        $title = ucwords(strtolower($_product->getAttributeText('brand')));
+            			$identifier = str_replace(' ','-',strtolower($title));
+                      ?>
+                      <a href="/<?php echo $identifier?>"><img src="<?php echo $brand;?>"></a>
+                      <h3 class="product-title"><a href="<?php echo $_product->getProductUrl() ?>">
+					<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h3>
+                      
+                      <div class="star-rating">
+					<?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); ?>
+                   </div>
+
+                   <h4 class="product-price"><?php echo $this->getPriceHtml($_product, true) ?></h4>
+          <?php if($_product->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+          <?php endif; ?>
+
+
+                    </div>
+                  </div>
+              </div>
+            </li>
+	<!--
+              <?php
+               if ($_product->getFinalPrice() < $_product->getPrice()):?>
+                   <?php echo $this->getChildHtml('polar.sale.item') ?>
+              <?php endif; ?>
+              <div class="item-wrapper">
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+                  <span class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(400); ?>" class="expand" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></span>
+                  <h2 class="product-name" itemprop="name"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h2>
+                  <?php if($_product->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                  <?php endif; ?>
+                  <?php echo $this->getPriceHtml($_product, true) ?>
+                </a>
+                <div class="actions">
+                    <?php if($_product->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                </div>
+              </div><!-- /item-wrapper -->
+			
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+
+        <?php endif ?>
+        <?php endforeach ?>
+        </ul>
+		</div>
+		</div>
+    <?php endif; ?>
+    <!-- <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div> -->
+
+</div>
+<?php endif; ?>

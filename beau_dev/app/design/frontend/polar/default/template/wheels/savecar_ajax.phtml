@@ -1,0 +1,13 @@
+<?php
+// Call this with (eg)
+// wheelinfo/index/savecar/?id=50658&y=2008
+// See also ApdInteract_Wheels_Block_Savecar
+
+$json = $this->savecar();
+
+//if ($this->savecar()) {
+//    $json = array("Success" => 1);
+//}
+
+$output = json_encode($json);
+echo $output;

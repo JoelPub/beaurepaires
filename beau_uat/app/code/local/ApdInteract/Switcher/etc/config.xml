@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Switcher>
+      <version>0.3.0</version>
+    </ApdInteract_Switcher>
+  </modules>  
+</config> 

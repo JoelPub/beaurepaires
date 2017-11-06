@@ -1,0 +1,73 @@
+<?php
+$base_url = Mage::getBaseUrl();
+$breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+?>
+
+<?php if ($menu_id != 0): ?>
+    <div class="breadcrumbs-wrapper hide-for-small">
+        <div class="row full-width">
+            <div class="medium-12 columns">
+                <ul class="breadcrumbs">
+                    <li><a href="<?php echo $base_url; ?>" title="Go to Home Page">Home</a></li>
+                    <?php
+                    $menucount = count($main_menu);
+                    $menucounter = 0;
+                    foreach ($main_menu as $mid):
+                        $menucounter++;
+                        $crumbs = $breadcrumbs->megamenu_details($mid);
+
+                        //workaround for links with /links or links only.
+                        if (substr($crumbs['link'], 0, 1) !== '/') {                      
+                            $crumbs['link'] = "/" . $crumbs['link'];
+                        }
+
+                        if ($menucounter < $menucount):
+                            ?>
+                            <li>
+                                <a href="<?php echo $crumbs['link']; ?>" title="<?php echo $this->htmlEscape($crumbs['title']) ?>">
+                                    <?php echo $this->htmlEscape($crumbs['title']) ?>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="current"><?php echo $this->htmlEscape($crumbs['title']) ?></li>
+                        <?php
+                        endif;
+
+                    endforeach;
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+
+<?php if ($crumbs && is_array($crumbs) && $menu_id == 0): ?>
+    <div class="breadcrumbs-wrapper hide-for-small">
+        <div class="row full-width">
+            <div class="medium-12 columns">
+                <ul class="breadcrumbs">
+                    <?php $i=0;
+                    	foreach ($crumbs as $_crumbName => $_crumbInfo): 
+                    	$i++;
+                    	if($_crumbName=='search' && $i==2) {?>
+							<li>Search</li>	
+						<?php }?>
+                        <?php if (!$_crumbInfo['last']): ?>
+                            <?php
+                            //FIX the broken store locator
+                            if ($this->htmlEscape($_crumbInfo['title']) == 'Store Locator') {
+                                $_crumbInfo['link'] = "/store-locator";
+                            }
+                            ?>
+                            <li><a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a></li>
+                        <?php else: ?>
+                            <li class="current"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+<?php endif;

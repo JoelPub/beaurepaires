@@ -1,0 +1,33 @@
+<?php
+// Call this with (eg)
+// wheelinfo/index/index/sku/2010FVH-38165M22
+// See also ApdInteract_Wheels_Block_Wheelinfo
+
+$product = $this->getProductParent();
+$json = array("Error" => 1, "Message" => "Requested SKU not found");
+
+if ($product && $product->getData('entity_id')) {
+    $json = array(
+        "Id" => $product->getData('entity_id'),
+        "Name" => $product->getData('name'),
+        "Brand" => array(
+            "Name" => $this->getBrand(),
+            "Image" => $this->getBrandImage()
+        ),
+        "ProductImage" => $this->getProductImage(),
+        "Badge" => array(
+            "Name" => $this->getOverlay(),
+            "Image" => array(
+                "Large" => $this->getOverlayImage(true),
+                "Small" => $this->getOverlayImage(false)
+                )
+            ),
+        "Price" => array(
+            "FinalPrice" => $this->getPrice(),
+            "RRP" => $this->getPrice('price'),
+            "Msrp" => $this->getPrice('msrp')
+            ),
+        "UrlKey" => $product->getProductUrl()
+    );
+}
+echo json_encode($json);

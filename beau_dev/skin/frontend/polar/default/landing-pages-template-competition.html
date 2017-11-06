@@ -1,0 +1,97 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beaurepairs</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="dist/static/app.css" />
+    <script src="bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+
+    <section class="banner-panel text-center">
+      <div class="row">
+        <img src="images/beau-logo_03.png" />        
+        <img src="images/CompetitionLandingPage_03.png" class="chair" />
+      </div>
+    </section>
+
+    <section class="row medium-6 text-center  button-container">
+      <p>Beaurepaires could be taking care of your airfares with one of two Jetstar vouchers worth $500. <br/>
+      Take a trip to see your family…or leave town so you don’t.<br/><br/>
+      <strong>To enter, simply enter your details below and you’re in the draw. </strong></p>
+    </section>
+
+    <section class="row medium-6  form-container">
+     <form action="/campaign" method="post" data-abide novalidate="novalidate">
+     <div class="column medium-12">
+     <div class="row">
+        <div class="column medium-6">
+          <label aria-label="first_name">First Name*</label>
+          <input type="text" value="" name="first_name" required pattern="[a-zA-Z]+">
+          <small class="error">This is a required field. Please use letters only (a-z or A-Z) in this field. </small>
+        </div>
+
+        <div class="column medium-6">
+          <label aria-label="last_name"> Last Name*</label>
+          <input type="text" value="" name="last_name" required pattern="[a-zA-Z]+">
+          <small class="error">This is a required field. Please use letters only (a-z or A-Z) in this field.</small>
+        </div> 
+      </div>
+
+      <div class="row">
+        <div class="column medium-6">
+          <label aria-label="email">Email*</label>
+        <input type="email" value="" name="email" required>
+        <small class="error">This is a required field - This is a required field - Please enter a valid email address</small>
+        </div> 
+
+        <div class="column medium-4">
+          <label aria-label="mobile">Mobile*</label>
+          <input type="text" value="" name="mobile" pattern="[0-9]+">
+          <small class="error">This is a required field. Please enter valid mobile.</small>
+        </div> 
+
+        <div class="column medium-2">
+          <label aria-label="postcode">Postcode</label>
+          <input type="text" value="" name="postcode" pattern="[0-9]+">
+          <small class="error">This is a required field.  Please enter valid postcode.</small>
+        </div>
+        </div> 
+
+        <div class="column text-center">
+          <input type="checkbox" name="tnc_pp" required /> By entering I accept the <a href="#">Terms & Conditions</a> & Beaurepaires <a href="https://www.beaurepaires.com.au/privacy-policy">Privacy Policy</a> <small class="error">This is a required field.</small>
+        </div>
+
+        <div class="column text-center">
+          <input type="submit" value="Enter Now" class="button button-secondary">
+        </div>  
+        
+        
+     </form> 
+
+    </section>
+
+    <section class="row text-center text-container">
+     <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+    </section>
+
+    
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+
+    <script type="text/javascript">
+          $(document).foundation();
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<?php
+$cust = $this->getAutocompleteCustomers();
+?>
+
+<ul>
+<?php foreach ($cust as $customer): ?>
+    <?php 
+    $data = rawurlencode(json_encode($customer->getData()));    
+    ?>
+    <?php // no whitespace before and after .informal is important here ?>
+    <li><?php echo $customer->getName() ?><span class="informal"> 
+        (<?php echo $customer->getVehiclerego() ?> on <?php echo $customer->getCreatedAt(); ?>)
+        <span class="data" style="display: none"><?php echo $data ?></span>
+    </span></li>
+<?php endforeach; ?>
+</ul>
+
+<?php /*
+ <ul>
+    <?php foreach ($cust as $customer): ?>
+    <li id="1">your mom</li>
+    <li id="2">yodel</li>
+</ul>
+ * 
+  var uri = "my test.asp?name=ståle&car=saab";
+var enc = encodeURI(uri);
+var dec = decodeURI(enc);
+var res = enc + "<br>" + dec;
+
+The result of res will be:
+my%20test.asp?name=st%C3%A5le&car=saab      // Encoded URI
+my test.asp?name=ståle&car=saab             // Decoded URI
+ */ ?>

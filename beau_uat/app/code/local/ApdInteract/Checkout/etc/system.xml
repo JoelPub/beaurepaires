@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <checkout>
+            <groups>
+                <options>
+                    <fields>
+                        <hide_shipping translate="label" module="apdinteract_checkout">
+                            <label>Hide shipping method step</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hide_shipping>
+                        <hide_stepper translate="label" module="apdinteract_checkout">
+                            <label>Hide Shopping Cart Stepper</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>111</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hide_stepper>
+                        <default_shipping translate="label" module="apdinteract_checkout">
+                            <label>Default shipping method code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>112</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_shipping>
+                    </fields>
+                </options>
+            </groups>
+        </checkout>
+        <add_ons translate="label" module="apdinteract_checkout">
+            <label>Add-ons</label>
+            <tab>social_media</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2800</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <cart_page translate="label">
+                    <label>Cart Page Add-ons</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <price_info translate="label">
+                            <label>Price Info</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_info>
+                        
+                        <safety_info translate="label">
+                            <label>Safety Info</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </safety_info>
+                    </fields>
+                </cart_page>
+                <payment_logos>
+                	<label>Payment Logos</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <logo_1 translate="label comment">
+						<label>Logo 1</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_1>  
+						
+						<logo_1_title translate="label comment">
+						<label>Logo 1 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>2</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_1_title>  
+						
+						<logo_2 translate="label comment">
+						<label>Logo 2</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>3</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_2>
+						
+						<logo_2_title translate="label comment">
+						<label>Logo 2 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>4</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_2_title>
+						                				   					   
+
+                        <logo_3 translate="label comment">
+						<label>Logo 3</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>5</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_3>
+						
+						<logo_3_title translate="label comment">
+						<label>Logo 3 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>6</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_3_title>  
+						
+						<logo_4 translate="label comment">
+						<label>Logo 4</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>7</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_4>
+						
+						<logo_4_title translate="label comment">
+						<label>Logo 4 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>8</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_4_title>
+						
+                        <logo_5 translate="label comment">
+						<label>Logo 5</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>9</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_5>
+						
+						<logo_5_title translate="label comment">
+						<label>Logo 5 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>10</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_5_title>  
+						
+						<logo_6 translate="label comment">
+						<label>Logo 6</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>11</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_6>
+						
+						<logo_6_title translate="label comment">
+						<label>Logo 6 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>12</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_6_title>
+						
+                        <logo_7 translate="label comment">
+						<label>Logo 7</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>13</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_7> 
+						
+						
+						<logo_7_title translate="label comment">
+						<label>Logo 7 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>14</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_7_title> 
+						
+						<logo_8 translate="label comment">
+						<label>Logo 8</label>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>15</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</logo_8>
+						
+						<logo_8_title translate="label comment">
+						<label>Logo 8 Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>16</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>0</show_in_store>
+						</logo_8_title>
+						
+                    </fields>
+                </payment_logos>
+                <checkout_page translate="label">
+                    <label>Checkout Page Add-ons</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <payment_logo translate="label comment">
+						<label>Payment Logo</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</payment_logo>  
+                    </fields>
+                </checkout_page>
+            </groups>
+        </add_ons>
+    </sections>
+</config>

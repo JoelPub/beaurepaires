@@ -1,0 +1,259 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+
+$vehicle = null;
+$make = Mage::helper('searchtyre')->getMakes();
+$vehicleId = $this->getRequest()->getParam('update_vehicle');
+$customerId = $this->getRequest()->getParam('id');
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$resetUrl = substr($currentUrl,0,strrpos($currentUrl,'?update'));
+$count_selected = 0;
+?>
+<?php if ($vehicleId): ?>
+	<?php $vehicle = Mage::getModel('apdinteract_vehicle/vehicle')->load($vehicleId); ?>
+	<?php $details = Mage::helper('apdinteract_vehicle')->jsonDetails($vehicleId);?>
+	<?php $decode = Mage::helper('core')->jsonDecode($vehicle->getDetails())?>
+<?php endif; ?>
+
+<div class="entry-edit-head">
+	<h4 class="icon-head head-customer-view">Vehicle Information</h4>
+</div>
+
+<!-- Checks whether the form to be loaded should be a New form-->
+<?php if(!$vehicle):?>
+<div class="fieldset">
+	<div class="hor-scroll">
+		<div class="quick-finder"
+			data-api-domain="https://api.vehiclelogic.com.au" 
+			data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+
+			<form autocomplete="off" id="form-validate" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('*/*/saveVehicle'). 'id/' . $customerId ?>">
+			    <table cellspacing="0" class="form-list">
+		            <tbody>
+		                <tr>
+		                	<td class="value">
+								<select name="make-tyres" class="required-field make-tyres"  placeholder="">
+								    <option value="">Select Make*</option>
+								    <?php foreach ($make as $m => $v): ?>
+								        <option  value="<?php echo $m ?>"><?php echo $v ?></option>
+								    <?php endforeach; ?>
+
+								</select>
+
+								<p class="error error-make-tyres">This field is required.</p>
+							</td>
+						</tr>
+						<tr>
+
+							<td class="value">
+								<select name="year-tyres" class="required-field year-tyres">
+									<option value="">Select Year*</option>
+									<?php for ($i = date("Y"); $i >= 1990; $i--): ?>
+										<option  value="<?php echo $i ?>"><?php echo $i ?></option>
+									<?php endfor; ?>
+								</select>
+								<p class="error error-year-tyres">This field is required.</p>
+							</td>
+						</tr>
+						<tr>
+		                	<td class="value">
+								<div class="relative">
+								    <select name="model-tyres" class="required-field model-tyres"  title="Select Model" disabled>
+								        <option value="">Select Model*</option>
+								    </select>
+								    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+								    <p class="error error-model-tyres">This field is required.</p>
+								</div>
+							</td>
+						</tr>					
+						<tr>
+		                	<td class="value">
+								<div class="relative">
+								    <select name="series-tyres" class="required-field series-tyres final-select" title="Select Series" disabled>
+								        <option value="">Select Series*</option>
+								    </select>
+								    <div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+								    <p class="error error-series-tyres">This field is required.</p>
+								</div>
+							</td>
+						</tr>					
+						<tr>
+		                	<td class="value">
+								<label for="registration">Registration *</label>
+								<div class="relative">
+									<input id="registration" type="text" class="required-field input-text" maxlength="255" title="Registration" value="" name="registration">
+									<p class="error error-registration">This field is required.</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<label for="url">Url</label>
+								<div class="relative">
+									<input id="url" type="text" class="input-text" maxlength="255" title="Url" value="" name="url">
+								</div>
+							</td>
+						</tr>
+						<tr>
+
+		                	<td class="value">
+								<input type="hidden" name="details-tyres" class="details-tyres"/>
+								<!-- <input type="submit" value="Save Vehicle" class="button btn-cart radius right"/> -->
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<button type="submit">Save Vehicle</button>
+								<a href="<?php echo $resetUrl;?>" class="form-button">Reset</a>
+							</td>
+						</tr>
+						<tr>
+							<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"
+						</tr>
+
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Otherwise, load the Edit form with the preselected fields or values -->
+
+<?php else: ?>
+	<div class="fieldset">
+		<div class="hor-scroll">
+			<div class="quick-finder"
+				 data-api-domain="https://api.vehiclelogic.com.au"
+				 data-api-key="<?php echo Mage::helper('searchtyre')->getToken(); ?>">
+
+				<form autocomplete="off" id="form-validate" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('*/*/saveVehicle'). 'id/' . $customerId . '/update_vehicle/' . $vehicleId ?>">
+					<table cellspacing="0" class="form-list">
+						<tbody>
+						<tr>
+							<td class="value">
+								<select name="make-tyres" class="required-field make-tyres" data-selected-value="<?php echo $decode['make-tyres'] ?>" placeholder="">
+									<option value="">Select Make*</option>
+									<?php 
+                                                                              $count_selected =0;
+                                                                              foreach ($make as $m => $v): ?>
+										<option <?php if($m == $decode['make-tyres'] && $decode['make-tyres'] ){ echo "selected"; $count_selected++;} ?> value="<?php echo $m ?>"><?php echo $v ?></option>
+									<?php endforeach; ?>
+                                                                        <?php if($count_selected<=0 && trim($vehicle->getMake())!='') {?><option selected="selected" value="<?php echo $vehicle->getMake()?>"><?php echo $vehicle->getMake()?></option><?php }?>        
+								</select>                                                            
+
+								<p class="error error-make-tyres">This field is required.</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<select name="year-tyres" class="required-field year-tyres" data-selected-value="<?php echo $vehicle->getManufactureYear() ?>">
+									<option value="">Select Year*</option>
+									<?php 
+                                                                              $count_selected =0;
+                                                                              for ($i = date("Y"); $i >= 1990; $i--): ?>
+										<option  <?php if($i == $vehicle->getManufactureYear()){ echo "selected";$count_selected++;} ?> value="<?php echo $i ?>"><?php echo $i ?></option>
+									<?php endfor; ?>
+                                                                        <?php if($count_selected<=0 && trim($vehicle->getManufactureYear())>0) {?><option selected="selected" value="<?php echo $vehicle->getManufactureYear()?>"><?php echo $vehicle->getManufactureYear()?></option><?php }?>                
+
+								</select>
+								<p class="error error-year-tyres">This field is required.</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<div class="relative">
+									<select name="model-tyres" class="required-field model-tyres"  data-selected-value="<?php echo $decode['model-tyres'] ?>" title="Select Model">
+										<option value="">Select Model*</option>
+                                            <?php if(trim($vehicle->getData('model'))!='') {?><option selected="selected" value="<?php echo $vehicle->getData('model')?>"><?php echo $vehicle->getData('model')?></option><?php }?>
+									</select>
+									<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+									<p class="error error-model-tyres">This field is required.</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<div class="relative">
+									<select name="series-tyres" class="required-field series-tyres final-select" data-selected-value="<?php echo $decode['series-tyres'] ?>" title="Select Series">
+										<option value="">Select Series*</option>
+                                             <?php if(trim($vehicle->getSeries())!='') {?><option selected="selected" value="<?php echo $vehicle->getSeries()?>"><?php echo $vehicle->getSeries()?></option><?php }?>
+
+									</select>
+									<div class="load-indicator"><i class="fa fa-refresh fa-spin"></i></div>
+									<p class="error error-series-tyres">This field is required.</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<label for="registration">Registration *</label>
+								<div class="relative">
+									<input id="registration" type="text" class="required-field input-text" maxlength="255" title="Registration" value="<?php echo $vehicle->getRegistration() ?>" name="registration">
+
+                                               <input type="hidden" name="orig_rego" value="<?php echo $vehicle->getRegistration() ?>">
+									<p class="error error-registration">This field is required.</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<label for="url">Url</label>
+								<div class="relative">
+									<input id="url" type="text" class="input-text" maxlength="255" title="Url" value="<?php echo $vehicle->getUrl() ?>" name="url">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<input type="hidden" name="details-tyres" class="details-tyres" value="<?php echo htmlentities($details) ?>"/>
+								<!-- <input type="submit" value="Save Vehicle" class="button btn-cart radius right"/> -->
+							</td>
+						</tr>
+						<tr>
+							<td class="value">
+								<button type="submit">Save Vehicle</button>
+								<a href="<?php echo $resetUrl;?>" class="form-button">Reset</a>
+							</td>
+						</tr>
+						<tr>
+							<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"
+						</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>
+
+<!-- This is one is for the Vehicles Grid-->
+<?php echo $this->getChildHtml('grid') ?>
+
+<!-- TODO: Put this code in the proper stylesheet file-->
+<style type="text/css">
+	#form-validate .error { display: none; }
+</style>

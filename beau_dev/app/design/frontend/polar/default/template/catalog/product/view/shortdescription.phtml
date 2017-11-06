@@ -1,0 +1,18 @@
+<?php 
+/**
+ * Check whether description needs to be truncated or not
+ */
+
+?>
+<?php $_product = $this->getProduct(); ?>
+<?php $shortDescription = $_product->getShortDescription()?>
+<?php if ($shortDescription):?>
+	<?php $shortDesc = $this->helper('catalog/output')->productAttribute($this->getProduct(), $shortDescription, 'short_description') ?>
+	<?php $count = strlen($shortDesc)?>
+		<?php if ($count > 90):?>
+	    <?php $truncated = substr($shortDesc, 0,90)?>
+	    <p><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $truncated, 'short_description') ?><a href="#read-more"><?php echo $this->__(' Read More')?></a></p>
+	    <?php else:?>
+	    <p><?php echo $shortDesc ?></p>
+	    <?php endif; ?>
+<?php endif; ?>

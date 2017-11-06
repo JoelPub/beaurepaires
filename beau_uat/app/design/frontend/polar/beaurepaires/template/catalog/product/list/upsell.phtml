@@ -1,0 +1,126 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<div class="row collapse also-viewed">
+	<div class="columns">
+
+                <h3 class="section-title"><?php echo $this->__('You may also be interested in the following product(s)') ?></h3>
+                <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+                <?php $this->resetItemsIterator() ?>
+	          <div class="related-product-slider" data-equalizer>
+                <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+                    <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+                        <?php if($_link=$this->getIterableItem()): ?>
+                      <?php
+				$badge_th_img ="";
+                $badge_th = Mage::helper('apdinteract_catalog')->getBadgeSrc($_link->getAttributeText('overlay'), $thumb = true);
+				if(isset($badge_th) && $badge_th!='')
+					//$badge_th_img = "<img class=\"product-badge\" src=\"$badge_th\">";
+					$overlay_text = $_link->getAttributeText('overlay');
+                    $catalogue = str_replace(' ', '', strtolower($overlay_text));
+                    if (strpos($catalogue, 'new') !== false){
+                        $catalogue = 'new';
+                    }
+					$badge_th_img = "<div class=\"product-badge-block small {$catalogue}\">{$overlay_text}</div>";
+				?>
+                        <div class="item medium-3 columns">
+	              <div class="row product-item">
+                             <div class="small-3 columns">
+                                <div class="product-image">
+                                <a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_link, 'small_image'), null, true) ?>">
+                                        <img src="<?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize(400); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_link, 'small_image'), null, true) ?>" />
+                                </a>
+                          </div>
+	                </div>
+                          <div data-equalizer-watch class="small-9 columns product-slider-detail">
+                              <div class="product-details">
+                                  <?php echo $badge_th_img ?>
+                                  <?php $brand = $this->getSkinUrl('images/brands/' . strtolower($_link->getAttributeText('brand')) . '-logo.png');
+                                    // $url = getimagesize($brand);
+                                   // This doesn't work with https for some reason
+                                   if (true || is_array($url)) {?>
+                                    <img src="<?php echo $brand;?>" alt="<?php echo $_link->getAttributeText('brand'); ?>" />
+                                   <?php }?>
+                                  <h5 class="product-title"><a href="<?php echo $_link->getProductUrl() ?>" ><?php echo $this->escapeHtml($_link->getName()) ?></a></h5>
+                                    <?php $ratings = Mage::getModel('review/review_summary')?>
+                                    <?php $ratings = $ratings->setStoreId($storeId)->load($_link->getId());?>
+                                    <div class="star-rating">
+				                    	<?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($ratings['rating_summary']); ?>
+			                        </div>
+                                  <?php
+                                  $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_link);
+                                  $rrp = Mage::helper('core')->currency($minimumPriceFromSimple['rrp_price']);
+                                  $onlinePrice = Mage::helper('core')->currency($minimumPriceFromSimple['online_price']);
+                                  $from = Mage::helper('apdinteract_catalog')->shouldDisplayFromText($_link);
+                                  $isConfigurable = Mage::helper('apdinteract_catalog')->isConfigurable($_link);
+                                  ?>
+
+                                  <?php if ($minimumPriceFromSimple['rrp_price'] > $minimumPriceFromSimple['online_price'] && $minimumPriceFromSimple['online_price'] != 0 ):?>
+                                      <div class="price-label">RRP:</div>
+                                      <div class="rrp">
+                                          <span class="rrp-amount"><?php echo $rrp?>/ea</span>
+                                      </div>
+                                      <div class="price-label">Online <?php echo $from?></div>
+                                      <div class="online-price">
+                                          <span class="online-price"><?php echo $onlinePrice?>/ea</span>
+                                      </div>
+                                  <?php elseif (($minimumPriceFromSimple['online_price'] != 0  && ($minimumPriceFromSimple['special_price'] == null || $minimumPriceFromSimple['special_price'] == 0 ))):?>
+                                      <div class="price-label">Online <?php echo $from?></div>
+                                      <div class="online-price">
+                                          <span class="online-price"><?php echo $onlinePrice?>/ea</span>
+                                      </div>
+                                  <?php elseif (($minimumPriceFromSimple['online_price'] >= $minimumPriceFromSimple['rrp_price']) || ($data['online_price'] == 0)):?>
+                                      <div class="price-label">Request price</div>
+                                  <?php endif;?>
+
+                                  <?php $productCompareHelper = $this->helper('catalog/product_compare');
+                                  $_compareItems = $productCompareHelper->getItemCount() > 0 ? $productCompareHelper->getItemCollection() : null;
+                                  $compareProductIds = array();
+                                  foreach ($_compareItems as $item) {
+                                      $compareProductIds[] = $item->getId();
+                                  }
+                                  ?>
+
+                                  <?php if ($_compareItems && (in_array($_link->getId(), $compareProductIds))): ?>
+                                      <a href="javascript:;" class="link-compare"  onclick="popWin('<?php echo $productCompareHelper->getListUrl() ?>','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->__('View Compare')?></a>
+                                  <?php elseif($_compareUrl = $this->getAddToCompareUrl($_link)):?>
+                                      <a href="<?php echo $_compareUrl?>" class="link-compare"><?php echo $this->__('Add to Compare')?></a>
+                                  <?php endif; ?>
+
+                              </div>
+                            </div>
+                         </div>
+                        </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                <?php endfor; ?>
+            </div>
+    </div>
+</div>
+<br>
+<?php endif ?>

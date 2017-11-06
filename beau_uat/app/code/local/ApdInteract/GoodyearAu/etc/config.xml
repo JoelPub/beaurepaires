@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_GoodyearAu>
+      <version>0.7.0</version>
+    </ApdInteract_GoodyearAu>
+  </modules>
+  <global>
+    <helpers>
+      <goodyearau>
+        <class>ApdInteract_GoodyearAu_Helper</class>
+      </goodyearau>
+    </helpers>
+	<resources>
+	  <apdinteract_goodyearau_setup>
+		<setup>
+		  <module>ApdInteract_GoodyearAu</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </apdinteract_goodyearau_setup>
+	  <apdinteract_goodyearau_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </apdinteract_goodyearau_write>
+	  <apdinteract_goodyearau_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </apdinteract_goodyearau_read>
+	</resources>
+  </global>
+</config> 

@@ -1,0 +1,131 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php 
+    $_order = $this->getOrder();
+    $no_subtotal = (bool) $this->getNoSubtotal();
+?>
+<?php if ($_order): ?>
+	<?php 
+		$storeDetails = $_order->getStoreDetails();		
+		$appointmentDateTime = $_order->getAppointmentDatetime();
+
+		if($storeDetails && $appointmentDateTime):
+
+
+        $store = Mage::getModel('storelocator/stores')->getCollection()
+            ->addFieldToSelect('*')
+            ->addFieldToFilter('title',array('eq' => $storeDetails))
+            ->getFirstItem();
+
+        $storeAddress = $store->getStreet() . ' ' . $store->getCity() . ' ' . $store->getRegion() . ' ' . $store->getPostalCode();
+        $storePhone = $store->getPhone();
+
+	?>
+		<table cellspacing="0" cellpadding="0" border="0" width="600" style="border:1px solid #EAEAEA;">
+			<thead>
+				<tr>
+					<th align="left" colspan="2" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px">Your fitting location and time</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="padding-left:9px;">Store Name</td>
+					<td><?php echo $storeDetails  ?></td>
+				</tr>
+                <tr>
+                    <td style="padding-left:9px;">Store Address</td>
+                    <td> <?php echo $storeAddress  ?><br></td>
+                </tr>
+                <tr>
+                    <td style="padding-left:9px;">Store Phone</td>
+                    <td> <?php echo $storePhone  ?></td>
+                </tr>
+				<tr>
+					<td style="padding-left:9px;">Booking Date</td>
+					<td><?php echo date('d F Y', strtotime($appointmentDateTime)); ?></td>
+				</tr>
+				<tr>
+					<td style="padding-left:9px;">Booking Time</td>
+					<td><?php echo date('H:i A', strtotime($appointmentDateTime)); ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<br/>
+	<?php endif; ?>
+
+    <table cellspacing="0" cellpadding="0" border="0" width="600" style="border:1px solid #EAEAEA;">
+        <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Item') ?></th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Sku') ?></th>
+            <!-- Hide Subtotal header for Phase 1 -->
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Qty') ?></th>
+            <?php if($_order->getData('request_type')!='PRICE REQUEST' && $_order->getData('request_type')!='BOOKING'): ?>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+
+        <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
+            <?php if($_item->getParentItem()) continue; else $i++; ?>
+            <tbody<?php echo $i%2 ? ' bgcolor="#F6F6F6"' : '' ?>>           
+            <?php echo $this->getItemHtml($_item)?>
+            </tbody>
+        <?php endforeach; ?>
+
+        <!-- Hide Pricing panel for Phase 1 -->
+        <!-- <tbody>
+         <?php //if($_order->getData('request_type')!='PRICE REQUEST' && $_order->getData('request_type')!='BOOKING'): ?>
+         <?php/// echo $this->getChildHtml('order_totals') ?>
+         <?php //endif; ?>
+    </tbody>  -->
+    </table>
+    <?php if ($this->helper('giftmessage/message')->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()): ?>
+        <?php $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId()); ?>
+        <?php if ($_giftMessage): ?>
+            <br />
+            <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+                <thead>
+                <tr>
+                    <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><strong><?php echo $this->__('Gift Message for this Order') ?></strong></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr>
+                    <td colspan="4" align="left" style="padding:3px 9px">
+                        <strong><?php echo $this->__('From:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
+                        <br /><strong><?php echo $this->__('To:'); ?></strong> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br /><strong><?php echo $this->__('Message:'); ?></strong><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>

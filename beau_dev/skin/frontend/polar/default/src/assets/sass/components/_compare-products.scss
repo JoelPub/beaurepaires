@@ -1,0 +1,116 @@
+// Variable
+
+
+// Compare Products
+.comp-compare-products{
+  > h3{
+    color: $oil;
+    font-size: 16px;
+    font-family: "Swiss721BT-Bold", Helvetica, Arial,sans-serif;
+    margin-bottom: 15px;
+  }
+
+  ul{
+    li{
+      margin-bottom: 5px;
+ 
+      a{
+        i{
+          color: $iron;
+          margin-top: 3px;
+          &:hover{
+            color: #f7901a;
+          }
+        } 
+      }
+    }
+  }
+
+  .action{
+    a{
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.catalog-product-compare-index {
+	background: $white;
+	padding: 10px;
+	
+	.page-title {
+		font-size: 24px;
+		line-height: 24px;
+		margin: 5px 0;
+	}
+	
+	.link-print {
+		margin: 5px 0 15px 0;
+	}
+}
+
+.compare-table {
+	
+	border-spacing: 0;
+	border-width: 0 1px 1px 1px;
+	margin-bottom: 10px;
+	
+	th, td {
+		border-top: 1px solid $silver;
+		vertical-align: top;
+	}
+	
+	tr {
+		&.even, &.alt, &:nth-of-type(2n) {
+			background: $white;
+		}
+	}
+	
+	th {
+		@extend strong;
+		
+		background-color: $sky-colour;
+		font-weight: normal;
+		width: 100px;
+		overflow: hidden;
+		
+		span {
+			width: 100px;
+		}
+	}
+	
+	td {
+		position: relative;
+		
+		&.even, &.alt, &:nth-of-type(2n) {
+			background: #f7f7f7;
+		}
+	}
+
+	.online-price {
+		margin: 0;
+	}
+	
+	.product-name {
+		font-size: 18px;
+		line-height: 20px;
+	}
+	
+	.close-btn {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+	}
+	
+	@media only screen and (max-width: 767px) {
+		.close-btn {
+			top: 1px;
+			right: 1px;
+		}
+		
+		.attr-short_description {
+			display: none; 
+		}
+	}
+	
+}

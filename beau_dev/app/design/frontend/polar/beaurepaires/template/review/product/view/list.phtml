@@ -1,0 +1,70 @@
+<?php /*
+ *  APD reviews template
+ *
+ */ ?>
+<a name="customer-reviews"></a>
+<?php $_items = Mage::helper('apdinteract_review')->getReviewsCollection()->getItems(); ?>
+<div class="review-component">
+
+  <div class="row">
+    <div class="medium-6 small-12 columns">
+      <!-- review form -->
+      <?php echo $this->getChildHtml('review_form'); ?>
+    </div>
+    <div class="medium-6 small-12 columns reviews-container" data-review-vote-url="<?php echo $this->getVoteReviewUrl() ?>">
+
+    <?php if (count($_items)): ?>
+
+        <?php foreach ($_items as $_review): ?>
+
+            <div class="review-item" data-review-id="<?php echo $_review->getDetailId() ?>">
+                <h5><?php echo $this->htmlEscape($_review->getTitle()); ?></h5>
+
+                <?php $_votes = $_review->getRatingVotes(); ?>
+                <?php if (count($_votes)): ?>
+                    <?php foreach ($_votes as $_vote): ?>
+
+                        <?php // echo $this->escapeHtml($_vote->getRatingCode()); // For more than 1 rating attribute ?>
+                        <div class="star-rating">
+                            <?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($_vote->getPercent()); ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+                <p><?php echo nl2br($this->htmlEscape($_review->getDetail())) ?></p>
+                <?php $name = $this->getCustomerFullName($_review->getCustomerId())?>
+                <?php if (!$name):?>
+                    <?php $name = $_review->getNickname();?>
+                <?php endif;?>
+                <?php $_voted = Mage::helper('apdinteract_review')->getVoteReview($_review) ?>
+                <p>
+                    <?php echo $this->__('By') . ' '  . $this->htmlEscape($name) . ' ' . date("j F Y", strtotime($_review->getCreatedAt())); ?>
+                <!-- <?php if(isset($_voted['details'])): ?>
+                    <span class="accounts-voted">
+                       <?php echo $_voted['details'] ?> <br/>
+                        <span class="yes-vote">0</span> of <span class="out-of-vote">0</span> people found this helpful.
+                    </span>
+                <?php endif; ?>
+                -->
+
+                <!-- static mark-up for BE -->
+                <span class="accounts-voted" data-upvote="<?php echo $_voted['total_up_vote'] ?>" data-downvote="<?php echo $_voted['total_down_vote'] ?>">
+                    <span class="yes-vote">5</span> of <span class="out-of-vote">4</span> people found this helpful.
+                </span>
+
+       
+                </p>
+                <p class="last-child"><?php echo $this->__('Was this review helpful?') ?></p>
+                <div class="vote-review-panel">
+                    <button class="button radius small yes-btn" value="1">Yes</button>
+                    <button class="button radius small no-btn" value="0">No</button>
+                    <i class="fa fa-spinner fa-spin fa-fw"></i>
+                    <p class="voted-submit">Thanks for voting</p>                    
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </div>
+  </div>
+</div>

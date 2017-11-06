@@ -1,0 +1,27 @@
+<div class="row">
+<div class="large-9 small-12 columns">
+	<div class="row">	    
+	    <div class="small-12 columns">
+	    <h1 class="db-page-title"><?php echo $this->__('Dashboard') ?></h1>
+	    
+	    <?php echo $this->getMessagesBlock()->toHtml() ?>
+            
+	    <?php echo $this->getChildHtml('hello') ?>
+            <?php echo $this->getChildHtml('dynamicgroupblock') ?>
+	    <?php echo $this->getChildHtml('top') ?>
+	   	</div>
+	</div>
+	    <div class="box-account box-info">
+	        <div class="box-head">
+	            <h4 class="db-sub-page-title"><?php echo $this->__('Account Details') ?></h4>
+	        </div>
+	        <?php /* Extensions placeholder */ ?>
+	        <?php echo $this->getChildHtml('customer.account.dashboard.extra') ?>
+	        <?php echo $this->getChildHtml('info') ?>
+	        <?php echo $this->getChildHtml('address') ?>
+	    </div>
+	    <?php echo $this->getChildHtml('info1') ?>
+	    <?php echo $this->getChildHtml('info2') ?>
+	    
+</div>
+</div>

@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <system>
+            <children>			
+                <apdcostar>
+                    <title>Costar Data Import</title>
+                    <sort_order>0</sort_order>
+                    <children>
+                        <costar_apdinteract_customer_update translate="title" module="adminhtml">
+                            <title>Customer Import History</title>
+                            <sort_order>0</sort_order>
+                            <action>admin_costar/adminhtml_costarbackend/index/type/customer</action>
+                        </costar_apdinteract_customer_update>
+                        <costar_apdinteract_product_update translate="title" module="adminhtml">
+                            <title>Product Import History</title>
+                            <sort_order>1</sort_order>
+                            <action>admin_costar/adminhtml_costarbackend/index/type/product</action>
+                        </costar_apdinteract_product_update>
+                        <costar_apdinteract_stock_update translate="title" module="adminhtml">
+                            <title>Inventory Import History</title>
+                            <sort_order>2</sort_order>
+                            <action>admin_costar/adminhtml_costarbackend/index/type/apdinteract_stock_update</action>
+                        </costar_apdinteract_stock_update>
+                        <costar_apdinteract_order_update translate="title" module="adminhtml">
+                            <title>Order Import History</title>
+                            <sort_order>3</sort_order>
+                            <action>admin_costar/adminhtml_costarbackend/index/type/order</action>
+                        </costar_apdinteract_order_update>
+                        <costar_apdinteract_rejected_order translate="title" module="adminhtml">
+                            <title>Re-send Rejected Orders</title>
+                            <sort_order>3</sort_order>
+                            <action>admin_costar/adminhtml_costarbackend/orders</action>
+                        </costar_apdinteract_rejected_order>
+                        <costarsetting>
+                            <title>Settings</title>
+                            <sort_order>4</sort_order>
+                            <action>adminhtml/system_config/edit/section/apdinteract_costar</action>
+                        </costarsetting>
+                    </children>
+                </apdcostar>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>						
+                            <apdcostar translate="title">
+                                <children>
+                                    <costar_apdinteract_customer_update translate="title" module="costar">
+                                        <title>Customer Import History</title>
+                                        <sort_order>60</sort_order>
+                                    </costar_apdinteract_customer_update>
+                                    <costar_apdinteract_product_update translate="title" module="costar">
+                                        <title>Product Import History</title>
+                                        <sort_order>60</sort_order>
+                                    </costar_apdinteract_product_update>
+                                    <costar_apdinteract_stock_update translate="title" module="costar">
+                                        <title>Import History</title>
+                                        <sort_order>60</sort_order>
+                                    </costar_apdinteract_stock_update>
+                                    <costar_apdinteract_orders_update translate="title" module="costar">
+                                        <title>Order Import History</title>
+                                        <sort_order>60</sort_order>
+                                    </costar_apdinteract_orders_update>                                    
+                                    <costar_apdinteract_rejected_order translate="title" module="costar">
+                                        <title>Re-send Rejected Orders</title>
+                                        <sort_order>60</sort_order>
+                                    </costar_apdinteract_rejected_order>                                    
+                                </children>
+                            </apdcostar>
+                            <config>
+                                <children>
+                                    <apdinteract_costar>
+                                        <title>Import Settings</title>
+                                    </apdinteract_costar>
+                                    <apimonitoring translate="title" module="costar">
+                                        <title>Api Provider Monitoring Section</title>
+                                    </apimonitoring>
+                                </children>
+                            </config>                           		
+                        </children>
+                    </system>
+                    
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

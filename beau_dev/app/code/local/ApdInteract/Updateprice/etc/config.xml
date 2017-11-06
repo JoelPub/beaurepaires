@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <ApdInteract_Updateprice>
+      <version>0.1.0</version>
+    </ApdInteract_Updateprice>
+  </modules>
+  <global>
+    <helpers>
+      <updateprice>
+        <class>ApdInteract_Updateprice_Helper</class>
+      </updateprice>
+    </helpers>
+	<models>
+	  <updateprice>
+		<class>ApdInteract_Updateprice_Model</class>
+		<resourceModel>updateprice_mysql4</resourceModel>
+	  </updateprice>
+	</models>
+    <!--<events> commented out since BFT-2021 is the new price rule being followed 9/22/2016 See BFT-2021-->
+
+      <!--<catalog_product_get_final_price> &lt;!&ndash; identifier of the event we want to catch &ndash;&gt;-->
+        <!--<observers>-->
+          <!--<catalog_product_get_final_price_handler> &lt;!&ndash; identifier of the event handler &ndash;&gt;-->
+            <!--<type>model</type> &lt;!&ndash; class method call type; valid are model, object and singleton &ndash;&gt;-->
+            <!--<class>ApdInteract_Updateprice_Model_Observer</class> &lt;!&ndash; observers class alias &ndash;&gt;-->
+            <!--<method>finalPrice</method>  &lt;!&ndash; observer's method to be called &ndash;&gt;-->
+            <!--<args></args> &lt;!&ndash; additional arguments passed to observer &ndash;&gt;-->
+          <!--</catalog_product_get_final_price_handler>-->
+        <!--</observers>-->
+      <!--</catalog_product_get_final_price>-->
+    <!--</events>-->
+  </global>
+</config> 

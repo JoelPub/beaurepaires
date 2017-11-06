@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ApdInteract_Install>
+            <version>0.41.0</version>
+        </ApdInteract_Install> 
+    </modules>
+    <global>
+        <models>
+            <apdinteract_install>
+                <class>ApdInteract_Install_Model</class>
+            </apdinteract_install>
+        </models>
+        <helpers>
+            <apdinteract_install>
+                <class>ApdInteract_Install_Helper</class>
+            </apdinteract_install>
+        </helpers>
+        <resources>
+            <apdinteract_install_setup>
+                <setup>
+                    <module>ApdInteract_Install</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </apdinteract_install_setup>
+        </resources>
+    </global>
+</config>

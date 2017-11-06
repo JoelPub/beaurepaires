@@ -1,0 +1,35 @@
+//Variable
+$smoke: #ccc;
+$sky: #9EDCEF;
+
+//Accordion
+table, .specification-table {
+	border: $inset-dark-shadow;
+  //border-collapse: collapse;
+  tbody{
+    tr{
+      td{
+        font-size: $base-font;
+        &:first-child{
+          //background: rgba($sky,0.2);
+          @media #{$small-only} {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.specification-table{
+	border-spacing: 0;
+}
+
+.data-table {
+	border-radius: 4px;
+	border-spacing: 0;
+	
+	td {
+		 border-top: $inset-dark-shadow;
+	}
+}

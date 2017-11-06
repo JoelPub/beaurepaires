@@ -1,0 +1,38 @@
+<?php
+// Call this with (eg)
+// wheelinfo/index/index/sku/2010FVH-38165M22
+// See also ApdInteract_Wheels_Block_Wheelinfo
+
+$product = $this->getProductParent();
+$json = array("Error" => 1, "Message" => "Requested SKU not found");
+$childProducts = Mage::helper('visualizer')->getChildProducts($product);
+
+if ($product && $product->getData('entity_id')) {
+    $json = array(
+        "Type"=>$product->getTypeId(),
+        "Id" => $product->getData('entity_id'),
+        "Name" => $product->getData('name'),
+        "SortDescription" => strip_tags($product->getData('short_description')),
+        "Brand" => array( 
+            "Name" => $this->getBrand(),
+            "Image" => $this->getBrandImage()
+        ),
+        "AttributeIcons" => $this->getAttributeIcon($product),
+        "ProductImage" => $this->getProductImage(),
+        "Badge" => array(
+            "Name" => $this->getOverlay(),
+            "Image" => array(
+                "Large" => $this->getOverlayImage(true),
+                "Small" => $this->getOverlayImage(false)
+                )
+            ),
+        "Price" => array(
+            "FinalPrice" => $this->getPrice(),
+            "RRP" => $this->getPrice('price'),
+            "Msrp" => $this->getPrice('msrp')
+            ),
+        "UrlKey" => $product->getProductUrl(),
+        'sizeOptions' => $childProducts,
+    );
+}
+echo json_encode($json);

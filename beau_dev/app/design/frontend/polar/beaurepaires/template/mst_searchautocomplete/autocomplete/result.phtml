@@ -1,0 +1,28 @@
+<?php
+$_helper = Mage::helper('searchautocomplete');
+$_configHelper = Mage::helper('searchautocomplete/config');
+$_query  = Mage::helper('catalogsearch')->getQueryText();
+$result = array();
+?>
+<?php if (count($this->getIndexes()) > 0): ?>
+    <?php foreach ($this->getIndexes() as $_index => $_label): ?>
+        <?php
+        $_collection = $this->getCollection($_index);
+
+        ?>
+        <?php foreach ($_collection as $_item): ?>
+            <?php
+            $thumbImage = Mage::helper('catalog/image')->init($_item, 'thumbnail')->resize($_configHelper->getImageWidth(), $_configHelper->getImageHeight());
+            $minimumPriceFromSimple = Mage::helper('apdinteract_catalog')->shouldDisplayMinimalPrice($_item);
+            $result[] = array(
+                "name"        => (string)$_item->getName(),
+                "description" => (string)$_item->getDescription(),
+                "Image"       => (string)$thumbImage,
+                "price"       => Mage::helper('core')->currency($minimumPriceFromSimple['online_price'], true, false),
+                "url"         => (string)$_item->getProductUrl()
+            );
+            ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
+<?php endif ?>
+<?php echo json_encode($result); ?>

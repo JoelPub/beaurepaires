@@ -1,0 +1,76 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<script>
+    var specificationsTableFields = {
+        'sku':'SKU',
+        'section-width': 'Section width',
+        'aspect-ratio': 'Aspect Ratio',
+        'rim': 'Rim',
+        'position-wheels': 'Position (wheels)',
+        'measuring-rim': 'Measuring rim',
+        'tread-depth': 'Tread depth (mm)',
+        'overall-width': 'Overall width',
+        'speed-rating': 'Speed rating',
+        'load-index': 'Load index',
+        'rim-diameter': 'Rim Diameter (inch)',
+        'overall-diameter': 'Overall Diameter (mm)',
+        'static-loaded-radius': 'Static Loaded Radius (mm)',
+        'revs-per-km': 'Revs per km',
+        'service-description': 'Service Description',
+        'mac': 'Mac',
+        'predecessor-mac': 'Predecessor Mac',
+        'nominal-od': 'Nominal Od',
+        'finish': 'Finish',
+        'pcd': 'PCD',
+        'pcd-alternate': 'PCD Alternate',
+        'studs': 'Studs',
+        'studs-alternate': 'Studs alternate',
+        'offset': 'Offset',
+        'wheel-construction': 'Wheel construction',
+        'wheel-manufacture': 'Wheel manufacture',
+        'volts': 'Volts',
+        'technology': 'Technology',
+        'length': 'Length',
+        'width': 'Width',
+        'height': 'Height',
+        'cca': 'CCA',
+        'rc': 'RC',
+        'ah': 'AH',
+        'speed-load-rating':'Speed Load Rating',
+        'post': 'Post'
+    };
+</script>
+
+
+<?php $_product = $this->getProduct(); ?>
+<?php $type = $_product->getTypeId(); ?>
+
+<div>
+    <table class="specification-table">
+        <tbody></tbody>
+    </table>
+</div>

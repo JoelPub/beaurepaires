@@ -1,0 +1,46 @@
+<?php if(Mage::Helper('apdinteract_catalog')->getImportantMsg()==''):?>
+    <div class="selected-search">
+        <div class="row full-width">
+            <div class="columns medium-5">
+                <div class="selected-search-column">
+                    <div class="selected-label"><strong><i class="fa fa-arrow-circle-right"></i> Vehicle Type:</strong></div>
+                    <div class="v-type">
+                        <?php
+                        if (Mage::getSingleton('core/session')->getTSeriesNameF()=='') {
+                            echo 'Currently displaying all vehicle types';
+                        } else {
+                            echo Mage::getSingleton('core/session')->getTSeriesNameF();
+                        }
+                        ?>
+                    </div>
+                </div> 
+            </div>
+            <div class="columns medium-7">
+                <div class="selected-search-column">
+                    <div class="selected-label"><strong><i class="fa fa-arrow-circle-right"></i> Your Tyre Size:</strong></div>
+                    <div class="t-size">
+                        <?php
+                        $type = Mage::app()->getRequest()->getParam('type');
+                        $section = Mage::app()->getRequest()->getParam('section');
+                        if (Mage::getSingleton('core/session')->getSizeF()=='' || strlen(Mage::getSingleton('core/session')->getSizeF())<=2) {
+                            echo 'Currently displaying all tyre sizes';
+                        } else {
+
+                            if(($section=='size' || $section=='size#find-size') && ($type=='tyres'))
+                            {
+                                echo Mage::getSingleton('core/session')->getSizeF();
+                            }
+                            else
+                            {
+                                echo 'Front: '.Mage::getSingleton('core/session')->getSizeF().', '.'Rear: '.Mage::getSingleton('core/session')->getSize1F();
+
+                            }
+
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

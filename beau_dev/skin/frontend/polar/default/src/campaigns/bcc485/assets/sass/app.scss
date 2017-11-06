@@ -1,0 +1,72 @@
+$main-assets: '../../../../assets/';
+$font_path: $main-assets + 'fonts';
+$images_path: $main-assets + 'images';
+$fa-font-path: $font_path;
+
+// core styles
+@import "src/assets/sass/settings";
+@import "./bower_components/foundation/scss/foundation";
+
+//Font Awesome
+@import "src/assets/sass/vendor/font-awesome/font-awesome";
+
+//Carousel
+@import "./bower_components/slick-carousel/slick/slick";
+
+//Jquery UI - Used for the datepicker and the autocompletion dropdown menu
+@import "./bower_components/jquery.ui/themes/base/core";
+@import "./bower_components/jquery.ui/themes/base/theme";
+
+//Custom
+@import
+"src/assets/sass/custom-font-icon",
+"src/assets/sass/reset",
+"src/assets/sass/global",
+"src/assets/sass/print",
+"src/assets/sass/typo",
+// "src/assets/sass/components/accordion",
+// "src/assets/sass/components/breadcrumbs",
+"src/assets/sass/components/buttons",
+// "src/assets/sass/components/cart-component",
+// "src/assets/sass/components/checkout",
+// "src/assets/sass/components/compare-products",
+// "src/assets/sass/components/currently-shopping",
+// "src/assets/sass/components/dashboard",
+// "src/assets/sass/components/datepicker",
+"src/assets/sass/components/form",
+"src/assets/sass/components/footer",
+"src/assets/sass/components/header",
+// "src/assets/sass/components/home",
+// "src/assets/sass/components/landing-pages",
+// "src/assets/sass/components/mini-cart",
+// "src/assets/sass/components/product-slider",
+// "src/assets/sass/components/quick-finder",
+// "src/assets/sass/components/products-image-gallery",
+// "src/assets/sass/components/product-item",
+// "src/assets/sass/components/product-listing",
+// "src/assets/sass/components/reviews",
+// "src/assets/sass/components/social-media",
+"src/assets/sass/components/slick-theme"
+// "src/assets/sass/components/store-locator",
+// "src/assets/sass/components/table",
+// "src/assets/sass/components/toolbar",
+// "src/assets/sass/components/top-car-search",
+// "src/assets/sass/components/top-menu",
+// "src/assets/sass/components/toolbar",
+// "src/assets/sass/components/vir-form",
+// "src/assets/sass/components/write-review",
+// "src/assets/sass/components/recently-viewed",
+// "src/assets/sass/components/my-account",
+// "src/assets/sass/components/view-order",
+// "src/assets/sass/components/redirect",
+// "src/assets/sass/components/search",
+// "src/assets/sass/components/customer_mobility",
+// "src/assets/sass/components/booking",
+// "src/assets/sass/components/address",
+// "src/assets/sass/components/styleguide",
+// // "src/assets/sass/components/campaign",
+// "src/assets/sass/components/campaign-map"
+;
+
+// Styles for this campaign only
+@import "main", "flashbar", "hero", "features", "process.scss", "whocares";

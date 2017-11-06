@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * StoreFront Silverpop Transaction Email Magento Extension
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to commercial source code license 
+ * of StoreFront Consulting, Inc.
+ *
+ * @category	SFC
+ * @package    	SFC_SilverpopTransactional
+ * @website 	http://www.storefrontconsulting.com/
+ * @copyright 	Copyright (C) 2009-2013 StoreFront Consulting, Inc. All Rights Reserved.
+ */
+ -->
+<config>
+    <modules>
+        <SFC_SilverpopTransactional>
+            <version>0.1.1</version>
+        </SFC_SilverpopTransactional>
+    </modules>
+    <admin>
+        <routers>
+			<silverpoptransactional>
+				<use>admin</use>
+				<args>
+					<module>SFC_SilverpopTransactional</module>
+					<frontName>silverpoptransactional</frontName>
+				</args>
+			</silverpoptransactional>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<silverpop module="silverpoptransactional">
+				<title>Silverpop</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<queue module="silverpoptransactional">
+						<title>Transactional Email Queue</title>
+						<sort_order>0</sort_order>
+						<action>silverpoptransactional/adminhtml_manage</action>
+					</queue>
+					<history module="silverpoptransactional">
+						<title>Transactional Email History</title>
+						<sort_order>1</sort_order>							
+						<action>silverpoptransactional/adminhtml_manage/history</action>
+					</history>
+				</children>
+			</silverpop>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<silverpop>
+											<title>Silverpop Integration</title>
+										</silverpop>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<silverpoptransactional>
+					<file>silverpoptransactional.xml</file>
+				</silverpoptransactional>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <silverpoptransactional>
+                <class>SFC_SilverpopTransactional_Model</class>
+                <resourceModel>silverpoptransactional_mysql4</resourceModel>
+            </silverpoptransactional>
+            <silverpoptransactional_mysql4>
+                <class>SFC_SilverpopTransactional_Model_Mysql4</class>
+                <entities>
+                    <email>
+                        <table>silverpoptransactional_email</table>
+                    </email>
+                    <logs>
+                    	<table>silverpoptransactional_logs</table>
+                    </logs>
+                </entities>
+            </silverpoptransactional_mysql4>
+            <core>
+            	<rewrite>
+            		<email_template>SFC_SilverpopTransactional_Model_Core_Email_Template</email_template>
+            	</rewrite>
+            </core>            
+        </models>
+        <resources>
+            <silverpoptransactional_setup>
+                <setup>
+                    <module>SFC_SilverpopTransactional</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </silverpoptransactional_setup>
+            <silverpoptransactional_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </silverpoptransactional_write>
+            <silverpoptransactional_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </silverpoptransactional_read>
+        </resources>
+        <blocks>
+            <silverpoptransactional>
+                <class>SFC_SilverpopTransactional_Block</class>
+            </silverpoptransactional>
+        </blocks>
+        <helpers>
+            <silverpoptransactional>
+                <class>SFC_SilverpopTransactional_Helper</class>
+            </silverpoptransactional>
+        </helpers>
+    </global>
+    <default>
+    	<silverpop>
+    		<smtp>
+				<max_retries>3</max_retries>
+				<schedule>0</schedule>
+				<pagesize>500</pagesize>
+			</smtp>
+			<system>
+				<memory>1024</memory>
+			</system>
+		</silverpop>
+    </default>
+	<crontab>
+		<jobs>
+			<silverpoptransactional_process>
+				<run>
+					<model>silverpoptransactional/cron::processEmail</model>
+				</run>
+			</silverpoptransactional_process>
+		</jobs>
+	</crontab>
+</config>

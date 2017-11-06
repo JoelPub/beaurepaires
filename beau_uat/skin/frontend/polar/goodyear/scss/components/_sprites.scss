@@ -1,0 +1,204 @@
+.sprite {
+  // $sprite-file-x1: '../images/spritesheet_x1.png';
+  // $sprite-file-x2: '../images/spritesheet_x2.png';
+  // $width-x2: 60px;
+  // $height-x2: 59px;
+  // $width-x1: $width-x2 / 2;
+  // $height-x1: $height-x2 / 2;
+  // $padding-x2: 5px;
+  // $padding-x1: $padding-x2 / 2;
+
+  $sprite-file-small: '../images/icon_spritesheet_30.png';
+  $sprite-file-large: '../images/icon_spritesheet_45.png';
+  $size-small: 30px;
+  $size-large: 45px;
+  $padding: 5px;
+
+  @mixin pos($col-num, $row-num, $version) {
+    $col-size: 0;
+    $row-size: 0;
+    $padding-size: $padding;
+    $sprite-file: '';
+
+    @if $version == 1 {
+      $col-size: $size-small;
+      $row-size: $size-small;
+      $sprite-file: $sprite-file-small;
+    } @else if $version == 2 {
+      $col-size: $size-large;
+      $row-size: $size-large;
+      $sprite-file: $sprite-file-large;
+    }
+
+    $col-pos: -( $padding-size + ( $col-size + ( $padding-size * 2 ) ) * $col-num );
+    $row-pos: -( $padding-size + ( $row-size + ( $padding-size * 2 ) ) * $row-num );
+
+    background-color: transparent;
+    background-image: url($sprite-file);
+    background-position: $col-pos $row-pos;
+    border-radius: 0;
+    height: $row-size;
+    width: $col-size;
+  }
+
+  background-color: #F00; // error color
+  background-repeat: no-repeat;
+  border-radius: 50%; // error border
+  display: inline-block;
+
+  &:before {
+    display: none;
+  }
+
+  &:not(.icons-large) {
+
+    &.icon {
+      &-all-terrain {
+        @include pos(0, 0, 1);
+      }
+      &-braking-performance {
+        @include pos(1, 0, 1);
+      }
+      &-comfort-performance {
+        @include pos(2, 0, 1);
+      }
+      &-cornering-performance {
+        @include pos(3, 0, 1);
+      }
+      &-slow-wear {
+        @include pos(4, 0, 1);
+      }
+      &-dry-performance {
+        @include pos(0, 1, 1);
+      }
+      &-durability {
+        @include pos(1, 1, 1);
+      }
+      &-even-wear {
+        @include pos(2, 1, 1);
+      }
+      &-fuel-economy {
+        @include pos(3, 1, 1);
+      }
+      &-sport-performance {
+        @include pos(4, 1, 1);
+      }
+      &-grip-performance {
+        @include pos(0, 2, 1);
+      }
+      &-handling-performance {
+        @include pos(1, 2, 1);
+      }
+      &-low-noise {
+        @include pos(2, 2, 1);
+      }
+      &-mileage {
+        @include pos(3, 2, 1);
+      }
+      &-traction {
+        @include pos(4, 2, 1);
+      }
+      &-offroad-performance {
+        @include pos(0, 3, 1);
+      }
+      &-original-equipment {
+        @include pos(1, 3, 1);
+      }
+      &-rof {
+        @include pos(2, 3, 1);
+      }
+      &-road-hazard-resistant {
+        @include pos(3, 3, 1);
+      }
+      &-value {
+        @include pos(4, 3, 1);
+      }
+      &-wet-performance {
+        @include pos(0, 4, 1);
+      }
+      &-wetdry-performance {
+        @include pos(1, 4, 1);
+      }
+      &-winter {
+        @include pos(2, 4, 1);
+      }
+    }
+  }
+
+  &.icons-large {
+
+    &.icon {
+
+      &-all-terrain {
+        @include pos(0, 0, 2);
+      }
+      &-braking-performance {
+        @include pos(1, 0, 2);
+      }
+      &-comfort-performance {
+        @include pos(2, 0, 2);
+      }
+      &-cornering-performance {
+        @include pos(3, 0, 2);
+      }
+      &-slow-wear {
+        @include pos(4, 0, 2);
+      }
+      &-dry-performance {
+        @include pos(0, 1, 2);
+      }
+      &-durability {
+        @include pos(1, 1, 2);
+      }
+      &-even-wear {
+        @include pos(2, 1, 2);
+      }
+      &-fuel-economy {
+        @include pos(3, 1, 2);
+      }
+      &-sport-performance {
+        @include pos(4, 1, 2);
+      }
+      &-grip-performance {
+        @include pos(0, 2, 2);
+      }
+      &-handling-performance {
+        @include pos(1, 2, 2);
+      }
+      &-low-noise {
+        @include pos(2, 2, 2);
+      }
+      &-mileage {
+        @include pos(3, 2, 2);
+      }
+      &-traction {
+        @include pos(4, 2, 2);
+      }
+      &-offroad-performance {
+        @include pos(0, 3, 2);
+      }
+      &-original-equipment {
+        @include pos(1, 3, 2);
+      }
+      &-rof {
+        @include pos(2, 3, 2);
+      }
+      &-road-hazard-resistant {
+        @include pos(3, 3, 2);
+      }
+      &-value {
+        @include pos(4, 3, 2);
+      }
+      &-wet-performance {
+        @include pos(0, 4, 2);
+      }
+      &-wetdry-performance {
+        @include pos(1, 4, 2);
+      }
+      &-winter {
+        @include pos(2, 4, 2);
+      }
+    }
+  }
+
+}

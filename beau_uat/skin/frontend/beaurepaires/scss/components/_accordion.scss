@@ -1,0 +1,176 @@
+// Variable
+$white: #fff;
+$accordion-bottom: #E5E5E5;
+$accordion-sub-top: #0d68af;
+$accordion-sub-bottom: #0e5b99;
+$dark-grey: #4C4C4C;
+
+// Mixins
+@mixin bg-gradient-color($colorTop, $colorBottom) {
+  background: $pure-white-color; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  /* <!--[if gte IE 9]>
+      <style type="text/css">
+        .gradient {
+           filter: none;
+        }
+      </style>
+    <![endif]--> */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNGY0ZjQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, $colorTop 0%, $ghost 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$colorTop), color-stop(100%,$colorBottom)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, $colorTop 0%,$colorBottom 100%); /* IE10+ */
+  background: linear-gradient(to bottom, $colorTop 0%,$colorBottom 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$colorTop', endColorstr='$colorBottom',GradientType=0 ); /* IE6-8 */
+}
+
+.accordion{
+  .accordion-navigation, dd{
+    > a{
+      @include bg-gradient-color($white, $accordion-bottom);
+      //border: 1px solid $input-border-color;
+      //border-radius: $input-border-radius;
+      border: 1px solid $input-border-color;
+      border-radius: 2px;
+	  font-size: 14px;
+      height: auto;
+      line-height: normal;
+      padding: 7px 10px 7px 32px;
+      position: relative;
+
+      &:before{
+        border-color: transparent transparent transparent $anchor-font-color;
+        border-image: none;
+        border-style: solid;
+        border-width: 5px;
+        content: "";
+        display: block;
+        height: 0;
+        left: 20px;
+        margin-top: -4px;
+        position: absolute;
+        top: 50%;
+        width: 0;
+      }
+    }
+  }
+
+  .accordion{
+    .accordion-navigation, .accordion-navigation.active{
+      a{
+         @include bg-gradient-color($accordion-sub-top, $accordion-sub-bottom);
+         color: $white;
+
+        &:before{
+          border-color: $anchor-font-color transparent transparent transparent;
+          margin-top: 0;
+          left: 20px;
+        }
+      }
+    }
+  }
+}
+
+.accordion{
+  .accordion-navigation.active{
+    a{
+       @include bg-gradient-color($white, $accordion-bottom);
+
+      &:before{
+        border-color: $anchor-font-color transparent transparent transparent;
+        margin-top: -1px;
+        left: 15px;
+      }
+    }
+
+    .accordion-navigation{
+      a{
+         @include bg-gradient-color($accordion-sub-top, $accordion-sub-bottom);
+         border: 0;
+         color: $white;
+
+        &:before{
+          border-color:transparent transparent transparent $anchor-font-color;
+          margin-top: -4px;
+          left: 20px;
+        }
+      }
+    }
+
+    .accordion-navigation.active{
+      a{
+         @include bg-gradient-color($accordion-sub-top, $accordion-sub-bottom);
+         color: $white;
+
+        &:before{
+          border-color: $anchor-font-color transparent transparent transparent;
+          margin-top: -1px;
+          left: 15px;
+        }
+      }
+
+      > .content{
+        padding: 10px;
+      }
+    }
+  }
+}
+
+//DD - DT
+dl .filterdt{
+  @include bg-gradient-color($accordion-sub-top, $accordion-sub-bottom);
+  border: 0;
+  border-radius: 2px;
+  color: $white;
+  font-weight: normal;
+  height: auto;
+  line-height: normal;
+  font-size: 14px;
+  padding: 7px 10px 7px 28px;
+  position:relative;
+  cursor: pointer;
+  margin: 0 0 10px 0;
+
+  &:before{
+    border-color: transparent transparent transparent $anchor-font-color;
+    border-image: none;
+    border-style: solid;
+    border-width: 5px;
+    content: "";
+    display: block;
+    height: 0;
+    left: 20px;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 0;
+  }
+
+  > i {display:none;}
+}
+
+dl .filterdt.active{
+  &:before{
+    border-color: $anchor-font-color transparent transparent transparent;
+    margin-top: -1px;
+    left: 15px;
+  }
+}
+
+.filtercont{
+  >ul{
+    >li{
+      margin-left: 0;
+
+      a{
+        color: $dark-grey;
+
+        &:hover{
+          color: $anchor-font-color;
+        }
+      }
+    }
+  }
+}

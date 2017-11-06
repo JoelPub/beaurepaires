@@ -1,0 +1,19 @@
+section.who-cares {
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 70px 0;
+  text-align: center;
+
+  h2 {
+    font-family: $font-BlockBQRegular;
+    font-size: rem-calc(34px);
+  }
+
+  h3 {
+    font-family: $font-BlockBQRegular;
+    font-size: rem-calc(22px);
+    color: $color-white;
+  }
+
+
+}

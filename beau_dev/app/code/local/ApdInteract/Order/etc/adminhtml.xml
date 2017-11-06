@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<apdinteract_order_calendar>
+											<title>APD Interact API</title>
+										</apdinteract_order_calendar>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>    

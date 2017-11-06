@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=10,initial-scale=1">
+    <title>Beau Dev Test</title>
+    <script type="text/javascript" src="../js/d9f8e10959d791747466da97e7d348ec.script.js"></script>
+  <link href="../static/app.css" rel="stylesheet"></head>
+  <body>
+
+    <div class="sticky-header">
+      <div class="sticky-container">
+        <div class="promo-bar hide-for-small">
+  <div class="row full-width">
+    <div class="small-8 columns">
+
+      <ul class="location-options inline-list">
+
+        <li class="location find-location">
+          <i class="fa fa-location-arrow"></i> <span class="store" data-default_store_id="1" data-store_id="1"></span>
+          <a class="link" href="/store-locator/">Find the Nearest Store</a>
+        </li>
+
+        <li class="store-locator-link">
+          <a href="#" title="Store Locator"><i class="fa fa-map-marker fa-lg fa-fw" aria-hidden="true"><span class="show-for-sr">Store Locator</span></i>Store Locator</a>
+        </li>
+
+      </ul>
+
+    </div>
+    <div class="small-4 columns text-right">
+
+      <div class="promo-number">
+        <strong>Need Help?</strong> <a href="tel:1800 185 099"><i class="fa fa-phone" aria-hidden="true"></i> 1800 185 099</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+        <header class="main-header">
+  <script id="header-icons-config" type="application/json">
+    [
+      {
+        "label": "Search",
+        "icon": "fa-search",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleSearch",
+        "visibility": "all",
+        "badge": 0
+      },
+      {
+        "label": "Login",
+        "icon": "fa-user-o",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleLogin",
+        "visibility": "desktop",
+        "badge": 0
+      },
+      {
+        "label": "Account",
+        "icon": "fa-user",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleAccount",
+        "visibility": "desktop",
+        "badge": 0
+      },
+      {
+        "label": "Minicart",
+        "icon": "fa-phone",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": false,
+        "link": "tel:1111111324",
+        "action": null,
+        "visibility": "mobile",
+        "badge": 0
+      },
+      {
+        "label": "Cart",
+        "icon": "fa-shopping-cart",
+        "showLabel": false,
+        "isActive": false,
+        "isToggle": true,
+        "link": null,
+        "action": "toggleCart",
+        "visibility": "all",
+        "badge": 7
+      }
+    ]
+  </script>
+  <main-header header-title="Beaurepaires" header-icons-config-id="header-icons-config" search-panel-text="Search entire store here..." search-panel-input-name="q" search-panel-action="/catalogsearch/result/" search-panel-no-result="No results!" search-connection-error="Request failed/error" search-api="http://localhost:8082/proxy/searchautocomplete/ajax/get/?q=" search-view-all="/catalogsearch/result/?q=" login-login-text="Submit" login-login-icon="fa-sign-in" login-login-url="customer/account/loginPost/" login-signup-text="Register" login-signup-icon="fa-user-plus" login-signup-url="customer/account/create/" login-forgot-password="customer/account/forgotpassword/" login-social-fb-url="pslogin/account/use/type/facebook/" login-social-fb-popup-width="650" login-social-fb-popup-height="350" login-social-google-url="pslogin/account/use/type/facebook/" login-social-google-popup-width="650" login-social-google-popup-height="350" account-my-account-text="My Account" account-formkey="formkey" account-my-account-icon="fa-address-card-o" account-my-account-url="myaccount" account-logout-text="Logout" account-logout-icon="fa-sign-out" account-logout-url="logmeout" minicart-display-url="http://localhost:8082/proxy/checkout/cart/ajaxDisplay" minicart-update-url="http://localhost:8082/proxy/checkout/cart/ajaxUpdate" minicart-delete-url="http://localhost:8082/proxy/checkout/cart/ajaxDelete" minicart-checkout-url="/checkout" minicart-cart-url="/checkout/cart/" minicart-change-store-url="/store-locator">
+    
+    <h1>Beaurepaires</h1>
+    <a href="tell:1111111324">Call Us: 1111111324</a>
+    <a href="loginurl">Login</a>
+    <a href="signupurl">Register</a>
+  </main-header>
+</header>
+
+        <div class="top-bar-wrapper">
+<nav class="top-bar" role="navigation" data-topbar="">
+
+		        <section class="top-bar-section">
+              <div class="location find-location mobile-nearest-store">
+                  <i class="fa fa-location-arrow"></i> <span class="store" data-default_store_id=" 7242  " data-store_id="  "></span>
+                  <a class="link" href="/store-locator/">Find the Nearest Store</a>
+              </div>
+<ul class="level0">
+   <li class="mega m-search show-for-small-only"><a class="mega"><i class="fa fa-fw fa-search"></i> <span class="menu-title">Search</span></a></li>
+   <li class="mega m-store-loc show-for-small-only"><a class="mega" href="/store-locator"><i class="fa fa-fw fa-map-marker"></i> <span class="menu-title">Store Locator</span></a></li>
+   <li class="mega first has-dropdown">
+      <a href="http://127.0.0.1:8080/tyres" class="mega first has-dropdown" id="menu1" title="Tyres"><span class="menu-title">Tyres</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/tyres/passenger" class="mega first" id="menu7" title="Car Tyres"><span class="menu-title">Car Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/4x4_suv_all_terrain_1" class="mega" id="menu93" title="4X4 SUV / All-Terrain Tyres"><span class="menu-title">4X4 SUV / All-Terrain Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/4x4_suv_all_terrain_1" class="mega" id="menu94" title="4X4 SUV / Off-Road Tyres"><span class="menu-title">4X4 SUV / Off-Road Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/4x4_suv_highway_1" class="mega" id="menu8" title="4X4 SUV / Highway Tyres"><span class="menu-title">4X4 SUV / Highway Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/sports_performance" class="mega" id="menu46" title="Sports Tyres"><span class="menu-title">Sports Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/light_truck" class="mega" id="menu48" title="Light Truck Tyres"><span class="menu-title">Light Truck Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/truck_tyre" class="mega" id="menu49" title="Truck Tyres"><span class="menu-title">Truck Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/tractor-and-agricultural" class="mega" id="menu50" title="Tractor and Agricultural"><span class="menu-title">Tractor and Agricultural</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/retread_light_truck_tyre" class="mega" id="menu59" title="Retread for Light Trucks"><span class="menu-title">Retread for Light Trucks</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/tyres/retread_truck_tyre" class="mega last" id="menu60" title="Retread for Trucks"><span class="menu-title">Retread for Trucks</span></a></li>
+      </ul>
+   </li>
+   <li class="mega has-dropdown">
+      <a href="http://127.0.0.1:8080/wheels" class="mega has-dropdown" id="menu2" title="Wheels"><span class="menu-title">Wheels</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/wheels/adela" class="mega first" id="menu35" title="Adela Wheels"><span class="menu-title">Adela Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/bbs" class="mega" id="menu36" title="BBS Wheels"><span class="menu-title">BBS Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/black_rhino_1" class="mega" id="menu37" title="Black Rhino Wheels"><span class="menu-title">Black Rhino Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/csa" class="mega" id="menu38" title="CSA Wheels"><span class="menu-title">CSA Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/king_wheels" class="mega" id="menu39" title="King Wheels"><span class="menu-title">King Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/oz_racing" class="mega" id="menu40" title="OZ Racing Wheels"><span class="menu-title">OZ Racing Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/pdw" class="mega" id="menu41" title="PDW Wheels"><span class="menu-title">PDW Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/procast" class="mega" id="menu42" title="Procast Wheels"><span class="menu-title">Procast Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/speedy" class="mega" id="menu43" title="Speedy Wheels"><span class="menu-title">Speedy Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/ssw" class="mega" id="menu44" title="SSW Wheels"><span class="menu-title">SSW Wheels</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/wheels/tsw" class="mega" id="menu45" title="TSW Wheels"><span class="menu-title">TSW Wheels</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/store-locator" class="mega last" id="menu89" title="Wheel Locations"><span class="menu-title">Wheel Locations</span></a></li>
+      </ul>
+   </li>
+   <li class="mega has-dropdown">
+      <a href="http://127.0.0.1:8080/batteries" class="mega has-dropdown" id="menu3" title="Batteries"><span class="menu-title">Batteries</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/batteries/battery-finder" class="mega first" id="menu64" title="Battery Finder"><span class="menu-title">Battery Finder</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/cars" class="mega" id="menu9" title="Car & 4WD "><span class="menu-title">Car & 4WD </span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/4wd/suv/light-truck" class="mega" id="menu10" title="4WD/SUV/Light Commercial Batteries"><span class="menu-title">4WD/SUV/Light Commercial Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/motor-cycle-sports-bike-batteries" class="mega" id="menu51" title="Motorcycle Batteries"><span class="menu-title">Motorcycle Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/camping-caravaning-batteries" class="mega" id="menu52" title="Camping/Caravan Batteries"><span class="menu-title">Camping/Caravan Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/marine-batteries" class="mega" id="menu53" title="Marine & Jetski Batteries"><span class="menu-title">Marine & Jetski Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/batteries/lawn-garden-batteries" class="mega" id="menu54" title="Mowing/Mobility Batteries"><span class="menu-title">Mowing/Mobility Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/batteries/heavy_commercial" class="mega" id="menu56" title="Heavy Commercial Batteries"><span class="menu-title">Heavy Commercial Batteries</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/battery-replacement" class="mega" id="menu61" title="Battery Replacement"><span class="menu-title">Battery Replacement</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/test-your-battery" class="mega" id="menu63" title="Test Your Battery"><span class="menu-title">Test Your Battery</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/pricing" class="mega last" id="menu62" title="Batteries Pricing"><span class="menu-title">Batteries Pricing</span></a></li>
+      </ul>
+   </li>
+   <li class="mega has-dropdown">
+      <a href="http://127.0.0.1:8080/services/wheel-alignment" class="mega has-dropdown" id="menu4" title="Services"><span class="menu-title">Services</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/services/wheel-alignment" class="mega first" id="menu12" title="Wheel Alignment"><span class="menu-title">Wheel Alignment</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/services/wheel-balancing" class="mega" id="menu13" title="Wheel Balancing"><span class="menu-title">Wheel Balancing</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/services/interest-free" class="mega" id="menu11" title="Interest Free"><span class="menu-title">Interest Free</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/services/tyre-maintenance-services" class="mega" id="menu14" title="Tyre Maintenance Services"><span class="menu-title">Tyre Maintenance Services</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/services/road-hazard-warranty" class="mega" id="menu15" title="Road Hazard Warranty"><span class="menu-title">Road Hazard Warranty</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/services/commercial-services" class="mega" id="menu16" title="Commercial Services"><span class="menu-title">Commercial Services</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/services/free-tyre-checks" class="mega last" id="menu17" title="Free Tyre Checks"><span class="menu-title">Free Tyre Checks</span></a></li>
+      </ul>
+   </li>
+   <li class="mega"><a href="http://127.0.0.1:8080/services" class="mega" id="menu95" title="Services CDP"><span class="menu-title">Services CDP</span></a></li>
+   <li class="mega has-dropdown">
+      <a href="http://127.0.0.1:8080/advice/about-us" class="mega has-dropdown" id="menu5" title="Advice"><span class="menu-title">Advice</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first has-dropdown">
+            <a href="http://127.0.0.1:8080/advice/about-us" class="mega first has-dropdown" id="menu18" title="About Us"><span class="menu-title">About Us</span></a>
+            <ul class="dropdown level2">
+               <li class="mega first"><a href="http://127.0.0.1:8080/advice/about-us/our-history" class="mega first" id="menu67" title="Our History"><span class="menu-title">Our History</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/about-us/environment" class="mega" id="menu68" title="Environment"><span class="menu-title">Environment</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/about-us/our-promise-to-you" class="mega" id="menu69" title="Our promise to you"><span class="menu-title">Our promise to you</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/about-us/media-release" class="mega" id="menu70" title="Media Releases"><span class="menu-title">Media Releases</span></a></li>
+               <li class="mega last has-dropdown">
+                  <a href="http://127.0.0.1:8080/careers" class="mega last has-dropdown" id="menu71" title="Careers"><span class="menu-title">Careers</span></a>
+                  <ul class="dropdown level3">
+                     <li class="mega first"><a href="http://127.0.0.1:8080/careers/benefits" class="mega first" id="menu78" title="Benefits"><span class="menu-title">Benefits</span></a></li>
+                     <li class="mega"><a href="http://127.0.0.1:8080/careers/recruitment-events" class="mega" id="menu80" title="Recruitment Events"><span class="menu-title">Recruitment Events</span></a></li>
+                     <li class="mega last"><a href="http://127.0.0.1:8080/advice/about-us/tyre-stewardship-australia" class="mega last" id="menu79" title="Tyre Stewardship Australia"><span class="menu-title">Tyre Stewardship Australia</span></a></li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li class="mega"><a href="http://127.0.0.1:8080/advice/our-partners" class="mega" id="menu19" title="Our Partners"><span class="menu-title">Our Partners</span></a></li>
+         <li class="mega has-dropdown">
+            <a href="http://127.0.0.1:8080/tips-and-advice" class="mega has-dropdown" id="menu20" title="Tips & Advice"><span class="menu-title">Tips & Advice</span></a>
+            <ul class="dropdown level2">
+               <li class="mega first"><a href="http://127.0.0.1:8080/advice/tips-and-advice/tyre-safety" class="mega first" id="menu23" title="Tyre Safety"><span class="menu-title">Tyre Safety</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/tyre-pressure" class="mega" id="menu81" title="Tyre Pressure"><span class="menu-title">Tyre Pressure</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/checking-tyres" class="mega" id="menu25" title="Checking Tyres"><span class="menu-title">Checking Tyres</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/wheel-alignment" class="mega" id="menu26" title="Wheel Alignment"><span class="menu-title">Wheel Alignment</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/batteries-advice" class="mega" id="menu27" title="Batteries Advice"><span class="menu-title">Batteries Advice</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/tread-depth" class="mega" id="menu28" title="Tread Depth"><span class="menu-title">Tread Depth</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/wet-driving-tips" class="mega" id="menu29" title="Wet Driving Tips"><span class="menu-title">Wet Driving Tips</span></a></li>
+               <li class="mega"><a href="http://127.0.0.1:8080/advice/tips-and-advice/repairing-tyres" class="mega" id="menu30" title="Repairing Tyres"><span class="menu-title">Repairing Tyres</span></a></li>
+               <li class="mega last"><a href="http://127.0.0.1:8080/tyres/glossary-of-tyre-terminology" class="mega last" id="menu72" title="Glossary of Tyre Terminology"><span class="menu-title">Glossary of Tyre Terminology</span></a></li>
+            </ul>
+         </li>
+         <li class="mega"><a href="http://127.0.0.1:8080/advice/beaus-blog" class="mega" id="menu66" title="Beau's Blog"><span class="menu-title">Beau's Blog</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/google.com" class="mega" id="menu83" title="test"><span class="menu-title">test</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/neil-test-lhs" class="mega last" id="menu84" title="Neil Test LHS"><span class="menu-title">Neil Test LHS</span></a></li>
+      </ul>
+   </li>
+   <li class="mega has-dropdown">
+      <a href="http://127.0.0.1:8080/onsale" class="mega has-dropdown" id="menu6" title="On Sale"><span class="menu-title">On Sale</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/onsale?category_main=4447" class="mega first" id="menu92" title="Tyres On Sale"><span class="menu-title">Tyres On Sale</span></a></li>
+      </ul>
+   </li>
+   <li class="mega last has-dropdown">
+      <a href="http://127.0.0.1:8080/commercial" class="mega last has-dropdown" id="menu21" title="Commercial"><span class="menu-title">Commercial</span></a>
+      <ul class="dropdown level1">
+         <li class="mega first"><a href="http://127.0.0.1:8080/tyres/truck_tyre" class="mega first" id="menu58" title="Truck Tyres"><span class="menu-title">Truck Tyres</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/commercial/truck-tyres/retread" class="mega" id="menu74" title="Retread"><span class="menu-title">Retread</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/retread_light_truck_tyre" class="mega" id="menu76" title="Retread for Light Truck"><span class="menu-title">Retread for Light Truck</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/tyres/retread_truck_tyre" class="mega" id="menu77" title="Retread for Trucks"><span class="menu-title">Retread for Trucks</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/commercial/commercial-fleet" class="mega" id="menu34" title="Commercial Fleet"><span class="menu-title">Commercial Fleet</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/commercial/truck-tyres/fuel-efficiency" class="mega" id="menu73" title="Fuel Efficiency"><span class="menu-title">Fuel Efficiency</span></a></li>
+         <li class="mega"><a href="http://127.0.0.1:8080/commercial/franchise" class="mega" id="menu33" title="Franchise Enquiry"><span class="menu-title">Franchise Enquiry</span></a></li>
+         <li class="mega last"><a href="http://127.0.0.1:8080/advice/about-us/tyre-stewardship-australia" class="mega last" id="menu82" title="Tyre Stewardship Australia"><span class="menu-title">Tyre Stewardship Australia</span></a></li>
+      </ul>
+   </li>
+   <li class="mega user-account show-for-small-only"><a class="mega" href="https://staging21.beaurepaires.com.au/customer/account/create/"><i class="fa fa-fw fa-user-plus"></i> <span class="menu-title">Register</span></a></li>
+   <li class="mega user-account show-for-small-only"><a class="mega" href="https://staging21.beaurepaires.com.au/customer/account/login/"><i class="fa fa-fw fa-sign-in"></i> <span class="menu-title">Log In</span></a></li>
+</ul>
+</section>
+</nav>
+</div>
+
+      </div>
+    </div>
+
+    <div class="cdp-selector">
+
+  <script id="selector-options-config" type="application/json">
+    {
+      "forms": [
+        {
+          "id": "search-tyres-vehicle",
+          "label": "Search Tyres By Vehicle",
+          "labelMobile": "By Vehicle",
+          "icon": "fa-car",
+          "actionFormat": "/tyresearch/[series-tyres:label]/id/[series-tyres:value]/y/[year-tyres:value]",
+          "hiddenFields": [
+            { "name": "type_hidden", "value": "tyres" },
+            { "name": "type", "value": "tyres" },
+            { "name": "section", "value": "vehicles" },
+            { "name": "category", "value": "41" }
+          ]
+        },
+        {
+          "id": "search-tyres-size",
+          "label": "Search Tyres By Size",
+          "labelMobile": "By Size",
+          "icon": "fa-expand",
+          "actionFormat": "/tyresize/[width-tyres:value]_[profile-tyres:value]_[diameter-tyres:value]",
+          "hiddenFields": [
+            { "name": "type", "value": "tyres" },
+            { "name": "section", "value": "vehicles" },
+            { "name": "category", "value": "41" }
+          ]
+        },
+        {
+          "id": "saved-vehicles",
+          "label": "Saved Vehicles",
+          "labelMobile": "Saved Vehicles",
+          "icon": "",
+          "actionFormat": "/whatever",
+          "hiddenFields": [
+            { "name": "whatever", "value": "something" }
+          ]
+        }
+      ],
+      "options": {
+        "make-tyres": [
+          { "label": "Abarth", "value": 140 },
+          { "label": "Alfa Romeo", "value": 7 },
+          { "label": "Audi", "value": 9 },
+          { "label": "BMW", "value": 11 },
+          { "label": "Bentley", "value": 10 }
+        ],
+        "year-tyres": [
+          { "label": "2017", "value": "2017" },
+          { "label": "2016", "value": "2016" },
+          { "label": "2015", "value": "2015" },
+          { "label": "2011", "value": "2011" }
+        ],
+        "model-tyres": [],
+        "series-tyres": [],
+        "width-tyres": [],
+        "profile-tyres": [],
+        "diameter-tyres": [],
+        "saved_vehicles": [
+          {
+            "label": "Abarth 595 50th Anniversary LE 2D Hatch - 5sp MTA 1.4L 4cyl T/Petrol MY14",
+            "value": "140:2015:1809:54569:Abarth 595 50th Anniversary LE 2D Hatch - 5sp MTA 1.4L 4cyl T/Petrol MY14"
+          },
+          {
+            "label": "Abarth 695 Tributo Ferrari 2D Hatch - 5sp MTA 1.4L 4cyl T/Petrol MY11",
+            "value": "140:2012:1709:49256:Abarth 695 Tributo Ferrari 2D Hatch - 5sp MTA 1.4L 4cyl T/Petrol MY11"
+          }
+        ]
+      },
+      "values": {
+        "make-tyres": "10",
+        "year-tyres": "2011",
+        "model-tyres": "388",
+        "series-tyres": "48749",
+        "width-tyres": "165",
+        "profile-tyres": "65",
+        "diameter-tyres": "14",
+        "saved_vehicles": "140:2015:1809:54569:Abarth 595 50th Anniversary LE 2D Hatch - 5sp MTA 1.4L 4cyl T/Petrol MY14"
+      }
+    }
+  </script>
+
+  <selector options-config-id="selector-options-config" selector-title="Search Tyres" api-domain="https://api.vehiclelogic.com.au" api-key="SLVYd_Ia9qpPc1mKCAg6pS5_FViVbaLl5hfJl03fssZTji0MblKTm_9_FbxbqNQgfpfWtf6S4o3i0z81_S72TmeCyaaUrjdsDOLQI7zG0jj9skqD_pPJx4kLOhWXQSBGXTfsYeGBgwWdozfIyH3fvqeIu_t2DvWZD3kUcth0KFLgbpwgth-tq73SIC2pRsxK_LgyzEebkvEW2n-7Dgsn7LBoxdwRtkB46mkgTLycd5Arb32H6TaYqX0l7hzTdvcHgJb4HWeFysRltzBIXt3B2jZ95rjugOEV6oftrSYvwYrLyX7ooY7M9fjsx2KCNkAYaylpjJQE0Lhtp00b94Ec5qDWYKO2eyUYRHM3f3p0lqfp1eNVqrqU8xNRTdd066RFztFw2eFVeb9QCNFu9m4JUnEKi9RVyCPYsCw7F8vwwHBWcqffLrAeDogu8ygfmIbcbJGgX1Z_YMF1-n2VJ2fumt7xU4GzuA9li6EikBf3pb8" default-active-tab="search-tyres-vehicle" browse-all-url="cdp.html" browse-all-label="Browse all Tyres" clear-search-url="cdp.html" clear-search-show="true">
+    
+  </selector>
+
+</div>
+
+<section id="product-filter-panel" class="disabled">
+  <div class="filter with-caret-arrow" data-filter-accordion-nav>
+    <i class="fa fa-filter"></i> Filter
+  </div>
+
+  <div class="filter-content" data-filter-accordion-content>
+    <div class="categories">
+      <div class="category">
+        <div class="category-title with-caret-arrow">
+          Price
+        </div>
+        <div class="category-content active">
+          <ul>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>$0 - $99.99 (2)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>$100 - $199.99 (7)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox" checked="checked">
+                <span>$100 - $199.99 (7)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>$300 and above</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="category">
+        <div class="category-title with-caret-arrow">
+          Features
+        </div>
+        <div class="category-content">
+          <ul>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <i class="icon2 icon-breaking-performance"></i>
+                <span>Braking Performace (14)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <i class="icon2 icon-comfort-performance"></i>
+                <span>Comfort Performace (2)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <i class="icon2 icon-fuel-economy"></i>
+                <span>Fuel Economy(15)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <i class="icon2 icon-grip-performance"></i>
+                <span>Grip Performace (3)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <i class="icon2 icon-value-tyre"></i>
+                <span>Value (9)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="category">
+        <div class="category-title with-caret-arrow">
+          Types
+        </div>
+        <div class="category-content">
+          <ul>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Passenger</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>4WD</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="category">
+        <div class="category-title with-caret-arrow">
+          Brands
+        </div>
+        <div class="category-content">
+          <ul>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Dunlop (22)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Goodyear (1)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Goodyear</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Pirelli (4)</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+            <li>
+              <label class="custom-field checkbox reverse">
+                <input type="checkbox">
+                <span>Quality Steel Radial</span>
+                <div class="indicator"></div>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="cta-container">
+      <button type="submit" class="flat-button secondary" disabled="disabled">Apply Filter</button>
+    </div>
+  </div>
+</section>
+
+<section class="cdp-promo-container">
+    <div class="row">
+        <div class="columns medium-12 text-center">
+            <h3>Services lorem ipsum dolor sit amet</h3>
+            <p>Lorem ipsum dolor sit amet, scelerisque et adipiscing donec a dui amet, felis ultrices. Nec quia turpis natoque donec mollis. Interdum laoreet a vel erat pharetra. Tortor sem quis dignissim turpis, sed facilisis. Enim ac, turpis urna cras quisque at commodo, incididunt quis aenean integer wisi nonummy etiam, venenatis tortor bibendum nulla curabitur urna enim, amet nisl diam quis arcu pede auctor.
+            Justo ultricies diam, pellentesque lorem in porta, animi hendrerit leo gravida per elit integer. Dolor ultricies dui mauris consectetuer, justo ex justo sollicitudin. Euismod amet, sed voluptate, vel purus. Sed euismod nonummy, sapien elementum et ullamcorper morbi hymenaeos dictumst. Donec urna vitae, non tincidunt nibh, in fusce morbi, purus viverra nunc consectetuer montes est neque, cursus congue vitae augue sed. Vulputate odio et quam, scelerisque quis varius sit in</p>
+        </div>
+    </div>
+	<div class="row full-width text-center">
+        <img src="http://via.placeholder.com/300x300">
+    </div>
+</section>
+
+
+
+<section class="how-it-works-static">
+  <h2>How it works</h2>
+
+  <div class="row">
+    <div class="columns medium-4 text-center">
+      <div class="vector-icons icon-home-browse" aria-hidden="true"></div>
+      <h3>Browse</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div class="columns medium-4 text-center">
+      <div class="vector-icons icon-home-purchase" aria-hidden="true"></div>
+      <h3>Purchase</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div class="columns medium-4 text-center">
+      <div class="vector-icons icon-home-fit" aria-hidden="true"></div>
+      <h3>Fit Instore</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+</section>
+
+    
+
+
+    <script type="text/javascript" src="../js/6326c600df01e3bfb9b40e1aa08176f8.script.js"></script>
+    <script type="text/javascript" src="../js/9481ff613b5e619f37c21c80b83fcb88.script.js"></script>
+    <script type="text/javascript" src="../js/feb62cc230e2ba2acd2e32d423d79720.script.js"></script>
+    <script type="text/javascript" src="../js/92de74f94e49541f7f93a36ad5dd8522.script.js"></script>
+  <script type="text/javascript" src="../static/js/default.js"></script><script type="text/javascript" src="../static/js/test.js"></script><script type="text/javascript" src="../static/js/campaign.js"></script></body>
+</html>

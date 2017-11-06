@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>    
+    <sections>
+    
+        <badges translate="label" module="badges">
+            <label>Promo</label>
+            <tab>apdinteract</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>91314</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <badges translate="label">
+                    <label>Promo Badges</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+                    <fields>
+                    	
+                        <bestseller translate="label comment">
+						<label>Best Seller</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</bestseller>  
+						
+						<bestsellerth translate="label comment">
+						<label>Best Seller Thumb</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>2</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</bestsellerth>                				   					   
+						
+						<onsale translate="label comment">
+						<label>On Sale</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>3</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</onsale>
+						
+						<onsaleth translate="label comment">
+						<label>On Sale Thumb</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>4</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</onsaleth>
+						
+						<new translate="label comment">
+						<label>New Arrival</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>5</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</new>  
+						
+						<newth translate="label comment">
+						<label>New Arrival Thumb</label>
+						<comment>Upload png file </comment>
+						<frontend_type>image</frontend_type>
+						<backend_model>adminhtml/system_config_backend_image</backend_model>
+						<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+						<base_url type="media" scope_info="1">theme</base_url>
+						<sort_order>6</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						</newth>
+
+						<comingsoon translate="label comment">
+							<label>Coming Soon</label>
+							<comment>Upload png file </comment>
+							<frontend_type>image</frontend_type>
+							<backend_model>adminhtml/system_config_backend_image</backend_model>
+							<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+							<base_url type="media" scope_info="1">theme</base_url>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</comingsoon>
+
+						<comingsoonth translate="label comment">
+							<label>Coming Soon Thumb</label>
+							<comment>Upload png file </comment>
+							<frontend_type>image</frontend_type>
+							<backend_model>adminhtml/system_config_backend_image</backend_model>
+							<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+							<base_url type="media" scope_info="1">theme</base_url>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</comingsoonth>
+					</fields>		
+					<!--	<apdinteract_newarrival translate="label">
+                            <label>New Arrival<label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+							<frontend_type>image</frontend_type>
+							<backend_model>adminhtml/system_config_backend_image</backend_model>
+							<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+							<base_url type="media" scope_info="1">theme</base_url>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                        </apdinteract_newarrival>                       				   					   
+						
+						<apdinteract_onsale translate="label">
+                            <label>On Sale<label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+							<frontend_type>image</frontend_type>
+							<backend_model>adminhtml/system_config_backend_image</backend_model>
+							<upload_dir config="system/filesystem/media" scope_info="1">theme</upload_dir>
+							<base_url type="media" scope_info="1">theme</base_url>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                        </apdinteract_onsale>                       				   					   
+                    </fields>-->
+                 </badges>
+                 
+                  <promo_message translate="label">
+                    <label>Promo Messages</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1001</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store> 
+                    <fields>
+                         <link_1 translate="label">
+                            <label>Link 1</label>
+                            <comment>Full URL</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </link_1> 
+                        <message_1 translate="label">
+                            <label>Message 1</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </message_1>  
+                       
+                         <link_2 translate="label">
+                            <label>Link 2</label>
+                            <comment>Full URL</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </link_2>    
+                        <message_2 translate="label">
+                            <label>Message 2</label>
+                            <comment></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </message_2> 
+                           				   					                   				   					   
+			</fields>	
+                 </promo_message>
+            </groups>
+            
+            
+          </badges>    
+              
+    </sections>
+</config>

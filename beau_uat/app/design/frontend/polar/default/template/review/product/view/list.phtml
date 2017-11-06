@@ -1,0 +1,38 @@
+<?php /*
+ *  APD reviews template
+ *
+ */ ?>
+
+<?php $_items = Mage::helper('apdinteract_review')->getReviewsCollection()->getItems(); ?>
+<div class="review-component">
+
+    <?php if (count($_items)): ?>
+		 <h3 class="section-title"><?php echo $this->__('Customer Reviews'); ?></h3>
+		
+        <?php foreach ($_items as $_review): ?>
+
+            <div class="review-item">
+                <h5><?php echo $this->htmlEscape($_review->getTitle()); ?></h5>
+                <?php // echo $this->__('by <span>%s</span>', $this->htmlEscape($_review->getNickname())); ?>
+
+                <?php $_votes = $_review->getRatingVotes(); ?>
+                <?php if (count($_votes)): ?>
+                    <?php foreach ($_votes as $_vote): ?>
+
+                        <?php // echo $this->escapeHtml($_vote->getRatingCode()); // For more than 1 rating attribute ?>
+                        <div class="star-rating">
+                            <?php echo Mage::helper('apdwidgets')->getStarHtmlFromRating($_vote->getPercent()); ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+                <p><span><?php $this->htmlEscape($_review->getNickname()); ?></span>  <?php echo nl2br($this->htmlEscape($_review->getDetail())) ?></p>
+            </div>
+
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <!-- review form -->
+    <?php echo $this->getChildHtml('review_form'); ?>
+</div>

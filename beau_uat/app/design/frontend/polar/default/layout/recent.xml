@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<layout version="0.1.0">
+	<catalog_category_view>
+		<reference name="left">
+			<block type="recent/recent" name="recent.items" before="cart_sidebar" template="recent/product_viewed.phtml" />
+		</reference>
+	</catalog_category_view>
+	<searchresult_index_index>
+		<reference name="left">
+			<block type="recent/recent" name="recent.items" before="cart_sidebar" template="recent/product_viewed.phtml" />
+		</reference>
+	</searchresult_index_index>
+</layout>

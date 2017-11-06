@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <placeholders>
+        <apdinteract_recent>
+            <block>recent/recent</block>
+            <name>recent.items</name>
+            <placeholder>APDINTERACT_RECENT_RECENT_CACHE</placeholder><!-- Can be any unique name -->
+            <container>ApdInteract_Recent_Model_Container_Recent</container>
+            <cache_life></cache_life>
+        </apdinteract_recent>
+    </placeholders>
+</config>
