@@ -40,7 +40,7 @@ my.cnf: max_allowed_packet = 10240M innodb_log_file_size = 1024M 
 ###update beaurepaires.core_config_data set value='http://beaurepaires.local/' where value like '%staging21%' ;###
 select * from beaurepaires.core_config_data where value like '%beaurepaires.local%' ;
 commit;
-###httpd-vhosts.conf###  
+###httpd-vhosts.conf###
 <VirtualHost *:80>
 DocumentRoot "E:\software\xampp\htdocs\beau_uat"
 ServerName beaurepaires.local
