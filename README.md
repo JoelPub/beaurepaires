@@ -3,13 +3,13 @@
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ###下载安装mysql(windows), xampp(mac:xampp-osx-5.6.31-0-installer.dmg), mysqlworkbench(mysql-workbench-community-6.3.9-osx-x86_64.dmg)
-Mysql###
+
 ###改密码###
 update mysql.user set password=password('wangliang') where user=‘root'; 
 commit; 
 flush privileges; 
-建库beaurepaires, 
-建用户apdgystage
+###建库beaurepaires### 
+###建用户apdgystage###
 ###导入mysql  database  beau_bft_uat_19092017.sql###
 my.cnf: max_allowed_packet = 10240M innodb_log_file_size = 1024M 
 ###克隆beau_uat to E:\software\xampp\htdocs\beau_uat###
